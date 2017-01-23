@@ -55,9 +55,12 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS_EXP'            => 'Os IDs de tópicos a excluir, separados por "," (Exemplo: 7,9) </ b>',
 	'RT_PARENTS'                    => 'Mostrar Fórum Pai',
 	'RT_PARENTS_EXP'                => 'Exibir fóruns pai dentro da linha tópico de tópicos recentes.',
+    'RT_RESET_DEFAULT'              => 'Reset configurações do usuário.',
+	'RT_RESET_DEFAULT_EXP'          => 'Reset as configurações do usuário para  padrão.',
 
 	//extensões
-	'RT_VIEW_ON'                    => 'Ver tópicos recentes:',
+	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Suporte para a extensão NewsPage',
+    'RT_VIEW_ON'                    => 'Ver tópicos recentes:',
 
 	)
 );
