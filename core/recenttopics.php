@@ -630,9 +630,9 @@ class recenttopics
 				{
 					$this->forum_ids[] = $row['forum_id'];
 				}
-				$this->db->sql_freeresult($result);
 				$this->forum_ids = array_unique($this->forum_ids);
 			}
+			$this->db->sql_freeresult($result);
 		}
 	}
 
