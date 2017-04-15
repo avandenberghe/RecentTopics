@@ -145,19 +145,19 @@ class recenttopics
 	 * @param topicprefixes|NULL   $topicprefixes
 	 */
 	public function __construct(auth $auth,
-	                            \phpbb\cache\service $cache,
-	                            config $config,
-	                            content_visibility $content_visibility,
-	                            driver_interface $db,
-	                            dispatcher_interface $dispatcher,
-	                            pagination $pagination,
-	                            request_interface $request,
-	                            template $template,
-	                            \phpbb\user $user,
-	                            $root_path,
-	                            $phpEx,
-	                            topicprefixes $topicprefixes = null,
-	                            \imkingdavid\prefixed\core\manager $prefixed = null
+								\phpbb\cache\service $cache,
+								config $config,
+								content_visibility $content_visibility,
+								driver_interface $db,
+								dispatcher_interface $dispatcher,
+								pagination $pagination,
+								request_interface $request,
+								template $template,
+								\phpbb\user $user,
+								$root_path,
+								$phpEx,
+								topicprefixes $topicprefixes = null,
+								\imkingdavid\prefixed\core\manager $prefixed = null
 	)
 	{
 		$this->auth = $auth;
@@ -349,8 +349,10 @@ class recenttopics
 		extract(
 			$this->dispatcher->trigger_event(
 				'paybas.recenttopics.modify_topics_list',
-				array( 'topic_list' => $this->topic_list,
-				       'rowset' => $rowset)
+				array(
+					'topic_list' => $this->topic_list,
+					'rowset' => $rowset
+				)
 			)
 		);
 
@@ -444,7 +446,6 @@ class recenttopics
 						{
 							$prefixes = $this->prefixed->get_prefixes();
 							$prefix = '[' . $prefixes[$key1['prefix']]['title'] . '] ';
-
 						}
 					}
 				}
@@ -604,22 +605,58 @@ class recenttopics
 
 		if (sizeof($this->forum_ids) > 1)
 		{
-			$sql = 'SELECT forum_id
-					FROM ' . FORUMS_TABLE . '
-					WHERE ' . $this->db->sql_in_set('forum_id', $this->forum_ids) . '
-					AND forum_recent_topics = 1';
+			$set = $this->db->sql_in_set('f.forum_id', $this->forum_ids);
 
+			$sql_ary = array(
+				'SELECT' => 'f.forum_id',
+				'FROM' => array(
+					FORUMS_TABLE => 'f'
+				),
+				'LEFT_JOIN' => array(),
+				'WHERE' => $set . ' AND f.forum_recent_topics = 1'
+			);
+
+			if ($this->config['rt_only_subscribed']) {
+				$sql_ary = $this->only_subscribed($sql_ary);
+			}
+
+			$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 			$result = $this->db->sql_query($sql);
 
-			$this->forum_ids = array();
-			while ($row = $this->db->sql_fetchrow($result))
+			if ((int) $result->num_rows)
 			{
-				$this->forum_ids[] = $row['forum_id'];
+				$this->forum_ids = array();
+				while ($row = $this->db->sql_fetchrow($result))
+				{
+					$this->forum_ids[] = $row['forum_id'];
+				}
+				$this->forum_ids = array_unique($this->forum_ids);
 			}
 			$this->db->sql_freeresult($result);
-			$this->forum_ids = array_unique($this->forum_ids);
-
 		}
+	}
+
+	/**
+	 * Apply filter for subscribed forums
+	 *
+	 * @param array $sql_ary
+	 * @return array
+	 */
+	private function only_subscribed(array $sql_ary)
+	{
+		$uid = (int) $this->user->data['user_id'];
+
+		if ($uid && $this->user->data['is_registered'])
+		{
+			$sql_ary['LEFT_JOIN'][] = array(
+				'FROM' => array(FORUMS_WATCH_TABLE => 'fw'),
+				'ON' => 'fw.forum_id = f.forum_id AND fw.user_id = ' . $uid
+			);
+
+			$sql_ary['WHERE'] .= ' AND fw.user_id IS NOT NULL';
+		}
+
+		return $sql_ary;
 	}
 
 	/**

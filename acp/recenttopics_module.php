@@ -64,6 +64,10 @@ class recenttopics_module
 			$rt_on_newspage = $request->variable('rt_on_newspage', 0);
 			$config->set('rt_on_newspage', $rt_on_newspage);
 
+			// Show only topics from subscribed forums?
+			$rt_only_subscribed = $request->variable('rt_only_subscribed', 1);
+			$config->set('rt_only_subscribed', $rt_only_subscribed);
+
 			/*
 			 *  default positions, modifiable by ucp
 	         */
@@ -143,6 +147,7 @@ class recenttopics_module
 				'RT_NUMBER'          => isset($config['rt_number']) ? $config['rt_number'] : '',
 				'RT_PAGE_NUMBER'     => ((isset($config['rt_page_number']) ? $config['rt_page_number'] : '') == '1') ? 'checked="checked"' : '',
 				'RT_PARENTS'         => isset($config['rt_parents']) ? $config['rt_parents'] : false,
+				'RT_ONLY_SUBSCRIBED' => isset($config['rt_only_subscribed']) ? $config['rt_only_subscribed'] : false,
 				'RT_UNREAD_ONLY'     => isset($config['rt_unread_only']) ? $config['rt_unread_only'] : false,
 				'RT_SORT_START_TIME' => isset($config['rt_sort_start_time']) ? $config['rt_sort_start_time'] : false,
 				'RT_INDEX'           => isset($config['rt_index']) ? $config['rt_index'] : false,

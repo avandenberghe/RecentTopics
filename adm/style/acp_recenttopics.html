@@ -46,6 +46,13 @@
 				<label><input type="radio" class="radio" name="rt_parents" value="0"<!-- IF not RT_PARENTS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 			</dd>
 		</dl>
+		<dl>
+			<dt><label for="rt_parents">{L_RT_ONLY_SUBSCRIBED}{L_COLON}</label><br /><span>{L_RT_ONLY_SUBSCRIBED_EXP}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="rt_only_subscribed" value="1" id="rt_only_subscribed"<!-- IF RT_ONLY_SUBSCRIBED --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
+				<label><input type="radio" class="radio" name="rt_only_subscribed" value="0"<!-- IF not RT_ONLY_SUBSCRIBED --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			</dd>
+		</dl>
 	</fieldset>
 
 	<fieldset>
