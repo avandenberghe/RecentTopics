@@ -349,8 +349,10 @@ class recenttopics
 		extract(
 			$this->dispatcher->trigger_event(
 				'paybas.recenttopics.modify_topics_list',
-				array( 'topic_list' => $this->topic_list,
-					   'rowset' => $rowset)
+				array(
+					'topic_list' => $this->topic_list,
+					'rowset' => $rowset
+				)
 			)
 		);
 
@@ -444,7 +446,6 @@ class recenttopics
 						{
 							$prefixes = $this->prefixed->get_prefixes();
 							$prefix = '[' . $prefixes[$key1['prefix']]['title'] . '] ';
-
 						}
 					}
 				}
