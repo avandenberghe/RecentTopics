@@ -57,6 +57,8 @@ $lang = array_merge(
 	'RT_PARENTS_EXP'                => 'Mostrar foros padre dentro de la fila tema, de temas recientes.',
 	'RT_ONLY_SUBSCRIBED'            => 'Mostrar foros subscriptos',
 	'RT_ONLY_SUBSCRIBED_EXP'        => 'Mostrar solamente temas de foros subscriptos.',
+	'RT_RESET_DEFAULT'              => 'Resetear configuración de usuario',
+	'RT_RESET_DEFAULT_EXP'          => 'Volver a la configuración de usuario por defecto.',
 
 	//extensiones
 	'RT_VIEW_ON'                    => 'Ver temas recientes en:',
