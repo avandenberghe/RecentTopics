@@ -656,6 +656,7 @@ class recenttopics
 			$sql_extra = ' AND ' . $this->db->sql_in_set('t.topic_id', $excluded_topics, true);
 			$sql_extra .= ' AND ' . $this->content_visibility->get_forums_visibility_sql('topic', $this->forum_ids, $table_alias = 't.');
 			$unread_topics = get_unread_topics(false, $sql_extra, '', $total_topics_limit);
+			$start = min(count($unread_topics) - 1 , $start);
 
 			foreach ($unread_topics as $topic_id => $mark_time)
 			{
@@ -706,6 +707,7 @@ class recenttopics
 
 			$sql = $this->db->sql_build_query('SELECT', $sql_array);
 			$result = $this->db->sql_query_limit($sql, $total_topics_limit);
+			$start = min($result->num_rows - 1 , $start);
 
 			while ($row = $this->db->sql_fetchrow($result))
 			{
