@@ -10,14 +10,12 @@
 
 namespace paybas\recenttopics\acp;
 
-use paybas\recenttopics\core\admin;
-
 /**
  * Class recenttopics_module
  *
  * @package paybas\recenttopics\acp
  */
-class recenttopics_module extends admin
+class recenttopics_module
 {
 	public $u_action;
 
@@ -27,7 +25,7 @@ class recenttopics_module extends admin
 	 */
 	public function main($id, $mode)
 	{
-		global $config, $phpbb_extension_manager, $request, $template, $user, $db, $phpbb_container;
+		global $config, $phpbb_extension_manager, $request, $template, $user, $db;
 
 		$user->add_lang(array('acp/common', 'ucp', 'viewforum'));
 		$this->tpl_name = 'acp_recenttopics';
@@ -35,14 +33,6 @@ class recenttopics_module extends admin
 
 		$form_key = 'acp_recenttopics';
 		add_form_key($form_key);
-
-		//version check
-		$ext_manager = $phpbb_container->get('ext.manager');
-		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('paybas/recenttopics', $phpbb_container->get('template'));
-		$meta_data  = $ext_meta_manager->get_metadata();
-		$ext_version  = $meta_data['version'];
-		$versionurl = $meta_data['extra']['version-check']['host'].$meta_data['extra']['version-check']['directory'].'/'.$meta_data['extra']['version-check']['filename'];
-		$latest_version  = $this->version_check($versionurl, $request->variable('versioncheck_force', false));
 
 		if ($request->is_set_post('submit'))
 		{
@@ -164,50 +154,8 @@ class recenttopics_module extends admin
 				'RT_INDEX'           => isset($config['rt_index']) ? $config['rt_index'] : false,
 				'RT_ON_NEWSPAGE'     => isset($config['rt_on_newspage']) ? $config['rt_on_newspage'] : false,
 				'S_RT_NEWSPAGE'      => $phpbb_extension_manager->is_enabled('nickvergessen/newspage'),
-				'U_ACTION'           => $this->u_action,
-				'U_VERSIONCHECK_FORCE'  => append_sid($this->u_action . '&amp;versioncheck_force=1'),
-				'EXT_VERSION'           => $ext_version,
-				'RT_LATESTVERSION'      => $latest_version,
-				'S_RT_OK'           => version_compare($ext_version, $latest_version, '=='),
-				'S_RT_OLD'          => version_compare($ext_version, $latest_version, '<'),
-				'S_RT_DEV'          => version_compare($ext_version, $latest_version, '>'),
-			)
+				'U_ACTION'           => $this->u_action)
 		);
 	}
 
-	/**
-	 * retrieve latest version
-	 *
-	 * @param  bool $force_update Ignores cached data. Defaults to false.
-	 * @param  int  $ttl          Cache version information for $ttl seconds. Defaults to 86400 (24 hours).
-	 * @return bool
-	 */
-	public final function version_check($versionurl, $force_update = false, $ttl = 86400)
-	{
-		global $user, $cache;
-
-		//get latest productversion from cache
-		$latest_version = $cache->get('recenttopics_versioncheck');
-
-		//if update is forced or cache expired then make the call to refresh latest productversion
-		if ($latest_version === false || $force_update)
-		{
-			$data = parent::curl($versionurl, false, false, false);
-			if (0 === count($data) )
-			{
-				$cache->destroy('recenttopics_versioncheck');
-				return false;
-			}
-
-			$response = $data['response'];
-			$latest_version = json_decode($response, true);
-			$latest_version = $latest_version['stable']['3.2']['current'];
-
-			//put this info in the cache
-			$cache->put('recenttopics_versioncheck', $latest_version, $ttl);
-
-		}
-
-		return $latest_version;
-	}
 }

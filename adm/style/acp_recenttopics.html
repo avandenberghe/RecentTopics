@@ -113,24 +113,6 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>{L_RT_VERSION_CHECK}</legend>
-		<dl>
-			<dt><label>{L_RT_EXT_VERSION}</label></dt>
-			<dd>
-				<strong class="<!-- IF S_RT_OK -->success<!-- ELSEIF S_RT_OLD -->error<!-- ELSE -->syntaxcomment<!-- ENDIF -->">{EXT_VERSION}</strong>
-				<!-- IF not S_RT_OK -->({L_RT_LATEST_VERSION}{L_COLON} {RT_LATESTVERSION})<!-- ENDIF -->
-			</dd>
-		</dl>
-		<!-- IF not S_RT_OK -->
-		<dl>
-			<dt><p><small>{L_RT_CHECK_UPDATE}</small></p></dt>
-			<dd><!-- IF not RT_LATESTVERSION --><strong class="error">{L_VERSIONCHECK_FAIL}</strong><!-- ENDIF -->
-				<a href="{U_VERSIONCHECK_FORCE}">{L_VERSIONCHECK_FORCE_UPDATE}</a></dd>
-		</dl>
-		<!-- ENDIF -->
-	</fieldset>
-
-	<fieldset>
 		<legend>{L_RT_DONATE}</legend>
 		<dl>
 			<dt><label>{L_RT_DONATE_SHORT}{L_COLON}</label><br /><span>{L_RT_DONATE_EXPLAIN}</span></dt>
