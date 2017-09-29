@@ -3,19 +3,16 @@
     "type": "phpbb-extension",
     "description": "Recent topics Extension for phpBB3.2. Adds a list with a number of recent topics to the index.php",
     "homepage": "https://github.com/sajaki/RecentTopics",
-    "version": "2.2.4",
-    "time": "2017-09-20",
+    "version": "2.2.5",
+    "time": "2017-09-30",
     "license": "GPL-2.0",
     "authors": [
         {
             "name": "PayBas",
-            "email": "admin@pbwow.com",
-            "homepage": "http://www.paybas.com",
             "role": "Previous Developer"
         },
         {
             "name": "nickvergessen",
-            "homepage": "http://www.flying-bits.org/",
             "role": "Previous Developer"
         },
         {
