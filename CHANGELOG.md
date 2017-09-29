@@ -1,8 +1,9 @@
 
 ### Changelog
 
-- 2.2.5 (tba) 
-  - [FIX] #68 fix unescaped line in acp
+- 2.2.5 (30/09/2017) 
+  - [FIX] #68 fixed unescaped line in acp
+  - [FIX] #67 fixed overflow links in paging for unread and alltopics mode.
 
 - 2.2.4 (18/09/2017)
   - [FIX] Fix bug with pagination (Tatiana5)
