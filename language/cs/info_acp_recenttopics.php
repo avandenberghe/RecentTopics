@@ -28,11 +28,11 @@ $lang = array_merge(
 	'RECENT_TOPICS_EXPLAIN'         => 'Na této stránce můžete měnit nastavení rozšíření „Recent Topics“.<br /><br />Konkrétní fóra lze zahrnout či vyloučit změnou nastavení jednotlivých fór.<br />Ujistěte se také, že mají uživatelé správně nastavena uživatelská oprávnění dle vašich potřeb. Na základě oprávnění si mohou uživatelé některá níže uvedená nastavení měnit dle svých potřeb ve svém uživatelském panelu.',
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Globální nastavení',
-	'RT_DISPLAY_INDEX'              => 'Zobrazovat na úvodní stránce',
+	'RT_DISPLAY_INDEX'              => 'Zobrazovat na úvodní stránce?',
 	'RT_NUMBER'                     => 'Nedávná témata',
 	'RT_NUMBER_EXP'                 => 'Počet nedávných témat k zobrazení.',
 	'RT_PAGE_NUMBER'                => 'Počet stránek nedávných témat',
-	'RT_PAGE_NUMBER_EXP'            => 'Nastavením této volby na „1“ vypnete stránkování pro blok nedávných témat.',
+	'RT_PAGE_NUMBER_EXP'            => 'Zaškrtnutím této volby vypnete stránkování pro blok nedávných témat.',
 	'RT_PAGE_NUMBERMAX'             => 'Maximální počet stránek',
 	'RT_PAGE_NUMBERMAX_EXP'         => 'Nastavte maximum stránek (1-999) pro zobrazení ve stránkování nedávných témat (není-li přepsáno jiným nastavením).',
 	'RT_MIN_TOPIC_LEVEL'            => 'Minimální úroveň tématu',
@@ -52,7 +52,7 @@ $lang = array_merge(
 	'RT_SORT_START_TIME_EXP'        => 'Je-li povoleno, nedávná témata budou řazena podle času založení namísto času odeslání posledního příspěvku.',
 	'RT_UNREAD_ONLY'                => 'Zobrazovat pouze nepřečtená témata',
 	'RT_UNREAD_ONLY_EXP'            => 'Je-li povoleno, budou zobrazena pouze nepřečtená témata (nehledě na to, zda jsou „nedávná“ či ne). Tato funkce používá stejné nastavení (vyjma fór/témat apod.) jako běžný režim. Poznámka: Nastavení funguje jen pro přihlášené uživatele, návštěvníci uvidí stále jen běžný seznam.',
-	'RT_RESET_DEFAULT'              => 'Resetovat uživatelké nastavení',
+	'RT_RESET_DEFAULT'              => 'Resetovat uživatelské nastavení',
 	'RT_RESET_DEFAULT_EXP'          => 'Obnovit uživatelské nastavení na výchozí hodnoty.',
 	//Enable for extensions
 	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Podpora pro rozšíření NewsPage',
