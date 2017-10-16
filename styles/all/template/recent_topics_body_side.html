@@ -36,7 +36,7 @@
 
 			<dl class="row-item {recent_topics.TOPIC_IMG_STYLE}">
 				<dt<!-- IF recent_topics.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url({T_ICONS_PATH}{recent_topics.TOPIC_ICON_IMG}); background-repeat: no-repeat;"<!-- ENDIF --> title="{recent_topics.TOPIC_FOLDER_IMG_ALT}">
-					<!-- IF recent_topics.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{recent_topics.U_NEWEST_POST}" class="icon-link"></a><!-- ENDIF -->
+					<!-- IF recent_topics.S_UNREAD_TOPIC and not S_IS_BOT --><a href="{recent_topics.U_NEWEST_POST}" class="row-item-link"></a><!-- ENDIF -->
 					<div class="list-inner">
 						<!-- EVENT topiclist_row_prepend -->
 						<a href="{recent_topics.U_VIEW_TOPIC}" class="topictitle">{recent_topics.TOPIC_TITLE}</a>
