@@ -1,14 +1,14 @@
-<!-- IF RECENT_TOPICS_DISPLAY and recent_topics_included neq true -->
+{% if RECENT_TOPICS_DISPLAY and recent_topics_included neq true %}
 <!-- DEFINE recent_topics_included = true -->
-<!-- IF S_LOCATION_BOTTOM -->
+{% if S_LOCATION_BOTTOM %}
 
 <div id="recenttopicsbottom">
-<!-- INCLUDE recent_topics_body_topbottom.html -->
+{% INCLUDE 'recent_topics_body_topbottom.html' %}
 
 </div>
-<!-- ELSEIF S_LOCATION_SIDE -->
+{% elseif S_LOCATION_SIDE %}
 </div>
 </div>
-<!-- ENDIF -->
-<!-- ENDIF -->
+{% endif %}
+{% endif %}
 

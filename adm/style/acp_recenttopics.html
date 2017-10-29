@@ -1,125 +1,125 @@
-<!-- INCLUDE overall_header.html -->
-<h1>{L_RECENT_TOPICS}</h1>
-<p>{L_RECENT_TOPICS_EXPLAIN}</p>
-<form id="acp_board" method="post" action="{U_ACTION}">
+{% INCLUDE 'overall_header.html' %}
+<h1>{{ lang('RECENT_TOPICS') }}</h1>
+<p>{{ lang('RECENT_TOPICS_EXPLAIN') }}</p>
+<form id="acp_board" method="post" action="{{ U_ACTION }}">
 
 	<fieldset>
-		<legend>{L_RT_GLOBAL_SETTINGS}</legend>
+		<legend>{{ lang('RT_GLOBAL_SETTINGS') }}</legend>
 		<dl>
-			<dt><label for="rt_enable">{L_INDEX}</label><br /><span>{L_RT_DISPLAY_INDEX}</span></dt>
+			<dt><label for="rt_enable">{{ lang('INDEX') }}</label><br /><span>{{ lang('RT_DISPLAY_INDEX') }}</span></dt>
 			<dd>
-				<label><input type="radio" class="radio" name="rt_enable" value="1" id="rt_enable"<!-- IF RT_INDEX --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
-				<label><input type="radio" class="radio" name="rt_enable" value="0" <!-- IF not RT_INDEX --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" class="radio" name="rt_enable" value="1" id="rt_enable"{% if RT_INDEX %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="rt_enable" value="0" {% if not RT_INDEX %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
-			<dt><label for="rt_number">{L_RT_NUMBER}{L_COLON}</label><br /><span>{L_RT_NUMBER_EXP}</span></dt>
-			<dd><input type="number" id="rt_number" name="rt_number" size="3" min="0" max="999" value="{RT_NUMBER}" /></dd>
+			<dt><label for="rt_number">{{ lang('RT_NUMBER') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_NUMBER_EXP') }}</span></dt>
+			<dd><input type="number" id="rt_number" name="rt_number" size="3" min="0" max="999" value="{{ RT_NUMBER }}" /></dd>
 		</dl>
 
 		<dl>
 			<dt>
-				<label>{L_RT_PAGE_NUMBER}{L_COLON}</label><br/><span>{L_RT_PAGE_NUMBER_EXP}</span>
+				<label>{{ lang('RT_PAGE_NUMBER') }}{{ lang('COLON') }}</label><br/><span>{{ lang('RT_PAGE_NUMBER_EXP') }}</span>
 			</dt>
-			<dd><input type="checkbox" class="checkbox" name="rt_page_number" id="rt_page_number" {RT_PAGE_NUMBER}  />
+			<dd><input type="checkbox" class="checkbox" name="rt_page_number" id="rt_page_number" {{ RT_PAGE_NUMBER }}  />
 			</dd>
 		</dl>
 		<dl>
-			<dt><label for="rt_page_numbermax">{L_RT_PAGE_NUMBERMAX}{L_COLON}</label><br /><span>{L_RT_PAGE_NUMBERMAX_EXP}</span></dt>
-			<dd><input type="number" id="rt_page_numbermax" name="rt_page_numbermax" size="3" min="1" max="999" value="{RT_PAGE_NUMBERMAX}" /></dd>
+			<dt><label for="rt_page_numbermax">{{ lang('RT_PAGE_NUMBERMAX') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_NUMBERMAX_EXP') }}</span></dt>
+			<dd><input type="number" id="rt_page_numbermax" name="rt_page_numbermax" size="3" min="1" max="999" value="{{ RT_PAGE_NUMBERMAX }}" /></dd>
 		</dl>
 
 		<dl>
-			<dt><label for="rt_min_topic_level">{L_RT_MIN_TOPIC_LEVEL}{L_COLON}</label><br /><span>{L_RT_MIN_TOPIC_LEVEL_EXP}</span></dt>
+			<dt><label for="rt_min_topic_level">{{ lang('RT_MIN_TOPIC_LEVEL') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_MIN_TOPIC_LEVEL_EXP') }}</span></dt>
 			<dd>
 				<select name="rt_min_topic_level" class="input" id="rt_min_topic_level">
-					<!-- BEGIN topiclevel_row -->
-					<option value="{topiclevel_row.VALUE}"{topiclevel_row.SELECTED}>{topiclevel_row.OPTION}</option>
-					<!-- END topiclevel_row -->
+					{% for topiclevel_row in loops.topiclevel_row %}
+					<option value="{{ topiclevel_row.VALUE }}"{{ topiclevel_row.SELECTED }}>{{ topiclevel_row.OPTION }}</option>
+					{% endfor %}
 				</select>
 			</dd>
 		</dl>
 
 		<dl>
-			<dt><label for="rt_anti_topics">{L_RT_ANTI_TOPICS}{L_COLON}</label><br /><span>{L_RT_ANTI_TOPICS_EXP}</span></dt>
-			<dd><input type="text" id="rt_anti_topics" name="rt_anti_topics" size="30" value="{RT_ANTI_TOPICS}" /></dd>
+			<dt><label for="rt_anti_topics">{{ lang('RT_ANTI_TOPICS') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_ANTI_TOPICS_EXP') }}</span></dt>
+			<dd><input type="text" id="rt_anti_topics" name="rt_anti_topics" size="30" value="{{ RT_ANTI_TOPICS }}" /></dd>
 		</dl>
 		<dl>
-			<dt><label for="rt_parents">{L_RT_PARENTS}{L_COLON}</label><br /><span>{L_RT_PARENTS_EXP}</span></dt>
+			<dt><label for="rt_parents">{{ lang('RT_PARENTS') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PARENTS_EXP') }}</span></dt>
 			<dd>
-				<label><input type="radio" class="radio" name="rt_parents" value="1" id="rt_parents"<!-- IF RT_PARENTS --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
-				<label><input type="radio" class="radio" name="rt_parents" value="0"<!-- IF not RT_PARENTS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" class="radio" name="rt_parents" value="1" id="rt_parents"{% if RT_PARENTS %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="rt_parents" value="0"{% if not RT_PARENTS %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 	</fieldset>
 
 	<fieldset>
-		<legend>{L_RT_OVERRIDABLE}</legend>
+		<legend>{{ lang('RT_OVERRIDABLE') }}</legend>
 		<dl>
-			<dt><label for="rt_location">{L_RT_LOCATION}{L_COLON}</label><br /><span>{L_RT_LOCATION_EXP}</span></dt>
+			<dt><label for="rt_location">{{ lang('RT_LOCATION') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_LOCATION_EXP') }}</span></dt>
 			<dd>
 				<select name="rt_location" class="input" id="rt_location">
-					<!-- BEGIN location_row -->
-					<option value="{location_row.VALUE}"{location_row.SELECTED}>{location_row.OPTION}</option>
-					<!-- END location_row -->
+					{% for location_row in loops.location_row %}
+					<option value="{{ location_row.VALUE }}"{{ location_row.SELECTED }}>{{ location_row.OPTION }}</option>
+					{% endfor %}
 				</select>
 			</dd>
 		</dl>
 		<dl>
-			<dt><label for="rt_sort_start_time">{L_RT_SORT_START_TIME}{L_COLON}</label><br /><span>{L_RT_SORT_START_TIME_EXP}</span></dt>
+			<dt><label for="rt_sort_start_time">{{ lang('RT_SORT_START_TIME') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SORT_START_TIME_EXP') }}</span></dt>
 			<dd>
-				<label><input type="radio" class="radio" name="rt_sort_start_time" value="1" id="rt_sort_start_time"<!-- IF RT_SORT_START_TIME --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
-				<label><input type="radio" class="radio" name="rt_sort_start_time" value="0"<!-- IF not RT_SORT_START_TIME --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" class="radio" name="rt_sort_start_time" value="1" id="rt_sort_start_time"{% if RT_SORT_START_TIME %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="rt_sort_start_time" value="0"{% if not RT_SORT_START_TIME %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
-			<dt><label for="rt_unread_only">{L_RT_UNREAD_ONLY}{L_COLON}</label><br /><span>{L_RT_UNREAD_ONLY_EXP}</span></dt>
+			<dt><label for="rt_unread_only">{{ lang('RT_UNREAD_ONLY') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_UNREAD_ONLY_EXP') }}</span></dt>
 			<dd>
-				<label><input type="radio" class="radio" name="rt_unread_only" value="1" id="rt_unread_only"<!-- IF RT_UNREAD_ONLY --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
-				<label><input type="radio" class="radio" name="rt_unread_only" value="0"<!-- IF not RT_UNREAD_ONLY --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" class="radio" name="rt_unread_only" value="1" id="rt_unread_only"{% if RT_UNREAD_ONLY %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="rt_unread_only" value="0"{% if not RT_UNREAD_ONLY %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 
 		<dl>
-			<dt><label>{L_RT_RESET_DEFAULT}</label><br /><span>{L_RT_RESET_DEFAULT_EXP}</span></dt>
+			<dt><label>{{ lang('RT_RESET_DEFAULT') }}</label><br /><span>{{ lang('RT_RESET_DEFAULT_EXP') }}</span></dt>
 			<dd>
-				<input class="button1" type="submit" id="rt_reset_default" name="rt_reset_default" value="{L_RT_RESET_DEFAULT}"  />
+				<input class="button1" type="submit" id="rt_reset_default" name="rt_reset_default" value="{{ lang('RT_RESET_DEFAULT') }}"  />
 			</dd>
 		</dl>
 
 	</fieldset>
 
 
-	<!-- IF S_RT_NEWSPAGE -->
+	{% if S_RT_NEWSPAGE %}
 	<fieldset>
-		<legend>{L_RT_VIEW_ON}</legend>
+		<legend>{{ lang('RT_VIEW_ON') }}</legend>
 		<dl>
-			<dt><label for="rt_on_newspage">{L_RT_NICKVERGESSEN_NEWSPAGE}</label></dt>
+			<dt><label for="rt_on_newspage">{{ lang('RT_NICKVERGESSEN_NEWSPAGE') }}</label></dt>
 			<dd>
-				<label><input type="radio" class="radio" name="rt_on_newspage" value="1" id="rt_on_newspage"<!-- IF RT_ON_NEWSPAGE --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
-				<label><input type="radio" class="radio" name="rt_on_newspage" value="0" <!-- IF not RT_ON_NEWSPAGE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<label><input type="radio" class="radio" name="rt_on_newspage" value="1" id="rt_on_newspage"{% if RT_ON_NEWSPAGE %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="rt_on_newspage" value="0" {% if not RT_ON_NEWSPAGE %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 	</fieldset>
-	<!-- ENDIF -->
+	{% endif %}
 
 	<fieldset>
-		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
+		<legend>{{ lang('ACP_SUBMIT_CHANGES') }}</legend>
 		<p class="submit-buttons">
-			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
-			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+			<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
 		</p>
-		{S_FORM_TOKEN}
+		{{ S_FORM_TOKEN }}
 	</fieldset>
 
 	<fieldset>
 		<legend>{L_RT_DONATE}</legend>
 		<dl>
-			<dt><label>{L_RT_DONATE_SHORT}{L_COLON}</label><br /><span>{L_RT_DONATE_EXPLAIN}</span></dt>
-			<dd><a href="{L_RT_DONATE_URL}" target="_blank"><img src="{L_PAYPAL_IMAGE_URL}" border="0" alt="{L_PAYPAL_ALT}" style="cursor:pointer"></a></dd>
+			<dt><label>{{ lang('RT_DONATE_SHORT') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_DONATE_EXPLAIN') }}</span></dt>
+			<dd><a href="{{ lang('RT_DONATE_URL') }}" target="_blank"><img src="{{ lang('PAYPAL_IMAGE_URL') }}" border="0" alt="{{ lang('PAYPAL_ALT') }}" style="cursor:pointer"></a></dd>
 		</dl>
 	</fieldset>
 
 
 </form>
-<!-- INCLUDE overall_footer.html -->
+{% INCLUDE 'overall_footer.html' %}

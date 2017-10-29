@@ -1,29 +1,29 @@
-<!-- IF RECENT_TOPICS_DISPLAY and recent_topics_included neq true -->
+{% if RECENT_TOPICS_DISPLAY and recent_topics_included neq true %}
 <!-- DEFINE recent_topics_included = true -->
 
-<!-- IF S_LOCATION_TOP -->
+{% if S_LOCATION_TOP %}
 
 <div id="recenttopicstop">
-<!-- INCLUDE recent_topics_body_topbottom.html -->
+{% INCLUDE 'recent_topics_body_topbottom.html' %}
 </div>
 
-<!-- ELSEIF S_LOCATION_SIDE -->
+{% elseif S_LOCATION_SIDE %}
 
 <div id="phpbbsection">
 <div class="index-right">
-<!-- INCLUDE recent_topics_body_side.html -->
+{% INCLUDE 'recent_topics_body_side.html' %}
 
-<!-- EVENT recenttopics_mchat_side -->
+{% EVENT recenttopics_mchat_side %}
 
-<!-- IF ADS_INDEX_CODE and not S_IS_BOT and $ADSIDE eq false -->
-<!-- DEFINE $ADSIDE = 1 -->
-<div class="misc-block advertisement">{ADS_INDEX_CODE}</div>
-{$ADS}
-<!-- ENDIF -->
+{% if ADS_INDEX_CODE and not S_IS_BOT and definition.ADSIDE eq false %}
+{% DEFINE ADSIDE = 1 %}
+<div class="misc-block advertisement">{{ ADS_INDEX_CODE }}</div>
+{{ definition.ADS }}
+{% endif %}
 
 </div>
 <div class="index-left">
-<!-- ENDIF -->
+{% endif %}
 
 
-<!-- ENDIF -->
+{% endif %}

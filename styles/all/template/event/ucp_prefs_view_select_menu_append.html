@@ -1,42 +1,42 @@
-<!-- IF S_RT_SHOW -->
+{% if S_RT_SHOW %}
 	<hr />
-	<!-- IF A_RT_ENABLE -->
+	{% if A_RT_ENABLE %}
 	<dl>
-		<dt><label for="rt_enable1">{L_RT_ENABLE}{L_COLON}</label></dt>
+		<dt><label for="rt_enable1">{{ lang('RT_ENABLE') }}{{ lang('COLON') }}</label></dt>
 		<dd>
-			<label for="rt_enable1"><input type="radio" name="rt_enable" id="rt_enable1" value="1"<!-- IF S_RT_ENABLE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-			<label for="rt_enable0"><input type="radio" name="rt_enable" id="rt_enable0" value="0"<!-- IF not S_RT_ENABLE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			<label for="rt_enable1"><input type="radio" name="rt_enable" id="rt_enable1" value="1"{% if S_RT_ENABLE %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+			<label for="rt_enable0"><input type="radio" name="rt_enable" id="rt_enable0" value="0"{% if not S_RT_ENABLE %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 		</dd>
 	</dl>
-	<!-- ENDIF -->
-	<!-- IF A_RT_LOCATION -->
+	{% endif %}
+	{% if A_RT_LOCATION %}
 	<dl>
-		<dt><label for="rt_location">{L_RT_LOCATION}{L_COLON}</label><br /><span>{L_RT_LOCATION_EXP}</span></dt>
+		<dt><label for="rt_location">{{ lang('RT_LOCATION') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_LOCATION_EXP') }}</span></dt>
 		<dd>
 			<select name="rt_location" class="input" id="rt_location">
-				<!-- BEGIN location_row -->
-				<option value="{location_row.VALUE}"{location_row.SELECTED}>{location_row.OPTION}</option>
-				<!-- END location_row -->
+				{% for location_row in loops.location_row %}
+				<option value="{{ location_row.VALUE }}"{{ location_row.SELECTED }}>{{ location_row.OPTION }}</option>
+				{% endfor %}
 			</select>
 		</dd>
 	</dl>
-	<!-- ENDIF -->
-	<!-- IF A_RT_SORT_START_TIME -->
+	{% endif %}
+	{% if A_RT_SORT_START_TIME %}
 	<dl>
-		<dt><label for="rt_sort_start_time0">{L_RT_SORT_START_TIME}{L_COLON}</label><br /><span>{L_RT_SORT_START_TIME_EXP}</dt>
+		<dt><label for="rt_sort_start_time0">{{ lang('RT_SORT_START_TIME') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SORT_START_TIME_EXP') }}</dt>
 		<dd>
-			<label for="rt_sort_start_time1"><input type="radio" name="rt_sort_start_time" id="rt_sort_start_time1" value="1"<!-- IF S_RT_SORT_START_TIME --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-			<label for="rt_sort_start_time0"><input type="radio" name="rt_sort_start_time" id="rt_sort_start_time0" value="0"<!-- IF not S_RT_SORT_START_TIME --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			<label for="rt_sort_start_time1"><input type="radio" name="rt_sort_start_time" id="rt_sort_start_time1" value="1"{% if S_RT_SORT_START_TIME %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+			<label for="rt_sort_start_time0"><input type="radio" name="rt_sort_start_time" id="rt_sort_start_time0" value="0"{% if not S_RT_SORT_START_TIME %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 		</dd>
 	</dl>
-	<!-- ENDIF -->
-	<!-- IF A_RT_UNREAD_ONLY -->
+	{% endif %}
+	{% if A_RT_UNREAD_ONLY %}
 	<dl>
-		<dt><label for="rt_unread_only0">{L_RT_UNREAD_ONLY}{L_COLON}</label></dt>
+		<dt><label for="rt_unread_only0">{{ lang('RT_UNREAD_ONLY') }}{{ lang('COLON') }}</label></dt>
 		<dd>
-			<label for="rt_unread_only1"><input type="radio" name="rt_unread_only" id="rt_unread_only1" value="1"<!-- IF S_RT_UNREAD_ONLY --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-			<label for="rt_unread_only0"><input type="radio" name="rt_unread_only" id="rt_unread_only0" value="0"<!-- IF not S_RT_UNREAD_ONLY --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			<label for="rt_unread_only1"><input type="radio" name="rt_unread_only" id="rt_unread_only1" value="1"{% if S_RT_UNREAD_ONLY %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+			<label for="rt_unread_only0"><input type="radio" name="rt_unread_only" id="rt_unread_only0" value="0"{% if not S_RT_UNREAD_ONLY %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 		</dd>
 	</dl>
-	<!-- ENDIF -->
-<!-- ENDIF -->
+	{% endif %}
+{% endif %}
