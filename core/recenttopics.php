@@ -128,21 +128,30 @@ class recenttopics
 	private $forums;
 
 	/**
+	 *
+	 * @var Collapsable
+	 */
+	private $collapsable_categories;
+
+
+	/**
 	 * recenttopics constructor.
 	 *
-	 * @param auth                 $auth
-	 * @param \phpbb\cache\service $cache
-	 * @param config               $config
-	 * @param content_visibility   $content_visibility
-	 * @param driver_interface     $db
-	 * @param dispatcher_interface $dispatcher
-	 * @param pagination           $pagination
-	 * @param request_interface    $request
-	 * @param template             $template
-	 * @param \phpbb\user          $user
-	 * @param $root_path
-	 * @param $phpEx
-	 * @param topicprefixes|NULL   $topicprefixes
+	 * @param \phpbb\auth\auth                                    $auth
+	 * @param \phpbb\cache\service                                $cache
+	 * @param \phpbb\config\config                                $config
+	 * @param \phpbb\content_visibility                           $content_visibility
+	 * @param \phpbb\db\driver\driver_interface                   $db
+	 * @param \phpbb\event\dispatcher_interface                   $dispatcher
+	 * @param \phpbb\pagination                                   $pagination
+	 * @param \phpbb\request\request_interface                    $request
+	 * @param \phpbb\template\template                            $template
+	 * @param \phpbb\user                                         $user
+	 * @param                                                     $root_path
+	 * @param                                                     $phpEx
+	 * @param \part3\topicprefixes\core\topicprefixes|NULL        $topicprefixes
+	 * @param \imkingdavid\prefixed\core\manager|NULL             $prefixed
+	 * @param \phpbb\collapsiblecategories\operator\operator|NULL $collapsable_categories
 	 */
 	public function __construct(auth $auth,
 		\phpbb\cache\service $cache,
@@ -157,7 +166,8 @@ class recenttopics
 		$root_path,
 		$phpEx,
 		topicprefixes $topicprefixes = null,
-		\imkingdavid\prefixed\core\manager $prefixed = null
+		\imkingdavid\prefixed\core\manager $prefixed = null,
+		\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null
 	)
 	{
 		$this->auth = $auth;
@@ -174,6 +184,7 @@ class recenttopics
 		$this->phpEx = $phpEx;
 		$this->topicprefixes = $topicprefixes;
 		$this->prefixed = $prefixed;
+		$this->collapsable_categories = $collapsable_categories;
 	}
 
 	/**
@@ -193,6 +204,16 @@ class recenttopics
 		if ($this->auth->acl_get('u_rt_enable') && isset($this->user->data['user_rt_enable']) && !$this->user->data['user_rt_enable'])
 		{
 			return;
+		}
+
+		// support for phpbb collapsable categories extension
+		if ($this->collapsable_categories !== null)
+		{
+			$fid = 'fid_rt'; // can be any unique string to identify your extension's collapsible element
+			$this->template->assign_vars(array(
+				'S_EXT_COLCAT_HIDDEN'       => $this->collapsable_categories->is_collapsed($fid),
+				'U_EXT_COLCAT_COLLAPSE_URL' => $this->collapsable_categories->get_collapsible_link($fid),
+			));
 		}
 
 		$location = $this->config['rt_location'];

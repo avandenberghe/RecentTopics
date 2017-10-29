@@ -18,6 +18,7 @@
 <!-- ENDIF -->
 
 <!-- IF recent_topics.S_FIRST_ROW or not recent_topics.S_TOPIC_TYPE_SWITCH -->
+<a class="category<!-- IF S_EXT_COLCAT_HIDDEN --> hidden-category<!-- ENDIF -->" style="display: none; height: 0"></a>
 <div id="recent-topics-box" class="forabg recent-topics">
 	<div class="inner">
 		<ul class="topiclist">
@@ -28,9 +29,16 @@
 					<dd class="views">{L_VIEWS}</dd>
 					<dd class="lastpost"><span>{L_LAST_POST}</span></dd>
 				</dl>
+				<a href="{U_EXT_COLCAT_COLLAPSE_URL}"
+				   class="collapse-btn collapse-<!-- IF S_EXT_COLCAT_HIDDEN -->show<!-- ELSE -->hide<!-- ENDIF -->"
+				   data-hidden="{S_EXT_COLCAT_HIDDEN}"
+				   data-ajax="phpbb_collapse"
+				   data-overlay="true"
+				   title="{L_COLLAPSIBLE_CATEGORIES_TITLE}"
+				   style="display: none; line-height: 0;"></a>
 			</li>
 		</ul>
-		<ul class="topiclist topics">
+		<ul class="topiclist topics collapsible">
 			<!-- ENDIF -->
 			<li class="row<!-- IF recent_topics.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF recent_topics.S_POST_GLOBAL --> global-announce<!-- ENDIF --><!-- IF recent_topics.S_POST_ANNOUNCE --> announce<!-- ENDIF --><!-- IF recent_topics.S_POST_STICKY --> sticky<!-- ENDIF --><!-- IF recent_topics.S_TOPIC_REPORTED --> reported<!-- ENDIF -->">
 

@@ -1,16 +1,24 @@
 <!-- IF S_LOCATION_SIDE -->
+<a class="category<!-- IF S_EXT_COLCAT_HIDDEN --> hidden-category<!-- ENDIF -->" style="display: none; height: 0"></a>
 <div id="recent-topics-box" class="forabg">
 	<div class="inner">
 		<ul class="topiclist">
 			<li class="header">
 				<dl class="row-item">
 					<dt></dt>
-					<dd class="list-inner">{L_RECENT_TOPICS}</dd>
+					<dd class="list-inner">&nbsp;{L_RECENT_TOPICS}</dd>
 				</dl>
+				<a href="{U_EXT_COLCAT_COLLAPSE_URL}"
+				   class="collapse-btn collapse-<!-- IF S_EXT_COLCAT_HIDDEN -->show<!-- ELSE -->hide<!-- ENDIF -->"
+				   data-hidden="{S_EXT_COLCAT_HIDDEN}"
+				   data-ajax="phpbb_collapse"
+				   data-overlay="true"
+				   title="{L_COLLAPSIBLE_CATEGORIES_TITLE}"
+				   style="display: none; line-height: 0;"></a>
 			</li>
 		</ul>
 	</div>
-	<div id="recent-topics" class="inner">
+	<div id="recent-topics" class="inner collapsible">
 
 <!-- BEGIN recent_topics -->
 	<!-- IF not recent_topics.S_TOPIC_TYPE_SWITCH and not recent_topics.S_FIRST_ROW -->
