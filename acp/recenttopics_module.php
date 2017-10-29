@@ -133,11 +133,11 @@ class recenttopics_module
 			$rt_enable =  isset($config['rt_index']) ? ($config['rt_index']== '' ? 0 : $config['rt_index']) : 0;
 			$rt_location = $config['rt_location'];
 
-			$sql = 'UPDATE ' . USERS_TABLE . " SET
-			user_rt_enable = '" . (int) $rt_enable . "',
-			user_rt_sort_start_time = '" . (int) $rt_sort_start_time . "',
-			user_rt_unread_only = '" . (int) $rt_unread_only . "',
-			user_rt_location =  '" . $db->sql_escape($rt_location) . "'" ;
+			$sql = 'UPDATE ' . USERS_TABLE . ' SET
+			user_rt_enable = ' . (int) $rt_enable . ',
+			user_rt_sort_start_time = ' . (int) $rt_sort_start_time . ',
+			user_rt_unread_only = ' . (int) $rt_unread_only . ',
+			user_rt_location =  ' . $db->sql_escape($rt_location) . "'" ;
 
 			$db->sql_query($sql);
 		}
