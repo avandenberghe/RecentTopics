@@ -64,13 +64,6 @@ $lang = array_merge(
 	'RT_NICKVERGESSEN_NEWSPAGE'     => 'يدعم الإضافة : صفحة الأخبار',
 	'RT_VIEW_ON'                     => 'إظهار أحدث المواضيع في :',
 
-	//Version checker
-	'RT_VERSION_CHECK'				=> 'فحص النسخة',
-	'RT_LATEST_VERSION'				=> 'أحدث نسخة ',
-	'RT_EXT_VERSION'				=> 'نسخة الإضافة ',
-	'RT_VERSION_ERROR'				=> 'غير قادر على التحقق من النسخة الأحدث للإضافة !',
-	'RT_CHECK_UPDATE'				=> 'اذهب إلى <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a> للتأكد من توفر تحديثات جديدة.',
-
 	//Donation
 	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
