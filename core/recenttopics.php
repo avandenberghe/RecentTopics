@@ -728,8 +728,14 @@ class recenttopics
 
 			$sql = $this->db->sql_build_query('SELECT', $sql_array);
 			$result = $this->db->sql_query_limit($sql, $total_topics_limit);
-			$start = min($result->num_rows - 1 , $start);
-
+			if ($result != NULL)
+			{
+				$start = min((int) $result->num_rows - 1 , $start);
+			}
+			else
+			{
+				$start = 0;
+			}	
 			while ($row = $this->db->sql_fetchrow($result))
 			{
 				$topics_count++;
