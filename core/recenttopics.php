@@ -313,13 +313,9 @@ class recenttopics
 
 			// Now only pull the data of the requested topics
 			$sql_array = array(
-				'SELECT'    => 't.*, tp.topic_posted, f.forum_name',
+				'SELECT'    => 't.*, f.forum_name',
 				'FROM'      => array(TOPICS_TABLE => 't'),
 				'LEFT_JOIN' => array(
-					array(
-						'FROM' => array(TOPICS_POSTED_TABLE => 'tp'),
-						'ON'   => 't.topic_id = tp.topic_id AND tp.user_id = ' . (int) $this->user->data['user_id'],
-					),
 					array(
 						'FROM' => array(FORUMS_TABLE => 'f'),
 						'ON'   => 'f.forum_id = t.forum_id',
@@ -383,7 +379,6 @@ class recenttopics
 					$forum_id = $row['forum_id'];
 
 					$s_type_switch_test = ($row['topic_type'] == POST_ANNOUNCE || $row['topic_type'] == POST_GLOBAL) ? 1 : 0;
-					//$replies = ($this->auth->acl_get('m_approve', $forum_id)) ? $row['topic_replies_real'] : $row['topic_replies'];
 					$replies = $this->content_visibility->get_count('topic_posts', $row, $forum_id) - 1;
 
 					// Get folder img, topic status/type related information
@@ -514,7 +509,6 @@ class recenttopics
 						'S_HAS_POLL'              => $row['poll_start'] ? true : false,
 
 						'S_TOPIC_TYPE'            => $row['topic_type'],
-						'S_USER_POSTED'           => isset($row['topic_posted']) && $row['topic_posted'],
 						'S_UNREAD_TOPIC'          => $unread_topic,
 						'S_TOPIC_REPORTED'        => $row['topic_reported'] && $this->auth->acl_get('m_report', $forum_id),
 						'S_TOPIC_UNAPPROVED'      => $topic_unapproved,
