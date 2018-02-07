@@ -1,6 +1,12 @@
 
 ### Changelog
 
+- 2.2.7 (0x/02/2018) 
+  - [NEW] #82 Recent topics is now available on a special page http://url/app.php/rt
+  - [FIX] fix potential nullreference error in $start
+  - [FIX] languge nl, de (missing variables)
+  - [ADD] language ar (@alhitary), ru (@SiavaRu), pt (@borgesjoaquim)
+   
 - 2.2.6 (28/10/2017) 
   - [NEW] #43 Supports Collapsable categories extension for prosilver.   
   - [CHG] #76 Switched to Twig syntax

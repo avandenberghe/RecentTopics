@@ -658,7 +658,6 @@ class recenttopics
 	 */
 	private function gettopiclist($rtstart, $topics_per_page, $total_topics_limit, $sort_topics)
 	{
-
 		$this->forums = $this->topic_list = array();
 		$topics_count = 0;
 		$this->obtain_icons = false;
@@ -726,7 +725,7 @@ class recenttopics
 
 			if($result != NULL)
 			{
-				$$rtstart = min($result->num_rows - 1 , (int) $rtstart);
+				$rtstart = min((int) $result->num_rows - 1 , $rtstart);
 			}
 			else
 			{

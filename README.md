@@ -8,9 +8,6 @@ Based on NV Recent Topics for phpBB 3.0, by Joas Schilling ([nickvergessen](http
 v2.2.6 (28/10/2017)
 [![Build Status](https://api.travis-ci.org/Sajaki/RecentTopics.svg)](https://travis-ci.org/Sajaki/RecentTopics)
 
-#### Download 
-under development
-
 #### Support
 - [Support forum] (http://www.avathar.be/bbdkp/viewforum.php?f=65)
 
@@ -37,6 +34,7 @@ under development
    - "Pre:fixed" Extension from imkingdavid 
    - “Topic Prefix“ Extension from Stathis.
    - Mchat 2.0.1 (as of 2.2.3)  
+   - Collapsible Categories (as of 2.2.6)
 - Tested on:
   - prosilver, we_clearblue, proflat, pbWow3
 

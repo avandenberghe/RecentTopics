@@ -1,4 +1,20 @@
 services:
+    paybas.recenttopics.controller.page_controller:
+        class: paybas\recenttopics\controller\page_controller
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@auth'
+            - '@template'
+            - '@dbal.conn'
+            - '@request'
+            - '@user'
+            - '@pagination'
+            - '%core.php_ext%'
+            - '@path_helper'
+            - '@ext.manager'
+            - '%core.root_path%'
+            - '@paybas.recenttopics.functions'
     paybas.recenttopics.functions:
         class: paybas\recenttopics\core\recenttopics
         arguments:
