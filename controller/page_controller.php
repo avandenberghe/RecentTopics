@@ -12,7 +12,7 @@ namespace paybas\recenttopics\controller;
 
 use \Symfony\Component\HttpFoundation\Response;
 
-class page_controller
+class page_controller implements page_interface
 {
 	/**
 	 * @var \phpbb\auth\auth
