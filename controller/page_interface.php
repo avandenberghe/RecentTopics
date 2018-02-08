@@ -17,6 +17,6 @@ interface page_interface
 		 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 		 * @access public
 		 */
-		public function display($route);
+		public function display();
 }
 
