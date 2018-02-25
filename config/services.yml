@@ -15,6 +15,7 @@ services:
             - '@ext.manager'
             - '%core.root_path%'
             - '@paybas.recenttopics.functions'
+            - '@language'
     paybas.recenttopics.functions:
         class: paybas\recenttopics\core\recenttopics
         arguments:
@@ -50,5 +51,6 @@ services:
             - '@request'
             - '@template'
             - '@user'
+            - '@language'
         tags:
             - { name: event.listener }

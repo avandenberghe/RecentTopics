@@ -10,7 +10,7 @@
 
 namespace paybas\recenttopics\controller;
 
-use \Symfony\Component\HttpFoundation\Response;
+use phpbb\language\language;
 
 class page_controller implements page_interface
 {
@@ -75,6 +75,16 @@ class page_controller implements page_interface
 	protected $rt_functions;
 
 	/**
+	 * @var \Symfony\Component\HttpFoundation\Response
+	 */
+	protected $response;
+
+	/**
+	 * @var language
+	 */
+	protected $language;
+
+	/**
 	 * page constructor.
 	 *
 	 * @param \phpbb\config\config              $config
@@ -89,6 +99,8 @@ class page_controller implements page_interface
 	 * @param \phpbb\path_helper                $path_helper
 	 * @param \phpbb\extension\manager          $phpbb_extension_manager
 	 * @param $root_path
+	 * @param \paybas\recenttopics\core\recenttopics $functions
+	 * @param \phpbb\language\language $language
 	 */
 	public function __construct(
 		\phpbb\config\config $config,
@@ -103,7 +115,8 @@ class page_controller implements page_interface
 		\phpbb\path_helper $path_helper,
 		\phpbb\extension\manager $phpbb_extension_manager,
 		$root_path,
-	    \paybas\recenttopics\core\recenttopics $functions
+		\paybas\recenttopics\core\recenttopics $functions,
+		\phpbb\language\language $language
 	)
 	{
 		$this->config       = $config;
@@ -121,6 +134,7 @@ class page_controller implements page_interface
 		$this->ext_path_web = $this->path_helper->get_web_root_path($this->ext_path);
 		$this->root_path  = $root_path;
 		$this->rt_functions = $functions;
+		$this->language = $language;
 	}
 
 	/**
@@ -135,8 +149,8 @@ class page_controller implements page_interface
 		$page = "recent_topics_page.html";
 
 		global $phpbb_container;
-		$language = $phpbb_container->get('language');
-		$language->add_lang('info_acp_recenttopics', 'paybas/recenttopics');
+		$this->language = $phpbb_container->get('language');
+		$this->language->add_lang('info_acp_recenttopics', 'paybas/recenttopics');
 
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
 		{
@@ -146,15 +160,13 @@ class page_controller implements page_interface
 		// Load the requested page by route
 		try
 		{
-			$response = $this->helper->render($page, $language->lang('RECENT_TOPICS'));
+			$this->response = $this->helper->render($page, $this->language->lang('RECENT_TOPICS'));
 		}
 		catch (\phpbb\pages\exception\base $e)
 		{
 			throw new http_exception(404, 'PAGE_NOT_AVAILABLE', array($page));
 		}
 
-		return $response;
-
+		return $this->response;
 	}
-
 }

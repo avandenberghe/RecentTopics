@@ -1,0 +1,97 @@
+/* Recent Topics
+--------------------------------------------- */
+
+#phpbbsection {
+    overflow: hidden;
+}
+
+/* side view big screen maxed out */
+@media screen and (min-width: 1024px)
+{
+    .index-left {
+        width: auto;
+        overflow: hidden;
+    }
+    .index-right {
+        float: right;
+        margin-left: 10px;
+        width: 302px;
+    }
+}
+
+/* smartphones */
+/* put side view as top block anyways */
+@media only screen and (max-width: 1024px) {
+    /*hide the forum index */
+    .index-left, .index-right {
+        width: auto;
+        display: block;
+        width: 100%;
+    }
+}
+
+#recent-topics {
+    border-top: 1px solid #444;
+}
+
+#recent-topics ul {
+    list-style: none;
+}
+
+#recent-topics li.row {
+    border-top: none;
+    border-bottom-color: #222;
+    transition: background 0.15s ease-in-out 0s;
+}
+
+#recent-topics li.row dl {
+    padding: 9px 5px 13px 0;
+    position: relative;
+}
+
+#recent-topics li.row dl:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+#recent-topics .reported {
+    background-color: transparent;
+}
+
+#recent-topics a.topictitle {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 1px;
+}
+
+#recent-topics a.forum-link {
+    color: #877b69;
+    font-size: 10px;
+}
+
+#recent-topics a:hover {
+    color: #FFF;
+    text-decoration: none;
+}
+
+#recent-topics dd.lastpost {
+    bottom: 3px;
+    right: 5px;
+    min-height: inherit;
+}
+
+#recent-topics dd.status-icons {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    min-height: inherit;
+}
+
+#recent-topics dd.status-icons > a,
+#recent-topics dd.status-icons > span {
+    float: right;
+    margin-left: 2px;
+}
