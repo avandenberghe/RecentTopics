@@ -124,7 +124,7 @@ class page_controller implements page_interface
 	}
 
 	/**
-	 * Display the page
+	 * Display the page app.php/rt/
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	 * @throws http_exception
@@ -134,6 +134,10 @@ class page_controller implements page_interface
 	{
 		$page = "recent_topics_page.html";
 
+		global $phpbb_container;
+		$language = $phpbb_container->get('language');
+		$language->add_lang('info_acp_recenttopics', 'paybas/recenttopics');
+
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
 		{
 			$this->rt_functions->display_recent_topics();
@@ -142,7 +146,7 @@ class page_controller implements page_interface
 		// Load the requested page by route
 		try
 		{
-			$response = $this->helper->render($page, $this->user->lang['RECENT_TOPICS']);
+			$response = $this->helper->render($page, $language->lang('RECENT_TOPICS'));
 		}
 		catch (\phpbb\pages\exception\base $e)
 		{

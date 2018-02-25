@@ -21,6 +21,7 @@ services:
             - '@auth'
             - '@cache'
             - '@config'
+            - '@language'
             - '@content.visibility'
             - '@dbal.conn'
             - '@dispatcher'

@@ -19,6 +19,7 @@ use phpbb\event\dispatcher_interface;
 use phpbb\pagination;
 use phpbb\request\request_interface;
 use phpbb\template\template;
+use phpbb\language\language;
 
 /**
  * Class recenttopics
@@ -36,6 +37,11 @@ use phpbb\template\template;
 		* @var config
 		*/
 		protected $config;
+
+		/**
+		 * @var language
+		 */
+		protected $language;
 
 		/**
 		* @var \phpbb\cache\service
@@ -140,6 +146,7 @@ use phpbb\template\template;
 		 * @param \phpbb\auth\auth                                    $auth
 		 * @param \phpbb\cache\service                                $cache
 		 * @param \phpbb\config\config                                $config
+		 * @param \phpbb\language\language                            $language
 		 * @param \phpbb\content_visibility                           $content_visibility
 		 * @param \phpbb\db\driver\driver_interface                   $db
 		 * @param \phpbb\event\dispatcher_interface                   $dispatcher
@@ -156,6 +163,7 @@ use phpbb\template\template;
 		public function __construct(auth $auth,
 			\phpbb\cache\service $cache,
 			config $config,
+			language $language,
 			content_visibility $content_visibility,
 			driver_interface $db,
 			dispatcher_interface $dispatcher,
@@ -173,6 +181,7 @@ use phpbb\template\template;
 			$this->auth = $auth;
 			$this->cache = $cache;
 			$this->config = $config;
+			$this->language = $language;
 			$this->content_visibility = $content_visibility;
 			$this->db = $db;
 			$this->dispatcher = $dispatcher;
@@ -208,7 +217,7 @@ use phpbb\template\template;
 			}
 
 			//load language
-			$this->user->add_lang_ext('paybas/recenttopics', 'recenttopics');
+			$this->language->add_lang('recenttopics', 'paybas/recenttopics');
 
 			// support for phpbb collapsable categories extension
 			if ($this->collapsable_categories !== null)
@@ -218,6 +227,12 @@ use phpbb\template\template;
 					'S_EXT_COLCAT_HIDDEN'       => $this->collapsable_categories->is_collapsed($fid),
 					'U_EXT_COLCAT_COLLAPSE_URL' => $this->collapsable_categories->get_collapsible_link($fid),
 				));
+			}
+
+			$topics_per_page = (int) $this->config['rt_number'];
+			if ($this->auth->acl_get('u_rt_number') && isset($this->user->data['user_rt_number']))
+			{
+				$topics_per_page = (int) $this->user->data['user_rt_number'];
 			}
 
 			//number of pages
@@ -235,20 +250,12 @@ use phpbb\template\template;
 
 			$display_parent_forums = $this->config['rt_parents'];
 
-			//load user overridable settings
-
 			//rt block location
 			$location = $this->config['rt_location'];
 			// if user can set location and it is set then use the preference
 			if ($this->auth->acl_get('u_rt_location') && isset($this->user->data['user_rt_location']))
 			{
 				$location = $this->user->data['user_rt_location'];
-			}
-
-			$topics_per_page = (int) $this->config['rt_number'];
-			if ($this->auth->acl_get('u_rt_number') && isset($this->user->data['user_rt_number']))
-			{
-				$topics_per_page = (int) $this->user->data['user_rt_number'];
 			}
 
 			$sort_topics = $this->config['rt_sort_start_time'] ? 'topic_time' : 'topic_last_post_time';
@@ -507,13 +514,13 @@ use phpbb\template\template;
 							'TOPIC_TYPE'              => $topic_type,
 							'TOPIC_IMG_STYLE'         => $folder_img,
 							'TOPIC_FOLDER_IMG'        => $this->user->img($folder_img, $folder_alt),
-							'TOPIC_FOLDER_IMG_ALT'    => $this->user->lang[$folder_alt],
+							'TOPIC_FOLDER_IMG_ALT'    => $this->language->lang($folder_alt),
 
 							//'NEWEST_POST_IMG'		=> $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'), // dupe?
 							'TOPIC_ICON_IMG'          => (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['img'] : '',
 							'TOPIC_ICON_IMG_WIDTH'    => (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['width'] : '',
 							'TOPIC_ICON_IMG_HEIGHT'   => (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['height'] : '',
-							'ATTACH_ICON_IMG'         => ($this->auth->acl_get('u_download') && $this->auth->acl_get('f_download', $forum_id) && $row['topic_attachment']) ? $this->user->img('icon_topic_attach', $this->user->lang['TOTAL_ATTACHMENTS']) : '',
+							'ATTACH_ICON_IMG'         => ($this->auth->acl_get('u_download') && $this->auth->acl_get('f_download', $forum_id) && $row['topic_attachment']) ? $this->user->img('icon_topic_attach', $this->language->lang('TOTAL_ATTACHMENTS')) : '',
 							'UNAPPROVED_IMG'          => ($topic_unapproved || $posts_unapproved) ? $this->user->img('icon_topic_unapproved', $topic_unapproved ? 'TOPIC_UNAPPROVED' : 'POSTS_UNAPPROVED') : '',
 							'REPORTED_IMG'            => ($row['topic_reported'] && $this->auth->acl_get('m_report', $forum_id)) ? $this->user->img('icon_topic_reported', 'TOPIC_REPORTED') : '',
 							'S_HAS_POLL'              => $row['poll_start'] ? true : false,

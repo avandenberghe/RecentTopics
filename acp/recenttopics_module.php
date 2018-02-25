@@ -27,7 +27,11 @@ class recenttopics_module
 	{
 		global $config, $phpbb_extension_manager, $request, $template, $user, $db;
 
-		$user->add_lang(array('acp/common', 'ucp', 'viewforum'));
+		$language = $phpbb_container->get('language');
+		$language->add_lang('acp/common');
+		$language->add_lang('ucp');
+		$language->add_lang('viewforum');
+
 		$this->tpl_name = 'acp_recenttopics';
 		$this->page_title = $user->lang('RECENT_TOPICS');
 
@@ -91,10 +95,10 @@ class recenttopics_module
 
 
 		$topic_types = array (
-			0 => $user->lang('POST'),
-			1 => $user->lang('POST_STICKY'),
-			2 => $user->lang('ANNOUNCEMENTS'),
-			3 => $user->lang('GLOBAL_ANNOUNCEMENT'),
+			0 => $language->lang('POST') ,
+			1 => $language->lang('POST_STICKY'),
+			2 => $language->lang('ANNOUNCEMENTS'),
+			3 => $language->lang('GLOBAL_ANNOUNCEMENT'),
 		);
 
 		foreach ($topic_types as $key => $topic_type)
@@ -110,9 +114,9 @@ class recenttopics_module
 		}
 
 		$display_types = array (
-			'RT_TOP'    => $user->lang('RT_TOP'),
-			'RT_BOTTOM' => $user->lang('RT_BOTTOM'),
-			'RT_SIDE'   => $user->lang('RT_SIDE'),
+			'RT_TOP'    => $language->lang('RT_TOP'),
+			'RT_BOTTOM' => $language->lang('RT_BOTTOM'),
+			'RT_SIDE'   => $language->lang('RT_SIDE'),
 		);
 
 		foreach ($display_types as $key => $display_type)
