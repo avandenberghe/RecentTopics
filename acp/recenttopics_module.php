@@ -25,7 +25,7 @@ class recenttopics_module
 	 */
 	public function main($id, $mode)
 	{
-		global $config, $phpbb_extension_manager, $request, $template, $user, $db;
+		global $config, $phpbb_extension_manager, $request, $template, $user, $db, $phpbb_container;
 
 		$language = $phpbb_container->get('language');
 		$language->add_lang('acp/common');
