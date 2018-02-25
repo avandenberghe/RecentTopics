@@ -9,7 +9,7 @@ v2.2.7 (xx/02/2018)
 [![Build Status](https://api.travis-ci.org/Sajaki/RecentTopics.svg)](https://travis-ci.org/Sajaki/RecentTopics)
 
 #### Support
-- [Support forum] (http://www.avathar.be/bbdkp/viewforum.php?f=65)
+- [Support forum](http://www.avathar.be/bbdkp/viewforum.php?f=65)
 
 #### Requirements
 - phpBB 3.2.0 or higher
