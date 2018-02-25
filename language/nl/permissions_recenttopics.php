@@ -22,9 +22,10 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge(
 	$lang, array(
 	'ACL_U_RT_VIEW'            => 'Recente Onderwerpen: kan «Recente Onderwerpen» zien.',
-	'ACL_U_RT_ENABLE'          => 'Recente Onderwerpen: kan «Recente Onderwerpen» activeren of desactiveren in gebruikerspaneel.',
-	'ACL_U_RT_LOCATION'        => 'Recente Onderwerpen: kan plaatstinstelling wijzigen in gebruikerspaneel..',
+	'ACL_U_RT_ENABLE'          => 'Recente Onderwerpen: kan «Recente Onderwerpen» activeren of desactiveren.',
+	'ACL_U_RT_LOCATION'        => 'Recente Onderwerpen: kan plaatstinstelling wijzigen in gebruikerspaneel.',
 	'ACL_U_RT_SORT_START_TIME' => 'Recente Onderwerpen: kan sorteringsvolgorde wijzigen in gebruikerspaneel.',
-	'ACL_U_RT_UNREAD_ONLY'     => 'Recente Onderwerpen: kan keuze ter weergave van ongelezen onderwerpen wijzigen in gebruikerspaneel.',
+	'ACL_U_RT_UNREAD_ONLY'     => 'Recente Onderwerpen: kan keuze ter weergave van ongelezen onderwerpen wijzigen.',
+	'ACL_U_RT_NUMBER'          => 'Recente Onderwerpen: kan het standaard aantal onderwerpen per pagina wijzigen.',
 	)
 );

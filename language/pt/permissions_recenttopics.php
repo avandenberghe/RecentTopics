@@ -26,5 +26,6 @@ $lang = array_merge(
 	'ACL_U_RT_LOCATION'        => 'Tópicos recentes: pode selecionar o local de exibição',
 	'ACL_U_RT_SORT_START_TIME' => 'Tópicos recentes: pode alterar a ordem de classificação',
 	'ACL_U_RT_UNREAD_ONLY'     => 'Tópicos recentes: pode definir o modo não lido somente',
+	'ACL_U_RT_NUMBER'          => 'Tópicos recentes: pode definir o número de tópicos por página',
 	)
 );

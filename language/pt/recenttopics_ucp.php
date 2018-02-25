@@ -38,13 +38,15 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge(
 	$lang, array(
 	'RT_ENABLE'              => 'Exibir tópicos recentes',
-	'RT_LOCATION'            => 'Selecionar localização',
-	'RT_LOCATION_EXP'        => 'Selecionar local para exibir tópicos recentes.',
-	'RT_SORT_START_TIME'     => 'Ordenar tópicos recentes por tópico hora de início',
-	'RT_SORT_START_TIME_EXP' => 'Em vez de classificá-los por último tempo de postagem',
-	'RT_UNREAD_ONLY'         => 'Mostrar apenas tópicos não lidos nos tópicos recentes',
 	'RT_TOP'                 => 'Mostrar no topo',
 	'RT_BOTTOM'              => 'Mostrar no fundo',
 	'RT_SIDE'                => 'Mostrar no lado direito',
+	'RT_LOCATION'            => 'Selecionar localização',
+	'RT_LOCATION_EXP'        => 'Selecionar local para exibir tópicos recentes.',
+	'RT_NUMBER'              => 'Número de tópicos recentes para mostrar',
+	'RT_NUMBER_EXP'          => 'Número máximo de tópicos a serem exibidos por página.',
+	'RT_SORT_START_TIME'     => 'Ordenar tópicos recentes por tópico hora de início',
+	'RT_SORT_START_TIME_EXP' => 'Em vez de classificá-los por último tempo de postagem',
+	'RT_UNREAD_ONLY'         => 'Mostrar apenas tópicos não lidos nos tópicos recentes',
 	)
 );

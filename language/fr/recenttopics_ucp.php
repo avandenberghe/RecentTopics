@@ -42,13 +42,15 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'RT_ENABLE'              => 'Afficher la liste des sujets récents',
-	'RT_LOCATION'            => 'Sélectionner l’emplacement de la liste des sujets récents',
-	'RT_LOCATION_EXP'        => 'Permet de sélectionner l’emplacement où afficher la liste des sujets récents.',
-	'RT_SORT_START_TIME'     => 'Trier les sujets récents',
-	'RT_SORT_START_TIME_EXP' => 'Permet d’afficher les sujets récents triés selon la date de création du sujet en lieu et place de la date du dernier message.',
-	'RT_UNREAD_ONLY'         => 'Afficher uniquement les sujets non lus dans la liste des sujets récents',
 	'RT_TOP'                 => 'Au-dessus de la liste des forums',
 	'RT_BOTTOM'              => 'En dessous de la liste des forums',
 	'RT_SIDE'                => 'Sur le coté droit de la liste des forums',
+	'RT_LOCATION'            => 'Sélectionner l’emplacement de la liste des sujets récents',
+	'RT_LOCATION_EXP'        => 'Permet de sélectionner l’emplacement où afficher la liste des sujets récents.',
+	'RT_NUMBER'              => 'Nombre de sujets récents affichés',
+	'RT_NUMBER_EXP'          => 'Permet de saisir le nombre maximum de sujets récents à afficher par page.',
+	'RT_SORT_START_TIME'     => 'Trier les sujets récents',
+	'RT_SORT_START_TIME_EXP' => 'Permet d’afficher les sujets récents triés selon la date de création du sujet en lieu et place de la date du dernier message.',
+	'RT_UNREAD_ONLY'         => 'Afficher uniquement les sujets non lus dans la liste des sujets récents',
 	)
 );

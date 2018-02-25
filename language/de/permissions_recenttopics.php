@@ -45,5 +45,6 @@ $lang = array_merge(
 		'ACL_U_RT_LOCATION'        => 'Kann das Anzeigeort des Blocks «Aktuelle Themen» ändern .',
 		'ACL_U_RT_SORT_START_TIME' => 'Kann sortierung des Blocks «Aktuelle Themen» ändern.',
 		'ACL_U_RT_UNREAD_ONLY'     => 'Kann wahl zur ungelesenen «Aktuelle Themen» ändern.',
+		'ACL_U_RT_NUMBER'          => 'Kann Anzahl Aktuelle Themen pro Seite ändern',
 	)
 );

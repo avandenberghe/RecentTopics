@@ -89,6 +89,7 @@ class ucp_listener implements EventSubscriberInterface
 			$event['data'], array(
 			'rt_enable'          => $this->request->variable('rt_enable', (int) $this->user->data['user_rt_enable']),
 			'rt_location'        => $this->request->variable('rt_location', $this->user->data['user_rt_location']),
+			'rt_number'          => $this->request->variable('rt_number', $this->user->data['user_number']),
 			'rt_sort_start_time' => $this->request->variable('rt_sort_start_time', (int) $this->user->data['user_rt_sort_start_time']),
 			'rt_unread_only'     => $this->request->variable('rt_unread_only', (int) $this->user->data['user_rt_unread_only']),
 			)
@@ -112,22 +113,6 @@ class ucp_listener implements EventSubscriberInterface
 				$template_vars += array(
 				'A_RT_ENABLE' => true,
 				'S_RT_ENABLE' => $event['data']['rt_enable'],
-				);
-			}
-
-			if ($this->auth->acl_get('u_rt_sort_start_time'))
-			{
-				$template_vars += array(
-				'A_RT_SORT_START_TIME' => true,
-				'S_RT_SORT_START_TIME' => $event['data']['rt_sort_start_time'],
-				);
-			}
-
-			if ($this->auth->acl_get('u_rt_unread_only'))
-			{
-				$template_vars += array(
-				'A_RT_UNREAD_ONLY' => true,
-				'S_RT_UNREAD_ONLY' => $event['data']['rt_unread_only'],
 				);
 			}
 
@@ -157,6 +142,30 @@ class ucp_listener implements EventSubscriberInterface
 				}
 			}
 
+			if ($this->auth->acl_get('u_rt_number'))
+			{
+				$template_vars += array(
+					'A_RT_NUMBER' => true,
+					'S_RT_NUMBER' => $event['data']['rt_number'],
+				);
+			}
+
+			if ($this->auth->acl_get('u_rt_sort_start_time'))
+			{
+				$template_vars += array(
+				'A_RT_SORT_START_TIME' => true,
+				'S_RT_SORT_START_TIME' => $event['data']['rt_sort_start_time'],
+				);
+			}
+
+			if ($this->auth->acl_get('u_rt_unread_only'))
+			{
+				$template_vars += array(
+				'A_RT_UNREAD_ONLY' => true,
+				'S_RT_UNREAD_ONLY' => $event['data']['rt_unread_only'],
+				);
+			}
+
 			$this->template->assign_vars($template_vars);
 		}
 	}
@@ -170,6 +179,7 @@ class ucp_listener implements EventSubscriberInterface
 			$event['sql_ary'], array(
 			'user_rt_enable'          => $event['data']['rt_enable'],
 			'user_rt_location'        => $event['data']['rt_location'],
+			'user_rt_number'          => $event['data']['rt_number'],
 			'user_rt_sort_start_time' => $event['data']['rt_sort_start_time'],
 			'user_rt_unread_only'     => $event['data']['rt_unread_only'],
 			)

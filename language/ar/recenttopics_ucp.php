@@ -38,13 +38,15 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge(
 	$lang, array(
 	'RT_ENABLE'              => 'تفعيل أحدث المواضيع ',
+	'RT_BOTTOM'              => 'الأسفل',
+	'RT_SIDE'                => 'الجانب',
+	'RT_TOP'                 => 'الأعلى',
 	'RT_LOCATION'            => 'مكان العرض ',
 	'RT_LOCATION_EXP'        => 'حدد المكان لظهور أحدث المواضيع.',
+	'RT_NUMBER'              => 'عدد المواضيع ',
+	'RT_NUMBER_EXP'          => 'عدد المواضيع التي تريد عرضها.',
 	'RT_SORT_START_TIME'     => 'الترتيب حسب وقت إضافة الموضوع ',
 	'RT_SORT_START_TIME_EXP' => 'بدلاً من الترتيب بحسب وقت آخر مشاركة.',
 	'RT_UNREAD_ONLY'         => 'عرض المواضيع الغير مقروءة فقط في أحدث المواضيع ',
-	'RT_TOP'                 => 'الأعلى',
-	'RT_BOTTOM'              => 'الأسفل',
-	'RT_SIDE'                => 'الجانب',
 	)
 );
