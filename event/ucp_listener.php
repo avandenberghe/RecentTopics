@@ -59,7 +59,12 @@ class ucp_listener implements EventSubscriberInterface
 	 * @param \phpbb\template\template $template
 	 * @param \phpbb\user              $user
 	 */
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\auth\auth $auth,
+		\phpbb\config\config $config,
+		\phpbb\request\request $request,
+		\phpbb\template\template $template,
+		\phpbb\user $user,
+		\phpbb\language\language $language)
 	{
 		$this->auth = $auth;
 		$this->config = $config;

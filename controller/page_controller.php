@@ -129,7 +129,7 @@ class page_controller implements page_interface
 	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	 * @throws http_exception
 	 * @access public
-     */
+	*/
 	public function display()
 	{
 		$page = "recent_topics_page.html";

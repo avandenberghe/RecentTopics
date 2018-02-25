@@ -19,4 +19,3 @@ interface page_interface
 		 */
 		public function display();
 }
-
