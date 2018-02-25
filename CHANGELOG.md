@@ -1,8 +1,10 @@
 
 ### Changelog
 
-- 2.2.7 (0x/02/2018) 
-  - [NEW] #82 Recent topics is now available on a special page http://url/app.php/rt
+- 2.2.7 (25/02/2018) 
+  - [NEW] #82 recent topics is now available on a special page http://url/app.php/rt
+  - [CHG] now uses phpbb 3.2 language class
+  - [CHG] #77 moved setting for number of recent topics per page to ucp
   - [FIX] fix potential nullreference error in $start
   - [FIX] languge nl, de (missing variables)
   - [ADD] language ar (@alhitary), ru (@SiavaRu), pt (@borgesjoaquim)

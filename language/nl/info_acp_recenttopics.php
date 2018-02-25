@@ -80,13 +80,6 @@ $lang = array_merge(
 		'RT_NICKVERGESSEN_NEWSPAGE'     => 'Ondersteuning van nieuwspagina extensie Nickvergessen',
 		'RT_VIEW_ON'                    => 'Toon recente onderwerpen op:',
 
-		//Versie controle
-		'RT_VERSION_CHECK'				=> 'Versie controle',
-		'RT_LATEST_VERSION'				=> 'Laatste versie',
-		'RT_EXT_VERSION'				=> 'Extensie versie',
-		'RT_VERSION_ERROR'				=> 'Kan laatste versie niet ophalen!',
-		'RT_CHECK_UPDATE'				=> 'Bezoek <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a> voor nieuwere versies.',
-
 		//Donatiies
 		'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
 		'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

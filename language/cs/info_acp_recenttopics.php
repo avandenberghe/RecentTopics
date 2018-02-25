@@ -57,12 +57,6 @@ $lang = array_merge(
 	//Enable for extensions
 	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Podpora pro rozšíření NewsPage',
 	'RT_VIEW_ON'                     => 'Zobrazit nedávná témata na:',
-	//Version checker
-	'RT_VERSION_CHECK'				=> 'Kontrola verze',
-	'RT_LATEST_VERSION'				=> 'Poslední verze',
-	'RT_EXT_VERSION'				=> 'Verze rozšíření',
-	'RT_VERSION_ERROR'				=> 'Aktualizace se nepodařilo vyhledat.',
-	'RT_CHECK_UPDATE'				=> 'Informace o dostupných aktualizacích naleznete zde: <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a>.',
 	//Donation
 	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

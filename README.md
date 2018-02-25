@@ -5,11 +5,11 @@ Extension for phpBB 3.2 to display recent topics.
 Based on NV Recent Topics for phpBB 3.0, by Joas Schilling ([nickvergessen](https://github.com/nickvergessen))
 
 #### Version
-v2.2.7 (xx/02/2018)
+v2.2.7 (25/02/2018)
 [![Build Status](https://api.travis-ci.org/Sajaki/RecentTopics.svg)](https://travis-ci.org/Sajaki/RecentTopics)
 
 #### Support
-- [Support forum] (http://www.avathar.be/bbdkp/viewforum.php?f=65)
+- [Support forum](https://www.avathar.be/bbdkp/viewforum.php?f=65)
 
 #### Requirements
 - phpBB 3.2.0 or higher
