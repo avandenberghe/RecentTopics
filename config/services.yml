@@ -1,10 +1,28 @@
 services:
+    paybas.recenttopics.controller.page_controller:
+        class: paybas\recenttopics\controller\page_controller
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@auth'
+            - '@template'
+            - '@dbal.conn'
+            - '@request'
+            - '@user'
+            - '@pagination'
+            - '%core.php_ext%'
+            - '@path_helper'
+            - '@ext.manager'
+            - '%core.root_path%'
+            - '@paybas.recenttopics.functions'
+            - '@language'
     paybas.recenttopics.functions:
         class: paybas\recenttopics\core\recenttopics
         arguments:
             - '@auth'
             - '@cache'
             - '@config'
+            - '@language'
             - '@content.visibility'
             - '@dbal.conn'
             - '@dispatcher'
@@ -33,5 +51,6 @@ services:
             - '@request'
             - '@template'
             - '@user'
+            - '@language'
         tags:
             - { name: event.listener }

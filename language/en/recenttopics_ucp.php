@@ -38,13 +38,15 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge(
 	$lang, array(
 	'RT_ENABLE'              => 'Display recent topics',
+	'RT_BOTTOM'              => 'Show on bottom',
+	'RT_SIDE'                => 'Show on side',
+	'RT_TOP'                 => 'Show on top',
 	'RT_LOCATION'            => 'Select location',
 	'RT_LOCATION_EXP'        => 'Select location to display recent topics.',
+	'RT_NUMBER'              => 'Number of Recent topics to show',
+	'RT_NUMBER_EXP'          => 'Maximum number of topics to display per page.',
 	'RT_SORT_START_TIME'     => 'Sort recent topics by topic start time',
 	'RT_SORT_START_TIME_EXP' => 'Instead of sorting them by last post time.',
 	'RT_UNREAD_ONLY'         => 'Only display unread topics in recent topics',
-	'RT_TOP'                 => 'Show on top',
-	'RT_BOTTOM'              => 'Show on bottom',
-	'RT_SIDE'                => 'Show on side',
 	)
 );

@@ -1,0 +1,81 @@
+{% if S_LOCATION_SIDE %}
+
+<div id="recent-topics-box" class="collapse-box">
+	<h2 class="open">{{ lang('RECENT_TOPICS') }}</h2>
+	<div id="recent-topics">
+
+{% for recent_topics in loops.recent_topics %}
+	{% if not recent_topics.S_TOPIC_TYPE_SWITCH and not recent_topics.S_FIRST_ROW %}
+	</ul>
+	{% endif %}
+
+	{% if recent_topics.S_FIRST_ROW or not recent_topics.S_TOPIC_TYPE_SWITCH %}
+	<ul>
+	{% endif %}
+		<li class="row{% if recent_topics.S_POST_GLOBAL %} global-announce{% endif %}
+		{% if recent_topics.S_POST_ANNOUNCE %} announce{% endif %}
+		{% if recent_topics.S_POST_STICKY %} sticky{% endif %}
+		{% if recent_topics.S_TOPIC_REPORTED %} pbwow reported{% endif %}">
+
+			<dl class="row-item {{ recent_topics.TOPIC_IMG_STYLE }}">
+				<dt{% if recent_topics.TOPIC_ICON_IMG and S_TOPIC_ICONS %} style="background-image: url({{ T_ICONS_PATH }}{{ recent_topics.TOPIC_ICON_IMG }}); background-repeat: no-repeat;"{% endif %} title="{{ recent_topics.TOPIC_FOLDER_IMG_ALT }}">
+					{% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}<a href="{{ recent_topics.U_NEWEST_POST }}" class="row-item-link"></a>{% endif %}
+					<div class="list-inner">
+						{% EVENT topiclist_row_prepend %}
+						{% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}{% endif %}
+						<a href="{{ recent_topics.U_VIEW_TOPIC }}" class="topictitle"{% if recent_topics.TOPIC_AUTHOR_COLOUR %} style="color: {{ recent_topics.TOPIC_AUTHOR_COLOUR }}"{% endif %}>{{ recent_topics.TOPIC_TITLE }}</a>
+						<div class="forum-links">
+							{% if recent_topics.S_HAS_POLL %}{{ POLL_IMG }} {% endif %}
+							{% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %}
+								<a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>
+							{% elseif recent_topics.U_VIEW_FORUM and recent_topics.FORUM_NAME %}
+								{% for parent_forums in recent_topics.parent_forums %}<a class="forum-link" href="{{ parent_forums.U_VIEW_FORUM }}">{{ parent_forums.FORUM_NAME }}</a> &raquo; {% endfor %}<a class="forum-link" href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>
+							{% endif %}
+						</div>
+						{% EVENT topiclist_row_append %}
+					</div>
+				</dt>
+				{% if not S_IS_BOT %}
+				<dd class="lastpost">
+					{% if RT_SORT_START_TIME %}{{ recent_topics.FIRST_POST_TIME }}{% else %}{{ recent_topics.LAST_POST_TIME }}{% endif %}
+					<a href="{{ recent_topics.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">
+						<i class="icon fa-external-link-square fa-fw {% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}icon-red icon-md{% else %}icon-lightgrey icon-md{% endif %}" aria-hidden="true"></i>
+						<span class="sr-only">{{ VIEW_LATEST_POST }}</span>
+					</a>
+				</dd>
+				{% endif %}
+				<dd class="status-icons">
+					{% if recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED %}<a href="{{ recent_topics.U_MCP_QUEUE }}">
+						<i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only"></span></a>
+					{% endif %}
+					{% if recent_topics.S_TOPIC_DELETED %}<a href="{{ recent_topics.U_MCP_QUEUE }}"></a>{% endif %}
+					{% if recent_topics.S_TOPIC_REPORTED %}<a href="{{ recent_topics.U_MCP_REPORT }}"><i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only"></span></a>{% endif %}<br />
+					{% if recent_topics.ATTACH_ICON_IMG %}<i class="icon fa-paperclip fa-fw" aria-hidden="true"></i>{% endif %}
+				</dd>
+
+			</dl>
+		</li>
+	{% if recent_topics.S_LAST_ROW %}
+	</ul>
+	{% endif %}
+{% else %}
+	<div class="panel">
+		<div class="inner" style="padding: 10px;" >
+		<strong>{{ lang('RT_NO_TOPICS') }}</strong>
+		</div>
+	</div>
+{% endfor %}
+
+	{% if loops.pagination|length %}
+	<div class="action-bar">
+		<div class="pagination">
+			{% INCLUDE 'pagination.html' %}
+		</div>
+	</div>
+	{% endif %}
+
+	</div>
+</div>
+
+{% endif %}
+

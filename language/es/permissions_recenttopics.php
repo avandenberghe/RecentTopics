@@ -26,5 +26,6 @@ $lang = array_merge(
 	'ACL_U_RT_LOCATION'        => 'Temas recientes: Puede seleccionar la posición donde será mostrada',
 	'ACL_U_RT_SORT_START_TIME' => 'Temas recientes: Puede cambiar el método de ordenación',
 	'ACL_U_RT_UNREAD_ONLY'     => 'Temas recientes: Puede activar el módo “solo no leídos”',
+	'ACL_U_RT_NUMBER'          => 'Temas recientes: puede establecer el número de temas por página',
 	)
 );

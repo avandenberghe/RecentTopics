@@ -2,7 +2,7 @@
 /**
  *
  * @package Recent Topics Extension
- * Russian translation by HD321kbps
+ * Tradução Portuguesa by phpbbpt
  *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -19,7 +19,9 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-$lang = array_merge($lang, array(
-	'RECENT_TOPICS'	=> 'Последние темы',
-	'RT_NO_TOPICS'	=> 'Нет последних тем для отображения.',
-));
+$lang = array_merge(
+	$lang, array(
+	'RECENT_TOPICS'     => 'Tópicos Recentes',
+	'RT_NO_TOPICS'		=> 'Não há novos tópicos a serem exibidos.',
+	)
+);

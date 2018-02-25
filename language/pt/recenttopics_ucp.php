@@ -2,7 +2,7 @@
 /**
  *
  * @package Recent Topics Extension
- * Russian translation by HD321kbps
+ * Tradução Portuguesa by phpbbpt
  *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -37,15 +37,16 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge(
 	$lang, array(
-	'RT_ENABLE'				=> 'Показывать последние темы',
-	'RT_TOP' 				=> 'Показывать вверху',
-	'RT_BOTTOM' 			=> 'Показывать внизу',
-	'RT_SIDE' 				=> 'Показывать сбоку',
-	'RT_LOCATION' 			=> 'Расположение последних тем',
-	'RT_LOCATION_EXP' 		=> 'Выберите расположение для отображения блока последних тем.',
-	'RT_NUMBER'				=> 'Число тем в списке',
-	'RT_NUMBER_EXP'			=> 'Количество тем, отображаемых на главной странице.',
-	'RT_SORT_START_TIME'	=> 'Сортировать по дате создания',
-	'RT_SORT_START_TIME_EXP'=> 'Если включено, темы будут отсортированы по дате их создания, а не по дате последнего сообщения.',
-	'RT_UNREAD_ONLY'		=> 'Только непрочтённые'
-));
+	'RT_ENABLE'              => 'Exibir tópicos recentes',
+	'RT_TOP'                 => 'Mostrar no topo',
+	'RT_BOTTOM'              => 'Mostrar no fundo',
+	'RT_SIDE'                => 'Mostrar no lado direito',
+	'RT_LOCATION'            => 'Selecionar localização',
+	'RT_LOCATION_EXP'        => 'Selecionar local para exibir tópicos recentes.',
+	'RT_NUMBER'              => 'Número de tópicos recentes para mostrar',
+	'RT_NUMBER_EXP'          => 'Número máximo de tópicos a serem exibidos por página.',
+	'RT_SORT_START_TIME'     => 'Ordenar tópicos recentes por tópico hora de início',
+	'RT_SORT_START_TIME_EXP' => 'Em vez de classificá-los por último tempo de postagem',
+	'RT_UNREAD_ONLY'         => 'Mostrar apenas tópicos não lidos nos tópicos recentes',
+	)
+);
