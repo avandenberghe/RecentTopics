@@ -46,6 +46,6 @@ $lang = array_merge($lang, array(
 	'ACL_U_RT_LOCATION'        => 'Peut modifier l’emplacement de la liste des sujets récents.',
 	'ACL_U_RT_SORT_START_TIME' => 'Peut modifier le mode de tri de la liste des sujets récents.',
 	'ACL_U_RT_UNREAD_ONLY'     => 'Peut afficher uniquement les sujets non lus dans la liste des sujets récents.',
-	'ACL_U_RT_NUMBER'          => 'Peut définir le nombre de sujets par page',
+	'ACL_U_RT_NUMBER'          => 'Peut définir le nombre de sujets par page.',
 	)
 );
