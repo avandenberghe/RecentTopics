@@ -52,5 +52,6 @@ services:
             - '@template'
             - '@user'
             - '@language'
+            - '@dbal.conn'
         tags:
             - { name: event.listener }
