@@ -3,6 +3,7 @@
 
 - 2.2.8 (10/06/2018)
   - [FIX] #82 RT FIX
+  - [FIX] #108 poll layout issue
 
 - 2.2.7 (25/02/2018) 
   - [NEW] #82 recent topics is now available on a special page http://url/app.php/rt
