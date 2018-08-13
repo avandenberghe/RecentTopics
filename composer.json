@@ -36,8 +36,8 @@
         "version-check": {
             "host": "www.phpbb.com",
             "directory": "/customise/db/extension/recent_topics_2",
-            "filename": "version_check”,
-		"ssl": true
+            "filename": "version_check",
+            "ssl": true
         }
     }
 }
