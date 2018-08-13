@@ -29,7 +29,7 @@ class release_2_2_8 extends \phpbb\db\migration\migration
 	{
 		return array(
 			array('config.update', array('rt_version', '2.2.8')),
-			array('custom', array(array($this, 'fix_rt_number'))), 
+			array('custom', array(array($this, 'fix_rt_number'))),
 			array('permission.permission_set', array('ROLE_USER_FULL', 'u_rt_view')),
 		);
 
@@ -43,5 +43,4 @@ class release_2_2_8 extends \phpbb\db\migration\migration
 		$sql = 'UPDATE ' . $this->table_prefix . 'users' . " SET user_rt_number = '" . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 ) . "' ";
 		$this->db->sql_query($sql);
 	}
-
 }
