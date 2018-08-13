@@ -216,13 +216,13 @@ class ucp_listener implements EventSubscriberInterface
 	public function ucp_register_set_data($event)
 	{
 		$sql = ' UPDATE ' . USERS_TABLE . ' SET ';
-		$sql .= " user_rt_enable = '" . $this->config['rt_index'] . "' ";
-		$sql .= ", user_rt_sort_start_time = '" . $this->config['rt_sort_start_time'] . "' ";
-		$sql .= ", user_rt_unread_only = '" . $this->config['rt_unread_only'] . "' ";
+		$sql .= " user_rt_enable = '" . (int) $this->config['rt_index'] . "' ";
+		$sql .= ", user_rt_sort_start_time = '" . (int) $this->config['rt_sort_start_time'] . "' ";
+		$sql .= ", user_rt_unread_only = '" . (int) $this->config['rt_unread_only'] . "' ";
 		$sql .= ", user_rt_location = '" . $this->config['rt_location'] . "' ";
 		$sql .= ', user_rt_number = ' . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 ) . ' ';
 		$sql .= ' WHERE 1=1 ';
-		$sql .= ' AND user_id = ' . $this->user->data['user_id'];
+		$sql .= ' AND user_id = ' . (int) $this->user->data['user_id'];
 
 		$this->db->sql_query($sql);
 	}
