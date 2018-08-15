@@ -41,7 +41,7 @@
 						{% EVENT topiclist_row_prepend %}
 						<a href="{{ recent_topics.U_VIEW_TOPIC }}" class="topictitle">{{ recent_topics.TOPIC_TITLE }}</a>
 						<div class="forum-links">
-							{% if recent_topics.S_HAS_POLL %}{{ POLL_IMG }} {% endif %}
+							{% if recent_topics.S_HAS_POLL %}<i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i>{% endif %}
 							{% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %}
 								<a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>
 							{% elseif recent_topics.U_VIEW_FORUM and recent_topics.FORUM_NAME %}

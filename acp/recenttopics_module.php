@@ -33,7 +33,7 @@ class recenttopics_module
 		$language->add_lang('viewforum');
 
 		$this->tpl_name = 'acp_recenttopics';
-		$this->page_title = $user->lang('RECENT_TOPICS');
+		$this->page_title = $language->lang('RECENT_TOPICS');
 
 		$form_key = 'acp_recenttopics';
 		add_form_key($form_key);
@@ -42,7 +42,7 @@ class recenttopics_module
 		{
 			if (!check_form_key($form_key))
 			{
-				trigger_error($user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+				trigger_error($language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
 			/*
@@ -90,7 +90,7 @@ class recenttopics_module
 			$rt_unread_only = $request->variable('rt_unread_only', false);
 			$config->set('rt_unread_only', $rt_unread_only);
 
-			trigger_error($user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
+			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
 		$topic_types = array (

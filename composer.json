@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Recent topics Extension for phpBB3.2. Adds a list with a number of recent topics to the index.php",
     "homepage": "https://github.com/sajaki/RecentTopics",
-    "version": "2.2.7",
-    "time": "2018-02-25",
+    "version": "2.2.8",
+    "time": "2018-08-10",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -22,9 +22,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "composer/installers": "~1.0.0",
-        "phpbb/phpbb": ">=3.2.0"
+        "php": ">=5.4",
+        "composer/installers": "~1.0"
     },
     "require-dev": {
         "phpbb/epv": "dev-master"
@@ -37,7 +36,8 @@
         "version-check": {
             "host": "www.phpbb.com",
             "directory": "/customise/db/extension/recent_topics_2",
-            "filename": "version_check"
+            "filename": "version_check",
+            "ssl": true
         }
     }
 }

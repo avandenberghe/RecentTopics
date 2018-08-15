@@ -56,6 +56,9 @@ class ucp_listener implements EventSubscriberInterface
 	 */
 	protected $language;
 
+	/* @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
 	/**
 	 * ucp_listener constructor.
 	 *
@@ -65,13 +68,16 @@ class ucp_listener implements EventSubscriberInterface
 	 * @param \phpbb\template\template $template
 	 * @param \phpbb\user              $user
 	 * @param \phpbb\language\language $language
+	 * @param \phpbb\db\driver\driver_interface $db
 	 */
 	public function __construct(\phpbb\auth\auth $auth,
 		\phpbb\config\config $config,
 		\phpbb\request\request $request,
 		\phpbb\template\template $template,
 		\phpbb\user $user,
-		\phpbb\language\language $language)
+		\phpbb\language\language $language,
+		\phpbb\db\driver\driver_interface $db
+	)
 	{
 		$this->auth = $auth;
 		$this->config = $config;
@@ -79,6 +85,7 @@ class ucp_listener implements EventSubscriberInterface
 		$this->template = $template;
 		$this->user = $user;
 		$this->language = $language;
+		$this->db = $db;
 	}
 
 	/**
@@ -89,6 +96,7 @@ class ucp_listener implements EventSubscriberInterface
 		return array(
 		'core.ucp_prefs_view_data'        => 'ucp_prefs_get_data',
 		'core.ucp_prefs_view_update_data' => 'ucp_prefs_set_data',
+		'core.ucp_register_data_after'		  => 'ucp_register_set_data'
 		);
 	}
 
@@ -115,6 +123,7 @@ class ucp_listener implements EventSubscriberInterface
 
 			$template_vars = array();
 
+			// if authorised for one of these then set ucp master template variable to true
 			if ($this->auth->acl_get('u_rt_enable') || $this->auth->acl_get('u_rt_location') || $this->auth->acl_get('u_rt_sort_start_time') || $this->auth->acl_get('u_rt_unread_only'))
 			{
 				$template_vars += array(
@@ -199,4 +208,24 @@ class ucp_listener implements EventSubscriberInterface
 			)
 		);
 	}
+
+	/**
+	 * After new user registration, set rt user parameters to default;
+	 * @param $event
+	 */
+	public function ucp_register_set_data($event)
+	{
+		$sql = ' UPDATE ' . USERS_TABLE . ' SET ';
+		$sql .= " user_rt_enable = '" . (int) $this->config['rt_index'] . "' ";
+		$sql .= ", user_rt_sort_start_time = '" . (int) $this->config['rt_sort_start_time'] . "' ";
+		$sql .= ", user_rt_unread_only = '" . (int) $this->config['rt_unread_only'] . "' ";
+		$sql .= ", user_rt_location = '" . $this->config['rt_location'] . "' ";
+		$sql .= ', user_rt_number = ' . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 ) . ' ';
+		$sql .= ' WHERE 1=1 ';
+		$sql .= ' AND user_id = ' . (int) $this->user->data['user_id'];
+
+		$this->db->sql_query($sql);
+	}
+
+
 }

@@ -23,7 +23,7 @@ class recenttopics_info
 	public function module()
 	{
 		return array(
-		'filename'    => '\paybas\recenttopics\recenttopics_module',
+		'filename'    => '\paybas\recenttopics\acp\recenttopics_module',
 		'title'        => 'RECENT_TOPICS',
 		'modes'        => array(
 		'recenttopics_config' => array('title' => 'RT_CONFIG', 'auth' => 'ext_paybas/recenttopics && acl_a_board', 'cat' => array('RECENT_TOPICS')),

@@ -78,7 +78,7 @@
 						{% endif %}
 
 						<div class="responsive-hide">
-							{% if recent_topics.S_HAS_POLL %}{{ POLL_IMG }} {% endif %}
+							{% if recent_topics.S_HAS_POLL %}<i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i>{% endif %}
 							{{ lang('POST_BY_AUTHOR') }} {{ recent_topics.TOPIC_AUTHOR_FULL }} &raquo; {{ recent_topics.FIRST_POST_TIME }}
 							{% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %} &raquo; {{ lang('IN') }} <a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>
 							{% elseif recent_topics.U_VIEW_FORUM and recent_topics.FORUM_NAME %} &raquo; {{ lang('IN') }} {% for parent_forums in recent_topics.parent_forums %}<a href="{{ parent_forums.U_VIEW_FORUM }}">{{ parent_forums.FORUM_NAME }}</a> &raquo; {% endfor %}<a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>{% endif %}

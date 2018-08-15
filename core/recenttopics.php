@@ -737,12 +737,22 @@ use phpbb\language\language;
 				$vars = array('sql_array');
 				extract($this->dispatcher->trigger_event('paybas.recenttopics.sql_pull_topics_list', compact($vars)));
 
+				//count topics
+				$count_sql_array = $sql_array;
+				$count_sql_array['SELECT'] = 'COUNT(t.topic_id) as topic_count';
+				unset($count_sql_array['ORDER_BY']);
+				$sql = $this->db->sql_build_query('SELECT', $count_sql_array);
+				$result = $this->db->sql_query($sql);
+				$num_rows = (int) $this->db->sql_fetchfield('topic_count', $result);
+				$this->db->sql_freeresult($result);
+
+				//load topics list
 				$sql = $this->db->sql_build_query('SELECT', $sql_array);
 				$result = $this->db->sql_query_limit($sql, $total_topics_limit);
 
 				if ($result != null)
 				{
-					$rtstart = min((int) $result->num_rows - 1 , $rtstart);
+					$rtstart = min($num_rows - 1 , $rtstart);
 				}
 				else
 				{
