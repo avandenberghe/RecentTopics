@@ -156,7 +156,7 @@ class recenttopics_module
 				'user_rt_location'      => $this->db->sql_escape($this->config['rt_location']),
 				'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
 			);
-			
+
 			$sql = 'UPDATE ' . USERS_TABLE . '
                 SET ' . $this->db->sql_build_array('UPDATE', $sql_ary);
 			
