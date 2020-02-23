@@ -149,22 +149,18 @@ class recenttopics_module
 		//reset user preferences
 		if ($request->is_set_post('rt_reset_default'))
 		{
-			$rt_unread_only = isset($config['rt_unread_only']) ? ($config['rt_unread_only']=='' ? 0 :$config['rt_unread_only'])  : 0;
-			$rt_sort_start_time = isset($config['rt_sort_start_time']) ?  ($config['rt_sort_start_time']=='' ? 0 : $config['rt_sort_start_time'])  : 0;
-			$rt_enable =  isset($config['rt_index']) ? ($config['rt_index']== '' ? 0 : $config['rt_index']) : 0;
-			$rt_location = $config['rt_location'];
-			$rt_number = isset($config['rt_number']) ? ($config['rt_number']=='' ? 0 :$config['rt_number'])  : 5;
-
-			$sql = 'UPDATE ' . USERS_TABLE . ' SET
-			user_rt_enable = ' . (int) $rt_enable . ',
-			user_rt_sort_start_time = ' . (int) $rt_sort_start_time . ',
-			user_rt_unread_only = ' . (int) $rt_unread_only . ',
-			user_rt_number = ' . (int) $rt_number . ",
-			user_rt_location =  '" . $db->sql_escape($rt_location) . "'" ;
-
-			$db->sql_query($sql);
+			$sql_ary = array(
+				'user_rt_enable'      => (int) $this->config['rt_index'],
+				'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'] ,
+				'user_rt_unread_only'      => (int) $this->config['rt_unread_only'],
+				'user_rt_location'      => $this->db->sql_escape($this->config['rt_location']),
+				'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
+			);
+			
+			$sql = 'UPDATE ' . USERS_TABLE . '
+                SET ' . $this->db->sql_build_array('UPDATE', $sql_ary);
+			
+			$this->db->sql_query($sql);
 		}
-
 	}
-
 }
