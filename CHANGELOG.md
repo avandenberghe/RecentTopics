@@ -2,6 +2,7 @@
 
 - 2.2.9 (tbd)
   - [CHG] add php 7.2 to travis tests
+  - [FIX] Code fixes
 
 - 2.2.8 (12/08/2018)
   - [FIX] #82 special page fix
