@@ -85,6 +85,16 @@ class page_controller implements page_interface
 	protected $language;
 
 	/**
+	 * @var string
+	 */
+	protected $php_ext;
+
+	/**
+	 * @var string
+	 */
+	protected $path_helper;
+
+	/**
 	 * page constructor.
 	 *
 	 * @param \phpbb\config\config              $config
@@ -141,15 +151,11 @@ class page_controller implements page_interface
 	 * Display the page app.php/rt/
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
-	 * @throws http_exception
 	 * @access public
 	*/
 	public function display()
 	{
 		$page = "recent_topics_page.html";
-
-		global $phpbb_container;
-		$this->language = $phpbb_container->get('language');
 		$this->language->add_lang('info_acp_recenttopics', 'paybas/recenttopics');
 
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
@@ -158,14 +164,7 @@ class page_controller implements page_interface
 		}
 
 		// Load the requested page by route
-		try
-		{
-			$this->response = $this->helper->render($page, $this->language->lang('RECENT_TOPICS'));
-		}
-		catch (\phpbb\pages\exception\base $e)
-		{
-			throw new http_exception(404, 'PAGE_NOT_AVAILABLE', array($page));
-		}
+		$this->response = $this->helper->render($page, $this->language->lang('RECENT_TOPICS'));
 
 		return $this->response;
 	}

@@ -24,7 +24,6 @@
 @media only screen and (max-width: 1024px) {
     /*hide the forum index */
     .index-left, .index-right {
-        width: auto;
         display: block;
         width: 100%;
     }

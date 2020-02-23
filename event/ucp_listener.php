@@ -110,7 +110,7 @@ class ucp_listener implements EventSubscriberInterface
 			$event['data'], array(
 			'rt_enable'          => $this->request->variable('rt_enable', (int) $this->user->data['user_rt_enable']),
 			'rt_location'        => $this->request->variable('rt_location', $this->user->data['user_rt_location']),
-			'rt_number'          => $this->request->variable('rt_number', $this->user->data['user_rt_number']),
+			'rt_number'          => $this->request->variable('rt_number', (int) $this->user->data['user_rt_number']),
 			'rt_sort_start_time' => $this->request->variable('rt_sort_start_time', (int) $this->user->data['user_rt_sort_start_time']),
 			'rt_unread_only'     => $this->request->variable('rt_unread_only', (int) $this->user->data['user_rt_unread_only']),
 			)
@@ -215,17 +215,19 @@ class ucp_listener implements EventSubscriberInterface
 	 */
 	public function ucp_register_set_data($event)
 	{
-		$sql = ' UPDATE ' . USERS_TABLE . ' SET ';
-		$sql .= " user_rt_enable = '" . (int) $this->config['rt_index'] . "' ";
-		$sql .= ", user_rt_sort_start_time = '" . (int) $this->config['rt_sort_start_time'] . "' ";
-		$sql .= ", user_rt_unread_only = '" . (int) $this->config['rt_unread_only'] . "' ";
-		$sql .= ", user_rt_location = '" . $this->config['rt_location'] . "' ";
-		$sql .= ', user_rt_number = ' . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 ) . ' ';
-		$sql .= ' WHERE 1=1 ';
-		$sql .= ' AND user_id = ' . (int) $this->user->data['user_id'];
+
+		$sql_ary = array(
+			'user_rt_enable'      => (int) $this->config['rt_index'],
+			'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'] ,
+			'user_rt_unread_only'      => (int) $this->config['rt_unread_only'],
+			'user_rt_location'      => $this->db->sql_escape($this->config['rt_location']),
+			'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
+		);
+
+		$sql = 'UPDATE ' . USERS_TABLE . '
+                SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
+                WHERE user_id = ' . (int) $this->user->data['user_id'];
 
 		$this->db->sql_query($sql);
 	}
-
-
 }

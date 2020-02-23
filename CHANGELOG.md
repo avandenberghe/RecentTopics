@@ -1,10 +1,13 @@
 ### Changelog
 
+- 2.2.9 (tbd)
+  - [CHG] add php 7.2 to travis tests
 
 - 2.2.8 (12/08/2018)
   - [FIX] #82 special page fix
   - [FIX] #108 poll layout issue
   - [FIX] #107 registration issue
+  - [FIX] #109 make curl https compatible
 
 - 2.2.7 (25/02/2018) 
   - [NEW] #82 recent topics is now available on a special page http://url/app.php/rt
