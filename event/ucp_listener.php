@@ -14,15 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use phpbb\language\language;
 
 /**
- * An EventSubscriber knows himself what events he is interested in.
- * If an EventSubscriber is added to an EventDispatcherInterface, the manager invokes
- * {@link getSubscribedEvents} and registers the subscriber as a listener for all
- * returned events.
- *
- * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author Jonathan Wage <jonwage@gmail.com>
- * @author Roman Borschel <roman@code-factory.org>
- * @author Bernhard Schussek <bschussek@gmail.com>
+ * Event listener
  */
 class ucp_listener implements EventSubscriberInterface
 {

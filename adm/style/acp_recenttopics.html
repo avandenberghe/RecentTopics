@@ -115,6 +115,24 @@
 	</fieldset>
 
 	<fieldset>
+		<legend>{{ lang('RT_VERSION_CHECK') }}</legend>
+		<dl>
+			<dt><label>{{ lang('RT_EXT_VERSION') }}</label></dt>
+			<dd>
+				<strong class="{% if S_RT_OK %}success{% elseif S_RT_OLD %}error{% else %}syntaxcomment{% endif %}">{{ EXT_VERSION }}</strong>
+				{% if not S_RT_OK %}({{ lang('RT_LATEST_VERSION') }}{{ lang('COLON') }} {{ RT_LATESTVERSION }}){% endif %}
+			</dd>
+		</dl>
+		{% if not S_RT_OK %}
+		<dl>
+			<dt><p><small>{{ lang('RT_CHECK_UPDATE') }}</small></p></dt>
+			<dd>{% if not RT_LATESTVERSION %}<strong class="error">{{ lang('VERSIONCHECK_FAIL') }}</strong>{% endif %}
+				<a href="{{ U_VERSIONCHECK_FORCE }}">{{ lang('VERSIONCHECK_FORCE_UPDATE') }}</a></dd>
+		</dl>
+		{% endif %}
+	</fieldset>
+
+	<fieldset>
 		<legend>{{ lang('RT_DONATE') }}</legend>
 		<dl>
 			<dt><label>{{ lang('RT_DONATE_SHORT') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_DONATE_EXPLAIN') }}</span></dt>

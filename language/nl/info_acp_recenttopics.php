@@ -54,7 +54,7 @@ $lang = array_merge(
 		'RT_PAGE_NUMBER'                => 'Toon alle pagina’s',
 		'RT_PAGE_NUMBER_EXP'            => 'Aanvinken om alle pagina’s weer te geven.',
 		'RT_PAGE_NUMBERMAX'             => 'Maximum aantal pagina’s',
-		'RT_PAGE_NUMBERMAX_EXP'         => 'Stel het maximum aantal pagina’s in (1-999).',
+		'RT_PAGE_NUMBERMAX_EXP'         => 'Stel het maximum aantal pagina’s in.',
 		'RT_MIN_TOPIC_LEVEL'            => 'Onderwerptypes',
 		'RT_MIN_TOPIC_LEVEL_EXP'        => 'Stel het minimum weer te geven onderwerptype in.',
 		'RT_ANTI_TOPICS'                => 'Uitgesloten onderwerpen',
@@ -79,6 +79,13 @@ $lang = array_merge(
 		//ondersteuning andere extensies
 		'RT_NICKVERGESSEN_NEWSPAGE'     => 'Ondersteuning van nieuwspagina extensie Nickvergessen',
 		'RT_VIEW_ON'                    => 'Toon recente onderwerpen op:',
+
+		//Versie controle
+		'RT_VERSION_CHECK'				=> 'Versie controle',
+		'RT_LATEST_VERSION'				=> 'Laatste versie',
+		'RT_EXT_VERSION'				=> 'Extensie versie',
+		'RT_VERSION_ERROR'				=> 'Kan laatste versie niet ophalen!',
+		'RT_CHECK_UPDATE'				=> 'Bezoek <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a> voor nieuwere versies.',
 
 		//Donatiies
 		'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',

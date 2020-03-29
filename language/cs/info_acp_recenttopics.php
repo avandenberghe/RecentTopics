@@ -34,7 +34,7 @@ $lang = array_merge(
 	'RT_PAGE_NUMBER'                => 'Počet stránek nedávných témat',
 	'RT_PAGE_NUMBER_EXP'            => 'Zaškrtnutím této volby vypnete stránkování pro blok nedávných témat.',
 	'RT_PAGE_NUMBERMAX'             => 'Maximální počet stránek',
-	'RT_PAGE_NUMBERMAX_EXP'         => 'Nastavte maximum stránek (1-999) pro zobrazení ve stránkování nedávných témat (není-li přepsáno jiným nastavením).',
+	'RT_PAGE_NUMBERMAX_EXP'         => 'Nastavte maximum stránek pro zobrazení ve stránkování nedávných témat (není-li přepsáno jiným nastavením).',
 	'RT_MIN_TOPIC_LEVEL'            => 'Minimální úroveň tématu',
 	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Určuje minimální úrověň typu tématu pro zobrazení. Zobrazena budou pouze témata zvolené úrovně a vyšší.',
 	'RT_ANTI_TOPICS'                => 'Vyloučená témata',
@@ -57,6 +57,12 @@ $lang = array_merge(
 	//Enable for extensions
 	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Podpora pro rozšíření NewsPage',
 	'RT_VIEW_ON'                     => 'Zobrazit nedávná témata na:',
+	//Version checker
+	'RT_VERSION_CHECK'				=> 'Kontrola verze',
+	'RT_LATEST_VERSION'				=> 'Poslední verze',
+	'RT_EXT_VERSION'				=> 'Verze rozšíření',
+	'RT_VERSION_ERROR'				=> 'Aktualizace se nepodařilo vyhledat.',
+	'RT_CHECK_UPDATE'				=> 'Informace o dostupných aktualizacích naleznete zde: <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a>.',
 	//Donation
 	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

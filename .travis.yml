@@ -45,7 +45,6 @@ env:
 branches:
   only:
     - develop32
-    - develop32_cdb
     - /^\d+(\.\d+)?\.x$/
 
 install:

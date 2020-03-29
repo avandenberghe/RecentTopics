@@ -38,7 +38,7 @@ $lang = array_merge(
 	'RT_PAGE_NUMBER'                => 'Páginas de temas recientes',
 	'RT_PAGE_NUMBER_EXP'            => 'Activar esta opción desactivará la paginación de la lista de temas recientes',
 	'RT_PAGE_NUMBERMAX'		=> 'Número máximo de páginas',
-	'RT_PAGE_NUMBERMAX_EXP'		=> 'Definir el número máximo de páginas (1-999)',
+	'RT_PAGE_NUMBERMAX_EXP'		=> 'Definir el número máximo de páginas',
 	'RT_MIN_TOPIC_LEVEL'            => 'Nivel de tema mínimo',
 	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Determina el nivel de tema mínimo para poder se mostrado. Solo mostrará temas del nivel especificado y superior.',
 	'RT_ANTI_TOPICS'                => 'Temas excluidos',
@@ -63,6 +63,13 @@ $lang = array_merge(
 	// extensiones
 	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Soporte para la extensión “NewsPage”',
 	'RT_VIEW_ON'                    => 'Ver “Temas Recientes” en:',
+
+	//Version checker
+	'RT_VERSION_CHECK'				=> 'Comprobación de la versión',
+	'RT_LATEST_VERSION'				=> 'Última versión',
+	'RT_EXT_VERSION'				=> 'Versión de la extensión',
+	'RT_VERSION_ERROR'				=> '¡No se ha podido comprobar la última versión!',
+	'RT_CHECK_UPDATE'				=> 'Visita <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a> para comprobar si hay actualizaciones disponibles.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',

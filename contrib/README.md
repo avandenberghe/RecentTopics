@@ -68,3 +68,4 @@ v2.2.12 (28/03/2020) [![Build Status](https://travis-ci.org/Sajaki/RecentTopics.
 
 © 2015 - PayBas
 © 2017 - Sajaki
+

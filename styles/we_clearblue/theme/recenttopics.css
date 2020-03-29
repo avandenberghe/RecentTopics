@@ -24,14 +24,9 @@
 @media only screen and (max-width: 1024px) {
     /*hide the forum index */
     .index-left, .index-right {
-        width: auto;
         display: block;
         width: 100%;
     }
-}
-
-#recent-topics {
-    border-top: 1px solid #444;
 }
 
 #recent-topics ul {
@@ -44,8 +39,16 @@
     transition: background 0.15s ease-in-out 0s;
 }
 
+#recent-topics li.row:hover  {
+    background-color: #e1ebf5 !important;
+}
+
+#recent-topics li dl.icon {
+    padding-bottom: 0px;
+}
+
 #recent-topics li.row dl {
-    padding: 9px 5px 13px 0;
+    padding: 9px 5px 5px 0;
     position: relative;
 }
 
@@ -53,10 +56,6 @@
     clear: both;
     content: "";
     display: block;
-}
-
-#recent-topics .reported {
-    background-color: transparent;
 }
 
 #recent-topics a.topictitle {
@@ -72,20 +71,15 @@
     font-size: 10px;
 }
 
-#recent-topics a:hover {
-    color: #FFF;
-    text-decoration: none;
-}
-
 #recent-topics dd.lastpost {
     bottom: 3px;
     right: 5px;
     line-height: normal;
     display: block;
     min-height: inherit;
-    font-size: 10px;
     width: auto;
     text-align: right;
+    font-size:12px;
 }
 
 #recent-topics dl {
@@ -103,4 +97,12 @@
 #recent-topics dd.status-icons > span {
     float: right;
     margin-left: 2px;
+}
+
+#recenttopicstop  .action-bar {
+    margin-bottom: 0.5em;
+}
+
+#recenttopicsbottom .forabg + .action-bar {
+    margin-top: 0.5em;
 }

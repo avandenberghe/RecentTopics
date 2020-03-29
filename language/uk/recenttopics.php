@@ -2,7 +2,7 @@
 /**
  *
  * @package Recent Topics Extension
- * Dutch translation by PayBas
+ * English translation by PayBas
  *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -21,7 +21,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge(
 	$lang, array(
-	'RECENT_TOPICS'   => 'Recente Onderwerpen',
-	'RT_NO_TOPICS'	  => 'Er zijn geen recente onderwerpen weer te geven.',
+	'RECENT_TOPICS'     => 'Останні Теми',
+	'RT_NO_TOPICS'		=> 'Немає нових тем.',
 	)
 );

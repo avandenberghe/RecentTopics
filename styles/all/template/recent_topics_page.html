@@ -1,4 +1,131 @@
 {% INCLUDE 'simple_header.html' %}
-{% INCLUDE 'recent_topics_body_topbottom.html' %}
+
+<a id="recent-topics"></a>
+
+{% if loops.pagination|length and (S_LOCATION_TOP) %}
+<div class="action-bar">
+    <div class="pagination">
+        {% INCLUDE 'pagination.html' %}
+    </div>
+</div>
+{% endif %}
+
+{% for recent_topics in loops.recent_topics %}
+{% if not recent_topics.S_TOPIC_TYPE_SWITCH and not recent_topics.S_FIRST_ROW %}
+</ul>
+</div>
+</div>
+{% endif %}
+
+{% if recent_topics.S_FIRST_ROW or not recent_topics.S_TOPIC_TYPE_SWITCH %}
+<a class="category{% if S_EXT_COLCAT_HIDDEN %} hidden-category{% endif %}" style="display: none; height: 0"></a>
+<div id="recent-topics-box" class="forabg recent-topics">
+    <div class="inner">
+        <ul class="topiclist">
+            <li class="header">
+                <dl class="row-item">
+                    <dt><div class="list-inner">{{ lang('RECENT_TOPICS') }}</div></dt>
+                    <dd class="posts">{{ lang('REPLIES') }}</dd>
+                    <dd class="views">{{ lang('VIEWS') }}</dd>
+                    <dd class="lastpost"><span>{{ lang('LAST_POST') }}</span></dd>
+                </dl>
+                {% set S_CC_FORUM_HIDDEN = S_EXT_COLCAT_HIDDEN %}
+                {% set U_CC_COLLAPSE_URL = U_EXT_COLCAT_COLLAPSE_URL %}
+                {% include '@phpbb_collapsiblecategories/collapsible_categories_button.html' ignore missing %}
+            </li>
+        </ul>
+        <ul class="topiclist topics collapsible">
+            {% endif %}
+            <li class="row{% if recent_topics.S_ROW_COUNT is even %} bg1{% else %} bg2{% endif %}{% if recent_topics.S_POST_GLOBAL %} global-announce{% endif %}{% if recent_topics.S_POST_ANNOUNCE %} announce{% endif %}{% if recent_topics.S_POST_STICKY %} sticky{% endif %}{% if recent_topics.S_TOPIC_REPORTED %} reported{% endif %}">
+
+                <dl class="row-item {{ recent_topics.TOPIC_IMG_STYLE }}">
+                    <dt{% if recent_topics.TOPIC_ICON_IMG and S_TOPIC_ICONS %} style="background-image: url({{ T_ICONS_PATH }}{{ recent_topics.TOPIC_ICON_IMG }}); background-repeat: no-repeat;"{% endif %} title="{{ recent_topics.TOPIC_FOLDER_IMG_ALT }}">
+                    {% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}<a href="{{ recent_topics.U_NEWEST_POST }}" class="row-item-link"></a>{% endif %}
+                    <div class="list-inner">
+                        {% EVENT topiclist_row_prepend %}
+                        {% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}
+                        <a href="{{ recent_topics.U_NEWEST_POST }}">
+                            <i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span class="sr-only"></span>
+                        </a> {% endif %}<a href="{{ recent_topics.U_LAST_POST }}" class="topictitle">{{ recent_topics.LAST_POST_SUBJECT }}</a>
+
+                        {% if recent_topics.ATTACH_ICON_IMG %}<i class="icon fa-paperclip fa-fw" aria-hidden="true"></i>{% endif %}
+
+                        {% if recent_topics.S_TOPIC_UNAPPROVED or recent_topics.S_POSTS_UNAPPROVED %}<a href="{{ recent_topics.U_MCP_QUEUE }}">
+                        <i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only"></span></a>
+                        {% endif %}
+                        {% if recent_topics.S_TOPIC_DELETED %}<a href="{{ recent_topics.U_MCP_QUEUE }}"></a> {% endif %}
+                        {% if recent_topics.S_TOPIC_REPORTED %}<a href="{{ recent_topics.U_MCP_REPORT }}"><i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only"></span></a>{% endif %}<br />
+
+                        {% if not S_IS_BOT %}
+                        <div class="responsive-show" style="display: none;">
+                            {{ lang('LAST_POST') }} {{ lang('POST_BY_AUTHOR') }} {% EVENT viewforum_body_last_post_author_username_prepend %} {{ recent_topics.LAST_POST_AUTHOR_FULL }} {% EVENT viewforum_body_last_post_author_username_append %} &laquo; <a href="{{ recent_topics.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">{{ recent_topics.LAST_POST_TIME }}</a>
+                            {% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %}<br />{{ lang('POSTED') }} {{ lang('IN') }} <a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>{% endif %}
+                        </div>
+                        {% if recent_topics.REPLIES %}<span class="responsive-show left-box" style="display: none;">{{ lang('REPLIES') }}{{ lang('COLON') }} <strong>{{ recent_topics.REPLIES }}</strong></span>{% endif %}
+                        {% endif %}
+
+                        {% if recent_topics.pagination|length %}
+                        <div class="pagination">
+							<span>
+							<i class="icon fa-clone fa-fw" aria-hidden="true">	</i>
+							</span>
+                            <ul>
+                                {% for pagination in recent_topics.pagination %}
+                                {% if pagination.S_IS_PREV %}
+                                {% elseif pagination.S_IS_CURRENT %}<li class="active"><span>{{ pagination.PAGE_NUMBER }}</span></li>
+                                {% elseif pagination.S_IS_ELLIPSIS %}<li class="ellipsis"><span>{{ lang('ELLIPSIS') }}</span></li>
+                                {% elseif pagination.S_IS_NEXT %}
+                                {% else %}<li><a class="button" href="{{ pagination.PAGE_URL }}">{{ pagination.PAGE_NUMBER }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <div class="responsive-hide">
+                            {% if recent_topics.S_HAS_POLL %}<i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i>{% endif %}
+                            {{ lang('POST_BY_AUTHOR') }} {% EVENT viewforum_body_topic_author_username_prepend %} {{ recent_topics.TOPIC_AUTHOR_FULL }} {% EVENT viewforum_body_topic_author_username_append %} &raquo; {{ recent_topics.FIRST_POST_TIME }}
+                            {% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %} &raquo; {{ lang('IN') }} <a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>
+                            {% elseif recent_topics.U_VIEW_FORUM and recent_topics.FORUM_NAME %} &raquo; {{ lang('IN') }} {% for parent_forums in recent_topics.parent_forums %}<a href="{{ parent_forums.U_VIEW_FORUM }}">{{ parent_forums.FORUM_NAME }}</a> &raquo; {% endfor %}<a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>{% endif %}
+                        </div>
+
+                        {% EVENT topiclist_row_append %}
+                    </div>
+                    </dt>
+                    <dd class="posts">{{ recent_topics.REPLIES }} <dfn>{{ lang('REPLIES') }}</dfn></dd>
+                    <dd class="views">{{ recent_topics.VIEWS }} <dfn>{{ lang('VIEWS') }}</dfn></dd>
+                    <dd class="lastpost">
+
+						<span><dfn>{{ lang('LAST_POST') }} </dfn>{{ lang('POST_BY_AUTHOR') }} {% EVENT viewforum_body_last_post_author_username_prepend %} {{ recent_topics.LAST_POST_AUTHOR_FULL }} {% EVENT viewforum_body_last_post_author_username_append %}
+						{% if not S_IS_BOT %}
+							<a href="{{ recent_topics.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">
+								<i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i>
+								<span class="sr-only">{{ VIEW_LATEST_POST }}</span>
+							</a> {% endif %}<br />{{ recent_topics.LAST_POST_TIME }}
+						</span>
+                    </dd>
+                </dl>
+            </li>
+            {% if recent_topics.S_LAST_ROW %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+{% else %}
+<div class="panel">
+    <div class="inner" style="padding: 10px;" >
+        <strong>{{ lang('RT_NO_TOPICS') }}</strong>
+    </div>
+</div>
+{% endfor %}
+
+{% if loops.pagination|length and (S_LOCATION_BOTTOM) %}
+<div class="action-bar">
+    <div class="pagination">
+        {% INCLUDE 'pagination.html' %}
+    </div>
+</div>
+{% endif %}
 
 {% INCLUDE 'simple_footer.html' %}
