@@ -84,15 +84,8 @@ $lang = array_merge($lang, array(
 	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Support de l’extension « NewsPage »',
 	'RT_VIEW_ON'                    => 'Permet d’afficher les sujets récents sur les pages de l’extension :',
 
-	//Version checker
-	'RT_VERSION_CHECK'				=> 'Vérification de la version',
-	'RT_LATEST_VERSION'				=> 'dernière version',
-	'RT_EXT_VERSION'				=> 'Version de l’extension',
-	'RT_VERSION_ERROR'				=> 'Impossible de vérifier la dernière version disponible !',
-	'RT_CHECK_UPDATE'				=> 'Vérifier manuellement depuis le site Web : <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a> si une nouvelle version est disponible.',
-
 	//Donation
-	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
+	'RT_DONATE_URL'             => 'http://www.avathar.be/forum/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'                => 'Faire un don via PayPal',
 	'RT_DONATE'					=> 'Soutenir le développement',

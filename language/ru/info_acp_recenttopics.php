@@ -63,15 +63,8 @@ $lang = array_merge($lang, array(
 	'RT_NICKVERGESSEN_NEWSPAGE'		=> 'Поддержка расширения NewsPage',
 	'RT_VIEW_ON'					=> 'Размещение списка последних тем:',
 
-	//Version checker
-	'RT_VERSION_CHECK'				=> 'Проверка обновления',
-	'RT_LATEST_VERSION'				=> 'Последняя версия',
-	'RT_EXT_VERSION'				=> 'Версия расширения',
-	'RT_VERSION_ERROR'				=> 'Не удалось осуществить проверку обновления!',
-	'RT_CHECK_UPDATE'				=> 'Посетите сайт <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a>, чтобы узнать о доступных обновлениях.',
-
 	//Donation
-	'RT_DONATE_URL'					=> 'http://www.avathar.be/bbdkp/app.php/page/donate',
+	'RT_DONATE_URL'					=> 'http://www.avathar.be/forum/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'				=> 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'					=> 'Пожертвовать через PayPal',
 	'RT_DONATE'						=> 'Помощь разработчику RecentTopics',

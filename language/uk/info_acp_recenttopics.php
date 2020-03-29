@@ -65,7 +65,7 @@ $lang = array_merge(
 	'RT_VIEW_ON'                    => 'Відображати останні повідомлення на:',
 
 	//Donation
-	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
+	'RT_DONATE_URL'             => 'http://www.avathar.be/forum/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'                => 'Підтримайте проект через PayPal',
 	'RT_DONATE'					=> 'Підтримайте проект "RecentTopics" ("Останні Теми")',
