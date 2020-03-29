@@ -1,11 +1,11 @@
-Recent Topics for phpBB 3.2
+Recent Topics for phpBB 3.2 (CDB version)
 ==========
 
 Extension for phpBB 3.2 to display recent topics.
 Based on NV Recent Topics for phpBB 3.0, by Joas Schilling ([nickvergessen](https://github.com/nickvergessen))
 
 #### Version
-v2.2.12 (28/03/2020) [![Build Status](https://travis-ci.org/Sajaki/RecentTopics.svg?branch=develop32)](https://travis-ci.org/Sajaki/RecentTopics)
+v2.2.12_cdb (28/03/2020) [![Build Status](https://travis-ci.org/Sajaki/RecentTopics.svg?branch=develop32)](https://travis-ci.org/Sajaki/RecentTopics)
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
     
 #### Support
@@ -68,3 +68,4 @@ v2.2.12 (28/03/2020) [![Build Status](https://travis-ci.org/Sajaki/RecentTopics.
 
 © 2015 - PayBas
 © 2017 - Sajaki
+

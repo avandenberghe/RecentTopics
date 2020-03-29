@@ -216,9 +216,6 @@ use phpbb\language\language;
 				return;
 			}
 
-			//load language
-			$this->language->add_lang('recenttopics', 'paybas/recenttopics');
-
 			// support for phpbb collapsable categories extension
 			if ($this->collapsable_categories !== null)
 			{
@@ -236,18 +233,13 @@ use phpbb\language\language;
 			}
 
 			//number of pages
-			$rt_page_numbermax = (int) $this->config['rt_page_numbermax'];
-			$nolimitpages = (int) $this->config['rt_page_number'];
-			if ($nolimitpages == 0)
+			$total_topics_limit = 0;
+			if ((int) $this->config['rt_page_number'] == 0)
 			{
-				$total_topics_limit = $topics_per_page * $rt_page_numbermax;
-			}
-			else
-			{
-				// max 100 pages
-				$total_topics_limit = $topics_per_page * 100;
+				$total_topics_limit = $topics_per_page * (int) $this->config['rt_page_numbermax'];
 			}
 
+			//display parent forums
 			$display_parent_forums = $this->config['rt_parents'];
 
 			//rt block location
@@ -285,7 +277,7 @@ use phpbb\language\language;
 				return;
 			}
 
-			$topics_count = $this->gettopiclist(max(0, min((int) $rtstart, $total_topics_limit)) , $topics_per_page, $total_topics_limit, $sort_topics);
+			$topics_count = $this->gettopiclist($rtstart, $topics_per_page, $total_topics_limit, $sort_topics);
 
 			// If topics to display
 			if (sizeof($this->topic_list))
@@ -444,7 +436,6 @@ use phpbb\language\language;
 						topic_status($row, $replies, $unread_topic, $folder_img, $folder_alt, $topic_type);
 
 						$topic_title = censor_text($row['topic_title']);
-
 						$prefix = '';
 						if ($this->topicprefixes !== null)
 						{
@@ -454,6 +445,16 @@ use phpbb\language\language;
 								$prefix = '[' . $row['topic_prefix'] . '] ';
 							}
 						}
+
+						/**
+						 * Event to remove re
+						 *
+						 * @event paybas.recenttopics.topictitle_remove_re
+						 * @var   array    row      the forum row
+						 * @since 2.2.11
+						 */
+						$vars = array('row');
+						extract($this->dispatcher->trigger_event('paybas.recenttopics.topictitle_remove_re', compact($vars)));
 
 						/**
 						 * Event to modify the topic title
@@ -482,12 +483,18 @@ use phpbb\language\language;
 									}
 								}
 							}
-
 						}
 
 						$topic_title = $prefix === '' ? $topic_title : $prefix . ' ' . $topic_title;
+						$last_post_subject = censor_text($row['topic_last_post_subject']);
+						if ($prefix != '')
+						{
+							$last_post_subject = $prefix . ' ' . $last_post_subject;
+						}
 
 						list($topic_author, $topic_author_color, $topic_author_full, $u_topic_author, $last_post_author, $last_post_author_colour, $last_post_author_full, $u_last_post_author) = $this->getusernamestrings($row);
+						//load language
+						$this->language->add_lang('recenttopics', 'paybas/recenttopics');
 
 						$tpl_ary = array(
 							'FORUM_ID'                => $forum_id,
@@ -497,8 +504,7 @@ use phpbb\language\language;
 							'TOPIC_AUTHOR_FULL'       => $topic_author_full,
 							'U_TOPIC_AUTHOR'          => $u_topic_author,
 							'FIRST_POST_TIME'         => $this->user->format_date($row['topic_time']),
-
-							'LAST_POST_SUBJECT'       => censor_text($row['topic_last_post_subject']),
+							'LAST_POST_SUBJECT'       => $last_post_subject,
 							'LAST_POST_TIME'          => $this->user->format_date($row['topic_last_post_time']),
 							'LAST_VIEW_TIME'          => $this->user->format_date($row['topic_last_view_time']),
 							'LAST_POST_AUTHOR'        => $last_post_author,
@@ -626,7 +632,6 @@ use phpbb\language\language;
 			);
 		}
 
-
 		/**
 		 * Get the forums we take our topics from
 		 */
@@ -675,6 +680,13 @@ use phpbb\language\language;
 		 */
 		private function gettopiclist($rtstart, $topics_per_page, $total_topics_limit, $sort_topics)
 		{
+			$rtstart = max(0, $rtstart);
+
+			if ($total_topics_limit > 0)
+			{
+				$rtstart = min((int) $rtstart, $total_topics_limit);
+			}
+
 			$this->forums = $this->topic_list = array();
 			$topics_count = 0;
 			$this->obtain_icons = false;
@@ -748,7 +760,15 @@ use phpbb\language\language;
 
 				//load topics list
 				$sql = $this->db->sql_build_query('SELECT', $sql_array);
-				$result = $this->db->sql_query_limit($sql, $total_topics_limit);
+
+				if ($total_topics_limit > 0)
+				{
+					$result = $this->db->sql_query_limit($sql, $total_topics_limit);
+				}
+				else
+				{
+					$result = $this->db->sql_query($sql);
+				}
 
 				if ($result != null)
 				{
@@ -778,14 +798,11 @@ use phpbb\language\language;
 						{
 							$this->obtain_icons = true;
 						}
-
 					}
 				}
 				$this->db->sql_freeresult($result);
 			}
-
 			return $topics_count;
-
 		}
 
 		/**
@@ -805,7 +822,6 @@ use phpbb\language\language;
 			return array($topic_author, $topic_author_color, $topic_author_full, $u_topic_author, $last_post_author, $last_post_author_colour, $last_post_author_full, $u_last_post_author);
 		}
 
-
 		/**
 		 * this helper function checks if anyone is listening to events
 		 * @param string $class
@@ -823,8 +839,6 @@ use phpbb\language\language;
 					return true;
 				}
 			}
-
 			return false;
 		}
-
 	}

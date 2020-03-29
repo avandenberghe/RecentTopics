@@ -80,7 +80,16 @@
 #recent-topics dd.lastpost {
     bottom: 3px;
     right: 5px;
+    line-height: normal;
+    display: block;
     min-height: inherit;
+    font-size: 10px;
+    width: auto;
+    text-align: right;
+}
+
+#recent-topics dl {
+    position: relative;
 }
 
 #recent-topics dd.status-icons {

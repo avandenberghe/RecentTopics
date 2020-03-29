@@ -38,7 +38,7 @@ $lang = array_merge(
 	'RT_PAGE_NUMBER'                => 'Mostrar todas as páginas de tópicos recentes',
 	'RT_PAGE_NUMBER_EXP'            => 'Verifique para substituir o número máximo de páginas exibidas.',
 	'RT_PAGE_NUMBERMAX'             => 'Número máximo de páginas',
-	'RT_PAGE_NUMBERMAX_EXP'         => 'Defina o máximo da página (1-999) para exibir na paginação dos tópicos recentes, a menos que seja substituído.',
+	'RT_PAGE_NUMBERMAX_EXP'         => 'Defina o máximo da página para exibir na paginação dos tópicos recentes, a menos que seja substituído.',
 	'RT_MIN_TOPIC_LEVEL'            => 'Nível mínimo do tipo de tópico',
 	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Determina o nível mínimo do tipo de tópico a ser exibido. Ele só exibirá tópicos do nível definido e mais alto.',
 	'RT_ANTI_TOPICS'                => 'ID de tópico excluído',
@@ -65,7 +65,7 @@ $lang = array_merge(
 	'RT_VIEW_ON'                    => 'Exibir tópicos recentes em:',
 
 	//Donation
-	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
+	'RT_DONATE_URL'             => 'http://www.avathar.be/forum/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'                => 'Doe usando o PayPal',
 	'RT_DONATE'					=> 'Doação para RecentTopics',

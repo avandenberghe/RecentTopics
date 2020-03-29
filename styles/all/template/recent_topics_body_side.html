@@ -8,13 +8,9 @@
 					<dt></dt>
 					<dd class="list-inner">&nbsp;{{ lang('RECENT_TOPICS') }}</dd>
 				</dl>
-				<a href="{{ U_EXT_COLCAT_COLLAPSE_URL }}"
-				   class="collapse-btn collapse-{% if S_EXT_COLCAT_HIDDEN %}show{% else %}hide{% endif %}"
-				   data-hidden="{{ S_EXT_COLCAT_HIDDEN }}"
-				   data-ajax="phpbb_collapse"
-				   data-overlay="true"
-				   title="{{ lang('COLLAPSIBLE_CATEGORIES_TITLE') }}"
-				   style="display: none; line-height: 0;"></a>
+				{% set S_CC_FORUM_HIDDEN = S_EXT_COLCAT_HIDDEN %}
+				{% set U_CC_COLLAPSE_URL = U_EXT_COLCAT_COLLAPSE_URL %}
+				{% include '@phpbb_collapsiblecategories/collapsible_categories_button.html' ignore missing %}
 			</li>
 		</ul>
 	</div>
@@ -39,7 +35,7 @@
 					{% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}<a href="{{ recent_topics.U_NEWEST_POST }}" class="row-item-link"></a>{% endif %}
 					<div class="list-inner">
 						{% EVENT topiclist_row_prepend %}
-						<a href="{{ recent_topics.U_VIEW_TOPIC }}" class="topictitle">{{ recent_topics.TOPIC_TITLE }}</a>
+						<a href="{{ recent_topics.U_LAST_POST }}" class="topictitle">{{ recent_topics.LAST_POST_SUBJECT }}</a>
 						<div class="forum-links">
 							{% if recent_topics.S_HAS_POLL %}<i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i>{% endif %}
 							{% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %}
@@ -53,7 +49,8 @@
 				</dt>
 				{% if not S_IS_BOT %}
 				<dd class="lastpost">
-						<span><dfn>{{ lang('LAST_POST') }} </dfn>
+						<span>
+							{{ lang('POST_BY_AUTHOR') }} {% EVENT viewforum_body_last_post_author_username_prepend %} {{ recent_topics.LAST_POST_AUTHOR_FULL }} {% EVENT viewforum_body_last_post_author_username_append %} &laquo;
 							{% if RT_SORT_START_TIME %}{{ recent_topics.FIRST_POST_TIME }}{% else %}{{ recent_topics.LAST_POST_TIME }}{% endif %}
 							<a href="{{ recent_topics.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">
 								<i class="icon fa-external-link-square fa-fw {% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}icon-red icon-md{% else %}icon-lightgrey icon-md{% endif %}" aria-hidden="true"></i>

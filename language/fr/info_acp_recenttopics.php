@@ -58,7 +58,7 @@ $lang = array_merge($lang, array(
 	'RT_PAGE_NUMBER'                => 'Afficher toutes les pages des sujets récents',
 	'RT_PAGE_NUMBER_EXP'            => 'Permet de passer outre le « Nombre maximal de pages » à afficher dans la pagination. Si activé, tous les sujets du forum seront paginés et autant de pages que nécessaire seront affichées (non recommandé).<br />Si désactivé (décochée), merci de saisir le nombre de page à afficher dans l’option « Nombre maximal de pages ».',
 	'RT_PAGE_NUMBERMAX'             => 'Nombre maximal de pages',
-	'RT_PAGE_NUMBERMAX_EXP'         => 'Permet de saisir le nombre maximal de pages (1 à 999) à afficher dans la pagination des sujets récents lorsque l’option « Afficher toutes les pages des sujets récents » est désactivée (décochée).',
+	'RT_PAGE_NUMBERMAX_EXP'         => 'Permet de saisir le nombre maximal de pages à afficher dans la pagination des sujets récents lorsque l’option « Afficher toutes les pages des sujets récents » est désactivée (décochée).',
 	'RT_MIN_TOPIC_LEVEL'            => 'Niveau minimum du type de sujets affichés',
 	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Permet de sélectionner le niveau minimum du type de sujets à afficher dans la liste des sujets récents. Les sujets correspondants au niveau paramétré et aux niveaux supérieurs seront affichés.',
 	'RT_ANTI_TOPICS'                => 'Exclure des sujets de l’affichage',
@@ -85,7 +85,7 @@ $lang = array_merge($lang, array(
 	'RT_VIEW_ON'                    => 'Permet d’afficher les sujets récents sur les pages de l’extension :',
 
 	//Donation
-	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
+	'RT_DONATE_URL'             => 'http://www.avathar.be/forum/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'                => 'Faire un don via PayPal',
 	'RT_DONATE'					=> 'Soutenir le développement',

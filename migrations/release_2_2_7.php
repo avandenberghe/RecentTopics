@@ -38,7 +38,7 @@ class release_2_2_7 extends \phpbb\db\migration\migration
 	{
 		return array(
 			array('permission.remove', array('u_rt_number')),
-			array('config.update', array('rt_version', '2.2.7')),
+			array('config.update', array('rt_version', '2.2.6')),
 		);
 	}
 

@@ -18,14 +18,22 @@ namespace paybas\recenttopics\acp;
 class recenttopics_module
 {
 	public $u_action;
-
 	/**
 	 * @param $id
 	 * @param $mode
+	 * @throws \Exception
+	 *
 	 */
 	public function main($id, $mode)
 	{
-		global $config, $phpbb_extension_manager, $request, $template, $user, $db, $phpbb_container;
+		global $phpbb_container;
+
+		$config = $phpbb_container->get('config');
+		$request = $phpbb_container->get('request');
+		$template = $phpbb_container->get('template');
+		$user = $phpbb_container->get('user');
+		$db = $phpbb_container->get('dbal.conn');
+		$ext_manager = $phpbb_container->get('ext.manager');
 
 		$language = $phpbb_container->get('language');
 		$language->add_lang('acp/common');
@@ -142,29 +150,24 @@ class recenttopics_module
 				'RT_SORT_START_TIME' => isset($config['rt_sort_start_time']) ? $config['rt_sort_start_time'] : false,
 				'RT_UNREAD_ONLY'     => isset($config['rt_unread_only']) ? $config['rt_unread_only'] : false,
 				'RT_ON_NEWSPAGE'     => isset($config['rt_on_newspage']) ? $config['rt_on_newspage'] : false,
-				'S_RT_NEWSPAGE'      => $phpbb_extension_manager->is_enabled('nickvergessen/newspage'),
-			)
+				'S_RT_NEWSPAGE'      => $ext_manager->is_enabled('nickvergessen/newspage'))
 		);
 
 		//reset user preferences
 		if ($request->is_set_post('rt_reset_default'))
 		{
-			$rt_unread_only = isset($config['rt_unread_only']) ? ($config['rt_unread_only']=='' ? 0 :$config['rt_unread_only'])  : 0;
-			$rt_sort_start_time = isset($config['rt_sort_start_time']) ?  ($config['rt_sort_start_time']=='' ? 0 : $config['rt_sort_start_time'])  : 0;
-			$rt_enable =  isset($config['rt_index']) ? ($config['rt_index']== '' ? 0 : $config['rt_index']) : 0;
-			$rt_location = $config['rt_location'];
-			$rt_number = isset($config['rt_number']) ? ($config['rt_number']=='' ? 0 :$config['rt_number'])  : 5;
+			$sql_ary = array(
+				'user_rt_enable'      => (int) $this->config['rt_index'],
+				'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'] ,
+				'user_rt_unread_only'      => (int) $this->config['rt_unread_only'],
+				'user_rt_location'      => $db->sql_escape($this->config['rt_location']),
+				'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
+			);
 
-			$sql = 'UPDATE ' . USERS_TABLE . ' SET
-			user_rt_enable = ' . (int) $rt_enable . ',
-			user_rt_sort_start_time = ' . (int) $rt_sort_start_time . ',
-			user_rt_unread_only = ' . (int) $rt_unread_only . ',
-			user_rt_number = ' . (int) $rt_number . ",
-			user_rt_location =  '" . $db->sql_escape($rt_location) . "'" ;
+			$sql = 'UPDATE ' . USERS_TABLE . '
+            SET ' . $db->sql_build_array('UPDATE', $sql_ary);
 
 			$db->sql_query($sql);
 		}
-
 	}
-
 }
