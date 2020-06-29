@@ -1,4 +1,4 @@
 # special page
-paybas_recenttopics_00:
+paybas_recenttopics_specialpage:
     path: /rt
     defaults: { _controller: paybas.recenttopics.controller.page_controller:display}

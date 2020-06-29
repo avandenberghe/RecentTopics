@@ -152,7 +152,6 @@ class listener implements EventSubscriberInterface
 			$array['topic_last_post_subject'] = preg_replace('/^Re: /', '', $lastpost);
 			$event['row'] = $array;
 		}
-		return $event;
 	}
 
 }

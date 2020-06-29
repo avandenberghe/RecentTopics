@@ -40,7 +40,7 @@ class release_2_2_8 extends \phpbb\db\migration\migration
 	 */
 	public function fix_rt_number()
 	{
-		$sql = 'UPDATE ' . $this->table_prefix . 'users' . " SET user_rt_number = '" . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 ) . "' ";
+		$sql = 'UPDATE ' . $this->table_prefix . 'users' . " SET user_rt_number = " . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 );
 		$this->db->sql_query($sql);
 	}
 

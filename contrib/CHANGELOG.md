@@ -1,7 +1,13 @@
 ### Changelog
 
+- 2.2.13 (29/06/2020)
+  - [FIX] better description for RT_PAGE_NUMBER_EXP
+  - [FIX] code improvements
+  - [FIX] #125 page selector was always on page 1 when show all pages was acivated. 
+
 - 2.2.12 (28/03/2020)
   - [FIX] #123 Reset user settings issue
+  - [NEW] Ukrainian Language for Recent Topics, by Phobos-7
   
 - 2.2.11 (21/03/2020)
   - [CHG] #120 don't show "Re: " in front of last reply text, new php event topictitle_remove_re

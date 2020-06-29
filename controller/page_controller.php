@@ -141,7 +141,7 @@ class page_controller implements page_interface
 		$this->path_helper  = $path_helper;
 		$this->phpbb_extension_manager = $phpbb_extension_manager;
 		$this->ext_path     = $this->phpbb_extension_manager->get_extension_path('paybas/recenttopics', true);
-		$this->ext_path_web = $this->path_helper->get_web_root_path($this->ext_path);
+		$this->ext_path_web = $this->path_helper->get_web_root_path();
 		$this->root_path  = $root_path;
 		$this->rt_functions = $functions;
 		$this->language = $language;
@@ -157,6 +157,7 @@ class page_controller implements page_interface
 	{
 		$page = "recent_topics_page.html";
 		$this->language->add_lang('info_acp_recenttopics', 'paybas/recenttopics');
+		$this->language->add_lang('recenttopics', 'paybas/recenttopics');
 
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
 		{
