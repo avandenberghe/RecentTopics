@@ -1,5 +1,8 @@
 ### Changelog
-
+- 2.2.14 (01/08/2020)
+  - [FIX] align prosilver display of Post Order to pbWow to display first post. 
+  - [FIX] Add topic_posted table so the image of "_mine" displays.
+    
 - 2.2.13 (29/06/2020)
   - [FIX] better description for RT_PAGE_NUMBER_EXP
   - [FIX] code improvements

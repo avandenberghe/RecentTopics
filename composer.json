@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Recent topics Extension for phpBB3.2. Adds a list with a number of recent topics to the index.php",
     "homepage": "https://github.com/sajaki/RecentTopics",
-    "version": "2.2.13",
-    "time": "2020-06-26",
+    "version": "2.2.14",
+    "time": "2020-08-01",
     "license": "GPL-2.0-only",
     "authors": [
         {
