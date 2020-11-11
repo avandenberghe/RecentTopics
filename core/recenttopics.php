@@ -669,6 +669,9 @@ class recenttopics
 	 */
 	private function fill_template ($tpl_loopname, $topic_tracking_info, int $topics_count): void
 	{
+		// Include required function files
+		include_once($this->root_path . 'includes/functions_content.' . $this->phpEx);
+		include_once($this->root_path . 'includes/functions_display.' . $this->phpEx);
 		// get topics from db
 		$rowset = $this->get_topics_sql();
 		$topic_icons = array();
