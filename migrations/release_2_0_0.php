@@ -49,6 +49,41 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return [
+
+            // Remove old config if it exists
+            ['if', [
+                isset($this->config['recenttopics']),
+                ['config.remove', ['recenttopics']],
+            ]],
+            ['if', [
+                isset($this->config['rt_mod_version']),
+                ['config.remove', ['rt_mod_version']],
+            ]],
+            ['if', [
+                isset($this->config['rt_version']),
+                ['config.remove', ['rt_version']],
+            ]],
+            ['if', [
+                isset($this->config['rt_number']),
+                ['config.remove', ['rt_number']],
+            ]],
+            ['if', [
+                isset($this->config['rt_page_number']),
+                ['config.remove', ['rt_page_number']],
+            ]],
+            ['if', [
+                isset($this->config['rt_anti_topics']),
+                ['config.remove', ['rt_anti_topics']],
+            ]],
+            ['if', [
+                isset($this->config['rt_parents']),
+                ['config.remove', ['rt_parents']],
+            ]],
+            ['if', [
+                isset($this->config['rt_index']),
+                ['config.remove', ['rt_index']],
+            ]],
+
 			// Add new config vars
 			['config.add', ['rt_version', '2.0.0']],
 			['config.add', ['rt_number', 5]],
