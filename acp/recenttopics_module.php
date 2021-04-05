@@ -155,12 +155,6 @@ class recenttopics_module
 				'RT_UNREAD_ONLY'     => (int) $config['rt_unread_only'],
 				'RT_ON_NEWSPAGE'     => $config['rt_on_newspage'],
 				'S_RT_NEWSPAGE'      => $ext_manager->is_enabled('nickvergessen/newspage'),
-				'S_RT_OK'            => version_compare($ext_version, $latest_version, '=='),
-				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
-				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),
-				'EXT_VERSION'          => $ext_version,
-				'U_VERSIONCHECK_FORCE' => append_sid($this->u_action . '&amp;versioncheck_force=1'),
-				'RT_LATESTVERSION'     => $latest_version,
 			)
 		);
 
