@@ -20,17 +20,17 @@ class release_2_0_5 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array(
+		return [
 		'\paybas\recenttopics\migrations\release_2_0_4',
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
-		array('config.update', array('rt_version', '2.0.5')),
-		array('config.add', array('rt_on_newspage', 0)),
-		array('config.add', array('rt_sort_start_time', 0)),
-		);
+		return [
+		['config.update', ['rt_version', '2.0.5']],
+		['config.add', ['rt_on_newspage', 0]],
+		['config.add', ['rt_sort_start_time', 0]],
+        ];
 	}
 }

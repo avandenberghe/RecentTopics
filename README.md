@@ -1,11 +1,11 @@
-Recent Topics for phpBB 3.2
+Recent Topics for phpBB 3.2 / 3.3
 ==========
 
-Extension for phpBB 3.2 to display recent topics.
+Extension for phpBB to display recent topics.
 Based on NV Recent Topics for phpBB 3.0, by Joas Schilling ([nickvergessen](https://github.com/nickvergessen))
 
 #### Version
-v2.2.12 (28/03/2020) [![Build Status](https://travis-ci.org/Sajaki/RecentTopics.svg?branch=develop32)](https://travis-ci.org/Sajaki/RecentTopics)
+v2.2.15 (05/04/2021) 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
     
 #### Support
@@ -47,11 +47,10 @@ v2.2.12 (28/03/2020) [![Build Status](https://travis-ci.org/Sajaki/RecentTopics.
 ![Screenshot](screenshot.png)
 
 #### Languages supported
-- English, German, French, Dutch, Spanish, Czech, Russian, 
-- Portuguese, Arabic, Czech (as of 2.2.7) 
+- English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Czech
   
 ### Installation
-1. [Download the latest release](https://www.avathar.be/forum/app.php/dlext/?view=detail&df_id=35) and unzip it.
+1. [Download the latest release](https://www.avathar.be/forum/app.php/dlext/details?df_id=35) and unzip it.
     - cdb build = built for phpBB CDB
     - standard build = has extra features, support for styles not in Cdb.
 2. Copy the entire contents from the unzipped folder to `/ext/paybas/recenttopics/`.
@@ -68,3 +67,4 @@ v2.2.12 (28/03/2020) [![Build Status](https://travis-ci.org/Sajaki/RecentTopics.
 
 © 2015 - PayBas
 © 2017 - Sajaki
+

@@ -212,7 +212,7 @@ class ucp_listener implements EventSubscriberInterface
 			'user_rt_enable'      => (int) $this->config['rt_index'],
 			'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'] ,
 			'user_rt_unread_only'      => (int) $this->config['rt_unread_only'],
-			'user_rt_location'      => $this->db->sql_escape($this->config['rt_location']),
+			'user_rt_location'      => $this->config['rt_location'],
 			'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
 		);
 

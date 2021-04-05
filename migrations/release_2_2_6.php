@@ -20,15 +20,15 @@ class release_2_2_6 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array(
+		return [
 			'\paybas\recenttopics\migrations\release_2_2_5',
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('config.update', array('rt_version', '2.2.6')),
-		);
+		return [
+			['config.update', ['rt_version', '2.2.6']],
+        ];
 	}
 }

@@ -13,6 +13,11 @@
 			</dd>
 		</dl>
 
+
+		<dl>
+			<dt><label for="rt_page_numbermax">{{ lang('RT_PAGE_NUMBERMAX') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_NUMBERMAX_EXP') }}</span></dt>
+			<dd><input type="number" id="rt_page_numbermax" name="rt_page_numbermax" size="3" min="1" max="999" value="{{ RT_PAGE_NUMBERMAX }}" /></dd>
+		</dl>
 		<dl>
 			<dt>
 				<label>{{ lang('RT_PAGE_NUMBER') }}{{ lang('COLON') }}</label><br/><span>{{ lang('RT_PAGE_NUMBER_EXP') }}</span>
@@ -20,11 +25,6 @@
 			<dd><input type="checkbox" class="checkbox" name="rt_page_number" id="rt_page_number" {{ RT_PAGE_NUMBER }}  />
 			</dd>
 		</dl>
-		<dl>
-			<dt><label for="rt_page_numbermax">{{ lang('RT_PAGE_NUMBERMAX') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_NUMBERMAX_EXP') }}</span></dt>
-			<dd><input type="number" id="rt_page_numbermax" name="rt_page_numbermax" size="3" min="1" max="999" value="{{ RT_PAGE_NUMBERMAX }}" /></dd>
-		</dl>
-
 		<dl>
 			<dt><label for="rt_min_topic_level">{{ lang('RT_MIN_TOPIC_LEVEL') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_MIN_TOPIC_LEVEL_EXP') }}</span></dt>
 			<dd>

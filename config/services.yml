@@ -4,18 +4,9 @@ services:
         arguments:
             - '@config'
             - '@controller.helper'
-            - '@auth'
-            - '@template'
-            - '@dbal.conn'
-            - '@request'
-            - '@user'
-            - '@pagination'
-            - '%core.php_ext%'
-            - '@path_helper'
-            - '@ext.manager'
-            - '%core.root_path%'
-            - '@paybas.recenttopics.functions'
             - '@language'
+            - '@paybas.recenttopics.functions'
+
     paybas.recenttopics.functions:
         class: paybas\recenttopics\core\recenttopics
         arguments:

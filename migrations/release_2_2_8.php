@@ -20,18 +20,18 @@ class release_2_2_8 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array(
+		return [
 			'\paybas\recenttopics\migrations\release_2_2_7',
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('config.update', array('rt_version', '2.2.8')),
-			array('custom', array(array($this, 'fix_rt_number'))),
-			array('permission.permission_set', array('ROLE_USER_FULL', 'u_rt_view')),
-		);
+		return [
+			['config.update', ['rt_version', '2.2.8']],
+			['custom', [[$this, 'fix_rt_number']]],
+			['permission.permission_set', ['ROLE_USER_FULL', 'u_rt_view']],
+        ];
 
 	}
 
@@ -40,7 +40,7 @@ class release_2_2_8 extends \phpbb\db\migration\migration
 	 */
 	public function fix_rt_number()
 	{
-		$sql = 'UPDATE ' . $this->table_prefix . 'users' . " SET user_rt_number = '" . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 ) . "' ";
+		$sql = 'UPDATE ' . $this->table_prefix . 'users' . " SET user_rt_number = " . ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 );
 		$this->db->sql_query($sql);
 	}
 

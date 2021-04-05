@@ -1,7 +1,24 @@
 ### Changelog
+- 2.2.15 (05/04/2021)
+  - [FIX] #142 Compatible with PHP 8 
+  
+- 2.2.14 (01/08/2020)
+  - [FIX] align prosilver display of Post Order to pbWow to display first post. 
+  - [FIX] Add topic_posted table so the image of "_mine" displays.
+    
+- 2.2.13 (29/06/2020)
+  - [FIX] better description for RT_PAGE_NUMBER_EXP
+  - [FIX] code improvements
+  - [FIX] #125 page selector was always on page 1 when show all pages was acivated. 
+
+- 2.2.13 (29/06/2020)
+  - [FIX] better description for RT_PAGE_NUMBER_EXP
+  - [FIX] code improvements
+  - [FIX] #125 page selector was always on page 1 when show all pages was acivated. 
 
 - 2.2.12 (28/03/2020)
   - [FIX] #123 Reset user settings issue
+  - [NEW] Ukrainian Language for Recent Topics, by Phobos-7
   
 - 2.2.11 (21/03/2020)
   - [CHG] #120 don't show "Re: " in front of last reply text, new php event topictitle_remove_re

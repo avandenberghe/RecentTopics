@@ -10,26 +10,26 @@
 
 namespace paybas\recenttopics\migrations;
 
-class release_2_0_4 extends \phpbb\db\migration\migration
+class release_2_2_13 extends \phpbb\db\migration\migration
 {
 
 	public function effectively_installed()
 	{
-		return isset($this->config['rt_version']) && version_compare($this->config['rt_version'], '2.0.4', '>=');
+		return isset($this->config['rt_version']) && version_compare($this->config['rt_version'], '2.2.13', '>=');
 	}
 
 	static public function depends_on()
 	{
 		return [
-		'\paybas\recenttopics\migrations\release_2_0_0',
+			'\paybas\recenttopics\migrations\release_2_2_12',
         ];
 	}
 
 	public function update_data()
 	{
 		return [
-		['config.update', ['rt_version', '2.0.4']],
-		['config.add', ['rt_min_topic_level', 0]],
+			['config.update', ['rt_version', '2.2.13']],
+			//the default should be unread only
         ];
 	}
 }
