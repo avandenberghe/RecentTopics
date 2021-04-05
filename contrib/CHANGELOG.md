@@ -1,4 +1,7 @@
 ### Changelog
+- 2.2.15 (05/04/2021)
+  - [FIX] #142 Compatible with PHP 8 
+  
 - 2.2.14 (01/08/2020)
   - [FIX] align prosilver display of Post Order to pbWow to display first post. 
   - [FIX] Add topic_posted table so the image of "_mine" displays.

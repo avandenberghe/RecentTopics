@@ -470,9 +470,11 @@ class recenttopics
 			$count_sql_array = $sql_array;
 			$count_sql_array['SELECT'] = 'COUNT(t.topic_id) as topic_count';
 			unset($count_sql_array['ORDER_BY']);
+
+
 			$sql = $this->db->sql_build_query('SELECT', $count_sql_array);
 			$result = $this->db->sql_query($sql);
-			$num_rows = (int) $this->db->sql_fetchfield('topic_count', $result);
+			$num_rows = (int) $this->db->sql_fetchfield('topic_count');
 			$this->db->sql_freeresult($result);
 
 			//load topics list

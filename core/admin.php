@@ -45,18 +45,16 @@ class admin
 				trigger_error($language->lang('CURL_REQUIRED'), E_USER_WARNING);
 			}
 
+            // set URL and other appropriate options
+            $options = array(
+                CURLOPT_URL => $url,
+                CURLOPT_HEADER => $return_Server_Response_Header,
+                CURLOPT_TIMEOUT => 60,
+                CURLOPT_RETURNTRANSFER => true, //return web page
+            );
+
 			// set options
-			curl_setopt_array(
-				$curl, array(
-					CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0', //override
-					CURLOPT_TIMEOUT => 60,
-					CURLOPT_VERBOSE => true,
-					CURLOPT_URL => $url,
-					CURLOPT_HEADER => $return_Server_Response_Header,
-					CURLOPT_FOLLOWLOCATION, true,
-					CURLOPT_RETURNTRANSFER => true, //return web page
-				)
-			);
+			curl_setopt_array($curl, $options);
 
 			// set ssl options
 			if ($ssl)

@@ -73,7 +73,7 @@ class page_controller implements page_interface
 	*/
 	public function display()
 	{
-		$page = "recent_topics_page.html";
+		$page = "paybas/recent_topics_page.html";
 		$this->language->add_lang(['info_acp_recenttopics', 'recenttopics'], 'paybas/recenttopics');
 
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])

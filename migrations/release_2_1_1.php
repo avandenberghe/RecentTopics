@@ -20,18 +20,18 @@ class release_2_1_1 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array(
+		return [
 			'\paybas\recenttopics\migrations\release_2_1_0',
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('config.update', array('rt_version', '2.1.1')),
-			array('config.update', array('rt_location', 'RT_SIDE')),
-			array('custom', array(array($this, 'update_default_loc'))),
-		);
+		return [
+			['config.update', ['rt_version', '2.1.1']],
+			['config.update', ['rt_location', 'RT_SIDE']],
+			['custom', [[$this, 'update_default_loc']]],
+        ];
 
 	}
 
