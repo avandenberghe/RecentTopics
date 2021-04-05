@@ -20,20 +20,20 @@ class release_2_1_2 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array(
+		return [
 			'\paybas\recenttopics\migrations\release_2_1_1',
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('config.update', array('rt_version', '2.1.2')),
-			array('permission.remove', array('u_rt_view')),
-			array('permission.add', array('u_rt_view')),
-			array('permission.permission_set', array('REGISTERED', 'u_rt_view', 'group')),
-			array('permission.permission_set', array('GUESTS', 'u_rt_view', 'group')),
-		);
+		return [
+			['config.update', ['rt_version', '2.1.2']],
+			['permission.remove', ['u_rt_view']],
+			['permission.add', ['u_rt_view']],
+			['permission.permission_set', ['REGISTERED', 'u_rt_view', 'group']],
+			['permission.permission_set', ['GUESTS', 'u_rt_view', 'group']],
+        ];
 
 	}
 

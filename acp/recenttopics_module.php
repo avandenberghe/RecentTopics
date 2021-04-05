@@ -31,12 +31,10 @@ class recenttopics_module
 		$config = $phpbb_container->get('config');
 		$request = $phpbb_container->get('request');
 		$template = $phpbb_container->get('template');
-		$user = $phpbb_container->get('user');
 		$db = $phpbb_container->get('dbal.conn');
 		$ext_manager = $phpbb_container->get('ext.manager');
 
 		$language = $phpbb_container->get('language');
-		$language->add_lang('acp/common');
 		$language->add_lang('ucp');
 		$language->add_lang('viewforum');
 
@@ -57,20 +55,26 @@ class recenttopics_module
 			* acp options for everyone
 			*/
 
-			//enable-disable paging
-			$rt_page_number = $request->variable('rt_page_number', '');
-			$config->set('rt_page_number', $rt_page_number == 'on' ? 1 : 0 );
-
-			// maximum number of pages
+			// Maximum number of pages
 			$rt_page_numbermax = $request->variable('rt_page_numbermax', 0);
 			$config->set('rt_page_numbermax', $rt_page_numbermax);
 
+			//Show all recent topic pages
+			$rt_page_number = $request->variable('rt_page_number', '');
+			$config->set('rt_page_number', $rt_page_number == 'on' ? 1 : 0 );
+
+			// Minimum topic type level
 			$rt_min_topic_level = $request->variable('rt_min_topic_level', 0);
 			$config->set('rt_min_topic_level', $rt_min_topic_level);
 
 			// variable should be '' as it is a string ("1, 2, 3928") here, not an integer.
 			$rt_anti_topics = $request->variable('rt_anti_topics', '');
-			$config->set('rt_anti_topics', $rt_anti_topics);
+			$ants = explode(",", $rt_anti_topics);
+			$checkants=true;
+			foreach($ants as $ant) {
+			    if (!is_numeric($ant)) {$checkants=false; }
+			}
+			if ($checkants) {$config->set('rt_anti_topics', $rt_anti_topics);}
 
 			$rt_parents = $request->variable('rt_parents', false);
 			$config->set('rt_parents', $rt_parents);
@@ -141,27 +145,34 @@ class recenttopics_module
 		$template->assign_vars(
 			array(
 				'U_ACTION'           => $this->u_action,
-				'RT_INDEX'           => isset($config['rt_index']) ? $config['rt_index'] : false,
-				'RT_PAGE_NUMBER'     => ((isset($config['rt_page_number']) ? $config['rt_page_number'] : '') == '1') ? 'checked="checked"' : '',
-				'RT_PAGE_NUMBERMAX'  => isset($config['rt_page_numbermax']) ? $config['rt_page_numbermax'] : '',
-				'RT_ANTI_TOPICS'     => isset($config['rt_anti_topics']) ? $config['rt_anti_topics'] : '',
-				'RT_PARENTS'         => isset($config['rt_parents']) ? $config['rt_parents'] : false,
-				'RT_NUMBER'          => isset($config['rt_number']) ? $config['rt_number'] : '',
-				'RT_SORT_START_TIME' => isset($config['rt_sort_start_time']) ? $config['rt_sort_start_time'] : false,
-				'RT_UNREAD_ONLY'     => isset($config['rt_unread_only']) ? $config['rt_unread_only'] : false,
-				'RT_ON_NEWSPAGE'     => isset($config['rt_on_newspage']) ? $config['rt_on_newspage'] : false,
-				'S_RT_NEWSPAGE'      => $ext_manager->is_enabled('nickvergessen/newspage'))
+				'RT_INDEX'           => (int) $config['rt_index'],
+				'RT_PAGE_NUMBER'     => ($config['rt_page_number'] == '1') ? 'checked="checked"' : '',
+				'RT_PAGE_NUMBERMAX'  => (int) $config['rt_page_numbermax'],
+				'RT_ANTI_TOPICS'     => $config['rt_anti_topics'],
+				'RT_PARENTS'         => $config['rt_parents'],
+				'RT_NUMBER'          => (int) $config['rt_number'],
+				'RT_SORT_START_TIME' => (int) $config['rt_sort_start_time'],
+				'RT_UNREAD_ONLY'     => (int) $config['rt_unread_only'],
+				'RT_ON_NEWSPAGE'     => $config['rt_on_newspage'],
+				'S_RT_NEWSPAGE'      => $ext_manager->is_enabled('nickvergessen/newspage'),
+				'S_RT_OK'            => version_compare($ext_version, $latest_version, '=='),
+				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
+				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),
+				'EXT_VERSION'          => $ext_version,
+				'U_VERSIONCHECK_FORCE' => append_sid($this->u_action . '&amp;versioncheck_force=1'),
+				'RT_LATESTVERSION'     => $latest_version,
+			)
 		);
 
 		//reset user preferences
 		if ($request->is_set_post('rt_reset_default'))
 		{
 			$sql_ary = array(
-				'user_rt_enable'      => (int) $this->config['rt_index'],
-				'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'] ,
-				'user_rt_unread_only'      => (int) $this->config['rt_unread_only'],
-				'user_rt_location'      => $db->sql_escape($this->config['rt_location']),
-				'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
+				'user_rt_enable'      => (int) $config['rt_index'],
+				'user_rt_sort_start_time'     => (int) $config['rt_sort_start_time'] ,
+				'user_rt_unread_only'   => (int) $config['rt_unread_only'],
+				'user_rt_location'      => $config['rt_location'],
+				'user_rt_number'      => ((int) $config['rt_number'] > 0 ? (int) $config['rt_number'] : 5 )
 			);
 
 			$sql = 'UPDATE ' . USERS_TABLE . '

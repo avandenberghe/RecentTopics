@@ -20,62 +20,62 @@ class release_2_1_0 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array(
+		return [
 			'\paybas\recenttopics\migrations\release_2_0_6',
-		);
+        ];
 	}
 
 	public function update_schema()
 	{
-		return array(
-			'drop_columns'    => array(
-				$this->table_prefix . 'users' => array(
+		return [
+			'drop_columns'    => [
+				$this->table_prefix . 'users' => [
 					'user_rt_alt_location',
-				),
-			),
+                ],
+            ],
 
-			'add_columns'    => array(
-				$this->table_prefix . 'users' => array(
-					'user_rt_location'    => array('VCHAR:10', 'RT_TOP'),
-				),
-			),
-		);
+			'add_columns'    => [
+				$this->table_prefix . 'users' => [
+					'user_rt_location'    => ['VCHAR:10', 'RT_TOP'],
+                ],
+            ],
+        ];
 	}
 
 	public function revert_schema()
 	{
-		return array(
-			'drop_columns'		=> array(
-				$this->table_prefix . 'users'		=> array(
+		return [
+			'drop_columns'		=> [
+				$this->table_prefix . 'users'		=> [
 					'user_rt_location',
 					'user_rt_alt_location',
-				),
-			),
+                ],
+            ],
 
-		);
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('config.update', array('rt_version', '2.1.0')),
-			array('config.remove', array('rt_alt_location')),
-			array('config.add',    array('rt_location', 'RT_TOP')),
+		return [
+			['config.update', ['rt_version', '2.1.0']],
+			['config.remove', ['rt_alt_location']],
+			['config.add',    ['rt_location', 'RT_TOP']],
 
-			array('permission.remove', array('u_rt_alt_location')),
-			array('permission.add', array('u_rt_location')),
+			['permission.remove', ['u_rt_alt_location']],
+			['permission.add', ['u_rt_location']],
 
-			array('permission.permission_set', array('ROLE_USER_FULL', 'u_rt_location')),
+			['permission.permission_set', ['ROLE_USER_FULL', 'u_rt_location']],
 
-		);
+        ];
 	}
 
 	public function revert_data()
 	{
-		return array(
-			array('config.remove', array('rt_location')),
-			array('permission.remove', array('u_rt_location')),
+		return [
+			['config.remove', ['rt_location']],
+			['permission.remove', ['u_rt_location']],
 
-		);
+        ];
 	}
 }

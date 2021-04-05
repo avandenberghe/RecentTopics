@@ -18,154 +18,103 @@ class release_2_0_0 extends \phpbb\db\migration\migration
 		return isset($this->config['rt_version']) && version_compare($this->config['rt_version'], '2.0.0', '>=');
 	}
 
+	static public function depends_on()
+	{
+        return ['\phpbb\db\migration\data\v320\v320'];
+	}
+
+
 	public function update_schema()
 	{
-		return array(
-			'add_columns' => array(
-				$this->table_prefix . 'forums' => array(
-					'forum_recent_topics' => array('TINT:1', 1),
-				),
-			),
-		);
+		return [
+			'add_columns' => [
+				$this->table_prefix . 'forums' => [
+					'forum_recent_topics' => ['TINT:1', 1],
+                ],
+            ],
+        ];
 	}
 
 	public function revert_schema()
 	{
-		return array(
-			'drop_columns' => array(
-				$this->table_prefix . 'forums' => array(
+		return [
+			'drop_columns' => [
+				$this->table_prefix . 'forums' => [
 					'forum_recent_topics',
-				),
-			),
-		);
+                ],
+            ],
+        ];
 	}
 
 	public function update_data()
 	{
-		return array(
-
-			// Remove old config if it exists
-			array('if', array(
-				isset($this->config['recenttopics']),
-				array('config.remove', array('recenttopics')),
-			)),
-			array('if', array(
-				isset($this->config['rt_mod_version']),
-				array('config.remove', array('rt_mod_version')),
-			)),
-			array('if', array(
-				isset($this->config['rt_version']),
-				array('config.remove', array('rt_version')),
-			)),
-			array('if', array(
-				isset($this->config['rt_number']),
-				array('config.remove', array('rt_number')),
-			)),
-			array('if', array(
-				isset($this->config['rt_page_number']),
-				array('config.remove', array('rt_page_number')),
-			)),
-			array('if', array(
-				isset($this->config['rt_anti_topics']),
-				array('config.remove', array('rt_anti_topics')),
-			)),
-			array('if', array(
-				isset($this->config['rt_parents']),
-				array('config.remove', array('rt_parents')),
-			)),
-			array('if', array(
-				isset($this->config['rt_index']),
-				array('config.remove', array('rt_index')),
-			)),
-
+		return [
 			// Add new config vars
-			array('config.add', array('rt_version', '2.0.0')),
-			array('config.add', array('rt_number', 5)),
-			array('config.add', array('rt_page_number', 0)),
-			array('config.add', array('rt_anti_topics', 0)),
-			array('config.add', array('rt_parents', 1)),
-			array('config.add', array('rt_unreadonly', 0)),
-			array('config.add', array('rt_index', 1)),
+			['config.add', ['rt_version', '2.0.0']],
+			['config.add', ['rt_number', 5]],
+			['config.add', ['rt_page_number', 0]],
+			['config.add', ['rt_anti_topics', 0]],
+			['config.add', ['rt_parents', 1]],
+			['config.add', ['rt_unreadonly', 0]],
+			['config.add', ['rt_index', 1]],
 
-			// Remove old (v1) modules
-			array('if', array(
-				array('module.exists', array('acp', 'RECENT_TOPICS_MOD', array(
-					'module_basename'    => 'recenttopics',
-					'modes'    => array('overview'),
-				),
-				)),
-				array('module.remove', array('acp', 'RECENT_TOPICS_MOD', array(
-					'module_basename'    => 'recenttopics',
-					'modes'    => array('overview'),
-				),
-				)),
-			)),
-			array('if', array(
-				array('module.exists', array('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_MOD')),
-				array('module.remove', array('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_MOD')),
-			)),
+            // Remove old (v1) modules
+            ['if', [
+                ['module.exists', ['acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_MOD']],
+                ['module.remove', ['acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_MOD']],
+            ]],
 
-			// Remove early beta modules
-			array('if', array(
-				array('module.exists', array('acp', 'ACP_CAT_DOT_MODS', array(
-					'module_basename'    => '\paybas\recenttopics\acp\recenttopics_module',
-					'modes'    => array('recenttopics_config'),
-				),
-				)),
-				array('module.remove', array('acp', 'ACP_CAT_DOT_MODS', array(
-					'module_basename'    => '\paybas\recenttopics\acp\recenttopics_module',
-					'modes'    => array('recenttopics_config'),
-				),
-				)),
-			)),
+            // Remove early beta modules
+            ['if', [
+                ['module.exists', ['acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_EXT']],
+                ['module.remove', ['acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_EXT']],
+            ]],
 
-			array('if', array(
-				array('module.exists', array('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_EXT')),
-				array('module.remove', array('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS_EXT')),
-			)),
+            // Add new modules
+            ['module.add', [
+                'acp',
+                'ACP_CAT_DOT_MODS',
+                'RECENT_TOPICS'
+            ]],
 
-			// Add new modules
-			array('module.add', array(
-				'acp',
-				'ACP_CAT_DOT_MODS',
-				'RECENT_TOPICS'
-			)),
+            ['module.add', [
+                'acp',
+                'RECENT_TOPICS',
+                [
+                    'module_basename'    => '\paybas\recenttopics\acp\recenttopics_module',
+                    'modes'    => ['recenttopics_config'],
+                ],
+            ]],
 
-			array('module.add', array(
-				'acp',
-				'RECENT_TOPICS',
-				array(
-					'module_basename'    => '\paybas\recenttopics\acp\recenttopics_module',
-					'modes'    => array('recenttopics_config'),
-				),
-			)),
-		);
+
+        ];
 	}
 
 	public function revert_data()
 	{
-		return array(
-			array('config.remove', array('rt_version')),
-			array('config.remove', array('rt_number')),
-			array('config.remove', array('rt_page_number')),
-			array('config.remove', array('rt_anti_topics')),
-			array('config.remove', array('rt_parents')),
-			array('config.remove', array('rt_unreadonly')),
-			array('config.remove', array('rt_index')),
+		return [
+			['config.remove', ['rt_version']],
+			['config.remove', ['rt_number']],
+			['config.remove', ['rt_page_number']],
+			['config.remove', ['rt_anti_topics']],
+			['config.remove', ['rt_parents']],
+			['config.remove', ['rt_unreadonly']],
+			['config.remove', ['rt_index']],
 
-			array('module.remove', array(
-				'acp',
-				'RECENT_TOPICS',
-				array(
-					'module_basename'    => '\paybas\recenttopics\acp\recenttopics_module',
-					'modes'    => array('recenttopics_config'),
-				),
-			)),
-			array('module.remove', array(
-				'acp',
-				'ACP_CAT_DOT_MODS',
-				'RECENT_TOPICS'
-			)),
-		);
+            ['module.remove', [
+                'acp',
+                'RECENT_TOPICS',
+                [
+                    'module_basename'    => '\paybas\recenttopics\acp\recenttopics_module',
+                    'modes'    => ['recenttopics_config'],
+                ],
+            ]],
+            ['module.remove', [
+                'acp',
+                'ACP_CAT_DOT_MODS',
+                'RECENT_TOPICS'
+            ]],
+
+        ];
 	}
 }
