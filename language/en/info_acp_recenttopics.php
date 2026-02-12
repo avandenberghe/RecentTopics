@@ -69,7 +69,7 @@ $lang = array_merge(
 	'RT_LATEST_VERSION'				=> 'Latest version',
 	'RT_EXT_VERSION'				=> 'Extension version',
 	'RT_VERSION_ERROR'				=> 'Unable to check latest version!',
-	'RT_CHECK_UPDATE'				=> 'Check <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a> to see if there are updates available.',
+	'RT_CHECK_UPDATE'				=> 'Check <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> to see if there are updates available.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'http://www.avathar.be/forum/app.php/page/donate',
