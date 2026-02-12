@@ -17,7 +17,17 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
+		// Consider this migration done if rt_version is already 3.0.0+
+		// This handles upgrades from paybas/recenttopics where all data already exists
 		return isset($this->config['rt_version']) && version_compare($this->config['rt_version'], '3.0.0', '>=');
+	}
+
+	/**
+	 * Check if the old paybas/recenttopics columns already exist
+	 */
+	private function column_exists($table, $column)
+	{
+		return $this->db_tools->sql_column_exists($this->table_prefix . $table, $column);
 	}
 
 	static public function depends_on()
@@ -29,20 +39,45 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 
 	public function update_schema()
 	{
-		return array(
-			'add_columns' => array(
-				$this->table_prefix . 'forums' => array(
-					'forum_recent_topics' => array('TINT:1', 1),
-				),
-				$this->table_prefix . 'users' => array(
-					'user_rt_enable'          => array('BOOL', 1),
-					'user_rt_sort_start_time' => array('BOOL', 0),
-					'user_rt_unread_only'     => array('BOOL', 0),
-					'user_rt_location'        => array('VCHAR:10', 'RT_TOP'),
-					'user_rt_number'          => array('UINT', 5),
-				),
-			),
+		$schema = array('add_columns' => array());
+
+		// Only add columns that don't already exist (handles upgrade from paybas/recenttopics)
+		if (!$this->column_exists('forums', 'forum_recent_topics'))
+		{
+			$schema['add_columns'][$this->table_prefix . 'forums'] = array(
+				'forum_recent_topics' => array('TINT:1', 1),
+			);
+		}
+
+		$user_columns = array(
+			'user_rt_enable'          => array('BOOL', 1),
+			'user_rt_sort_start_time' => array('BOOL', 0),
+			'user_rt_unread_only'     => array('BOOL', 0),
+			'user_rt_location'        => array('VCHAR:10', 'RT_TOP'),
+			'user_rt_number'          => array('UINT', 5),
 		);
+
+		$missing_user_columns = array();
+		foreach ($user_columns as $column => $definition)
+		{
+			if (!$this->column_exists('users', $column))
+			{
+				$missing_user_columns[$column] = $definition;
+			}
+		}
+
+		if (!empty($missing_user_columns))
+		{
+			$schema['add_columns'][$this->table_prefix . 'users'] = $missing_user_columns;
+		}
+
+		// If all columns already exist, return empty schema
+		if (empty($schema['add_columns']))
+		{
+			return array();
+		}
+
+		return $schema;
 	}
 
 	public function revert_schema()
@@ -66,7 +101,7 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			// Config
+			// Config (config.add silently skips if key already exists)
 			array('config.add', array('rt_version', '3.0.0')),
 			array('config.add', array('rt_number', '5')),
 			array('config.add', array('rt_page_number', 0)),
@@ -80,22 +115,36 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 			array('config.add', array('rt_unread_only', 0)),
 			array('config.add', array('rt_location', 'RT_TOP')),
 
-			// ACP module
-			array('module.add', array(
-				'acp',
-				'ACP_CAT_DOT_MODS',
-				'RECENT_TOPICS',
+			// Update version to 3.0.0
+			array('config.update', array('rt_version', '3.0.0')),
+
+			// ACP module - use if callback to skip if already exists
+			array('if', array(
+				array('module.exists', array('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS')),
+				false,
+				array('module.add', array(
+					'acp',
+					'ACP_CAT_DOT_MODS',
+					'RECENT_TOPICS',
+				)),
 			)),
-			array('module.add', array(
-				'acp',
-				'RECENT_TOPICS',
-				array(
+			array('if', array(
+				array('module.exists', array('acp', 'RECENT_TOPICS', array(
 					'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
 					'modes'           => array('recenttopics_config'),
-				),
+				))),
+				false,
+				array('module.add', array(
+					'acp',
+					'RECENT_TOPICS',
+					array(
+						'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
+						'modes'           => array('recenttopics_config'),
+					),
+				)),
 			)),
 
-			// Permissions
+			// Permissions (permission.add silently skips if already exists)
 			array('permission.add', array('u_rt_view', true)),
 			array('permission.add', array('u_rt_enable', true)),
 			array('permission.add', array('u_rt_sort_start_time', true)),
