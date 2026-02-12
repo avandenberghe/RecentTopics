@@ -1,5 +1,5 @@
-{% if RECENT_TOPICS_DISPLAY and recent_topics_included neq true %}
-<!-- DEFINE recent_topics_included = true -->
+{% if RECENT_TOPICS_DISPLAY and recent_topics_included != true %}
+{% set recent_topics_included = true %}
 {% if S_LOCATION_BOTTOM %}
 <div id="recenttopicsbottom">
     {% INCLUDE '@avathar_recenttopics/recent_topics_body_topbottom.html' %}

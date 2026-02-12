@@ -1,5 +1,5 @@
-{% if RECENT_TOPICS_DISPLAY and recent_topics_included neq true %}
-<!-- DEFINE recent_topics_included = true -->
+{% if RECENT_TOPICS_DISPLAY and recent_topics_included != true %}
+{% set recent_topics_included = true %}
 
 {% if S_LOCATION_TOP %}
 
@@ -15,8 +15,8 @@
 
 {% EVENT recenttopics_mchat_side %}
 
-{% if ADS_INDEX_CODE and not S_IS_BOT and definition.ADSIDE eq false %}
-{% DEFINE ADSIDE = 1 %}
+{% if ADS_INDEX_CODE and not S_IS_BOT and definition.ADSIDE == false %}
+{% set ADSIDE = 1 %}
 <div class="misc-block advertisement">{{ ADS_INDEX_CODE }}</div>
 {{ definition.ADS }}
 {% endif %}
