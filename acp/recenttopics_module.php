@@ -227,12 +227,12 @@ class recenttopics_module
 			}
 
 			$version_data = json_decode($response, true);
-			if (empty($version_data['stable']['3.2']['current']))
+			if (empty($version_data['stable']['3.3']['current']))
 			{
 				return false;
 			}
 
-			$latest_version = $version_data['stable']['3.2']['current'];
+			$latest_version = $version_data['stable']['3.3']['current'];
 			$cache->put('recenttopics_versioncheck', $latest_version, $ttl);
 		}
 
