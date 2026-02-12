@@ -1,11 +1,11 @@
 <?php
 /**
  *
- * Pages extension for the phpBB Forum Software package.
- *
- * @copyright (c) 2015 phpBB Limited <https://www.phpbb.com>
+ * @package Recent Topics Extension
+ * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
+ * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
 namespace avathar\recenttopics;
