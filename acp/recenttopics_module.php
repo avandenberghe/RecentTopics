@@ -10,14 +10,12 @@
 
 namespace avathar\recenttopics\acp;
 
-use avathar\recenttopics\core\admin;
-
 /**
  * Class recenttopics_module
  *
  * @package avathar\recenttopics\acp
  */
-class recenttopics_module extends admin
+class recenttopics_module
 {
 	public $u_action;
 	/**
@@ -47,7 +45,7 @@ class recenttopics_module extends admin
 		add_form_key($form_key);
 
 		//version check
-		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopics', $phpbb_container->get('template'));
+		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopics');
 		$meta_data  = $ext_meta_manager->get_metadata();
 		$ext_version  = $meta_data['version'];
 		$latest_version  = $this->version_check($meta_data, $request->variable('versioncheck_force', false));
@@ -171,7 +169,7 @@ class recenttopics_module extends admin
 				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
 				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),
 				'EXT_VERSION'          => $ext_version,
-				'U_VERSIONCHECK_FORCE' => append_sid($this->u_action . '&amp;versioncheck_force=1'),
+				'U_VERSIONCHECK_FORCE' => append_sid($this->u_action . '&versioncheck_force=1'),
 				'RT_LATESTVERSION'     => $latest_version,
 			)
 		);
@@ -196,52 +194,46 @@ class recenttopics_module extends admin
 	}
 
 	/**
-	 * retrieve latest version
+	 * Retrieve latest version using phpBB's file_downloader
+	 *
 	 * @param      $meta_data
 	 * @param bool $force_update Ignores cached data. Defaults to false.
 	 * @param int  $ttl          Cache version information for $ttl seconds. Defaults to 86400 (24 hours).
-	 * @return bool|mixed
-	 * @throws \Exception
+	 * @return string|bool       Latest version string, or false on failure
 	 */
-	public final function version_check($meta_data, $force_update = false, $ttl = 86400)
+	private function version_check($meta_data, $force_update = false, $ttl = 86400)
 	{
 		global $phpbb_container;
 		$cache = $phpbb_container->get('cache');
-		$ext_manager = $phpbb_container->get('ext.manager');
-		$pemfile = '';
-		$versionurl = ($meta_data['extra']['version-check']['ssl'] == '1' ? 'https://': 'http://') .
-			$meta_data['extra']['version-check']['host'].$meta_data['extra']['version-check']['directory'].'/'.$meta_data['extra']['version-check']['filename'];
-		$ssl = $meta_data['extra']['version-check']['ssl'] == '1' ? true: false;
-		if ($ssl)
-		{
-			//https://davidwalsh.name/php-ssl-curl-error
-			$pemfile = $ext_manager->get_extension_path('avathar/recenttopics', true) . 'core/mozilla.pem';
-			if (!(file_exists($pemfile) && is_readable($pemfile)))
-			{
-				$ssl = false;
-			}
-		}
 
-		//get latest productversion from cache
 		$latest_version = $cache->get('recenttopics_versioncheck');
 
-		//if update is forced or cache expired then make the call to refresh latest productversion
 		if ($latest_version === false || $force_update)
 		{
-			$data = parent::curl($versionurl, $pemfile, $ssl, false, false, false);
-			if (0 === count($data) )
+			$host = $meta_data['extra']['version-check']['host'];
+			$path = $meta_data['extra']['version-check']['directory'];
+			$file = $meta_data['extra']['version-check']['filename'];
+			$ssl = !empty($meta_data['extra']['version-check']['ssl']);
+			$port = $ssl ? 443 : 80;
+
+			$file_downloader = new \phpbb\file_downloader();
+			$response = $file_downloader->get($host, $path, $file, $port);
+			$error = $file_downloader->get_error_string();
+
+			if (!empty($error) || empty($response))
 			{
 				$cache->destroy('recenttopics_versioncheck');
 				return false;
 			}
 
-			$response = $data['response'];
-			$latest_version = json_decode($response, true);
-			$latest_version = $latest_version['stable']['3.2']['current'];
+			$version_data = json_decode($response, true);
+			if (empty($version_data['stable']['3.2']['current']))
+			{
+				return false;
+			}
 
-			//put this info in the cache
+			$latest_version = $version_data['stable']['3.2']['current'];
 			$cache->put('recenttopics_versioncheck', $latest_version, $ttl);
-
 		}
 
 		return $latest_version;
