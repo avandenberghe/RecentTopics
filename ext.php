@@ -17,16 +17,21 @@ class ext extends \phpbb\extension\base
 {
 	/**
 	 * Check whether or not the extension can be enabled.
-	 * The current phpBB version should meet or exceed
-	 * the minimum version required by this extension:
 	 *
-	 * Requires phpBB 3.2.0 due to new dynamic route loader
+	 * Requires phpBB 3.3.0 or higher.
 	 *
-	 * @return bool
+	 * @return bool|array
 	 * @access public
 	 */
 	public function is_enableable()
 	{
-		return phpbb_version_compare(PHPBB_VERSION, '3.2.6', '>=');
+		if (phpbb_version_compare(PHPBB_VERSION, '3.3.0', '>='))
+		{
+			return true;
+		}
+
+		$language = $this->container->get('language');
+		$language->add_lang('recenttopics', 'avathar/recenttopics');
+		return [$language->lang('EXTENSION_REQUIRES_330')];
 	}
 }

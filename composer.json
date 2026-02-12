@@ -1,7 +1,7 @@
 {
     "name": "avathar/recenttopics",
     "type": "phpbb-extension",
-    "description": "Recent Topics Extension for phpBB 3.2/3.3. Adds a list with recent topics to the index page.",
+    "description": "Recent Topics Extension for phpBB 3.3. Adds a list with recent topics to the index page.",
     "homepage": "https://www.avathar.be",
     "version": "3.0.0",
     "license": "GPL-2.0-only",
@@ -27,7 +27,7 @@
     "extra": {
         "display-name": "Recent Topics",
         "soft-require": {
-            "phpbb/phpbb": ">=3.2.6,<3.4.0@dev"
+            "phpbb/phpbb": ">=3.3.0,<3.4.0@dev"
         },
         "version-check": {
             "host": "www.avathar.be",
