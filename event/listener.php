@@ -136,8 +136,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @event avathar.recenttopics.topictitle_remove_re
-	 * remove "Re: " from post subject
+	 * Remove "Re: " from post subject
 	 *
 	 * @param \phpbb\event\data		$event  The event object
 	 * @return void
