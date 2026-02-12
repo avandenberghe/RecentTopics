@@ -9,9 +9,9 @@
  *
  */
 
-namespace paybas\recenttopics\event;
+namespace avathar\recenttopics\event;
 
-use paybas\recenttopics\core\recenttopics;
+use avathar\recenttopics\core\recenttopics;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -31,7 +31,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * listener constructor.
 	 *
-	 * @param \paybas\recenttopics\core\recenttopics $functions
+	 * @param \avathar\recenttopics\core\recenttopics $functions
 	 * @param \phpbb\config\config                   $config
 	 * @param \phpbb\request\request                 $request
 	 */
@@ -59,7 +59,7 @@ class listener implements EventSubscriberInterface
 			'core.permissions'                       => 'add_permission',
 
 			// Events added by this extension
-			'paybas.recenttopics.topictitle_remove_re'  => 'topictitle_remove_re',
+			'avathar.recenttopics.topictitle_remove_re'  => 'topictitle_remove_re',
 		);
 	}
 
@@ -136,7 +136,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @event paybas.recenttopics.topictitle_remove_re
+	 * @event avathar.recenttopics.topictitle_remove_re
 	 * remove "Re: " from post subject
 	 *
 	 * @param \phpbb\event\data		$event  The event object

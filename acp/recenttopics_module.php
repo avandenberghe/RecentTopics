@@ -8,14 +8,14 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace paybas\recenttopics\acp;
+namespace avathar\recenttopics\acp;
 
-use paybas\recenttopics\core\admin;
+use avathar\recenttopics\core\admin;
 
 /**
  * Class recenttopics_module
  *
- * @package paybas\recenttopics\acp
+ * @package avathar\recenttopics\acp
  */
 class recenttopics_module extends admin
 {
@@ -47,7 +47,7 @@ class recenttopics_module extends admin
 		add_form_key($form_key);
 
 		//version check
-		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('paybas/recenttopics', $phpbb_container->get('template'));
+		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopics', $phpbb_container->get('template'));
 		$meta_data  = $ext_meta_manager->get_metadata();
 		$ext_version  = $meta_data['version'];
 		$latest_version  = $this->version_check($meta_data, $request->variable('versioncheck_force', false));
@@ -211,7 +211,7 @@ class recenttopics_module extends admin
 		if ($ssl)
 		{
 			//https://davidwalsh.name/php-ssl-curl-error
-			$pemfile = $ext_manager->get_extension_path('paybas/recenttopics', true) . 'core/mozilla.pem';
+			$pemfile = $ext_manager->get_extension_path('avathar/recenttopics', true) . 'core/mozilla.pem';
 			if (!(file_exists($pemfile) && is_readable($pemfile)))
 			{
 				$ssl = false;

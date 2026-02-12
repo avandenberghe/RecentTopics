@@ -8,12 +8,12 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace paybas\recenttopics\controller;
+namespace avathar\recenttopics\controller;
 
 use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\language\language;
-use paybas\recenttopics\core\recenttopics;
+use avathar\recenttopics\core\recenttopics;
 use Symfony\Component\HttpFoundation\Response;
 
 class page_controller implements page_interface
@@ -47,7 +47,7 @@ class page_controller implements page_interface
 	 * @param \phpbb\config\config              			$config
 	 * @param \phpbb\controller\helper          			$helper
 	 * @param \phpbb\language\language 						$language
-	 * @param \paybas\recenttopics\core\recenttopics		$functions
+	 * @param \avathar\recenttopics\core\recenttopics		$functions
 	 * @param \Symfony\Component\HttpFoundation\Response	$response
 	 */
 	public function __construct(
@@ -73,8 +73,8 @@ class page_controller implements page_interface
 	*/
 	public function display()
 	{
-		$page = "paybas/recent_topics_page.html";
-		$this->language->add_lang(['info_acp_recenttopics', 'recenttopics'], 'paybas/recenttopics');
+		$page = "avathar/recent_topics_page.html";
+		$this->language->add_lang(['info_acp_recenttopics', 'recenttopics'], 'avathar/recenttopics');
 
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
 		{

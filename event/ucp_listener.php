@@ -8,7 +8,7 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace paybas\recenttopics\event;
+namespace avathar\recenttopics\event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use phpbb\language\language;
@@ -111,7 +111,7 @@ class ucp_listener implements EventSubscriberInterface
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'] && $this->auth->acl_get('u_rt_view'))
 		{
-			$this->language->add_lang('recenttopics_ucp', 'paybas/recenttopics');
+			$this->language->add_lang('recenttopics_ucp', 'avathar/recenttopics');
 
 			$template_vars = array();
 

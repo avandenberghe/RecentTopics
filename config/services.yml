@@ -1,14 +1,14 @@
 services:
-    paybas.recenttopics.controller.page_controller:
-        class: paybas\recenttopics\controller\page_controller
+    avathar.recenttopics.controller.page_controller:
+        class: avathar\recenttopics\controller\page_controller
         arguments:
             - '@config'
             - '@controller.helper'
             - '@language'
-            - '@paybas.recenttopics.functions'
+            - '@avathar.recenttopics.functions'
 
-    paybas.recenttopics.functions:
-        class: paybas\recenttopics\core\recenttopics
+    avathar.recenttopics.functions:
+        class: avathar\recenttopics\core\recenttopics
         arguments:
             - '@auth'
             - '@cache'
@@ -26,16 +26,16 @@ services:
             - '@?part3.topicprefixes.functions'
             - '@?prefixed.manager'
             - '@?phpbb.collapsiblecategories.operator'
-    paybas.recenttopics.listener:
-        class: paybas\recenttopics\event\listener
+    avathar.recenttopics.listener:
+        class: avathar\recenttopics\event\listener
         arguments:
-            - '@paybas.recenttopics.functions'
+            - '@avathar.recenttopics.functions'
             - '@config'
             - '@request'
         tags:
             - { name: event.listener }
-    paybas.recenttopics.ucp_listener:
-        class: paybas\recenttopics\event\ucp_listener
+    avathar.recenttopics.ucp_listener:
+        class: avathar\recenttopics\event\ucp_listener
         arguments:
             - '@auth'
             - '@config'

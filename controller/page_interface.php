@@ -5,7 +5,7 @@
  * Date: 5/02/18
  * Time: 21:37
  */
-namespace paybas\recenttopics\controller;
+namespace avathar\recenttopics\controller;
 
 interface page_interface
 {

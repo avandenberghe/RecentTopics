@@ -8,7 +8,7 @@
  *
  */
 
-namespace paybas\recenttopics;
+namespace avathar\recenttopics;
 
 /**
  * Extension class for custom enable/disable/purge actions

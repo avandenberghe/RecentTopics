@@ -53,14 +53,14 @@ v2.2.15 (05/04/2021)
 1. [Download the latest release](https://www.avathar.be/forum/app.php/dlext/details?df_id=35) and unzip it.
     - cdb build = built for phpBB CDB
     - standard build = has extra features, support for styles not in Cdb.
-2. Copy the entire contents from the unzipped folder to `/ext/paybas/recenttopics/`.
+2. Copy the entire contents from the unzipped folder to `/ext/avathar/recenttopics/`.
 3. Navigate in the ACP to `Customise -> Manage extensions`.
 4. Find `Recent Topics` under "Disabled Extensions" and click `Enable`.
 
 #### Uninstallation
 1. Navigate in the ACP to `Customise -> Manage extensions`.
 2. Click the `Disable` link for `Recent Topics`.
-3. To permanently uninstall, click `Delete Data`, then delete the `recenttopics` folder from `/ext/paybas/`.
+3. To permanently uninstall, click `Delete Data`, then delete the `recenttopics` folder from `/ext/avathar/`.
 
 ### License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)

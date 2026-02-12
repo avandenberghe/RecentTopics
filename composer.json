@@ -1,10 +1,9 @@
 {
-    "name": "paybas/recenttopics",
+    "name": "avathar/recenttopics",
     "type": "phpbb-extension",
-    "description": "Recent topics Extension for phpBB3.2. Adds a list with a number of recent topics to the index.php",
-    "homepage": "https://github.com/sajaki/RecentTopics",
-    "version": "2.2.15",
-    "time": "2021-04-05",
+    "description": "Recent Topics Extension for phpBB 3.2/3.3. Adds a list with recent topics to the index page.",
+    "homepage": "https://www.avathar.be",
+    "version": "3.0.0",
     "license": "GPL-2.0-only",
     "authors": [
         {
@@ -33,7 +32,7 @@
         "version-check": {
             "host": "www.avathar.be",
             "directory": "/versioncheck",
-            "filename": "recenttopics22.json",
+            "filename": "recenttopics.json",
             "ssl": true
         }
     }

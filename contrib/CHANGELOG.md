@@ -1,4 +1,11 @@
 ### Changelog
+- 3.0.0 (12/02/2026)
+  - [CHG] Forked as avathar/recenttopics, namespace changed from paybas to avathar
+  - [CHG] Version bumped to 3.0.0
+  - [CHG] Flattened migration history into a single release_3_0_0 migration
+  - [CHG] Updated composer.json package name to avathar/recenttopics
+  - [CHG] Updated all service names, route names, template paths and event names to avathar namespace
+
 - 2.2.15 (05/04/2021)
   - [FIX] #142 Compatible with PHP 8 
   
@@ -88,7 +95,7 @@
   - [FIX] #17 #18 fixed permission issues
   - [NEW] Added a user preference resetbutton in ACP.
   - [CHG] 2.1.3 migration resets all positions to top.  
-  - [NEW] add support for pre:fixed extension from imkingdavid. using a new event paybas.recenttopics.modify_topictitle, and fallback if no listener was found
+  - [NEW] add support for pre:fixed extension from imkingdavid. using a new event avathar.recenttopics.modify_topictitle, and fallback if no listener was found
   
 - 2.1.2 (22/10/2016)
   - [FIX] Permission u_rt_view changed to registered users

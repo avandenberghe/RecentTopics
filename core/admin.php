@@ -8,7 +8,7 @@
  *
  */
 
-namespace paybas\recenttopics\core;
+namespace avathar\recenttopics\core;
 
 class admin
 {
@@ -29,7 +29,7 @@ class admin
 		$language = $phpbb_container->get('language');
 
 		//load language
-		$language->add_lang('recenttopics', 'paybas/recenttopics');
+		$language->add_lang('recenttopics', 'avathar/recenttopics');
 
 		$data = array(
 			'response'            => '',
