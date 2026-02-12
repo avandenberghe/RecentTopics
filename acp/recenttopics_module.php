@@ -82,7 +82,11 @@ class recenttopics_module extends admin
 			foreach($ants as $ant) {
 			    if (!is_numeric($ant)) {$checkants=false; }
 			}
-			if ($checkants) {$config->set('rt_anti_topics', $rt_anti_topics);}
+
+			if ($checkants)
+            {
+                $config->set('rt_anti_topics', $rt_anti_topics);
+            }
 
 			$rt_parents = $request->variable('rt_parents', false);
 			$config->set('rt_parents', $rt_parents);
