@@ -647,12 +647,8 @@ class recenttopics
 		 * @var   array    sql_array        The SQL array
 		 * @since 2.0.0
 		 */
-		extract(
-			$this->dispatcher->trigger_event(
-				'avathar.recenttopics.sql_pull_topics_data',
-				array('sql_array' => $sql_array)
-			)
-		);
+		$vars = array('sql_array');
+		extract($this->dispatcher->trigger_event('avathar.recenttopics.sql_pull_topics_data', compact($vars)));
 		$sql    = $this->db->sql_build_query('SELECT', $sql_array);
 		$result = $this->db->sql_query_limit($sql, $this->topics_per_page);
 		$rowset = array();
@@ -685,12 +681,10 @@ class recenttopics
 			 * @var   array    rowset            The full topics list array
 			 * @since 2.0.1
 			 */
-			extract(
-				$this->dispatcher->trigger_event(
-					'avathar.recenttopics.modify_topics_list',
-					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
-				)
-			);
+			$topic_list = $this->topic_list;
+			$vars = array('topic_list', 'rowset');
+			extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_topics_list', compact($vars)));
+			$this->topic_list = $topic_list;
 			foreach ($rowset as $row)
 			{
 				$topic_id = $row['topic_id'];
