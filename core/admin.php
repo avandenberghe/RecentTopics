@@ -24,7 +24,7 @@ class admin
 	 */
 	public final function curl($url, $pemfile, $ssl = false, $return_Server_Response_Header = false, $loud = true, $json = true)
 	{
-		global $phpbb_container, $user;
+		global $phpbb_container;
 
 		$language = $phpbb_container->get('language');
 
