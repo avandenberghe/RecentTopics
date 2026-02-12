@@ -14,7 +14,6 @@ use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\language\language;
 use avathar\recenttopics\core\recenttopics;
-use Symfony\Component\HttpFoundation\Response;
 
 class page_controller implements page_interface
 {
@@ -37,32 +36,24 @@ class page_controller implements page_interface
 	protected $rt_functions;
 
 	/**
-	 * @var \Symfony\Component\HttpFoundation\Response
-	 */
-	protected $response;
-
-	/**
 	 * page constructor.
 	 *
 	 * @param \phpbb\config\config              			$config
 	 * @param \phpbb\controller\helper          			$helper
 	 * @param \phpbb\language\language 						$language
 	 * @param \avathar\recenttopics\core\recenttopics		$functions
-	 * @param \Symfony\Component\HttpFoundation\Response	$response
 	 */
 	public function __construct(
 		config $config,
 		helper $helper,
 		language $language,
-		recenttopics $functions,
-		Response $response
+		recenttopics $functions
 	)
 	{
 		$this->config       = $config;
 		$this->helper       = $helper;
 		$this->language = $language;
 		$this->rt_functions = $functions;
-		$this->response = $response;
 	}
 
 	/**
@@ -81,9 +72,6 @@ class page_controller implements page_interface
 			$this->rt_functions->display_recent_topics();
 		}
 
-		// Load the requested page by route
-		$this->response = $this->helper->render($page, $this->language->lang('RECENT_TOPICS'));
-
-		return $this->response;
+		return $this->helper->render($page, $this->language->lang('RECENT_TOPICS'));
 	}
 }
