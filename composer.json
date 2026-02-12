@@ -4,6 +4,8 @@
     "description": "Recent Topics Extension for phpBB 3.3. Adds a list with recent topics to the index page.",
     "homepage": "https://www.avathar.be",
     "version": "3.0.0",
+    "time": "2026-02-12",
+    "keywords": ["phpbb", "extension", "Recent Topics"],
     "license": "GPL-2.0-only",
     "authors": [
         {
