@@ -322,14 +322,14 @@ class recenttopics
 
 		$this->getforumlist();
 		// No forums to display
-		if (sizeof($this->forum_ids) == 0)
+		if (count($this->forum_ids) == 0)
 		{
 			return;
 		}
 
 		$topics_count = $this->gettopiclist();
 
-		if (sizeof($this->topic_list) == 0)
+		if (count($this->topic_list) == 0)
 		{
 			return;
 		}
@@ -405,7 +405,7 @@ class recenttopics
 		}
 		$this->forum_ids = array_unique($forum_ary);
 
-		if (sizeof($this->forum_ids) > 1)
+		if (count($this->forum_ids) > 1)
 		{
 			$sql = 'SELECT forum_id
 					FROM ' . FORUMS_TABLE . '
@@ -675,7 +675,7 @@ class recenttopics
 		$rowset = $this->get_topics_sql();
 		$topic_icons = array();
 		// if topics returned by DB
-		if (sizeof($rowset))
+		if (count($rowset))
 		{
 			/**
 			 * Event to modify the topics list data before we start the display loop
@@ -907,7 +907,7 @@ class recenttopics
 				$tpl_loopname . '_start', $topics_count, $this->topics_per_page, max(0, min((int) $this->rtstart, $this->total_topics_limit)));
 			$this->template->assign_vars(
 				array (
-					'S_TOPIC_ICONS' => sizeof($topic_icons) ? true : false,
+					'S_TOPIC_ICONS' => count($topic_icons) ? true : false,
 				)
 			);
 		}// topics found
