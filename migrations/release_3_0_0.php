@@ -17,7 +17,10 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['rt_version']) && version_compare($this->config['rt_version'], '3.0.0', '>=');
+		return isset($this->config['rt_version'])
+			&& version_compare($this->config['rt_version'], '3.0.0', '>=')
+			&& $this->db_tools->sql_column_exists($this->table_prefix . 'users', 'user_rt_enable')
+			&& $this->db_tools->sql_column_exists($this->table_prefix . 'forums', 'forum_recent_topics');
 	}
 
 	private function column_exists($table, $column)
@@ -145,8 +148,7 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 
 	/**
 	 * Remove ALL old recenttopics modules and paybas remnants so module.add can work cleanly.
-	 * This removes paybas ext/migration entries, and any existing RECENT_TOPICS modules
-	 * (both old paybas and broken avathar attempts from previous installs).
+	 * Uses phpBB's module tool to maintain the nested set tree integrity.
 	 */
 	public function cleanup_old_modules()
 	{
@@ -156,56 +158,31 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 		// Remove old paybas migration entries
 		$this->db->sql_query('DELETE FROM ' . $this->table_prefix . "migrations WHERE migration_name LIKE '%paybas%recenttopics%'");
 
-		// Find and remove child modules (both old paybas and any broken avathar attempts)
-		$sql = 'SELECT module_id FROM ' . $this->table_prefix . "modules
-			WHERE module_class = 'acp'
-				AND (module_basename LIKE '%recenttopics%')";
-		$result = $this->db->sql_query($sql);
-		$module_ids = array();
-		while ($row = $this->db->sql_fetchrow($result))
-		{
-			$module_ids[] = (int) $row['module_id'];
-		}
-		$this->db->sql_freeresult($result);
+		// Use phpBB's module tool for proper nested set handling
+		$module_tool = $GLOBALS['phpbb_container']->get('migrator.tool.module');
 
-		if (!empty($module_ids))
+		// Remove old paybas child module if it exists
+		if ($module_tool->exists('acp', 'RECENT_TOPICS', '\\paybas\\recenttopics\\acp\\recenttopics_module'))
 		{
-			$this->db->sql_query('DELETE FROM ' . $this->table_prefix . 'modules
-				WHERE module_id IN (' . implode(',', $module_ids) . ')');
+			$module_tool->remove('acp', 'RECENT_TOPICS', array(
+				'module_basename' => '\\paybas\\recenttopics\\acp\\recenttopics_module',
+				'modes'           => array('recenttopics_config'),
+			));
 		}
 
-		// Remove RECENT_TOPICS category module (has empty basename)
-		$sql = 'SELECT module_id FROM ' . $this->table_prefix . "modules
-			WHERE module_langname = 'RECENT_TOPICS'
-				AND module_class = 'acp'
-				AND module_basename = ''";
-		$result = $this->db->sql_query($sql);
-		while ($row = $this->db->sql_fetchrow($result))
+		// Remove old avathar child module from previous broken attempts
+		if ($module_tool->exists('acp', 'RECENT_TOPICS', '\\avathar\\recenttopics\\acp\\recenttopics_module'))
 		{
-			$this->db->sql_query('DELETE FROM ' . $this->table_prefix . 'modules WHERE module_id = ' . (int) $row['module_id']);
-		}
-		$this->db->sql_freeresult($result);
-
-		// Resync the module tree to fix left_id/right_id after deletions
-		$module_manager = $GLOBALS['phpbb_container']->get('module.manager');
-
-		if (method_exists($module_manager, 'remove_cache_file'))
-		{
-			$module_manager->remove_cache_file('acp');
+			$module_tool->remove('acp', 'RECENT_TOPICS', array(
+				'module_basename' => '\\avathar\\recenttopics\\acp\\recenttopics_module',
+				'modes'           => array('recenttopics_config'),
+			));
 		}
 
-		// Use the acp_modules class to resync tree
-		if (!class_exists('acp_modules'))
+		// Remove RECENT_TOPICS category if it exists
+		if ($module_tool->exists('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS'))
 		{
-			include($this->phpbb_root_path . 'includes/acp/acp_modules.' . $this->php_ext);
-		}
-
-		$acp_modules = new \acp_modules();
-		$acp_modules->module_class = 'acp';
-
-		if (method_exists($acp_modules, 'remove_cache_file'))
-		{
-			$acp_modules->remove_cache_file();
+			$module_tool->remove('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS');
 		}
 	}
 
