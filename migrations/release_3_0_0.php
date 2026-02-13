@@ -109,19 +109,46 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 			array('config.add', array('rt_location', 'RT_TOP')),
 
 			// Ensure version is set to 3.0.0
-			array('config.set', array('rt_version', '3.0.0')),
+			array('custom', array(array($this, 'update_version'))),
 
-			// Clean up old paybas/recenttopics remnants, then add modules and permissions
-			array('custom', array(array($this, 'cleanup_paybas'))),
-			array('custom', array(array($this, 'add_acp_modules'))),
+			// Clean up ALL old recenttopics modules (paybas + broken avathar attempts)
+			// so that module.add below can create them fresh with proper nested set
+			array('custom', array(array($this, 'cleanup_old_modules'))),
+
+			// ACP modules via phpBB's module.add (handles nested set tree correctly)
+			array('module.add', array(
+				'acp',
+				'ACP_CAT_DOT_MODS',
+				'RECENT_TOPICS',
+			)),
+			array('module.add', array(
+				'acp',
+				'RECENT_TOPICS',
+				array(
+					'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
+					'modes'           => array('recenttopics_config'),
+				),
+			)),
+
+			// Permissions and role/group assignments
 			array('custom', array(array($this, 'add_permissions'))),
 		);
 	}
 
 	/**
-	 * Clean up old paybas/recenttopics remnants from ext, migrations, and modules tables
+	 * Force rt_version to 3.0.0 (handles upgrade where config.add skipped because key existed)
 	 */
-	public function cleanup_paybas()
+	public function update_version()
+	{
+		$this->config->set('rt_version', '3.0.0');
+	}
+
+	/**
+	 * Remove ALL old recenttopics modules and paybas remnants so module.add can work cleanly.
+	 * This removes paybas ext/migration entries, and any existing RECENT_TOPICS modules
+	 * (both old paybas and broken avathar attempts from previous installs).
+	 */
+	public function cleanup_old_modules()
 	{
 		// Remove old paybas/recenttopics from ext table
 		$this->db->sql_query('DELETE FROM ' . $this->table_prefix . "ext WHERE ext_name = 'paybas/recenttopics'");
@@ -129,84 +156,56 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 		// Remove old paybas migration entries
 		$this->db->sql_query('DELETE FROM ' . $this->table_prefix . "migrations WHERE migration_name LIKE '%paybas%recenttopics%'");
 
-		// Remove old paybas child module(s) from modules table
-		$this->db->sql_query('DELETE FROM ' . $this->table_prefix . "modules
+		// Find and remove child modules (both old paybas and any broken avathar attempts)
+		$sql = 'SELECT module_id FROM ' . $this->table_prefix . "modules
 			WHERE module_class = 'acp'
-				AND (module_basename LIKE '%paybas%recenttopics%')");
-	}
+				AND (module_basename LIKE '%recenttopics%')";
+		$result = $this->db->sql_query($sql);
+		$module_ids = array();
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$module_ids[] = (int) $row['module_id'];
+		}
+		$this->db->sql_freeresult($result);
 
-	/**
-	 * Add ACP modules
-	 */
-	public function add_acp_modules()
-	{
-		// Check if RECENT_TOPICS category module exists
+		if (!empty($module_ids))
+		{
+			$this->db->sql_query('DELETE FROM ' . $this->table_prefix . 'modules
+				WHERE module_id IN (' . implode(',', $module_ids) . ')');
+		}
+
+		// Remove RECENT_TOPICS category module (has empty basename)
 		$sql = 'SELECT module_id FROM ' . $this->table_prefix . "modules
 			WHERE module_langname = 'RECENT_TOPICS'
 				AND module_class = 'acp'
-				AND module_basename = ''
-				AND module_mode = ''";
+				AND module_basename = ''";
 		$result = $this->db->sql_query($sql);
-		$category_id = (int) $this->db->sql_fetchfield('module_id');
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$this->db->sql_query('DELETE FROM ' . $this->table_prefix . 'modules WHERE module_id = ' . (int) $row['module_id']);
+		}
 		$this->db->sql_freeresult($result);
 
-		if (!$category_id)
+		// Resync the module tree to fix left_id/right_id after deletions
+		$module_manager = $GLOBALS['phpbb_container']->get('module.manager');
+
+		if (method_exists($module_manager, 'remove_cache_file'))
 		{
-			// Find ACP_CAT_DOT_MODS parent
-			$sql = 'SELECT module_id FROM ' . $this->table_prefix . "modules
-				WHERE module_langname = 'ACP_CAT_DOT_MODS'
-					AND module_class = 'acp'";
-			$result = $this->db->sql_query($sql);
-			$parent_id = (int) $this->db->sql_fetchfield('module_id');
-			$this->db->sql_freeresult($result);
-
-			if ($parent_id)
-			{
-				$module_data = array(
-					'module_enabled'  => 1,
-					'module_display'  => 1,
-					'module_basename' => '',
-					'module_class'    => 'acp',
-					'module_mode'     => '',
-					'module_auth'     => '',
-					'module_langname' => 'RECENT_TOPICS',
-					'parent_id'       => $parent_id,
-				);
-
-				$sql = 'INSERT INTO ' . $this->table_prefix . 'modules ' . $this->db->sql_build_array('INSERT', $module_data);
-				$this->db->sql_query($sql);
-				$category_id = (int) $this->db->sql_nextid();
-			}
+			$module_manager->remove_cache_file('acp');
 		}
 
-		if ($category_id)
+		// Use the acp_modules class to resync tree
+		if (!class_exists('acp_modules'))
 		{
-			// Check if avathar child module already exists
-			$sql = 'SELECT module_id FROM ' . $this->table_prefix . "modules
-				WHERE module_class = 'acp'
-					AND (module_basename = 'avathar\\\\recenttopics\\\\acp\\\\recenttopics_module'
-						OR module_basename = '\\\\avathar\\\\recenttopics\\\\acp\\\\recenttopics_module')
-					AND parent_id = " . $category_id;
-			$result = $this->db->sql_query($sql);
-			$child_exists = (bool) $this->db->sql_fetchfield('module_id');
-			$this->db->sql_freeresult($result);
+			include($this->phpbb_root_path . 'includes/acp/acp_modules.' . $this->php_ext);
+		}
 
-			if (!$child_exists)
-			{
-				$module_data = array(
-					'module_enabled'  => 1,
-					'module_display'  => 1,
-					'module_basename' => '\\avathar\\recenttopics\\acp\\recenttopics_module',
-					'module_class'    => 'acp',
-					'module_mode'     => 'recenttopics_config',
-					'module_auth'     => '',
-					'module_langname' => 'RECENT_TOPICS_CONFIG',
-					'parent_id'       => $category_id,
-				);
+		$acp_modules = new \acp_modules();
+		$acp_modules->module_class = 'acp';
 
-				$sql = 'INSERT INTO ' . $this->table_prefix . 'modules ' . $this->db->sql_build_array('INSERT', $module_data);
-				$this->db->sql_query($sql);
-			}
+		if (method_exists($acp_modules, 'remove_cache_file'))
+		{
+			$acp_modules->remove_cache_file();
 		}
 	}
 
@@ -342,9 +341,23 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 			array('config.remove', array('rt_unread_only')),
 			array('config.remove', array('rt_location')),
 
-			// Permissions and modules via custom callable
+			// Permissions
 			array('custom', array(array($this, 'remove_permissions'))),
-			array('custom', array(array($this, 'remove_acp_modules'))),
+
+			// ACP modules via phpBB's module.remove
+			array('module.remove', array(
+				'acp',
+				'RECENT_TOPICS',
+				array(
+					'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
+					'modes'           => array('recenttopics_config'),
+				),
+			)),
+			array('module.remove', array(
+				'acp',
+				'ACP_CAT_DOT_MODS',
+				'RECENT_TOPICS',
+			)),
 		);
 	}
 
@@ -360,7 +373,6 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 
 		foreach ($permissions as $permission)
 		{
-			// Remove from acl_roles_data
 			$sql = 'SELECT auth_option_id FROM ' . $this->table_prefix . "acl_options
 				WHERE auth_option = '" . $this->db->sql_escape($permission) . "'";
 			$result = $this->db->sql_query($sql);
@@ -374,44 +386,7 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 				$this->db->sql_query('DELETE FROM ' . $this->table_prefix . "acl_users WHERE auth_option_id = $auth_option_id");
 			}
 
-			// Remove the option itself
 			$this->db->sql_query('DELETE FROM ' . $this->table_prefix . "acl_options WHERE auth_option = '" . $this->db->sql_escape($permission) . "'");
-		}
-	}
-
-	/**
-	 * Remove ACP modules
-	 */
-	public function remove_acp_modules()
-	{
-		// Remove avathar child module
-		$sql = 'DELETE FROM ' . $this->table_prefix . "modules
-			WHERE module_class = 'acp'
-				AND (module_basename = 'avathar\\\\recenttopics\\\\acp\\\\recenttopics_module'
-					OR module_basename = '\\\\avathar\\\\recenttopics\\\\acp\\\\recenttopics_module')";
-		$this->db->sql_query($sql);
-
-		// Remove RECENT_TOPICS category if it has no children left
-		$sql = 'SELECT module_id FROM ' . $this->table_prefix . "modules
-			WHERE module_langname = 'RECENT_TOPICS'
-				AND module_class = 'acp'
-				AND module_basename = ''";
-		$result = $this->db->sql_query($sql);
-		$category_id = (int) $this->db->sql_fetchfield('module_id');
-		$this->db->sql_freeresult($result);
-
-		if ($category_id)
-		{
-			$sql = 'SELECT COUNT(module_id) as child_count FROM ' . $this->table_prefix . "modules
-				WHERE parent_id = $category_id";
-			$result = $this->db->sql_query($sql);
-			$child_count = (int) $this->db->sql_fetchfield('child_count');
-			$this->db->sql_freeresult($result);
-
-			if ($child_count === 0)
-			{
-				$this->db->sql_query('DELETE FROM ' . $this->table_prefix . "modules WHERE module_id = $category_id");
-			}
 		}
 	}
 }
