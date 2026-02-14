@@ -17,7 +17,7 @@ class rt_perms extends \phpbb\db\migration\migration
 	static public function depends_on()
 	{
 		return array(
-			'\avathar\recenttopics\migrations\basics\rt_module',
+			'\avathar\recenttopics\migrations\basics\rt_module_add',
 		);
 	}
 
