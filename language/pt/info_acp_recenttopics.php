@@ -45,6 +45,11 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS_EXP'            => 'Os IDs de tópicos a excluir, separados por "," (Exemplo: 7,9) <br />O valor 0 desabilita esse comportamento.',
 	'RT_PARENTS'                    => 'Mostrar Fórum Pai',
 	'RT_PARENTS_EXP'                => 'Exibir fóruns pai dentro da linha tópico de tópicos recentes.',
+	'RT_TOPIC_LINK_TO'              => 'Título do tópico liga para',
+	'RT_TOPIC_LINK_TO_EXP'          => 'Escolha para qual mensagem o título do tópico liga na lista de Tópicos Recentes.',
+	'RT_TOPIC_LINK_FIRST'           => 'Primeira mensagem',
+	'RT_TOPIC_LINK_LAST'            => 'Última mensagem',
+	'RT_TOPIC_LINK_UNREAD'          => 'Primeira mensagem não lida',
 
 	//configuração geral para usuários anônimos
 	'RT_OVERRIDABLE'                => 'UCP configurações substituíveis',

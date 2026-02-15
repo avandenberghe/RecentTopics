@@ -41,6 +41,11 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS_EXP'            => 'Identifikátory témat k vyloučení, oddělené čárkou „,“ (příklad: 7,9)<br />',
 	'RT_PARENTS'                    => 'Zobrazit nadřazená fóra',
 	'RT_PARENTS_EXP'                => 'Zobrazit nadřazená fóra v řádku podrobností pod názvem nedávného tématu.',
+	'RT_TOPIC_LINK_TO'              => 'Odkaz názvu tématu vede na',
+	'RT_TOPIC_LINK_TO_EXP'          => 'Zvolte, na který příspěvek bude název tématu v seznamu nedávných témat odkazovat.',
+	'RT_TOPIC_LINK_FIRST'           => 'První příspěvek',
+	'RT_TOPIC_LINK_LAST'            => 'Poslední příspěvek',
+	'RT_TOPIC_LINK_UNREAD'          => 'První nepřečtený příspěvek',
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'Výchozí nastavení (lze přepsat v uživatelském panelu)',
 	'RT_LOCATION'                   => 'Místo zobrazení',

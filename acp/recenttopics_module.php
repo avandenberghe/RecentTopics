@@ -89,6 +89,9 @@ class recenttopics_module
 			$rt_parents = $request->variable('rt_parents', false);
 			$config->set('rt_parents', $rt_parents);
 
+			$rt_topic_link_to = $request->variable('rt_topic_link_to', 0);
+			$config->set('rt_topic_link_to', $rt_topic_link_to);
+
 			/*
 			 *  default positions, modifiable by ucp
 	         */
@@ -144,6 +147,24 @@ class recenttopics_module
 					'VALUE'    => $key,
 					'SELECTED' => ($config['rt_location'] == $key) ? ' selected="selected"' : '',
 					'OPTION'   => $display_type,
+				)
+			);
+		}
+
+		$topic_link_options = array(
+			0 => $language->lang('RT_TOPIC_LINK_FIRST'),
+			1 => $language->lang('RT_TOPIC_LINK_LAST'),
+			2 => $language->lang('RT_TOPIC_LINK_UNREAD'),
+		);
+
+		foreach ($topic_link_options as $key => $topic_link_option)
+		{
+			$template->assign_block_vars(
+				'topiclink_row',
+				array(
+					'VALUE'    => $key,
+					'SELECTED' => ($config['rt_topic_link_to'] == $key) ? ' selected="selected"' : '',
+					'OPTION'   => $topic_link_option,
 				)
 			);
 		}

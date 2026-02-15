@@ -61,6 +61,11 @@ $lang = array_merge(
 		'RT_ANTI_TOPICS_EXP'            => 'Vul de onderwerp id’s in (bijvoorbeeld 7,9), anders 0. (deze nummers vind je in de url viewtopic.php?t=12345)',
 		'RT_PARENTS'                    => 'Weergeven van hoofdforums',
 		'RT_PARENTS_EXP'                => 'Toon de hoofdforums in de onderwerpregel van de recente onderwerpen.',
+		'RT_TOPIC_LINK_TO'              => 'Onderwerptitel linkt naar',
+		'RT_TOPIC_LINK_TO_EXP'          => 'Kies naar welk bericht de onderwerptitel linkt in de lijst van recente onderwerpen.',
+		'RT_TOPIC_LINK_FIRST'           => 'Eerste bericht',
+		'RT_TOPIC_LINK_LAST'            => 'Laatste bericht',
+		'RT_TOPIC_LINK_UNREAD'          => 'Eerste ongelezen bericht',
 
 		//user instellingen
 		'RT_OVERRIDABLE'                => 'Instellingen waarvoor gebruikerspaneel voorrang heeft',

@@ -44,7 +44,12 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS'                => 'Temas excluidos',
 	'RT_ANTI_TOPICS_EXP'            => 'Las IDs de los temas a excluír, separados por "," (Por ejemplo: 7,9)<br />Si no quiere excluir un tema, simplemente introduzca 0.',
 	'RT_PARENTS'                    => 'Mostrar foros padre',
-	'RT_PARENTS_EXP'                => 'Mostrar foros padre dentro de la fila del tema de “Temas Recientes”.',
+	'RT_PARENTS_EXP'                => 'Mostrar foros padre dentro de la fila del tema de "Temas Recientes".',
+	'RT_TOPIC_LINK_TO'              => 'El título del tema enlaza a',
+	'RT_TOPIC_LINK_TO_EXP'          => 'Elija a qué mensaje enlaza el título del tema en la lista de Temas Recientes.',
+	'RT_TOPIC_LINK_FIRST'           => 'Primer mensaje',
+	'RT_TOPIC_LINK_LAST'            => 'Último mensaje',
+	'RT_TOPIC_LINK_UNREAD'          => 'Primer mensaje no leído',
 
 	// Opciones modificables por el usuario. Afectan a los usuarios anónimos y pueden ser sobreescritas por el PCU
 	'RT_OVERRIDABLE'                => 'Opciones sobreescribibles del PCU',

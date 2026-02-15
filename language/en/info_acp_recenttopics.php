@@ -45,6 +45,11 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS_EXP'            => 'The IDs of topics to exclude, separated by “,” (Example: 7,9)<br />The value 0 disables this behaviour.',
 	'RT_PARENTS'                    => 'Display parent forums',
 	'RT_PARENTS_EXP'                => 'Display parent forums inside the topic row of recent topics.',
+	'RT_TOPIC_LINK_TO'              => 'Topic title links to',
+	'RT_TOPIC_LINK_TO_EXP'          => 'Choose which post the topic title links to in the Recent Topics list.',
+	'RT_TOPIC_LINK_FIRST'           => 'First post',
+	'RT_TOPIC_LINK_LAST'            => 'Last post',
+	'RT_TOPIC_LINK_UNREAD'          => 'First unread post',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'UCP overridable Settings',

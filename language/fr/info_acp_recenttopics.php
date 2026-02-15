@@ -64,7 +64,12 @@ $lang = array_merge($lang, array(
 	'RT_ANTI_TOPICS'                => 'Exclure des sujets de l’affichage',
 	'RT_ANTI_TOPICS_EXP'            => 'Permet de saisir les ID, séparés par une virgule (exemple : 7,9), des sujets à exclure de l’affichage des sujets récents.<br />Pour afficher tous les sujets saisir la valeur 0.',
 	'RT_PARENTS'                    => 'Afficher les forums parents',
-	'RT_PARENTS_EXP'                => 'Permet d’afficher les forums parents dans l’arborescence des forums de l’affichage des sujets récents.',
+	'RT_PARENTS_EXP'                => 'Permet d'afficher les forums parents dans l'arborescence des forums de l'affichage des sujets récents.',
+	'RT_TOPIC_LINK_TO'              => 'Le titre du sujet renvoie vers',
+	'RT_TOPIC_LINK_TO_EXP'          => 'Permet de choisir vers quel message le titre du sujet renvoie dans la liste des sujets récents.',
+	'RT_TOPIC_LINK_FIRST'           => 'Premier message',
+	'RT_TOPIC_LINK_LAST'            => 'Dernier message',
+	'RT_TOPIC_LINK_UNREAD'          => 'Premier message non lu',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'Paramètres personnalisables depuis le « Panneau de l’utilisateur »',

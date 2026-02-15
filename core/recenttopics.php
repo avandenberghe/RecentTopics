@@ -852,7 +852,7 @@ class recenttopics
 					'S_TOPIC_TYPE_SWITCH' => ($s_type_switch == $s_type_switch_test) ? -1 : $s_type_switch_test,
 					'U_NEWEST_POST' => $view_topic_url . '&amp;view=unread#unread',
 					'U_LAST_POST'   => $view_topic_url . '&amp;p=' . $row['topic_last_post_id'] . '#p' . $row['topic_last_post_id'],
-					'U_VIEW_TOPIC'  => $view_topic_url,
+					'U_VIEW_TOPIC'  => $this->get_topic_link_url($view_topic_url, $row['topic_last_post_id']),
 					'U_VIEW_FORUM'  => $view_forum_url,
 					'U_MCP_REPORT'  => append_sid("{$this->root_path}mcp.$this->phpEx", 'i=reports&amp;mode=reports&amp;f=' . $forum_id . '&amp;t=' . $topic_id, true, $this->user->session_id),
 					'U_MCP_QUEUE'   => $u_mcp_queue,
@@ -916,5 +916,25 @@ class recenttopics
 				)
 			);
 		}// topics found
+	}
+
+	/**
+	 * Get the topic link URL based on the rt_topic_link_to config setting
+	 *
+	 * @param string $view_topic_url  Base topic URL (first post)
+	 * @param int    $last_post_id    Last post ID in the topic
+	 * @return string
+	 */
+	private function get_topic_link_url($view_topic_url, $last_post_id)
+	{
+		switch ((int) $this->config['rt_topic_link_to'])
+		{
+			case 1:
+				return $view_topic_url . '&amp;p=' . $last_post_id . '#p' . $last_post_id;
+			case 2:
+				return $view_topic_url . '&amp;view=unread#unread';
+			default:
+				return $view_topic_url;
+		}
 	}
 }

@@ -45,6 +45,11 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS_EXP'            => 'اكتب علامة الفاصلة ", " بين أرقام المواضيع التي تريد عدم ظهورها في "أحدث المواضيع" ( مثال : 7,9 )',
 	'RT_PARENTS'                    => 'إظهار المنتدى الأب ',
 	'RT_PARENTS_EXP'                => 'إظهار إسم "المنتدى الأب" في التفاصيل المذكورة تحت أسم الموضوع.',
+	'RT_TOPIC_LINK_TO'              => 'رابط عنوان الموضوع يؤدي إلى',
+	'RT_TOPIC_LINK_TO_EXP'          => 'اختر المشاركة التي يؤدي إليها رابط عنوان الموضوع في قائمة أحدث المواضيع.',
+	'RT_TOPIC_LINK_FIRST'           => 'المشاركة الأولى',
+	'RT_TOPIC_LINK_LAST'            => 'المشاركة الأخيرة',
+	'RT_TOPIC_LINK_UNREAD'          => 'أول مشاركة غير مقروءة',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'الإعدادات الرئيسية',

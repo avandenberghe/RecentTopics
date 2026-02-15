@@ -47,6 +47,16 @@
 				<label><input type="radio" class="radio" name="rt_parents" value="0"{% if not RT_PARENTS %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
+		<dl>
+			<dt><label for="rt_topic_link_to">{{ lang('RT_TOPIC_LINK_TO') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_TOPIC_LINK_TO_EXP') }}</span></dt>
+			<dd>
+				<select name="rt_topic_link_to" class="input" id="rt_topic_link_to">
+					{% for topiclink_row in loops.topiclink_row %}
+					<option value="{{ topiclink_row.VALUE }}"{{ topiclink_row.SELECTED }}>{{ topiclink_row.OPTION }}</option>
+					{% endfor %}
+				</select>
+			</dd>
+		</dl>
 	</fieldset>
 
 	<fieldset>

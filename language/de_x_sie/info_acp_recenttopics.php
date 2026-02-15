@@ -61,6 +61,11 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS_EXP'            => 'Gebe die Subjekt-IDs ein, kommagetrennt (z. B. 7,9), andernfalls 0 um alle Themen an zu zeigen. (wie im url viewtopic.php?t=12345).',
 	'RT_PARENTS'                    => 'Übergeordnete Foren anzeigen',
 	'RT_PARENTS_EXP'                => 'Übergeordnete Foren in der Liste der aktuellen Themen anzeigen.',
+	'RT_TOPIC_LINK_TO'              => 'Thementitel verlinkt auf',
+	'RT_TOPIC_LINK_TO_EXP'          => 'Wählen Sie, auf welchen Beitrag der Thementitel in der Liste der aktuellen Themen verlinkt.',
+	'RT_TOPIC_LINK_FIRST'           => 'Erster Beitrag',
+	'RT_TOPIC_LINK_LAST'            => 'Letzter Beitrag',
+	'RT_TOPIC_LINK_UNREAD'          => 'Erster ungelesener Beitrag',
 
 	//Benutzereinstellungen
 	'RT_OVERRIDABLE'                => 'Einstellungen, für die das Benutzerfeld Priorität hat',
