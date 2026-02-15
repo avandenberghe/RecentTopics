@@ -28,18 +28,28 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\request\request */
 	protected $request;
 
+	/** @var \phpbb\controller\helper */
+	protected $helper;
+
+	/** @var \phpbb\language\language */
+	protected $language;
+
 	/**
 	 * listener constructor.
 	 *
 	 * @param \avathar\recenttopicsav\core\recenttopics $functions
 	 * @param \phpbb\config\config                   $config
 	 * @param \phpbb\request\request                 $request
+	 * @param \phpbb\controller\helper               $helper
+	 * @param \phpbb\language\language               $language
 	 */
-	public function __construct(recenttopics $functions, \phpbb\config\config $config, \phpbb\request\request $request)
+	public function __construct(recenttopics $functions, \phpbb\config\config $config, \phpbb\request\request $request, \phpbb\controller\helper $helper, \phpbb\language\language $language)
 	{
 		$this->rt_functions = $functions;
 		$this->config = $config;
 		$this->request = $request;
+		$this->helper = $helper;
+		$this->language = $language;
 	}
 
 	/**
@@ -52,6 +62,7 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.index_modify_page_title'           => 'display_rt',
+			'core.viewonline_overwrite_location'     => 'viewonline_overwrite_location',
 			'core.acp_manage_forums_request_data'    => 'acp_manage_forums_request_data',
 			'core.acp_manage_forums_initialise_data' => 'acp_manage_forums_initialise_data',
 			'core.acp_manage_forums_display_form'    => 'acp_manage_forums_display_form',
@@ -68,6 +79,28 @@ class listener implements EventSubscriberInterface
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
 		{
 			$this->rt_functions->display_recent_topics();
+		}
+	}
+
+	/**
+	 * Show users viewing Recent Topics on the Who Is Online page
+	 *
+	 * @param \phpbb\event\data $event
+	 */
+	public function viewonline_overwrite_location($event)
+	{
+		if ($event['on_page'][1] === 'app')
+		{
+			if (strpos($event['row']['session_page'], 'app.php/rt/simple') !== false)
+			{
+				$event['location'] = $this->language->lang('VIEWING_RECENT_TOPICS');
+				$event['location_url'] = $this->helper->route('avathar_recenttopicsav_simple');
+			}
+			else if (strpos($event['row']['session_page'], 'app.php/rt') !== false)
+			{
+				$event['location'] = $this->language->lang('VIEWING_RECENT_TOPICS');
+				$event['location_url'] = $this->helper->route('avathar_recenttopicsav_page');
+			}
 		}
 	}
 

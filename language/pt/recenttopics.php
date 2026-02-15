@@ -23,6 +23,7 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'     => 'Tópicos Recentes',
 	'RT_NO_TOPICS'		=> 'Não há novos tópicos a serem exibidos.',
+	'VIEWING_RECENT_TOPICS'	=> 'Visualizando <a href="%s">Tópicos Recentes</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Esta extensão requer o phpBB 3.3.0 ou superior.',
 	)
 );

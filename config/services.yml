@@ -32,6 +32,8 @@ services:
             - '@avathar.recenttopicsav.functions'
             - '@config'
             - '@request'
+            - '@controller.helper'
+            - '@language'
         tags:
             - { name: event.listener }
     avathar.recenttopicsav.ucp_listener:

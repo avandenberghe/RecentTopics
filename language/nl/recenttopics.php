@@ -23,6 +23,7 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'   => 'Recente Onderwerpen',
 	'RT_NO_TOPICS'	  => 'Er zijn geen recente onderwerpen weer te geven.',
+	'VIEWING_RECENT_TOPICS'	=> 'Bekijkt <a href="%s">Recente Onderwerpen</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Deze extensie vereist phpBB 3.3.0 of hoger.',
 	)
 );
