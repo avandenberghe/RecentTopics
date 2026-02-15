@@ -17,6 +17,10 @@
   - [NEW] Added full-page (/app.php/rt) and simple-page (/app.php/rt/simple) display modes (#155)
   - [NEW] Added GitHub issue templates (bug report, feature request)
   - [NEW] Added cleanup SQL script (contrib/cleanup_recenttopics.sql)
+  - [NEW] Added standalone page links to ACP settings for easy admin access to /app.php/rt and /app.php/rt/simple
+  - [NEW] Added Swedish (sv) translation
+  - [FIX] Fixed grammar and spelling errors across all translations (de, de_x_sie, es, fr, nl, pt, ru, uk, cs, ar, en)
+  - [CHG] Standardized PHP doc headers across all language files
   - [DEL] Removed .github/issue_template.md
 
 - 2.2.15 (05/04/2021)

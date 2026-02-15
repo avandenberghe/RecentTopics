@@ -5,7 +5,7 @@ Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
 
 #### Version
-v3.0.0 (12/02/2026)
+v3.0.0 (15/02/2026)
 
 #### Support
 - [Support forum](https://www.avathar.be/forum/viewforum.php?f=65)
@@ -50,7 +50,7 @@ v3.0.0 (12/02/2026)
   - pbWow3  
 
 #### Languages supported
-- English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Ukrainian
+- English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Ukrainian, Swedish
 
 ### Installation
 1. Disable, delete data and remove the extension paybas/recenttopics.
