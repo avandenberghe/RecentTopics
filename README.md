@@ -39,10 +39,8 @@ v3.0.0 (12/02/2026)
   - Collapsible Categories v2
 - Tested on:
   - prosilver
-  - we_clearblue
-  - proflat
-  - pbWow3
-  - ComBoot
+  - pbTech
+  - pbWow3  
 
 #### Languages supported
 - English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Ukrainian
