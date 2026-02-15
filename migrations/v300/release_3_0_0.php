@@ -7,11 +7,11 @@
  * @copyright (c) 2026 Andreas Vandenberghe (avathar)
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
- * Release migration for avathar/recenttopics 3.0.0
+ * Release migration for avathar/recenttopicsav 3.0.0
  * Combines all previous paybas/recenttopics migrations (2.0.0 - 2.2.15)
  */
 
-namespace avathar\recenttopics\migrations\v300;
+namespace avathar\recenttopicsav\migrations\v300;
 
 class release_3_0_0 extends \phpbb\db\migration\migration
 {
@@ -21,19 +21,17 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 			&& version_compare($this->config['rt_version'], '3.0.0', '>=');
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
-		return array(
-			'\avathar\recenttopics\migrations\basics\rt_config',
-		);
+		return ['\avathar\recenttopicsav\migrations\basics\rt_config'];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('config.add', array('rt_version', '3.0.0')),
-			array('custom', array(array($this, 'update_version'))),
-		);
+		return [
+			['config.add', ['rt_version', '3.0.0']],
+			['custom', [[$this, 'update_version']]],
+		];
 	}
 
 	/**
@@ -46,8 +44,8 @@ class release_3_0_0 extends \phpbb\db\migration\migration
 
 	public function revert_data()
 	{
-		return array(
-			array('config.remove', array('rt_version')),
-		);
+		return [
+			['config.remove', ['rt_version']],
+		];
 	}
 }

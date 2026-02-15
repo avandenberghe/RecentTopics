@@ -1,4 +1,4 @@
-Recent Topics for phpBB 3.2 / 3.3
+Recent Topics for phpBB 3.3
 ==========
 
 Extension for phpBB to display recent topics on the index page.
@@ -11,7 +11,7 @@ v3.0.0 (12/02/2026)
 - [Support forum](https://www.avathar.be/forum/viewforum.php?f=65)
 
 #### Requirements
-- phpBB 3.2.6 or higher
+- phpBB 3.3.0 or higher
 - PHP 7.1.3 or higher
 
 #### Features
@@ -48,15 +48,17 @@ v3.0.0 (12/02/2026)
 - English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Ukrainian
 
 ### Installation
-1. [Download the latest release](https://www.avathar.be/forum/app.php/dlext/details?df_id=35) and unzip it.
-2. Copy the entire contents from the unzipped folder to `/ext/avathar/recenttopics/`.
-3. Navigate in the ACP to `Customise -> Manage extensions`.
-4. Find `Recent Topics` under "Disabled Extensions" and click `Enable`.
+1. Disable, delete data and remove the extension paybas/recenttopics.
+2. [Download the latest release](https://www.avathar.be/forum/app.php/dlext/details?df_id=35) and unzip it.
+3. Copy the entire contents from the unzipped folder to `/ext/avathar/recenttopicsav/`.
+4. Navigate in the ACP to `Customise -> Manage extensions`.
+5. Find `Recent Topics` under "Disabled Extensions" and click `Enable`.
+
 
 #### Uninstallation
 1. Navigate in the ACP to `Customise -> Manage extensions`.
 2. Click the `Disable` link for `Recent Topics`.
-3. To permanently uninstall, click `Delete Data`, then delete the `recenttopics` folder from `/ext/avathar/`.
+3. To permanently uninstall, click `Delete Data`, then delete the `recenttopicsav` folder from `/ext/avathar/`.
 
 ### License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)

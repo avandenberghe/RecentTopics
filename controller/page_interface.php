@@ -5,7 +5,7 @@
  * Date: 5/02/18
  * Time: 21:37
  */
-namespace avathar\recenttopics\controller;
+namespace avathar\recenttopicsav\controller;
 
 interface page_interface
 {

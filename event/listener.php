@@ -9,9 +9,9 @@
  *
  */
 
-namespace avathar\recenttopics\event;
+namespace avathar\recenttopicsav\event;
 
-use avathar\recenttopics\core\recenttopics;
+use avathar\recenttopicsav\core\recenttopics;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -31,7 +31,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * listener constructor.
 	 *
-	 * @param \avathar\recenttopics\core\recenttopics $functions
+	 * @param \avathar\recenttopicsav\core\recenttopics $functions
 	 * @param \phpbb\config\config                   $config
 	 * @param \phpbb\request\request                 $request
 	 */
@@ -58,7 +58,7 @@ class listener implements EventSubscriberInterface
 			'core.permissions'                       => 'add_permission',
 
 			// Events added by this extension
-			'avathar.recenttopics.topictitle_remove_re'  => 'topictitle_remove_re',
+			'avathar.recenttopicsav.topictitle_remove_re'  => 'topictitle_remove_re',
 		);
 	}
 

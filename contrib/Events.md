@@ -1,6 +1,6 @@
 ## List of php events
 
-* Event name :  avathar.recenttopics.sql_pull_topics_data
+* Event name :  avathar.recenttopicsav.sql_pull_topics_data
 * Description : Allows for modification of SQL query before the topics data is retrieved
 * Placement : pbwow.process_pf_show
 * Since 2.0.0
@@ -10,9 +10,9 @@
 
 -----------
 
-* Event name :  avathar.recenttopics.modify_topics_list
+* Event name :  avathar.recenttopicsav.modify_topics_list
 * Description : Event to modify the topics list data before we start the display loop
-* Placement : avathar\recenttopics\core\recenttopics\display_recent_topics
+* Placement : avathar\recenttopicsav\core\recenttopics\display_recent_topics
 * Since : 2.0.1
 * known listeners :  /
 * Arguments :
@@ -21,9 +21,9 @@
 
 -----------
 
-* Event name :  avathar.recenttopics.modify_tpl_ary
+* Event name :  avathar.recenttopicsav.modify_tpl_ary
 * Description : Modify the topic data before it is assigned to the template
-* Placement : avathar\recenttopics\core\recenttopics\display_recent_topics
+* Placement : avathar\recenttopicsav\core\recenttopics\display_recent_topics
 * Since 2.0.0
 * known listeners :  /
 * Arguments :
@@ -32,18 +32,18 @@
 
 -----------
 
-* Event name :  avathar.recenttopics.sql_pull_topics_list
+* Event name :  avathar.recenttopicsav.sql_pull_topics_list
 * Description : Event to modify the SQL query before the allowed topics list data is retrieved
-* Placement : avathar\recenttopics\core\recenttopics\gettopiclist
+* Placement : avathar\recenttopicsav\core\recenttopics\gettopiclist
 * known listeners :  /
 * Since 2.0.4
 * Arguments :
  - @var   array    sql_array        The SQL array
 -----------
 
-* Event name :  avathar.recenttopics.modify_topictitle
+* Event name :  avathar.recenttopicsav.modify_topictitle
 * Description : Event to modify the topic title by adding a prefix
-* Placement : avathar\recenttopics\core\recenttopics\display_recent_topics
+* Placement : avathar\recenttopicsav\core\recenttopics\display_recent_topics
 * known listeners :  Prefix Extension Imkingdavid
 * Since 2.1.3
 * Arguments :
@@ -52,9 +52,9 @@
 
 -----------
 
-* Event name : avathar.recenttopics.topictitle_remove_re
+* Event name : avathar.recenttopicsav.topictitle_remove_re
 * Description : Event to modify the topic_last_post_subject by removing the "Re: text"
-* Placement : avathar\recenttopics\core\recenttopics\display_recent_topics
+* Placement : avathar\recenttopicsav\core\recenttopics\display_recent_topics
 * listener :  Recent topics 2.2.11 
 * @since 2.2.11
 * Arguments :
@@ -64,6 +64,6 @@
 
 * Event name : recenttopics_mchat_side
 * Description : Injection point for Mchat under Recent topics in Side mode.
-* Placement : avathar\recenttopics\styles\all\template\event\index_body_markforums_after.html
+* Placement : avathar\recenttopicsav\styles\all\template\event\index_body_markforums_after.html
 * Since 2.2.3
 

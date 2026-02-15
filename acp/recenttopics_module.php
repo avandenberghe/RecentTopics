@@ -8,12 +8,12 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopics\acp;
+namespace avathar\recenttopicsav\acp;
 
 /**
  * Class recenttopics_module
  *
- * @package avathar\recenttopics\acp
+ * @package avathar\recenttopicsav\acp
  */
 class recenttopics_module
 {
@@ -45,7 +45,7 @@ class recenttopics_module
 		add_form_key($form_key);
 
 		//version check
-		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopics');
+		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopicsav');
 		$meta_data  = $ext_meta_manager->get_metadata();
 		$ext_version  = $meta_data['version'];
 		$latest_version  = $this->version_check($meta_data, $request->variable('versioncheck_force', false));
@@ -88,10 +88,6 @@ class recenttopics_module
 
 			$rt_parents = $request->variable('rt_parents', false);
 			$config->set('rt_parents', $rt_parents);
-
-			// Enable on other extension pages?
-			$rt_on_newspage = $request->variable('rt_on_newspage', 0);
-			$config->set('rt_on_newspage', $rt_on_newspage);
 
 			/*
 			 *  default positions, modifiable by ucp
@@ -163,8 +159,6 @@ class recenttopics_module
 				'RT_NUMBER'          => (int) $config['rt_number'],
 				'RT_SORT_START_TIME' => (int) $config['rt_sort_start_time'],
 				'RT_UNREAD_ONLY'     => (int) $config['rt_unread_only'],
-				'RT_ON_NEWSPAGE'     => $config['rt_on_newspage'],
-				'S_RT_NEWSPAGE'      => $ext_manager->is_enabled('nickvergessen/newspage'),
 				'S_RT_OK'            => version_compare($ext_version, $latest_version, '=='),
 				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
 				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),

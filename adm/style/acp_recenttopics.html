@@ -92,19 +92,6 @@
 	</fieldset>
 
 
-	{% if S_RT_NEWSPAGE %}
-	<fieldset>
-		<legend>{{ lang('RT_VIEW_ON') }}</legend>
-		<dl>
-			<dt><label for="rt_on_newspage">{{ lang('RT_NICKVERGESSEN_NEWSPAGE') }}</label></dt>
-			<dd>
-				<label><input type="radio" class="radio" name="rt_on_newspage" value="1" id="rt_on_newspage"{% if RT_ON_NEWSPAGE %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="rt_on_newspage" value="0" {% if not RT_ON_NEWSPAGE %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
-			</dd>
-		</dl>
-	</fieldset>
-	{% endif %}
-
 	<fieldset>
 		<legend>{{ lang('ACP_SUBMIT_CHANGES') }}</legend>
 		<p class="submit-buttons">

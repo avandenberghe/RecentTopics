@@ -8,7 +8,7 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopics;
+namespace avathar\recenttopicsav;
 
 /**
  * Extension class for custom enable/disable/purge actions
@@ -31,7 +31,7 @@ class ext extends \phpbb\extension\base
 		}
 
 		$language = $this->container->get('language');
-		$language->add_lang('recenttopics', 'avathar/recenttopics');
+		$language->add_lang('recenttopics', 'avathar/recenttopicsav');
 		return [$language->lang('EXTENSION_REQUIRES_330')];
 	}
 }

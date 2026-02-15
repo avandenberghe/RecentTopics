@@ -7,55 +7,65 @@
  * @copyright (c) 2026 Andreas Vandenberghe (avathar)
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
- * Module migration: Add avathar/recenttopics ACP module
+ * Module migration: Add avathar/recenttopicsav ACP module
  */
 
-namespace avathar\recenttopics\migrations\basics;
+namespace avathar\recenttopicsav\migrations\basics;
 
-class rt_module_add extends \phpbb\db\migration\migration
+class rt_module_add extends \phpbb\db\migration\container_aware_migration
 {
-	static public function depends_on()
+	public function effectively_installed()
 	{
-		return array(
-			'\avathar\recenttopics\migrations\basics\rt_module',
-		);
+		$sql = 'SELECT module_id
+			FROM ' . $this->table_prefix . "modules
+			WHERE module_class = 'acp'
+				AND module_basename = '\avathar\recenttopicsav\acp\recenttopics_module'";
+		$result = $this->db->sql_query($sql);
+		$module_id = $this->db->sql_fetchfield('module_id');
+		$this->db->sql_freeresult($result);
+
+		return $module_id !== false;
+	}
+
+	public static function depends_on()
+	{
+		return ['\avathar\recenttopicsav\migrations\basics\rt_module'];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('module.add', array(
-				'acp',
-				'ACP_CAT_DOT_MODS',
-				'RECENT_TOPICS',
-			)),
-			array('module.add', array(
-				'acp',
-				'RECENT_TOPICS',
-				array(
-					'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
-					'modes'           => array('recenttopics_config'),
-				),
-			)),
-		);
+		return [
+			['custom', [[$this, 'add_modules']]],
+		];
+	}
+
+	public function add_modules()
+	{
+		$module_tool = $this->container->get('migrator.tool.module');
+
+		$module_tool->add('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS');
+		$module_tool->add('acp', 'RECENT_TOPICS', [
+			'module_basename' => '\avathar\recenttopicsav\acp\recenttopics_module',
+			'modes'           => ['recenttopics_config'],
+		]);
 	}
 
 	public function revert_data()
 	{
-		return array(
-			array('module.remove', array(
+		return [
+			['module.remove', [
 				'acp',
 				'RECENT_TOPICS',
-				array(
-					'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
-					'modes'           => array('recenttopics_config'),
-				),
-			)),
-			array('module.remove', array(
+				[
+					'module_basename' => '\avathar\recenttopicsav\acp\recenttopics_module',
+					'modes'           => ['recenttopics_config'],
+				],
+			]],
+			['module.remove', [
 				'acp',
 				'ACP_CAT_DOT_MODS',
 				'RECENT_TOPICS',
-			)),
-		);
+			]],
+		];
 	}
 }

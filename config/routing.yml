@@ -1,4 +1,4 @@
 # special page
-avathar_recenttopics_specialpage:
+avathar_recenttopicsav_specialpage:
     path: /rt
-    defaults: { _controller: avathar.recenttopics.controller.page_controller:display}
+    defaults: { _controller: avathar.recenttopicsav.controller.page_controller:display}

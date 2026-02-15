@@ -10,22 +10,31 @@
  * Permissions migration: user permissions and role/group assignments
  */
 
-namespace avathar\recenttopics\migrations\basics;
+namespace avathar\recenttopicsav\migrations\basics;
 
 class rt_perms extends \phpbb\db\migration\migration
 {
-	static public function depends_on()
+	public function effectively_installed()
 	{
-		return array(
-			'\avathar\recenttopics\migrations\basics\rt_module_add',
-		);
+		$sql = 'SELECT auth_option_id FROM ' . $this->table_prefix . "acl_options
+			WHERE auth_option = 'u_rt_view'";
+		$result = $this->db->sql_query($sql);
+		$exists = (bool) $this->db->sql_fetchfield('auth_option_id');
+		$this->db->sql_freeresult($result);
+
+		return $exists;
+	}
+
+	public static function depends_on()
+	{
+		return ['\avathar\recenttopicsav\migrations\basics\rt_module_add'];
 	}
 
 	public function update_data()
 	{
-		return array(
-			array('custom', array(array($this, 'add_permissions'))),
-		);
+		return [
+			['custom', [[$this, 'add_permissions']]],
+		];
 	}
 
 	/**
@@ -33,10 +42,10 @@ class rt_perms extends \phpbb\db\migration\migration
 	 */
 	public function add_permissions()
 	{
-		$permissions = array(
+		$permissions = [
 			'u_rt_view', 'u_rt_enable', 'u_rt_sort_start_time',
 			'u_rt_unread_only', 'u_rt_location', 'u_rt_number',
-		);
+		];
 
 		// Add permissions (skip if already exist)
 		foreach ($permissions as $permission)
@@ -49,12 +58,12 @@ class rt_perms extends \phpbb\db\migration\migration
 
 			if (!$exists)
 			{
-				$sql_ary = array(
+				$sql_ary = [
 					'auth_option'   => $permission,
 					'is_global'     => 1,
 					'is_local'      => 0,
 					'founder_only'  => 0,
-				);
+				];
 				$sql = 'INSERT INTO ' . $this->table_prefix . 'acl_options ' . $this->db->sql_build_array('INSERT', $sql_ary);
 				$this->db->sql_query($sql);
 			}
@@ -86,11 +95,11 @@ class rt_perms extends \phpbb\db\migration\migration
 
 					if (!$already_set)
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'role_id'        => $role_id,
 							'auth_option_id' => $auth_option_id,
 							'auth_setting'   => 1,
-						);
+						];
 						$sql = 'INSERT INTO ' . $this->table_prefix . 'acl_roles_data ' . $this->db->sql_build_array('INSERT', $sql_ary);
 						$this->db->sql_query($sql);
 					}
@@ -99,7 +108,7 @@ class rt_perms extends \phpbb\db\migration\migration
 		}
 
 		// Set group permissions for REGISTERED and GUESTS (u_rt_view only)
-		$groups = array('REGISTERED', 'GUESTS');
+		$groups = ['REGISTERED', 'GUESTS'];
 		foreach ($groups as $group_name)
 		{
 			$sql = 'SELECT group_id FROM ' . $this->table_prefix . "groups
@@ -128,13 +137,13 @@ class rt_perms extends \phpbb\db\migration\migration
 
 					if (!$already_set)
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'group_id'       => $group_id,
 							'forum_id'       => 0,
 							'auth_option_id' => $auth_option_id,
 							'auth_role_id'   => 0,
 							'auth_setting'   => 1,
-						);
+						];
 						$sql = 'INSERT INTO ' . $this->table_prefix . 'acl_groups ' . $this->db->sql_build_array('INSERT', $sql_ary);
 						$this->db->sql_query($sql);
 					}
@@ -145,9 +154,9 @@ class rt_perms extends \phpbb\db\migration\migration
 
 	public function revert_data()
 	{
-		return array(
-			array('custom', array(array($this, 'remove_permissions'))),
-		);
+		return [
+			['custom', [[$this, 'remove_permissions']]],
+		];
 	}
 
 	/**
@@ -155,10 +164,10 @@ class rt_perms extends \phpbb\db\migration\migration
 	 */
 	public function remove_permissions()
 	{
-		$permissions = array(
+		$permissions = [
 			'u_rt_view', 'u_rt_enable', 'u_rt_sort_start_time',
 			'u_rt_unread_only', 'u_rt_location', 'u_rt_number',
-		);
+		];
 
 		foreach ($permissions as $permission)
 		{

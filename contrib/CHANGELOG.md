@@ -1,10 +1,11 @@
 ### Changelog
 - 3.0.0 (12/02/2026)
-  - [CHG] Forked as avathar/recenttopics, namespace changed from paybas to avathar
+  - [CHG] Forked as avathar/recenttopicsav, namespace changed from paybas to avathar
   - [CHG] Version bumped to 3.0.0
   - [CHG] Flattened migration history into a single release_3_0_0 migration
-  - [CHG] Updated composer.json package name to avathar/recenttopics
+  - [CHG] Updated composer.json package name to avathar/recenttopicsav
   - [CHG] Updated all service names, route names, template paths and event names to avathar namespace
+  - [CHG] Removed nickvergessen/newspage extension dependency
 
 - 2.2.15 (05/04/2021)
   - [FIX] #142 Compatible with PHP 8 

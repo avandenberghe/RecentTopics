@@ -8,7 +8,7 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopics\core;
+namespace avathar\recenttopicsav\core;
 
 use part3\topicprefixes\core\topicprefixes;
 use phpbb\auth\auth;
@@ -24,7 +24,7 @@ use phpbb\language\language;
 /**
  * Class recenttopics
  *
- * @package avathar\recenttopics\core
+ * @package avathar\recenttopicsav\core
  */
 class recenttopics
 {
@@ -566,12 +566,12 @@ class recenttopics
 		/**
 		 * Event to modify the SQL query before the allowed topics list data is retrieved
 		 *
-		 * @event avathar.recenttopics.sql_pull_topics_list
+		 * @event avathar.recenttopicsav.sql_pull_topics_list
 		 * @var   array    sql_array        The SQL array
 		 * @since 2.0.4
 		 */
 		$vars = array('sql_array');
-		extract($this->dispatcher->trigger_event('avathar.recenttopics.sql_pull_topics_list', compact($vars)));
+		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.sql_pull_topics_list', compact($vars)));
 
 		return $sql_array;
 
@@ -643,13 +643,13 @@ class recenttopics
 		/**
 		 * Event to modify the SQL query before the topics data is retrieved
 		 *
-		 * @event avathar.recenttopics.sql_pull_topics_data
+		 * @event avathar.recenttopicsav.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
 		 * @since 2.0.0
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
-				'avathar.recenttopics.sql_pull_topics_data',
+				'avathar.recenttopicsav.sql_pull_topics_data',
 				array('sql_array' => $sql_array)
 			)
 		);
@@ -680,14 +680,14 @@ class recenttopics
 			/**
 			 * Event to modify the topics list data before we start the display loop
 			 *
-			 * @event avathar.recenttopics.modify_topics_list
+			 * @event avathar.recenttopicsav.modify_topics_list
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
 			 * @since 2.0.1
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
-					'avathar.recenttopics.modify_topics_list',
+					'avathar.recenttopicsav.modify_topics_list',
 					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
 				)
 			);
@@ -758,27 +758,27 @@ class recenttopics
 				/**
 				 * Event to remove re
 				 *
-				 * @event avathar.recenttopics.topictitle_remove_re
+				 * @event avathar.recenttopicsav.topictitle_remove_re
 				 * @var   array    row      the forum row
 				 * @since 2.2.11
 				 */
 				$vars = array('row');
-				extract($this->dispatcher->trigger_event('avathar.recenttopics.topictitle_remove_re', compact($vars)));
+				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.topictitle_remove_re', compact($vars)));
 
 				/**
 				 * Event to modify the topic title
 				 *
-				 * @event avathar.recenttopics.modify_topictitle
+				 * @event avathar.recenttopicsav.modify_topictitle
 				 * @var   array    row      the forum row
 				 * @var   string    prefix  the topic title prefix
 				 * @since 2.1.3
 				 */
 
 				$vars = array('row', 'prefix');
-				extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_topictitle', compact($vars)));
+				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_topictitle', compact($vars)));
 
 				//fallback if there is no listener
-				if (!$this->is_listening('imkingdavid\prefixed\event\listener', 'avathar.recenttopics.modify_topictitle'))
+				if (!$this->is_listening('imkingdavid\prefixed\event\listener', 'avathar.recenttopicsav.modify_topictitle'))
 				{
 					if ($this->prefixed !== null)
 					{
@@ -803,7 +803,7 @@ class recenttopics
 				}
 				list($topic_author, $topic_author_color, $topic_author_full, $u_topic_author, $last_post_author, $last_post_author_colour, $last_post_author_full, $u_last_post_author) = $this->getusernamestrings($row);
 				//load language
-				$this->language->add_lang('recenttopics', 'avathar/recenttopics');
+				$this->language->add_lang('recenttopics', 'avathar/recenttopicsav');
 				$tpl_ary = array(
 					'FORUM_ID'                => $forum_id,
 					'TOPIC_ID'                => $topic_id,
@@ -856,13 +856,13 @@ class recenttopics
 				/**
 				 * Modify the topic data before it is assigned to the template
 				 *
-				 * @event avathar.recenttopics.modify_tpl_ary
+				 * @event avathar.recenttopicsav.modify_tpl_ary
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
 				 * @since 2.0.0
 				 */
 				$vars = array('row', 'tpl_ary');
-				extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_tpl_ary', compact($vars)));
+				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_tpl_ary', compact($vars)));
 				$this->template->assign_block_vars($tpl_loopname, $tpl_ary);
 				$this->pagination->generate_template_pagination($view_topic_url, $tpl_loopname . '.pagination', 'start', $replies + 1, $this->config['posts_per_page'], 1, true, true);
 				if ($this->display_parent_forums)
