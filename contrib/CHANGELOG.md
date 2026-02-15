@@ -14,6 +14,7 @@
   - [FIX] Fixed pbwow3 top/bottom block: added collapse support, fixed column alignment (#139)
   - [CHG] Added inputbox autowidth class to UCP number input
   - [CHG] Updated README for phpBB 3.3
+  - [NEW] Added full-page (/app.php/rt) and simple-page (/app.php/rt/simple) display modes (#155)
   - [NEW] Added GitHub issue templates (bug report, feature request)
   - [NEW] Added cleanup SQL script (contrib/cleanup_recenttopics.sql)
   - [DEL] Removed .github/issue_template.md
