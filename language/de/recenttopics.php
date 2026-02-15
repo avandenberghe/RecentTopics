@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * German translation by Joas Schilling (nickvergessen)
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * German translation by Andreas Vandenberghe
  */
 
 if (!defined('IN_PHPBB'))

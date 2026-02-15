@@ -2,13 +2,13 @@
 /**
  *
  * @package Recent Topics Extension
- * Czech translation by R3gi
- *
- * @copyright (c) 2017 PayBas
+ * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Czech translation by R3gi
  */
+
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -36,7 +36,7 @@ $lang = array_merge(
 	'RT_PAGE_NUMBERMAX'             => 'Maximální počet stránek',
 	'RT_PAGE_NUMBERMAX_EXP'         => 'Nastavte maximum stránek pro zobrazení ve stránkování nedávných témat (není-li přepsáno jiným nastavením).',
 	'RT_MIN_TOPIC_LEVEL'            => 'Minimální úroveň tématu',
-	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Určuje minimální úrověň typu tématu pro zobrazení. Zobrazena budou pouze témata zvolené úrovně a vyšší.',
+	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Určuje minimální úroveň typu tématu pro zobrazení. Zobrazena budou pouze témata zvolené úrovně a vyšší.',
 	'RT_ANTI_TOPICS'                => 'Vyloučená témata',
 	'RT_ANTI_TOPICS_EXP'            => 'Identifikátory témat k vyloučení, oddělené čárkou „,“ (příklad: 7,9)<br />',
 	'RT_PARENTS'                    => 'Zobrazit nadřazená fóra',
@@ -64,6 +64,13 @@ $lang = array_merge(
 	'RT_LATEST_VERSION'				=> 'Poslední verze',
 	'RT_EXT_VERSION'				=> 'Verze rozšíření',
 	'RT_CHECK_UPDATE'				=> 'Informace o dostupných aktualizacích naleznete zde: <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a>.',
+	//Standalone pages
+	'RT_PAGES'                      => 'Samostatné stránky',
+	'RT_PAGE'                       => 'Celá stránka',
+	'RT_PAGE_EXP'                   => 'Samostatná stránka nedávných témat s kompletní hlavičkou a patičkou fóra.',
+	'RT_SIMPLE_PAGE'                => 'Zjednodušená stránka',
+	'RT_SIMPLE_PAGE_EXP'            => 'Zjednodušená stránka nedávných témat bez hlavičky a patičky fóra, vhodná pro vložení do iframe.',
+
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

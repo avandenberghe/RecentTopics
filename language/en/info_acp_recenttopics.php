@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * English translation by PayBas
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * English translation by PayBas
  */
 
 if (!defined('IN_PHPBB'))
@@ -22,7 +21,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge(
 	$lang, array(
 	//forum acp
-	'RECENT_TOPICS_LIST'            => 'Display on “recent topics”',
+	'RECENT_TOPICS_LIST'            => 'Display on "Recent Topics"',
 	'RECENT_TOPICS_LIST_EXPLAIN'    => 'Enable to display topics in this forum in the “recent topics” extension.',
 
 	//acp title
@@ -33,15 +32,15 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Global Settings',
 	'RT_DISPLAY_INDEX'              => 'Display on Index page',
-	'RT_NUMBER'                     => 'Number of Recent topics to show',
+	'RT_NUMBER'                     => 'Number of recent topics to show',
 	'RT_NUMBER_EXP'                 => 'Maximum number of topics to display per page.',
 	'RT_PAGE_NUMBER'                => 'Show all recent topic pages',
-	'RT_PAGE_NUMBER_EXP'            => 'This function overwrites the set maximum number of pages and shows all pages no matter how many pages are set by the option.',
+	'RT_PAGE_NUMBER_EXP'            => 'This function overrides the configured maximum number of pages and shows all pages no matter how many pages are set by the option.',
 	'RT_PAGE_NUMBERMAX'             => 'Maximum number of pages',
 	'RT_PAGE_NUMBERMAX_EXP'         => 'Set the page maximum to display in the recent topics pagination unless overridden.',
 	'RT_MIN_TOPIC_LEVEL'            => 'Minimum topic type level',
-	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Determines the minimum level of the topic-type to display. It will only display topics of the set level, and higher.',
-	'RT_ANTI_TOPICS'                => 'Excluded topic ID’s',
+	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Determines the minimum level of the topic-type to display. It will only display topics of the set level and higher.',
+	'RT_ANTI_TOPICS'                => 'Excluded topic IDs',
 	'RT_ANTI_TOPICS_EXP'            => 'The IDs of topics to exclude, separated by “,” (Example: 7,9)<br />The value 0 disables this behaviour.',
 	'RT_PARENTS'                    => 'Display parent forums',
 	'RT_PARENTS_EXP'                => 'Display parent forums inside the topic row of recent topics.',
@@ -52,7 +51,7 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_UNREAD'          => 'First unread post',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
-	'RT_OVERRIDABLE'                => 'UCP overridable Settings',
+	'RT_OVERRIDABLE'                => 'UCP Overridable Settings',
 	'RT_LOCATION'                   => 'Display location',
 	'RT_LOCATION_EXP'               => 'Select location to display recent topics.',
 	'RT_TOP'                        => 'Show on top',
@@ -70,6 +69,13 @@ $lang = array_merge(
 	'RT_LATEST_VERSION'				=> 'Latest version',
 	'RT_EXT_VERSION'				=> 'Extension version',
 	'RT_CHECK_UPDATE'				=> 'Check <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> to see if there are updates available.',
+
+	//Standalone pages
+	'RT_PAGES'                      => 'Standalone Pages',
+	'RT_PAGE'                       => 'Full page',
+	'RT_PAGE_EXP'                   => 'Standalone Recent Topics page with full board header and footer.',
+	'RT_SIMPLE_PAGE'                => 'Simplified page',
+	'RT_SIMPLE_PAGE_EXP'            => 'Simplified Recent Topics page without board header/footer, suitable for embedding in an iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

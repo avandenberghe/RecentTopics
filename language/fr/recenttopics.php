@@ -1,19 +1,14 @@
 <?php
 /**
-*
-* Recent Topics extension for the phpBB Forum Software package.
-* French translation by by ForumsFaciles (http://www.forumsfaciles.fr) &  Galixte (http://www.galixte.com) & Sajaki (http://www.avathar.be)
-*
-* @copyright (c) 2015 PayBas
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-* Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
-*
-*/
+ *
+ * @package Recent Topics Extension
+ * @copyright (c) 2015 PayBas
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * French translation by ForumsFaciles (www.forumsfaciles.fr) & Galixte (www.galixte.com) & Sajaki (www.avathar.be)
+ */
 
-/**
-* DO NOT CHANGE
-*/
 if (!defined('IN_PHPBB'))
 {
 	exit;

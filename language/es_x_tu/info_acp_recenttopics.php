@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * Spanish translation by Raul [ThE KuKa] (www.phpbb-es.com)
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Spanish (Tu) translation by Raul [ThE KuKa] (www.phpbb-es.com)
  */
 
 if (!defined('IN_PHPBB'))
@@ -28,7 +27,7 @@ $lang = array_merge(
 	//PCA título
 	'RECENT_TOPICS'                 => 'Temas Recientes',
 	'RT_CONFIG'                     => 'Configuración',
-	'RECENT_TOPICS_EXPLAIN'         => 'En esta página puede cambiar las opciones especificas para la extensión “Temas Recientes”.<br /><br />Foros específicos pueden ser incluídos o excluídos editando los respectivos foros en el PCA.<br />Asegúrate también de comprobar los permisos de tus usuarios, los cuales permiten a los usuarios cambiar individualmente algunas de las opciones encontradas abajo.',
+	'RECENT_TOPICS_EXPLAIN'         => 'En esta página puede cambiar las opciones especificas para la extensión “Temas Recientes”.<br /><br />Foros específicos pueden ser incluidos o excluidos editando los respectivos foros en el PCA.<br />Asegúrate también de comprobar los permisos de tus usuarios, los cuales permiten a los usuarios cambiar individualmente algunas de las opciones encontradas abajo.',
 
 	//ajustes globales
 	'RT_GLOBAL_SETTINGS'            => 'Opciones globales',
@@ -40,7 +39,7 @@ $lang = array_merge(
 	'RT_PAGE_NUMBERMAX'		=> 'Número máximo de páginas',
 	'RT_PAGE_NUMBERMAX_EXP'		=> 'Definir el número máximo de páginas',
 	'RT_MIN_TOPIC_LEVEL'            => 'Nivel de tema mínimo',
-	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Determina el nivel de tema mínimo para poder se mostrado. Solo mostrará temas del nivel especificado y superior.',
+	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Determina el nivel de tema mínimo para poder ser mostrado. Solo mostrará temas del nivel especificado y superior.',
 	'RT_ANTI_TOPICS'                => 'Temas excluidos',
 	'RT_ANTI_TOPICS_EXP'            => 'Las IDs de los temas a excluír, separados por "," (Por ejemplo: 7,9)<br />Si no quieres excluir un tema, simplemente introduce 0.',
 	'RT_PARENTS'                    => 'Mostrar foros padre',
@@ -54,12 +53,12 @@ $lang = array_merge(
 	// Opciones modificables por el usuario. Afectan a los usuarios anónimos y pueden ser sobreescritas por el PCU
 	'RT_OVERRIDABLE'                => 'Opciones sobreescribibles del PCU',
 	'RT_LOCATION'                   => 'Posición',
-	'RT_LOCATION_EXP'               => 'Elije un lugar para mostrar la lista de temas recientes.',
+	'RT_LOCATION_EXP'               => 'Elige un lugar para mostrar la lista de temas recientes.',
 	'RT_TOP'                        => 'Mostrar en la parte superior',
 	'RT_BOTTOM'                     => 'Mostrar en la parte inferior',
 	'RT_SIDE'                       => 'Mostrar en el lado derecho',
 	'RT_SORT_START_TIME'            => 'Ordenar temas por la hora de inicio',
-	'RT_SORT_START_TIME_EXP'        => 'Habilitar para ordenar la lista de temas recientes en base a la hora de inicio del tema, en lugar de la de la última respesta.',
+	'RT_SORT_START_TIME_EXP'        => 'Habilitar para ordenar la lista de temas recientes en base a la hora de inicio del tema, en lugar de la de la última respuesta.',
 	'RT_UNREAD_ONLY'                => 'Mostrar solo temas no leídos',
 	'RT_UNREAD_ONLY_EXP'            => 'Activar para mostrar solo temas no leídos (tanto si son “recientes” o no). Esta función utiliza la misma configuración (excluyendo foros, temas, etc.) que el modo normal. Nota: esto sólo funciona para usuarios identificados; los invitados verán la lista normal.',
 	'RT_RESET_DEFAULT'              => 'Reiniciar la configuración de los usuarios',
@@ -70,6 +69,13 @@ $lang = array_merge(
 	'RT_LATEST_VERSION'				=> 'Última versión',
 	'RT_EXT_VERSION'				=> 'Versión de la extensión',
 	'RT_CHECK_UPDATE'				=> 'Visita <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> para comprobar si hay actualizaciones disponibles.',
+
+	//Standalone pages
+	'RT_PAGES'                      => 'Páginas independientes',
+	'RT_PAGE'                       => 'Página completa',
+	'RT_PAGE_EXP'                   => 'Página independiente de Temas Recientes con encabezado y pie de página completos del foro.',
+	'RT_SIMPLE_PAGE'                => 'Página simplificada',
+	'RT_SIMPLE_PAGE_EXP'            => 'Página simplificada de Temas Recientes sin encabezado ni pie de página del foro, adecuada para incrustar en un iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

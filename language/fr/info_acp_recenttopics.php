@@ -1,19 +1,14 @@
 <?php
 /**
-*
-* Recent Topics extension for the phpBB Forum Software package.
-* French translation by by ForumsFaciles (http://www.forumsfaciles.fr) &  Galixte (http://www.galixte.com) & Sajaki (http://www.avathar.be)
-*
-* @copyright (c) 2015 PayBas
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-* Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
-*
-*/
+ *
+ * @package Recent Topics Extension
+ * @copyright (c) 2015 PayBas
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * French translation by ForumsFaciles (www.forumsfaciles.fr) & Galixte (www.galixte.com) & Sajaki (www.avathar.be)
+ */
 
-/**
-* DO NOT CHANGE
-*/
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -77,8 +72,8 @@ $lang = array_merge($lang, array(
 	'RT_LOCATION_EXP'               => 'Permet de sélectionner l’emplacement où afficher la liste des sujets récents (option applicable uniquement aux styles basés sur « prosilver »).',
 	'RT_TOP'                        => 'Au-dessus de la liste des forums',
 	'RT_BOTTOM'                     => 'En dessous de la liste des forums',
-	'RT_SIDE'                       => 'Sur le coté droit de la liste des forums',
-	'RT_SORT_START_TIME'            => 'Trier selon les nouveaux sujets crées',
+	'RT_SIDE'                       => 'Sur le côté droit de la liste des forums',
+	'RT_SORT_START_TIME'            => 'Trier selon les nouveaux sujets créés',
 	'RT_SORT_START_TIME_EXP'        => 'Permet d’afficher les sujets récents triés selon la date de création du sujet en lieu et place de la date du dernier message.',
 	'RT_UNREAD_ONLY'                => 'Afficher uniquement les sujets non lus',
 	'RT_UNREAD_ONLY_EXP'            => 'Permet d’afficher uniquement les sujets non lus qu’ils soient récents ou non. Cette fonctionnalité utilise les mêmes paramètres qu’en temps normal (excluant les forums, sujets, etc.). Note : Cette option est uniquement dédiée aux utilisateurs connectés; les invités verront la liste « normale ».',
@@ -88,9 +83,16 @@ $lang = array_merge($lang, array(
 
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'Vérification de la version',
-	'RT_LATEST_VERSION'				=> 'dernière version',
+	'RT_LATEST_VERSION'				=> 'Dernière version',
 	'RT_EXT_VERSION'				=> 'Version de l’extension',
 	'RT_CHECK_UPDATE'				=> 'Vérifier manuellement depuis le site Web : <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> si une nouvelle version est disponible.',
+
+	//Standalone pages
+	'RT_PAGES'                      => 'Pages autonomes',
+	'RT_PAGE'                       => 'Page complète',
+	'RT_PAGE_EXP'                   => 'Page autonome des sujets récents avec l'en-tête et le pied de page complets du forum.',
+	'RT_SIMPLE_PAGE'                => 'Page simplifiée',
+	'RT_SIMPLE_PAGE_EXP'            => 'Page simplifiée des sujets récents sans en-tête ni pied de page du forum, adaptée à l'intégration dans une iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
@@ -98,6 +100,6 @@ $lang = array_merge($lang, array(
 	'PAYPAL_ALT'                => 'Faire un don via PayPal',
 	'RT_DONATE'					=> 'Soutenir le développement',
 	'RT_DONATE_SHORT'			=> 'Faire un don PayPal',
-	'RT_DONATE_EXPLAIN'			=> 'Permet de soutenir le développement de l’extension « Recent Topics » qui est distribuée librement. L’auteur consacre temps et argent à son développement, sur ton temps libre, et parce qu’il y trouve un certain plaisir. Si cette extension est appréciée il est recommandé, de faire un don pour soutenir ce projet, et comme le dit l’auteur : « J’apprécierai grandement votre geste, d’avance mes remerciements ! ».',
+	'RT_DONATE_EXPLAIN'			=> 'Permet de soutenir le développement de l’extension « Recent Topics » qui est distribuée librement. L’auteur consacre temps et argent à son développement, sur son temps libre, et parce qu’il y trouve un certain plaisir. Si cette extension est appréciée il est recommandé, de faire un don pour soutenir ce projet, et comme le dit l’auteur : « J’apprécierai grandement votre geste, d’avance mes remerciements ! ».',
 	)
 );

@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * Dutch translation by PayBas, Sajaki
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Dutch translation by PayBas, Sajaki
  */
 
 if (!defined('IN_PHPBB'))
@@ -44,11 +43,11 @@ $lang = array_merge(
 		//acp title
 		'RECENT_TOPICS'                 => 'Recente Onderwerpen',
 		'RT_CONFIG'                     => 'Instellingen',
-		'RECENT_TOPICS_EXPLAIN'         => 'Hier kan je de instellingen aanpassen van de Recente Onderwerpen Extensie.<br /><br />forumactivering kan ingesteld worden in het Forum beheerderspaneel voor dat forum.<br />Ga ook uw gebruikerspaneel na dat voorrang heeft op beheerderspaneelinstellingen.',
+		'RECENT_TOPICS_EXPLAIN'         => 'Hier kan je de instellingen aanpassen van de Recente Onderwerpen Extensie.<br /><br />Forumactivering kan ingesteld worden in het Forum beheerderspaneel voor dat forum.<br />Ga ook uw gebruikerspaneel na dat voorrang heeft op beheerderspaneelinstellingen.',
 
 		//algemene instellingen
 		'RT_GLOBAL_SETTINGS'            => 'Algemene instellingen',
-		'RT_DISPLAY_INDEX'              => 'Toon op de index pagina',
+		'RT_DISPLAY_INDEX'              => 'Toon op de indexpagina',
 		'RT_NUMBER'                     => 'Aantal recente onderwerpen',
 		'RT_NUMBER_EXP'                 => 'Maximum aantal onderwerpen per pagina.',
 		'RT_PAGE_NUMBER'                => 'Toon alle pagina’s',
@@ -82,16 +81,23 @@ $lang = array_merge(
 		'RT_RESET_DEFAULT_EXP'          => 'Stel instellingen van alle gebruikers opnieuw in tot de standaard',
 
 		//Versie controle
-		'RT_VERSION_CHECK'				=> 'Versie controle',
+		'RT_VERSION_CHECK'				=> 'Versiecontrole',
 		'RT_LATEST_VERSION'				=> 'Laatste versie',
-		'RT_EXT_VERSION'				=> 'Extensie versie',
+		'RT_EXT_VERSION'				=> 'Extensieversie',
 		'RT_CHECK_UPDATE'				=> 'Bezoek <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> voor nieuwere versies.',
+
+		//Zelfstandige pagina's
+		'RT_PAGES'                      => 'Zelfstandige pagina\'s',
+		'RT_PAGE'                       => 'Volledige pagina',
+		'RT_PAGE_EXP'                   => 'Zelfstandige pagina met recente onderwerpen inclusief volledige header en footer van het forum.',
+		'RT_SIMPLE_PAGE'                => 'Vereenvoudigde pagina',
+		'RT_SIMPLE_PAGE_EXP'            => 'Vereenvoudigde pagina met recente onderwerpen zonder header en footer, geschikt voor inbedding in een iframe.',
 
 		//Donatiies
 		'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 		'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 		'PAYPAL_ALT'                => 'Doe een donatie via PayPal',
-		'RT_DONATE'					=> 'donatie aan RecentTopics',
+		'RT_DONATE'					=> 'Donatie aan RecentTopics',
 		'RT_DONATE_SHORT'			=> 'Doe een donatie aan RecentTopics',
 		'RT_DONATE_EXPLAIN'			=> 'RecentTopics is 100% gratis. Als je dit een nuttige extensie vindt en je de auteurs wil ondersteunen, kan je overwegen om een vrijblijvende donatie te doen.',
 	)

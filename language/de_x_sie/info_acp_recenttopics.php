@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * German translation by Andreas Vandenberghe
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * German (Sie) translation by Andreas Vandenberghe
  */
 
 if (!defined('IN_PHPBB'))
@@ -44,7 +43,7 @@ $lang = array_merge(
 	//acp title
 	'RECENT_TOPICS'                 => 'Aktuelle Themen',
 	'RT_CONFIG'                     => 'Einstellungen',
-	'RECENT_TOPICS_EXPLAIN'         => 'Auf dieser Seite können Sie die Einstellungen der aktuellen Themenerweiterung anpassen.<br /><br />Spezifische Foren können durch ändern der Einstellungen der jeweiligen Foren eingeschlossen oder ausgeschlossen werden.<br />Überprüfen Sie doch auch die Benutzerberechtigungen, so dass die Benutzer sich einige Parameter ändern können, die Vorrang haben vor den Einstellungen des Admin-Panels.',
+	'RECENT_TOPICS_EXPLAIN'         => 'Auf dieser Seite können Sie die Einstellungen der Erweiterung „Aktuelle Themen" anpassen.<br /><br />Spezifische Foren können durch Ändern der Einstellungen der jeweiligen Foren eingeschlossen oder ausgeschlossen werden.<br />Überprüfen Sie auch die Benutzerberechtigungen, so dass die Benutzer sich einige Parameter ändern können, die Vorrang haben vor den Einstellungen des Admin-Panels.',
 
 	//allgemeine Einstellungen
 	'RT_GLOBAL_SETTINGS'            => 'Globale Einstellungen',
@@ -52,13 +51,13 @@ $lang = array_merge(
 	'RT_NUMBER'                     => 'Anzahl Aktuelle Themen',
 	'RT_NUMBER_EXP'                 => 'Maximale Anzahl Themen pro Seite',
 	'RT_PAGE_NUMBER'                => 'Alle Seiten anzeigen',
-	'RT_PAGE_NUMBER_EXP'            => 'Diese Funktion überschreibt die Eingestellte Maximale Seitenanzahl und zeigt alle Seiten an egal wie viele Seiten durch die Option eingestellt werden. ',
+	'RT_PAGE_NUMBER_EXP'            => 'Diese Funktion überschreibt die eingestellte maximale Seitenanzahl und zeigt alle Seiten an, egal wie viele Seiten durch die Option eingestellt werden.',
 	'RT_PAGE_NUMBERMAX'             => 'Maximale Seitenanzahl',
 	'RT_PAGE_NUMBERMAX_EXP'         => 'Legt die maximale Anzahl der Seiten fest.',
 	'RT_MIN_TOPIC_LEVEL'            => 'Minimaler Thementyp',
-	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Definiert das Minimum eines Thementyps, der angezeigt wird. Wenn Sie ein Thementyp angeben, werden nur Themen dieses oder eines höheren Typs angezeigt.',
+	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Definiert das Minimum eines Thementyps, der angezeigt wird. Wenn Sie einen Thementyp angeben, werden nur Themen dieses oder eines höheren Typs angezeigt.',
 	'RT_ANTI_TOPICS'                => 'Ausgeschlossene Themen',
-	'RT_ANTI_TOPICS_EXP'            => 'Gebe die Subjekt-IDs ein, kommagetrennt (z. B. 7,9), andernfalls 0 um alle Themen an zu zeigen. (wie im url viewtopic.php?t=12345).',
+	'RT_ANTI_TOPICS_EXP'            => 'Geben Sie die Themen-IDs ein, kommagetrennt (z. B. 7,9), andernfalls 0, um alle Themen anzuzeigen (wie in der URL viewtopic.php?t=12345).',
 	'RT_PARENTS'                    => 'Übergeordnete Foren anzeigen',
 	'RT_PARENTS_EXP'                => 'Übergeordnete Foren in der Liste der aktuellen Themen anzeigen.',
 	'RT_TOPIC_LINK_TO'              => 'Thementitel verlinkt auf',
@@ -68,31 +67,38 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_UNREAD'          => 'Erster ungelesener Beitrag',
 
 	//Benutzereinstellungen
-	'RT_OVERRIDABLE'                => 'Einstellungen, für die das Benutzerfeld Priorität hat',
-	'RT_LOCATION'                   => 'Anzeigelage',
+	'RT_OVERRIDABLE'                => 'Einstellungen, die im Benutzerkontrollzentrum geändert werden können',
+	'RT_LOCATION'                   => 'Anzeigeort',
 	'RT_LOCATION_EXP'               => 'Wählen Sie den Anzeigeort der aktuellen Themen.',
 	'RT_TOP'                        => 'Ansicht oben',
 	'RT_BOTTOM'                     => 'Ansicht unten',
-	'RT_SIDE'                       => 'Ansicht auf die Seite',
-	'RT_SORT_START_TIME'            => 'Nach Themen Startzeit sortieren',
+	'RT_SIDE'                       => 'Ansicht an der Seite',
+	'RT_SORT_START_TIME'            => 'Nach Themen-Startzeit sortieren',
 	'RT_SORT_START_TIME_EXP'        => 'Wenn diese Option aktiviert ist, werden die Themen nach dem Datum des ersten Beitrags anstelle des letzten Beitrags sortiert.',
 	'RT_UNREAD_ONLY'                => 'Nur ungelesene Themen anzeigen',
 	'RT_UNREAD_ONLY_EXP'            => 'Diese Option zeigt nur ungelesene Themen an (egal ob diese aktuell sind oder nicht). Diese Funktion nutzt die gleichen Einstellungen (Ausgeschlossene Foren / Themen, etc.) wie die normale Version. Hinweis: diese Funktion steht nur eingeloggten Benutzern zur Verfügung; Gäste sehen die normale „Aktuelle Themen“ Liste.',
-	'RT_RESET_DEFAULT'              => 'User Einstellungen zurücksetzen',
-	'RT_RESET_DEFAULT_EXP'          => 'Setzt die User Einstellungen zurück auf die Standard Einstellungen',
+	'RT_RESET_DEFAULT'              => 'Benutzereinstellungen zurücksetzen',
+	'RT_RESET_DEFAULT_EXP'          => 'Setzt die Benutzereinstellungen zurück auf die Standardeinstellungen.',
 
 	//Versie controle
 	'RT_VERSION_CHECK'				=> 'Versionskontrolle',
-	'RT_LATEST_VERSION'				=> 'Letzte version',
+	'RT_LATEST_VERSION'				=> 'Letzte Version',
 	'RT_EXT_VERSION'				=> 'Extensionsversion',
-	'RT_CHECK_UPDATE'				=> 'Besuche <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> für neuere versionen.',
+	'RT_CHECK_UPDATE'				=> 'Besuchen Sie <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> für neuere Versionen.',
+
+	//Eigenständige Seiten
+	'RT_PAGES'                      => 'Eigenständige Seiten',
+	'RT_PAGE'                       => 'Vollständige Seite',
+	'RT_PAGE_EXP'                   => 'Eigenständige Seite der aktuellen Themen mit vollständigem Board-Header und -Footer.',
+	'RT_SIMPLE_PAGE'                => 'Vereinfachte Seite',
+	'RT_SIMPLE_PAGE_EXP'            => 'Vereinfachte Seite der aktuellen Themen ohne Board-Header und -Footer, geeignet zur Einbettung in einen iFrame.',
 
 	//Donatiies
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Machen eine Spende über PayPal',
+	'PAYPAL_ALT'                => 'Machen Sie eine Spende über PayPal',
 	'RT_DONATE'					=> 'Spende an RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Spende an RecentTopics',
-	'RT_DONATE_EXPLAIN'			=> 'RecentTopics ist zu 100% kostenlos. Wenn Sie dies eine nützliche Erweiterung findest und Sie die Autoren unterstützen möchten, könnten Sie eine unverbindliche Spende in Erwägung ziehen.',
+	'RT_DONATE_EXPLAIN'			=> 'RecentTopics ist zu 100% kostenlos. Wenn Sie dies für eine nützliche Erweiterung halten und die Autoren unterstützen möchten, könnten Sie eine unverbindliche Spende in Erwägung ziehen.',
 	)
 );

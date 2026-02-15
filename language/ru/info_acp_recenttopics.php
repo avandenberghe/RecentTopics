@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * Russian translation by HD321kbps
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Russian translation by HD321kbps
  */
 
 if (!defined('IN_PHPBB'))
@@ -27,7 +26,7 @@ $lang = array_merge($lang, array(
 	//acp title
 	'RECENT_TOPICS'					=> 'Последние темы',
 	'RT_CONFIG'						=> 'Настройка',
-	'RECENT_TOPICS_EXPLAIN'			=> 'На этой странице вы можете изменить параметры расширения Последние Темы. <br /> <br /> Конкретные форумы могут быть включены или исключены путем редактирования соответствующих форумов в вашей АСР. <br /> Кроме того, не забудьте проверить прова доступа пользователей, которые позволяют пользователям изменять некоторые настройки приведены ниже под себя. ',
+	'RECENT_TOPICS_EXPLAIN'			=> 'На этой странице вы можете изменить параметры расширения Последние Темы. <br /> <br /> Конкретные форумы могут быть включены или исключены путем редактирования соответствующих форумов в вашей АСР. <br /> Кроме того, не забудьте проверить права доступа пользователей, которые позволяют пользователям изменять некоторые настройки приведены ниже под себя. ',
 
 	//global settings
 	'RT_GLOBAL_SETTINGS'			=> 'Общие настройки',
@@ -54,7 +53,7 @@ $lang = array_merge($lang, array(
 	'RT_OVERRIDABLE' 				=> 'Настройки отображения',
 	'RT_LOCATION' 					=> 'Расположение блока последних тем',
 	'RT_LOCATION_EXP' 				=> 'Выберите расположение для отображения блока последних тем.',
-	'RT_TOP' 						=> 'Показывать верху',
+	'RT_TOP' 						=> 'Показывать вверху',
 	'RT_BOTTOM' 					=> 'Показывать внизу',
 	'RT_SIDE' 						=> 'Показывать сбоку',
 	'RT_SORT_START_TIME'			=> 'Сортировать по дате создания',
@@ -69,6 +68,13 @@ $lang = array_merge($lang, array(
 	'RT_LATEST_VERSION'				=> 'Последняя версия',
 	'RT_EXT_VERSION'				=> 'Версия расширения',
 	'RT_CHECK_UPDATE'				=> 'Посетите сайт <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a>, чтобы узнать о доступных обновлениях.',
+
+	//Standalone pages
+	'RT_PAGES'                      => 'Отдельные страницы',
+	'RT_PAGE'                       => 'Полная страница',
+	'RT_PAGE_EXP'                   => 'Отдельная страница последних тем с полным заголовком и подвалом форума.',
+	'RT_SIMPLE_PAGE'                => 'Упрощённая страница',
+	'RT_SIMPLE_PAGE_EXP'            => 'Упрощённая страница последних тем без заголовка и подвала форума, подходит для встраивания в iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

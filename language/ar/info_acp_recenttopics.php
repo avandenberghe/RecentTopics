@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * Arabic translation by Bassel Taha Alhitary (www.alhitary.net)
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Arabic translation by Bassel Taha Alhitary (www.alhitary.net)
  */
 
 if (!defined('IN_PHPBB'))
@@ -44,7 +43,7 @@ $lang = array_merge(
 	'RT_ANTI_TOPICS'                => 'المواضيع المُستبعدة ',
 	'RT_ANTI_TOPICS_EXP'            => 'اكتب علامة الفاصلة ", " بين أرقام المواضيع التي تريد عدم ظهورها في "أحدث المواضيع" ( مثال : 7,9 )',
 	'RT_PARENTS'                    => 'إظهار المنتدى الأب ',
-	'RT_PARENTS_EXP'                => 'إظهار إسم "المنتدى الأب" في التفاصيل المذكورة تحت أسم الموضوع.',
+	'RT_PARENTS_EXP'                => 'إظهار اسم "المنتدى الأب" في التفاصيل المذكورة تحت اسم الموضوع.',
 	'RT_TOPIC_LINK_TO'              => 'رابط عنوان الموضوع يؤدي إلى',
 	'RT_TOPIC_LINK_TO_EXP'          => 'اختر المشاركة التي يؤدي إليها رابط عنوان الموضوع في قائمة أحدث المواضيع.',
 	'RT_TOPIC_LINK_FIRST'           => 'المشاركة الأولى',
@@ -63,13 +62,20 @@ $lang = array_merge(
 	'RT_UNREAD_ONLY'                => 'عرض المواضيع الغير مقروءة فقط ',
 	'RT_UNREAD_ONLY_EXP'            => 'تفعيل هذا الخيار يعني اظهار المواضيع الغير مقروءة فقط ( بغض النظر لو هذه المواضيع حديثة أو قديمة ). هذا الخيار يستخدم نفس اعدادات الطريقة العادية ( استبعاد المنتديات/المواضيع..الخ ).<br />ملاحظة : هذا الخيار يظهر فقط للأعضاء المسجلين دخولهم للمنتدى. الزائرين سيُشاهدون القائمة العادية.',
 	'RT_RESET_DEFAULT'              => 'إعادة الضبط ',
-	'RT_RESET_DEFAULT_EXP'          => 'إعادة ضبط الإعدادات الخاصة بالعضو إلى الإفتراضية.',
+	'RT_RESET_DEFAULT_EXP'          => 'إعادة ضبط الإعدادات الخاصة بالعضو إلى الافتراضية.',
 
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'فحص النسخة',
 	'RT_LATEST_VERSION'				=> 'أحدث نسخة ',
 	'RT_EXT_VERSION'				=> 'نسخة الإضافة ',
 	'RT_CHECK_UPDATE'				=> 'اذهب إلى <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> للتأكد من توفر تحديثات جديدة.',
+
+	//Standalone pages
+	'RT_PAGES'                      => 'صفحات مستقلة',
+	'RT_PAGE'                       => 'صفحة كاملة',
+	'RT_PAGE_EXP'                   => 'صفحة أحدث المواضيع المستقلة مع رأس وتذييل المنتدى الكاملين.',
+	'RT_SIMPLE_PAGE'                => 'صفحة مبسطة',
+	'RT_SIMPLE_PAGE_EXP'            => 'صفحة أحدث المواضيع المبسطة بدون رأس وتذييل المنتدى، مناسبة للتضمين في إطار iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

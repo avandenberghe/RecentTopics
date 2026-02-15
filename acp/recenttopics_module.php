@@ -169,9 +169,13 @@ class recenttopics_module
 			);
 		}
 
+		$helper = $phpbb_container->get('controller.helper');
+
 		$template->assign_vars(
 			array(
 				'U_ACTION'           => $this->u_action,
+				'U_RT_PAGE'          => $helper->route('avathar_recenttopicsav_page'),
+				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopicsav_simple'),
 				'RT_INDEX'           => (int) $config['rt_index'],
 				'RT_PAGE_NUMBER'     => ($config['rt_page_number'] == '1') ? 'checked="checked"' : '',
 				'RT_PAGE_NUMBERMAX'  => (int) $config['rt_page_numbermax'],

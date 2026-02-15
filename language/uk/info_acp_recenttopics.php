@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * English translation by PayBas
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Ukrainian translation
  */
 
 if (!defined('IN_PHPBB'))
@@ -40,7 +39,7 @@ $lang = array_merge(
 	'RT_PAGE_NUMBERMAX'             => 'Максимальна кількість сторінок',
 	'RT_PAGE_NUMBERMAX_EXP'         => 'Вкажіть максимальну кількість сторінок для відображення в списку тем.',
 	'RT_MIN_TOPIC_LEVEL'            => 'Мінімальний тип теми',
-	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Цей параметер визначає мінімальний рівень типу тем. Буде відображено теми тільки вказаного рівня і вище.',
+	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Цей параметр визначає мінімальний рівень типу тем. Буде відображено теми тільки вказаного рівня і вище.',
 	'RT_ANTI_TOPICS'                => 'Не відображати теми з вказаними ID',
 	'RT_ANTI_TOPICS_EXP'            => 'Теми з вказаними ID будуть виключені зі списку відображення. Кожен ID теми має бути розділений комою “,” (Наприклад: 7,9)<br />Значення "0" деактивує цей список виключення.',
 	'RT_PARENTS'                    => 'Відображати батьківські форуми',
@@ -70,6 +69,13 @@ $lang = array_merge(
 	'RT_LATEST_VERSION'				=> 'Остання версія',
 	'RT_EXT_VERSION'				=> 'Версія розширення',
 	'RT_CHECK_UPDATE'				=> 'Перевірте <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> на наявність оновлень.',
+
+	//Standalone pages
+	'RT_PAGES'                      => 'Окремі сторінки',
+	'RT_PAGE'                       => 'Повна сторінка',
+	'RT_PAGE_EXP'                   => 'Окрема сторінка останніх тем з повним заголовком та підвалом форуму.',
+	'RT_SIMPLE_PAGE'                => 'Спрощена сторінка',
+	'RT_SIMPLE_PAGE_EXP'            => 'Спрощена сторінка останніх тем без заголовка та підвалу форуму, підходить для вбудовування в iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

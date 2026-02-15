@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * Tradução Portuguesa by phpbbpt
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Portuguese translation by phpbbpt
  */
 
 if (!defined('IN_PHPBB'))
@@ -22,7 +21,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge(
 	$lang, array(
 	//ACP Fórum
-	'RECENT_TOPICS_LIST'            => 'Exibir tópicos recentes"',
+	'RECENT_TOPICS_LIST'            => 'Exibir tópicos recentes',
 	'RECENT_TOPICS_LIST_EXPLAIN'    => 'Ativar para exibir tópicos neste fórum na extensão "tópicos recentes"',
 
 	//PCA título
@@ -58,7 +57,7 @@ $lang = array_merge(
 	'RT_TOP'                        => 'Mostrar no topo',
 	'RT_BOTTOM'                     => 'Mostrar no fundo',
 	'RT_SIDE'                       => 'Mostrar no lado',
-	'RT_SORT_START_TIME'            => 'Ordenar tópicos por a hora de início',
+	'RT_SORT_START_TIME'            => 'Ordenar tópicos pela hora de início',
 	'RT_SORT_START_TIME_EXP'        => 'Habilite para classificar tópicos recentes pela hora de início do tópico, em vez da última hora de publicação.',
 	'RT_UNREAD_ONLY'                => 'Mostrar apenas tópicos não lidos',
 	'RT_UNREAD_ONLY_EXP'            => 'Ativar para exibir somente tópicos não lidos (se eles são "recentes" ou não). Esta função usa as mesmas configurações (excluindo fóruns / tópicos etc.) como modo normal. Nota: isso só funciona para usuários conectados; Os convidados receberão a lista normal.',
@@ -69,12 +68,19 @@ $lang = array_merge(
 	'RT_VERSION_CHECK'				=> 'Verificação de Versão',
 	'RT_LATEST_VERSION'				=> 'Última versão',
 	'RT_EXT_VERSION'				=> 'Versão de extensão',
-	'RT_CHECK_UPDATE'				=> 'Verifica <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> para ver se há atualizações disponíveis.',
+	'RT_CHECK_UPDATE'				=> 'Verifique <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> para ver se há atualizações disponíveis.',
+
+	//Standalone pages
+	'RT_PAGES'                      => 'Páginas independentes',
+	'RT_PAGE'                       => 'Página completa',
+	'RT_PAGE_EXP'                   => 'Página independente de Tópicos Recentes com cabeçalho e rodapé completos do fórum.',
+	'RT_SIMPLE_PAGE'                => 'Página simplificada',
+	'RT_SIMPLE_PAGE_EXP'            => 'Página simplificada de Tópicos Recentes sem cabeçalho e rodapé do fórum, adequada para incorporação em um iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Doe usando o PayPal',
+	'PAYPAL_ALT'                => 'Doar usando o PayPal',
 	'RT_DONATE'					=> 'Doação para RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Faça uma doação para RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics é 100% gratuito. É um projeto de hobby no qual estou gastando meu tempo e dinheiro, apenas por diversão. Se você gosta de usar RecentTopics, considere fazer uma doação. Eu realmente apreciaria isto. Sem condições.',

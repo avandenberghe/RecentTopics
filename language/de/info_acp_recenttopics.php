@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * German translation by Andreas Vandenberghe
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * German translation by Andreas Vandenberghe
  */
 
 if (!defined('IN_PHPBB'))
@@ -52,13 +51,13 @@ $lang = array_merge(
 	'RT_NUMBER'                     => 'Anzahl Aktuelle Themen',
 	'RT_NUMBER_EXP'                 => 'Maximale Anzahl anzuzeigender Themen pro Seite',
 	'RT_PAGE_NUMBER'                => 'Alle Seiten anzeigen',
-	'RT_PAGE_NUMBER_EXP'            => 'Diese Funktion überschreibt die Eingestellte Maximale Seitenanzahl und zeigt alle Seiten an egal wie viele Seiten durch die Option eingestellt werden. ',
+	'RT_PAGE_NUMBER_EXP'            => 'Diese Funktion überschreibt die eingestellte maximale Seitenanzahl und zeigt alle Seiten an, egal wie viele Seiten durch die Option eingestellt werden.',
 	'RT_PAGE_NUMBERMAX'             => 'Maximale Seitenanzahl',
 	'RT_PAGE_NUMBERMAX_EXP'         => 'Lege die maximale Anzahl der Seiten fest.',
 	'RT_MIN_TOPIC_LEVEL'            => 'Minimaler Thementyp',
 	'RT_MIN_TOPIC_LEVEL_EXP'        => 'Definiert das Minimum des anzuzeigenden Thementyps. Wenn du einen Thementyp angibst, werden nur Themen dieses oder eines höheren Typs angezeigt.',
 	'RT_ANTI_TOPICS'                => 'Ausgeschlossene Themen',
-	'RT_ANTI_TOPICS_EXP'            => 'Gebe die Themen-IDs ein, kommagetrennt (z. B. 7,9), andernfalls 0, um alle Themen anzuzeigen. (wie im URL viewtopic.php?t=12345).',
+	'RT_ANTI_TOPICS_EXP'            => 'Gib die Themen-IDs ein, kommagetrennt (z. B. 7,9), andernfalls 0, um alle Themen anzuzeigen (wie in der URL viewtopic.php?t=12345).',
 	'RT_PARENTS'                    => 'Übergeordnete Foren anzeigen',
 	'RT_PARENTS_EXP'                => 'Übergeordnete Foren in der Liste der aktuellen Themen anzeigen.',
 	'RT_TOPIC_LINK_TO'              => 'Thementitel verlinkt auf',
@@ -79,13 +78,20 @@ $lang = array_merge(
 	'RT_UNREAD_ONLY'                => 'Nur ungelesene Themen anzeigen',
 	'RT_UNREAD_ONLY_EXP'            => 'Diese Option zeigt nur ungelesene Themen an (egal ob diese aktuell sind oder nicht). Diese Funktion nutzt die gleichen Einstellungen (Ausgeschlossene Foren / Themen, etc.) wie die normale Version. Hinweis: diese Funktion steht nur eingeloggten Benutzern zur Verfügung; Gäste sehen die normale „Aktuelle Themen“ Liste.',
 	'RT_RESET_DEFAULT'              => 'Benutzereinstellungen zurücksetzen',
-	'RT_RESET_DEFAULT_EXP'          => 'Setzt die Benutzereinstellungen zurück auf die Standardeinstellungen',
+	'RT_RESET_DEFAULT_EXP'          => 'Setzt die Benutzereinstellungen zurück auf die Standardeinstellungen.',
 
 	//Versie controle
 	'RT_VERSION_CHECK'				=> 'Versionskontrolle',
 	'RT_LATEST_VERSION'				=> 'Letzte Version',
 	'RT_EXT_VERSION'				=> 'Extensionsversion',
 	'RT_CHECK_UPDATE'				=> 'Besuche <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> für neuere Versionen.',
+
+	//Eigenständige Seiten
+	'RT_PAGES'                      => 'Eigenständige Seiten',
+	'RT_PAGE'                       => 'Vollständige Seite',
+	'RT_PAGE_EXP'                   => 'Eigenständige Seite der aktuellen Themen mit vollständigem Board-Header und -Footer.',
+	'RT_SIMPLE_PAGE'                => 'Vereinfachte Seite',
+	'RT_SIMPLE_PAGE_EXP'            => 'Vereinfachte Seite der aktuellen Themen ohne Board-Header und -Footer, geeignet zur Einbettung in einen iFrame.',
 
 	//Donatiies
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

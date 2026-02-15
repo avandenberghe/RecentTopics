@@ -2,12 +2,11 @@
 /**
  *
  * @package Recent Topics Extension
- * Arabic translation by Bassel Taha Alhitary (www.alhitary.net)
- *
  * @copyright (c) 2015 PayBas
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
+ * Arabic translation by Bassel Taha Alhitary (www.alhitary.net)
  */
 
 if (!defined('IN_PHPBB'))
