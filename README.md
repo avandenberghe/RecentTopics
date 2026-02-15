@@ -17,7 +17,7 @@ v3.0.0 (12/02/2026)
 #### Features
 - Adds a list of recent (or unread) topics or last reply to topics to the index page
 - UCP permissions and settings so users can choose their own preferences to override ACP
-- View all recent topics on a dedicated page at `/app.php/rt`
+- View all recent topics on a dedicated page at `/app.php/rt` (full page) or `/app.php/rt/simple` (minimal, for iframe embedding)
 - ACP / UCP Options:
   - Screen location: Top, Bottom or Side
   - Number of topics to show per page
