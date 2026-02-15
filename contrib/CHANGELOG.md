@@ -1,11 +1,17 @@
 ### Changelog
-- 3.0.0 (12/02/2026)
-  - [CHG] Forked as avathar/recenttopicsav, namespace changed from paybas to avathar
+- 3.0.0 (15/02/2026)
+  - [CHG] Forked as avathar/recenttopicsav to avoid conflict with paybas/recenttopics
+  - [CHG] Renamed extension shortname from recenttopics to recenttopicsav
+  - [CHG] Updated all namespaces, service names, route names, template paths and event names
   - [CHG] Version bumped to 3.0.0
-  - [CHG] Flattened migration history into a single release_3_0_0 migration
-  - [CHG] Updated composer.json package name to avathar/recenttopicsav
-  - [CHG] Updated all service names, route names, template paths and event names to avathar namespace
+  - [CHG] Minimum phpBB version: 3.3.0
   - [CHG] Removed nickvergessen/newspage extension dependency
+  - [FIX] Fixed rt_schema migration step counter desync in phpBB migrator
+  - [FIX] Consolidated rt_module paybas cleanup into single custom callable
+  - [CHG] Applied code style: short array syntax, public static order, effectively_installed() on all migrations
+  - [CHG] Updated README for phpBB 3.3
+  - [NEW] Added cleanup SQL script (contrib/cleanup_recenttopics.sql)
+  - [DEL] Removed .github/issue_template.md
 
 - 2.2.15 (05/04/2021)
   - [FIX] #142 Compatible with PHP 8 
