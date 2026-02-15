@@ -57,14 +57,31 @@ class page_controller implements page_interface
 	}
 
 	/**
-	 * Display the page app.php/rt/
+	 * Display the page app.php/rt/ (full header/footer)
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
-	 * @access public
-	*/
+	 */
 	public function display()
 	{
-		$page = "recent_topics_page.html";
+		return $this->render_page('recent_topics_page.html');
+	}
+
+	/**
+	 * Display the page app.php/rt/simple (no header/footer, for iframe embedding)
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+	 */
+	public function display_simple()
+	{
+		return $this->render_page('recent_topics_simple.html');
+	}
+
+	/**
+	 * @param string $template
+	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+	 */
+	private function render_page($template)
+	{
 		$this->language->add_lang(['info_acp_recenttopics', 'recenttopics'], 'avathar/recenttopicsav');
 
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
@@ -72,6 +89,6 @@ class page_controller implements page_interface
 			$this->rt_functions->display_recent_topics();
 		}
 
-		return $this->helper->render($page, $this->language->lang('RECENT_TOPICS'));
+		return $this->helper->render($template, $this->language->lang('RECENT_TOPICS'));
 	}
 }

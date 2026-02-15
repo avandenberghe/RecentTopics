@@ -1,4 +1,9 @@
-# special page
-avathar_recenttopicsav_specialpage:
+# recent topics page (full header)
+avathar_recenttopicsav_page:
     path: /rt
     defaults: { _controller: avathar.recenttopicsav.controller.page_controller:display}
+
+# recent topics simple page (no header, for iframe embedding)
+avathar_recenttopicsav_simple:
+    path: /rt/simple
+    defaults: { _controller: avathar.recenttopicsav.controller.page_controller:display_simple}
