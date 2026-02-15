@@ -64,7 +64,7 @@ class page_controller implements page_interface
 	*/
 	public function display()
 	{
-		$page = "avathar/recent_topics_page.html";
+		$page = "recent_topics_page.html";
 		$this->language->add_lang(['info_acp_recenttopics', 'recenttopics'], 'avathar/recenttopicsav');
 
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])

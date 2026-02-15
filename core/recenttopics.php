@@ -242,6 +242,11 @@ class recenttopics
 	 */
 	public function display_recent_topics($tpl_loopname = 'recent_topics')
 	{
+		if (!function_exists('topic_status'))
+		{
+			include($this->root_path . 'includes/functions_display.' . $this->phpEx);
+		}
+
 		// can view rt ?
 		if ($this->auth->acl_get('u_rt_view') == '0')
 		{
