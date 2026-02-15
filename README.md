@@ -24,11 +24,17 @@ v3.0.0 (12/02/2026)
   - Sort by topic start time instead of last post time
   - Only show unread topics
 - ACP Options:
+  - Enable/disable Recent Topics on the index page
+  - Per-forum toggle: enable/disable Recent Topics display per forum (in ACP Forum Management)
   - Show all recent topic pages
   - Maximum number of pages
   - Set minimum topic type level to display (normal/sticky/announcement/global)
   - Exclusion of topics by ID
   - Display parent forum name in the row
+  - Reset all user preferences to defaults
+  - Built-in version checker (checks avathar.be for updates)
+- Permissions: six granular user permissions — view, enable/disable, location, sort order, unread only, number of topics
+- New users automatically inherit ACP default preferences on registration
 - Inherits all styling from regular "viewforum" templates
 - Filters "Re:" from reply subjects
 - Compatible with:
@@ -37,6 +43,7 @@ v3.0.0 (12/02/2026)
   - Official extension "phpbb/topicprefixes"
   - mChat
   - Collapsible Categories v2
+- Custom PHP events for extension integration: `topictitle_remove_re`, `sql_pull_topics_list`, `sql_pull_topics_data`, `modify_topics_list`, `modify_topictitle`, `modify_tpl_ary`
 - Tested on:
   - prosilver
   - we_clearblue
