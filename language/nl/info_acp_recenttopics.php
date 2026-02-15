@@ -80,11 +80,10 @@ $lang = array_merge(
 		'RT_VERSION_CHECK'				=> 'Versie controle',
 		'RT_LATEST_VERSION'				=> 'Laatste versie',
 		'RT_EXT_VERSION'				=> 'Extensie versie',
-		'RT_VERSION_ERROR'				=> 'Kan laatste versie niet ophalen!',
-		'RT_CHECK_UPDATE'				=> 'Bezoek <a href="http://www.avathar.be/bbdkp/index.php">avathar.be</a> voor nieuwere versies.',
+		'RT_CHECK_UPDATE'				=> 'Bezoek <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> voor nieuwere versies.',
 
 		//Donatiies
-		'RT_DONATE_URL'             => 'http://www.avathar.be/forum/app.php/page/donate',
+		'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 		'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 		'PAYPAL_ALT'                => 'Doe een donatie via PayPal',
 		'RT_DONATE'					=> 'donatie aan RecentTopics',

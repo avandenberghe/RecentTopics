@@ -23,5 +23,6 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'    => 'أحدث المواضيع',
 	'RT_NO_TOPICS'		=> 'لا توجد مواضيع جديدة لعرضها.',
+	'EXTENSION_REQUIRES_330'	=> 'هذا الامتداد يتطلب phpBB 3.3.0 أو أعلى.',
 	)
 );

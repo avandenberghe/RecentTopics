@@ -60,8 +60,14 @@ $lang = array_merge(
 	'RT_RESET_DEFAULT'              => 'Скидання налаштування користувачів',
 	'RT_RESET_DEFAULT_EXP'          => 'Скидання персональних налаштувань користувачів до стандартних налаштувань.',
 
+	//Version checker
+	'RT_VERSION_CHECK'				=> 'Перевірка версії',
+	'RT_LATEST_VERSION'				=> 'Остання версія',
+	'RT_EXT_VERSION'				=> 'Версія розширення',
+	'RT_CHECK_UPDATE'				=> 'Перевірте <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a> на наявність оновлень.',
+
 	//Donation
-	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
+	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'                => 'Підтримайте проект через PayPal',
 	'RT_DONATE'					=> 'Підтримайте проект "RecentTopics" ("Останні Теми")',

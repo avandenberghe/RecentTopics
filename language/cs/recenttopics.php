@@ -21,5 +21,6 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'    => 'Nedávná témata',
 	'RT_NO_TOPICS'		=> 'Žádná nedávná témata.',
+	'EXTENSION_REQUIRES_330'	=> 'Tato extenze vyžaduje phpBB 3.3.0 nebo vyšší.',
 	)
 );
