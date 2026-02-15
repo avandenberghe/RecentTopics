@@ -9,7 +9,12 @@
   - [FIX] Fixed rt_schema migration step counter desync in phpBB migrator
   - [FIX] Consolidated rt_module paybas cleanup into single custom callable
   - [CHG] Applied code style: short array syntax, public static order, effectively_installed() on all migrations
+  - [FIX] Fixed user registration not applying ACP default preferences (#124)
+  - [FIX] Fixed standalone /app.php/rt page: include functions_display.php, fix template path (#138, #150)
+  - [FIX] Fixed pbwow3 top/bottom block: added collapse support, fixed column alignment (#139)
+  - [CHG] Added inputbox autowidth class to UCP number input
   - [CHG] Updated README for phpBB 3.3
+  - [NEW] Added GitHub issue templates (bug report, feature request)
   - [NEW] Added cleanup SQL script (contrib/cleanup_recenttopics.sql)
   - [DEL] Removed .github/issue_template.md
 
