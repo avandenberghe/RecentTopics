@@ -46,10 +46,8 @@ v3.0.0 (12/02/2026)
 - Custom PHP events for extension integration: `topictitle_remove_re`, `sql_pull_topics_list`, `sql_pull_topics_data`, `modify_topics_list`, `modify_topictitle`, `modify_tpl_ary`
 - Tested on:
   - prosilver
-  - we_clearblue
-  - proflat
-  - pbWow3
-  - ComBoot
+  - pbTech
+  - pbWow3  
 
 #### Languages supported
 - English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Ukrainian
