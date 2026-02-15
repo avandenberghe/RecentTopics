@@ -54,9 +54,6 @@ $lang = array_merge(
 	'RT_UNREAD_ONLY_EXP'            => 'Je-li povoleno, budou zobrazena pouze nepřečtená témata (nehledě na to, zda jsou „nedávná“ či ne). Tato funkce používá stejné nastavení (vyjma fór/témat apod.) jako běžný režim. Poznámka: Nastavení funguje jen pro přihlášené uživatele, návštěvníci uvidí stále jen běžný seznam.',
 	'RT_RESET_DEFAULT'              => 'Resetovat uživatelské nastavení',
 	'RT_RESET_DEFAULT_EXP'          => 'Obnovit uživatelské nastavení na výchozí hodnoty.',
-	//Enable for extensions
-	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Podpora pro rozšíření NewsPage',
-	'RT_VIEW_ON'                     => 'Zobrazit nedávná témata na:',
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'Kontrola verze',
 	'RT_LATEST_VERSION'				=> 'Poslední verze',

@@ -80,9 +80,6 @@ $lang = array_merge($lang, array(
 	'RT_RESET_DEFAULT'              => 'Réinitialiser les paramètres utilisateur',
 	'RT_RESET_DEFAULT_EXP'          => 'Permet de réinitialiser les « Paramètres personnalisables » par défaut (ceux présents sur cette page) à tous les utilisateurs.',
 
-	//Enable for extensions
-	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Support de l’extension « NewsPage »',
-	'RT_VIEW_ON'                    => 'Permet d’afficher les sujets récents sur les pages de l’extension :',
 
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'Vérification de la version',

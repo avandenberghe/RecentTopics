@@ -60,10 +60,6 @@ $lang = array_merge(
 	'RT_RESET_DEFAULT'              => 'Скидання налаштування користувачів',
 	'RT_RESET_DEFAULT_EXP'          => 'Скидання персональних налаштувань користувачів до стандартних налаштувань.',
 
-	//Enable for extensions
-	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Сумісність з розширенням NewsPage (сторінка новин)',
-	'RT_VIEW_ON'                    => 'Відображати останні повідомлення на:',
-
 	//Donation
 	'RT_DONATE_URL'             => 'http://www.avathar.be/bbdkp/app.php/page/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

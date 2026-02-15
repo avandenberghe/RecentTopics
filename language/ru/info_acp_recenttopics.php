@@ -59,10 +59,6 @@ $lang = array_merge($lang, array(
 	'RT_RESET_DEFAULT'				=> 'Сброс настроек',
 	'RT_RESET_DEFAULT_EXP'			=> 'Восстановление пользовательских настроек по умолчанию.',
 
-	//Enable for extensions
-	'RT_NICKVERGESSEN_NEWSPAGE'		=> 'Поддержка расширения NewsPage',
-	'RT_VIEW_ON'					=> 'Размещение списка последних тем:',
-
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'Проверка обновления',
 	'RT_LATEST_VERSION'				=> 'Последняя версия',

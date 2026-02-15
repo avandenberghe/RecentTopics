@@ -76,10 +76,6 @@ $lang = array_merge(
 		'RT_RESET_DEFAULT'              => 'Stel gebruikersinstellingen opnieuw in',
 		'RT_RESET_DEFAULT_EXP'          => 'Stel instellingen van alle gebruikers opnieuw in tot de standaard',
 
-		//ondersteuning andere extensies
-		'RT_NICKVERGESSEN_NEWSPAGE'     => 'Ondersteuning van nieuwspagina extensie Nickvergessen',
-		'RT_VIEW_ON'                    => 'Toon recente onderwerpen op:',
-
 		//Versie controle
 		'RT_VERSION_CHECK'				=> 'Versie controle',
 		'RT_LATEST_VERSION'				=> 'Laatste versie',

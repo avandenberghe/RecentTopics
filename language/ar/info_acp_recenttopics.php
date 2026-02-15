@@ -60,10 +60,6 @@ $lang = array_merge(
 	'RT_RESET_DEFAULT'              => 'إعادة الضبط ',
 	'RT_RESET_DEFAULT_EXP'          => 'إعادة ضبط الإعدادات الخاصة بالعضو إلى الإفتراضية.',
 
-	//Enable for extensions
-	'RT_NICKVERGESSEN_NEWSPAGE'     => 'يدعم الإضافة : صفحة الأخبار',
-	'RT_VIEW_ON'                     => 'إظهار أحدث المواضيع في :',
-
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'فحص النسخة',
 	'RT_LATEST_VERSION'				=> 'أحدث نسخة ',

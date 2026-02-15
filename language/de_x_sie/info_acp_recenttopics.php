@@ -76,10 +76,6 @@ $lang = array_merge(
 	'RT_RESET_DEFAULT'              => 'User Einstellungen zurücksetzen',
 	'RT_RESET_DEFAULT_EXP'          => 'Setzt die User Einstellungen zurück auf die Standard Einstellungen',
 
-	//Enable for extensions
-	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Unterstützung für erweiterung ’Newspage’ von Nickvergessen',
-	'RT_VIEW_ON'                    => 'Aktuelle Themen anzeigen auf:',
-
 	//Versie controle
 	'RT_VERSION_CHECK'				=> 'Versionskontrolle',
 	'RT_LATEST_VERSION'				=> 'Letzte version',

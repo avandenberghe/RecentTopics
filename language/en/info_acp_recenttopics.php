@@ -60,10 +60,6 @@ $lang = array_merge(
 	'RT_RESET_DEFAULT'              => 'Reset user settings',
 	'RT_RESET_DEFAULT_EXP'          => 'Reset user settings to default.',
 
-	//Enable for extensions
-	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Support for NewsPage Extension',
-	'RT_VIEW_ON'                    => 'Display recent topics on:',
-
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'Version Check',
 	'RT_LATEST_VERSION'				=> 'Latest version',

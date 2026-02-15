@@ -52,7 +52,6 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.index_modify_page_title'           => 'display_rt',
-			'nickvergessen.newspage.newspage'        => 'display_rt_newspage',
 			'core.acp_manage_forums_request_data'    => 'acp_manage_forums_request_data',
 			'core.acp_manage_forums_initialise_data' => 'acp_manage_forums_initialise_data',
 			'core.acp_manage_forums_display_form'    => 'acp_manage_forums_display_form',
@@ -67,15 +66,6 @@ class listener implements EventSubscriberInterface
 	public function display_rt()
 	{
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
-		{
-			$this->rt_functions->display_recent_topics();
-		}
-	}
-
-	// nickvergessen's newspage ext
-	public function display_rt_newspage()
-	{
-		if (isset($this->config['rt_on_newspage']) && $this->config['rt_on_newspage'])
 		{
 			$this->rt_functions->display_recent_topics();
 		}

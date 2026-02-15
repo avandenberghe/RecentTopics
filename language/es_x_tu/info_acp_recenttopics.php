@@ -60,10 +60,6 @@ $lang = array_merge(
 	'RT_RESET_DEFAULT'              => 'Reiniciar la configuración de los usuarios',
 	'RT_RESET_DEFAULT_EXP'          => 'Devuelve la configuración independiente de cada usuario de “Temas Recientes” al valor por defecto.',
 
-	// extensiones
-	'RT_NICKVERGESSEN_NEWSPAGE'     => 'Soporte para la extensión “NewsPage”',
-	'RT_VIEW_ON'                    => 'Ver “Temas Recientes” en:',
-
 	//Version checker
 	'RT_VERSION_CHECK'				=> 'Comprobación de la versión',
 	'RT_LATEST_VERSION'				=> 'Última versión',
