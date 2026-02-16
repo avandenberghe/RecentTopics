@@ -1,5 +1,5 @@
 ### Changelog
-- 3.0.0 (15/02/2026)
+- 3.0.0-RC1 (15/02/2026)
   - [CHG] Forked as avathar/recenttopicsav to avoid conflict with paybas/recenttopics
   - [CHG] Renamed extension shortname from recenttopics to recenttopicsav
   - [CHG] Updated all namespaces, service names, route names, template paths and event names
@@ -21,6 +21,8 @@
   - [NEW] Added Swedish (sv) translation
   - [FIX] Fixed grammar and spelling errors across all translations (de, de_x_sie, es, fr, nl, pt, ru, uk, cs, ar, en)
   - [CHG] Standardized PHP doc headers across all language files
+  - [NEW] Added separate toggle for standalone pages, independent from index display
+  - [CHG] Switched ACP Yes/No radio buttons to checkboxes
   - [DEL] Removed .github/issue_template.md
 
 - 2.2.15 (05/04/2021)
