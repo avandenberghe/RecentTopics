@@ -66,6 +66,8 @@ $lang = array_merge(
 	'RT_CHECK_UPDATE'				=> 'Informace o dostupných aktualizacích naleznete zde: <a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">avathar.be</a>.',
 	//Standalone pages
 	'RT_PAGES'                      => 'Samostatné stránky',
+	'RT_PAGE_ENABLE'                => 'Povolit samostatné stránky',
+	'RT_PAGE_ENABLE_EXP'            => 'Povolit přístup k samostatným stránkám nedávných témat. Toto je nezávislé na zobrazení na úvodní stránce.',
 	'RT_PAGE'                       => 'Celá stránka',
 	'RT_PAGE_EXP'                   => 'Samostatná stránka nedávných témat s kompletní hlavičkou a patičkou fóra.',
 	'RT_SIMPLE_PAGE'                => 'Zjednodušená stránka',

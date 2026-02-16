@@ -72,6 +72,8 @@ $lang = array_merge(
 
 	//Standalone pages
 	'RT_PAGES'                      => 'Páginas independientes',
+	'RT_PAGE_ENABLE'                => 'Activar páginas independientes',
+	'RT_PAGE_ENABLE_EXP'            => 'Permitir el acceso a las páginas independientes de temas recientes. Esto es independiente de la visualización en la página de índice.',
 	'RT_PAGE'                       => 'Página completa',
 	'RT_PAGE_EXP'                   => 'Página independiente de Temas Recientes con encabezado y pie de página completos del foro.',
 	'RT_SIMPLE_PAGE'                => 'Página simplificada',

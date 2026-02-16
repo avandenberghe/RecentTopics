@@ -72,6 +72,8 @@ $lang = array_merge(
 
 	//Standalone pages
 	'RT_PAGES'                      => 'Standalone Pages',
+	'RT_PAGE_ENABLE'                => 'Enable standalone pages',
+	'RT_PAGE_ENABLE_EXP'            => 'Allow access to the standalone Recent Topics pages. This is independent from the index page display.',
 	'RT_PAGE'                       => 'Full page',
 	'RT_PAGE_EXP'                   => 'Standalone Recent Topics page with full board header and footer.',
 	'RT_SIMPLE_PAGE'                => 'Simplified page',

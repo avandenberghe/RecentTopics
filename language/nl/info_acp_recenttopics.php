@@ -88,6 +88,8 @@ $lang = array_merge(
 
 		//Zelfstandige pagina's
 		'RT_PAGES'                      => 'Zelfstandige pagina\'s',
+		'RT_PAGE_ENABLE'                => 'Zelfstandige pagina\'s inschakelen',
+		'RT_PAGE_ENABLE_EXP'            => 'Toegang tot de zelfstandige Recente Onderwerpen pagina\'s toestaan. Dit is onafhankelijk van de weergave op de indexpagina.',
 		'RT_PAGE'                       => 'Volledige pagina',
 		'RT_PAGE_EXP'                   => 'Zelfstandige pagina met recente onderwerpen inclusief volledige header en footer van het forum.',
 		'RT_SIMPLE_PAGE'                => 'Vereenvoudigde pagina',

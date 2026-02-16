@@ -88,6 +88,8 @@ $lang = array_merge(
 
 	//Eigenständige Seiten
 	'RT_PAGES'                      => 'Eigenständige Seiten',
+	'RT_PAGE_ENABLE'                => 'Eigenständige Seiten aktivieren',
+	'RT_PAGE_ENABLE_EXP'            => 'Zugriff auf die eigenständigen Letzte-Themen-Seiten erlauben. Dies ist unabhängig von der Anzeige auf der Foren-Übersicht.',
 	'RT_PAGE'                       => 'Vollständige Seite',
 	'RT_PAGE_EXP'                   => 'Eigenständige Seite der aktuellen Themen mit vollständigem Board-Header und -Footer.',
 	'RT_SIMPLE_PAGE'                => 'Vereinfachte Seite',

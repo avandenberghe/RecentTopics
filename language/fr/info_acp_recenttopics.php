@@ -89,6 +89,8 @@ $lang = array_merge($lang, array(
 
 	//Standalone pages
 	'RT_PAGES'                      => 'Pages autonomes',
+	'RT_PAGE_ENABLE'                => 'Activer les pages autonomes',
+	'RT_PAGE_ENABLE_EXP'            => 'Autoriser l\'accès aux pages autonomes des sujets récents. Ceci est indépendant de l\'affichage sur la page d\'index.',
 	'RT_PAGE'                       => 'Page complète',
 	'RT_PAGE_EXP'                   => 'Page autonome des sujets récents avec l'en-tête et le pied de page complets du forum.',
 	'RT_SIMPLE_PAGE'                => 'Page simplifiée',

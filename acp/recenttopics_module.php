@@ -111,6 +111,9 @@ class recenttopics_module
 			$rt_unread_only = $request->variable('rt_unread_only', false);
 			$config->set('rt_unread_only', $rt_unread_only);
 
+			$rt_page_enable = $request->variable('rt_page_enable', 0);
+			$config->set('rt_page_enable', $rt_page_enable);
+
 			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
@@ -174,8 +177,8 @@ class recenttopics_module
 		$template->assign_vars(
 			array(
 				'U_ACTION'           => $this->u_action,
-				'U_RT_PAGE'          => $helper->route('avathar_recenttopicsav_page'),
-				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopicsav_simple'),
+				'U_RT_PAGE'          => $helper->route('avathar_recenttopicsav_page', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
+				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopicsav_simple', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 				'RT_INDEX'           => (int) $config['rt_index'],
 				'RT_PAGE_NUMBER'     => ($config['rt_page_number'] == '1') ? 'checked="checked"' : '',
 				'RT_PAGE_NUMBERMAX'  => (int) $config['rt_page_numbermax'],
@@ -184,6 +187,7 @@ class recenttopics_module
 				'RT_NUMBER'          => (int) $config['rt_number'],
 				'RT_SORT_START_TIME' => (int) $config['rt_sort_start_time'],
 				'RT_UNREAD_ONLY'     => (int) $config['rt_unread_only'],
+				'RT_PAGE_ENABLE'     => (int) $config['rt_page_enable'],
 				'S_RT_OK'            => version_compare($ext_version, $latest_version, '=='),
 				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
 				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),

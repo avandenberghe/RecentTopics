@@ -7,10 +7,7 @@
 		<legend>{{ lang('RT_GLOBAL_SETTINGS') }}</legend>
 		<dl>
 			<dt><label for="rt_enable">{{ lang('INDEX') }}</label><br /><span>{{ lang('RT_DISPLAY_INDEX') }}</span></dt>
-			<dd>
-				<label><input type="radio" class="radio" name="rt_enable" value="1" id="rt_enable"{% if RT_INDEX %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="rt_enable" value="0" {% if not RT_INDEX %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
-			</dd>
+			<dd><input type="checkbox" name="rt_enable" id="rt_enable" value="1"{% if RT_INDEX %} checked="checked"{% endif %} /></dd>
 		</dl>
 
 
@@ -42,10 +39,7 @@
 		</dl>
 		<dl>
 			<dt><label for="rt_parents">{{ lang('RT_PARENTS') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PARENTS_EXP') }}</span></dt>
-			<dd>
-				<label><input type="radio" class="radio" name="rt_parents" value="1" id="rt_parents"{% if RT_PARENTS %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="rt_parents" value="0"{% if not RT_PARENTS %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
-			</dd>
+			<dd><input type="checkbox" name="rt_parents" id="rt_parents" value="1"{% if RT_PARENTS %} checked="checked"{% endif %} /></dd>
 		</dl>
 		<dl>
 			<dt><label for="rt_topic_link_to">{{ lang('RT_TOPIC_LINK_TO') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_TOPIC_LINK_TO_EXP') }}</span></dt>
@@ -56,6 +50,22 @@
 					{% endfor %}
 				</select>
 			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('RT_PAGES') }}</legend>
+		<dl>
+			<dt><label for="rt_page_enable">{{ lang('RT_PAGE_ENABLE') }}</label><br /><span>{{ lang('RT_PAGE_ENABLE_EXP') }}</span></dt>
+			<dd><input type="checkbox" name="rt_page_enable" id="rt_page_enable" value="1"{% if RT_PAGE_ENABLE %} checked="checked"{% endif %} /></dd>
+		</dl>
+		<dl>
+			<dt><label>{{ lang('RT_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_EXP') }}</span></dt>
+			<dd><a href="{{ U_RT_PAGE }}" target="_blank">{{ U_RT_PAGE }}</a></dd>
+		</dl>
+		<dl>
+			<dt><label>{{ lang('RT_SIMPLE_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SIMPLE_PAGE_EXP') }}</span></dt>
+			<dd><a href="{{ U_RT_SIMPLE_PAGE }}" target="_blank">{{ U_RT_SIMPLE_PAGE }}</a></dd>
 		</dl>
 	</fieldset>
 
@@ -79,17 +89,11 @@
 
 		<dl>
 			<dt><label for="rt_sort_start_time">{{ lang('RT_SORT_START_TIME') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SORT_START_TIME_EXP') }}</span></dt>
-			<dd>
-				<label><input type="radio" class="radio" name="rt_sort_start_time" value="1" id="rt_sort_start_time"{% if RT_SORT_START_TIME %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="rt_sort_start_time" value="0"{% if not RT_SORT_START_TIME %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
-			</dd>
+			<dd><input type="checkbox" name="rt_sort_start_time" id="rt_sort_start_time" value="1"{% if RT_SORT_START_TIME %} checked="checked"{% endif %} /></dd>
 		</dl>
 		<dl>
 			<dt><label for="rt_unread_only">{{ lang('RT_UNREAD_ONLY') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_UNREAD_ONLY_EXP') }}</span></dt>
-			<dd>
-				<label><input type="radio" class="radio" name="rt_unread_only" value="1" id="rt_unread_only"{% if RT_UNREAD_ONLY %} checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="rt_unread_only" value="0"{% if not RT_UNREAD_ONLY %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
-			</dd>
+			<dd><input type="checkbox" name="rt_unread_only" id="rt_unread_only" value="1"{% if RT_UNREAD_ONLY %} checked="checked"{% endif %} /></dd>
 		</dl>
 
 		<dl>
@@ -127,18 +131,6 @@
 				<a href="{{ U_VERSIONCHECK_FORCE }}">{{ lang('VERSIONCHECK_FORCE_UPDATE') }}</a></dd>
 		</dl>
 		{% endif %}
-	</fieldset>
-
-	<fieldset>
-		<legend>{{ lang('RT_PAGES') }}</legend>
-		<dl>
-			<dt><label>{{ lang('RT_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_EXP') }}</span></dt>
-			<dd><a href="{{ U_RT_PAGE }}" target="_blank">{{ U_RT_PAGE }}</a></dd>
-		</dl>
-		<dl>
-			<dt><label>{{ lang('RT_SIMPLE_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SIMPLE_PAGE_EXP') }}</span></dt>
-			<dd><a href="{{ U_RT_SIMPLE_PAGE }}" target="_blank">{{ U_RT_SIMPLE_PAGE }}</a></dd>
-		</dl>
 	</fieldset>
 
 	<fieldset>

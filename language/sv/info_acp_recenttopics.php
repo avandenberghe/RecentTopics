@@ -73,6 +73,8 @@ $lang = array_merge(
 
 	//Standalone pages
 	'RT_PAGES'                      => 'Fristående sidor',
+	'RT_PAGE_ENABLE'                => 'Aktivera fristående sidor',
+	'RT_PAGE_ENABLE_EXP'            => 'Tillåt åtkomst till de fristående sidorna för senaste ämnen. Detta är oberoende av visningen på indexsidan.',
 	'RT_PAGE'                       => 'Fullständig sida',
 	'RT_PAGE_EXP'                   => 'Fristående sida med senaste trådar med fullständigt sidhuvud och sidfot.',
 	'RT_SIMPLE_PAGE'                => 'Förenklad sida',
