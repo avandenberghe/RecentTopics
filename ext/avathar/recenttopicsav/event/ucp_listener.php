@@ -83,7 +83,7 @@ class ucp_listener implements EventSubscriberInterface
 	/**
 	 * @return array
 	 */
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return array(
 		'core.ucp_prefs_view_data'        => 'ucp_prefs_get_data',

@@ -325,14 +325,14 @@ class recenttopics
 			$this->sort_topics = $this->user->data['user_rt_sort_start_time'] ? 'topic_time' : 'topic_last_post_time';
 		}
 
-		$this->getforumlist();
+		$this->get_forum_list();
 		// No forums to display
 		if (count($this->forum_ids) == 0)
 		{
 			return;
 		}
 
-		$topics_count = $this->gettopiclist();
+		$topics_count = $this->get_topic_list();
 
 		if (count($this->topic_list) == 0)
 		{
@@ -396,7 +396,7 @@ class recenttopics
 	/**
 	 * Get the forums we take our topics from
 	 */
-	private function getforumlist()
+	private function get_forum_list()
 	{
 		// Get the allowed forums
 		$forum_ary = array();
@@ -435,7 +435,7 @@ class recenttopics
 	 *
 	 * @return int
 	 */
-	private function gettopiclist()
+	private function get_topic_list()
 	{
 		$this->rtstart = max(0, $this->rtstart);
 
@@ -586,7 +586,7 @@ class recenttopics
 	 * @param $row
 	 * @return array
 	 */
-	private function getusernamestrings($row)
+	private function get_username_strings($row)
 	{
 		$topic_author       = get_username_string('username', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']);
 		$topic_author_color = get_username_string('colour', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']);
@@ -623,7 +623,7 @@ class recenttopics
 	 * pull the data of the requested topics
 	 * @return array
 	 */
-	private function get_topics_sql ()
+	private function get_topics_sql()
 	{
 		$sql_array = array(
 			'SELECT'    => 't.*, f.forum_name, tp.topic_posted',
@@ -674,7 +674,7 @@ class recenttopics
 	 * @param       $topic_tracking_info
 	 * @param int   $topics_count
 	 */
-	private function fill_template ($tpl_loopname, $topic_tracking_info, int $topics_count): void
+	private function fill_template($tpl_loopname, $topic_tracking_info, int $topics_count): void
 	{
 		// get topics from db
 		$rowset = $this->get_topics_sql();
@@ -806,7 +806,7 @@ class recenttopics
 				{
 					$last_post_subject = $prefix . ' ' . $last_post_subject;
 				}
-				list($topic_author, $topic_author_color, $topic_author_full, $u_topic_author, $last_post_author, $last_post_author_colour, $last_post_author_full, $u_last_post_author) = $this->getusernamestrings($row);
+				list($topic_author, $topic_author_color, $topic_author_full, $u_topic_author, $last_post_author, $last_post_author_colour, $last_post_author_full, $u_last_post_author) = $this->get_username_strings($row);
 				//load language
 				$this->language->add_lang('recenttopics', 'avathar/recenttopicsav');
 				$tpl_ary = array(
