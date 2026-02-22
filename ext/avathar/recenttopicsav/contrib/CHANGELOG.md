@@ -1,4 +1,8 @@
 ### Changelog
+- 3.0.0 (22/02/2026)
+  - [CHG] Promoted RC1 to stable after 2 weeks of testing
+  - [NEW] Added Slovak (sk) translation
+
 - 3.0.0-RC1 (15/02/2026)
   - [CHG] Forked as avathar/recenttopicsav to avoid conflict with paybas/recenttopics
   - [CHG] Renamed extension shortname from recenttopics to recenttopicsav
