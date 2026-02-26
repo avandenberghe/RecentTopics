@@ -59,7 +59,7 @@ $lang = array_merge($lang, array(
 	'RT_ANTI_TOPICS'                => 'Exclure des sujets de l’affichage',
 	'RT_ANTI_TOPICS_EXP'            => 'Permet de saisir les ID, séparés par une virgule (exemple : 7,9), des sujets à exclure de l’affichage des sujets récents.<br />Pour afficher tous les sujets saisir la valeur 0.',
 	'RT_PARENTS'                    => 'Afficher les forums parents',
-	'RT_PARENTS_EXP'                => 'Permet d'afficher les forums parents dans l'arborescence des forums de l'affichage des sujets récents.',
+	'RT_PARENTS_EXP'                => 'Permet d’afficher les forums parents dans l’arborescence des forums de l’affichage des sujets récents.',
 	'RT_TOPIC_LINK_TO'              => 'Le titre du sujet renvoie vers',
 	'RT_TOPIC_LINK_TO_EXP'          => 'Permet de choisir vers quel message le titre du sujet renvoie dans la liste des sujets récents.',
 	'RT_TOPIC_LINK_FIRST'           => 'Premier message',
@@ -90,11 +90,11 @@ $lang = array_merge($lang, array(
 	//Standalone pages
 	'RT_PAGES'                      => 'Pages autonomes',
 	'RT_PAGE_ENABLE'                => 'Activer les pages autonomes',
-	'RT_PAGE_ENABLE_EXP'            => 'Autoriser l\'accès aux pages autonomes des sujets récents. Ceci est indépendant de l\'affichage sur la page d\'index.',
+	'RT_PAGE_ENABLE_EXP'            => 'Autoriser l’accès aux pages autonomes des sujets récents. Ceci est indépendant de l’affichage sur la page d’index.',
 	'RT_PAGE'                       => 'Page complète',
-	'RT_PAGE_EXP'                   => 'Page autonome des sujets récents avec l'en-tête et le pied de page complets du forum.',
+	'RT_PAGE_EXP'                   => 'Page autonome des sujets récents avec l’en-tête et le pied de page complets du forum.',
 	'RT_SIMPLE_PAGE'                => 'Page simplifiée',
-	'RT_SIMPLE_PAGE_EXP'            => 'Page simplifiée des sujets récents sans en-tête ni pied de page du forum, adaptée à l'intégration dans une iframe.',
+	'RT_SIMPLE_PAGE_EXP'            => 'Page simplifiée des sujets récents sans en-tête ni pied de page du forum, adaptée à l’intégration dans une iframe.',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
