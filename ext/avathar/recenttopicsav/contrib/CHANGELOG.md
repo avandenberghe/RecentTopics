@@ -1,4 +1,7 @@
 ### Changelog
+- 3.0.1 (26/02/2026)
+  - [FIX] Fixed French language files: unescaped straight apostrophes caused PHP parse error and 500 Internal Server Error
+
 - 3.0.0 (22/02/2026)
   - [CHG] Promoted RC1 to stable after 2 weeks of testing
   - [NEW] Added Slovak (sk) translation
