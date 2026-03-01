@@ -5,7 +5,7 @@ Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
 
 #### Version
-v3.0.1 (26/02/2026)
+v3.0.2 (01/03/2026)
 
 #### Support
 - [Support forum](https://www.avathar.be/forum/viewforum.php?f=65)
