@@ -4,3 +4,4 @@
 .DS_Store
 phpunit.xml.dist
 /composer.lock
+ext/avathar/recenttopicsav/.claude

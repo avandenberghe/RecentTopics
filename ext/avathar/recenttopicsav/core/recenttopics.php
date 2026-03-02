@@ -214,9 +214,9 @@ class recenttopics
 		\phpbb\user $user,
 		$root_path,
 		$phpEx,
-		topicprefixes $topicprefixes = null,
-		\imkingdavid\prefixed\core\manager $prefixed = null,
-		\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null
+		?topicprefixes $topicprefixes = null,
+		?\imkingdavid\prefixed\core\manager $prefixed = null,
+		?\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null
 	)
 	{
 		$this->auth = $auth;

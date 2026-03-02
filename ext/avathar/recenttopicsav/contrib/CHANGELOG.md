@@ -1,4 +1,7 @@
 ### Changelog
+- 3.0.3 (02/03/2026)
+  - [FIX] Fix PHP 8.4 compatibility: use explicit nullable types for optional constructor parameters in recenttopics core class
+
 - 3.0.2 (01/03/2026)
   - [FIX] Fix duplicate ad block display: use DEFINE instead of set for ADSIDE flag so PBWoW3 style can detect it across template scopes
 

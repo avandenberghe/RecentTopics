@@ -7,7 +7,7 @@
  *
  */
 
-namespace avathar\recenttopicsav\migrations\v300;
+namespace avathar\recenttopicsav\migrations\v302;
 
 class release_3_0_2 extends \phpbb\db\migration\migration
 {
