@@ -3,9 +3,11 @@ services:
         class: avathar\recenttopicsav\controller\page_controller
         arguments:
             - '@config'
+            - '@dbal.conn'
             - '@controller.helper'
             - '@language'
             - '@avathar.recenttopicsav.functions'
+            - '@user'
 
     avathar.recenttopicsav.functions:
         class: avathar\recenttopicsav\core\recenttopics

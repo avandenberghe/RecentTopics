@@ -12,48 +12,56 @@ namespace avathar\recenttopicsav\controller;
 
 use phpbb\config\config;
 use phpbb\controller\helper;
+use phpbb\db\driver\driver_interface;
 use phpbb\language\language;
+use phpbb\user;
 use avathar\recenttopicsav\core\recenttopics;
 
 class page_controller implements page_interface
 {
-	/**
-	 * @var \phpbb\config\config
-	 */
+	/** @var config */
 	protected $config;
 
-	/**
-	 * @var \phpbb\controller\helper
-	 */
+	/** @var driver_interface */
+	protected $db;
+
+	/** @var helper */
 	protected $helper;
 
-	/**
-	 * @var language
-	 */
+	/** @var language */
 	protected $language;
 
-	/* @var recenttopics */
+	/** @var recenttopics */
 	protected $rt_functions;
+
+	/** @var user */
+	protected $user;
 
 	/**
 	 * page constructor.
 	 *
-	 * @param \phpbb\config\config              			$config
-	 * @param \phpbb\controller\helper          			$helper
-	 * @param \phpbb\language\language 						$language
-	 * @param \avathar\recenttopicsav\core\recenttopics		$functions
+	 * @param config              $config
+	 * @param driver_interface    $db
+	 * @param helper              $helper
+	 * @param language            $language
+	 * @param recenttopics        $functions
+	 * @param user                $user
 	 */
 	public function __construct(
 		config $config,
+		driver_interface $db,
 		helper $helper,
 		language $language,
-		recenttopics $functions
+		recenttopics $functions,
+		user $user
 	)
 	{
 		$this->config       = $config;
+		$this->db           = $db;
 		$this->helper       = $helper;
-		$this->language = $language;
+		$this->language     = $language;
 		$this->rt_functions = $functions;
+		$this->user         = $user;
 	}
 
 	/**
@@ -68,12 +76,35 @@ class page_controller implements page_interface
 
 	/**
 	 * Display the page app.php/rt/simple (no header/footer, for iframe embedding)
+	 * Forces PBWoW3 style if installed, otherwise uses the board default.
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	 */
 	public function display_simple()
 	{
+		$this->force_style('pbwow3');
 		return $this->render_page('recent_topics_simple.html');
+	}
+
+	/**
+	 * Force a specific style by style_path, falling back to the board default.
+	 *
+	 * @param string $style_path The style directory name (e.g. 'pbwow3')
+	 */
+	private function force_style($style_path)
+	{
+		$sql = 'SELECT *
+			FROM ' . STYLES_TABLE . "
+			WHERE style_path = '" . $this->db->sql_escape($style_path) . "'
+				AND style_active = 1";
+		$result = $this->db->sql_query($sql);
+		$style_row = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+		if ($style_row)
+		{
+			$this->user->style = $style_row;
+		}
 	}
 
 	/**
