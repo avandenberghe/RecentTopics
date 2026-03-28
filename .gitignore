@@ -5,3 +5,4 @@
 phpunit.xml.dist
 /composer.lock
 ext/avathar/recenttopicsav/.claude
+avathar/recenttopicsav/.claude
