@@ -65,7 +65,7 @@ prosilver, pbTech, pbWow3
 3. To permanently uninstall, click `Delete Data`, then delete the `recenttopicsav` folder from `/ext/avathar/`.
 
 #### Support
-- [Support forum](https://www.avathar.be/forum/viewforum.php?f=65)
+- [Support forum](https://www.avathar.be/forum/viewforum.php?f=16)
 
 #### License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
