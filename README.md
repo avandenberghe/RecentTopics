@@ -6,6 +6,7 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 
 #### Version
 v3.0.3 (02/03/2026)
+
 [![Tests](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml/badge.svg)](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml)
 
 #### Support
