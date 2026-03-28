@@ -65,6 +65,10 @@ $lang = array_merge(
 		'RT_TOPIC_LINK_FIRST'           => 'Eerste bericht',
 		'RT_TOPIC_LINK_LAST'            => 'Laatste bericht',
 		'RT_TOPIC_LINK_UNREAD'          => 'Eerste ongelezen bericht',
+		'RT_SIDE_SHOW_DATE'             => 'Datum tonen in zijweergave',
+		'RT_SIDE_SHOW_DATE_EXP'         => 'Toont de berichtdatum in de zijweergave. Uitschakelen voor een compactere zijbalk.',
+		'RT_SHOW_LIKES'                 => 'Aantal likes tonen',
+		'RT_SHOW_LIKES_EXP'             => 'Toont het aantal PostLove likes naast de recente onderwerpen.',
 
 		//user instellingen
 		'RT_OVERRIDABLE'                => 'Instellingen waarvoor gebruikerspaneel voorrang heeft',

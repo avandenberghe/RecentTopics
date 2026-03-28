@@ -22,7 +22,7 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'     => 'Najnovšie témy',
 	'RT_NO_TOPICS'		=> 'Nie sú žiadne nové témy na zobrazenie.',
-	'LIKES'				=> 'Likes',
+	'LIKES'				=> 'Lajky',
 	'VIEWING_RECENT_TOPICS'	=> 'Prezerá <a href="%s">Najnovšie témy</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Toto rozšírenie vyžaduje phpBB 3.3.0 alebo vyššie.',
 	)

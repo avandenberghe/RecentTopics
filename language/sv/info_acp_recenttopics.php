@@ -50,6 +50,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'Första inlägget',
 	'RT_TOPIC_LINK_LAST'            => 'Senaste inlägget',
 	'RT_TOPIC_LINK_UNREAD'          => 'Första olästa inlägget',
+	'RT_SIDE_SHOW_DATE'             => 'Visa datum i sidovy',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Visar inläggsdatumet i sidolayouten. Inaktivera för en mer kompakt sidopanel.',
+	'RT_SHOW_LIKES'                 => 'Visa antal gillningar',
+	'RT_SHOW_LIKES_EXP'             => 'Visar PostLove-gillningar bredvid senaste ämnen.',
 
 	//User Overridable settings
 	'RT_OVERRIDABLE'                => 'Inställningar som kan ändras i kontrollpanelen',
@@ -81,11 +85,11 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE_EXP'            => 'Förenklad sida med senaste trådar utan sidhuvud och sidfot, lämplig för inbäddning i en iframe.',
 
 	//Advertisement block
-	'RT_ADS_SETTINGS'           => 'Advertisement Block',
-	'RT_ADS_ENABLE'             => 'Enable advertisement block',
-	'RT_ADS_ENABLE_EXP'         => 'Display a custom HTML block alongside Recent Topics on the index page. Only visible when display location is set to "Side".',
-	'RT_ADS_CODE'               => 'Advertisement HTML',
-	'RT_ADS_CODE_EXP'           => 'Enter custom HTML to display in the advertisement block (e.g. ad code, donation button, or any other content).',
+	'RT_ADS_SETTINGS'           => 'Annonsblock',
+	'RT_ADS_ENABLE'             => 'Aktivera annonsblock',
+	'RT_ADS_ENABLE_EXP'         => 'Visar ett anpassat HTML-block bredvid senaste ämnen på indexsidan. Synligt endast när visningsplatsen är inställd på "Sida".',
+	'RT_ADS_CODE'               => 'Annons-HTML',
+	'RT_ADS_CODE_EXP'           => 'Ange anpassad HTML att visa i annonsblocket (t.ex. annonskod, donationsknapp eller annat innehåll).',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

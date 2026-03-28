@@ -49,6 +49,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'Primer mensaje',
 	'RT_TOPIC_LINK_LAST'            => 'Último mensaje',
 	'RT_TOPIC_LINK_UNREAD'          => 'Primer mensaje no leído',
+	'RT_SIDE_SHOW_DATE'             => 'Mostrar fecha en vista lateral',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Muestra la fecha del mensaje en la vista lateral. Desactiva para una barra lateral más compacta.',
+	'RT_SHOW_LIKES'                 => 'Mostrar cantidad de me gusta',
+	'RT_SHOW_LIKES_EXP'             => 'Muestra la cantidad de me gusta de PostLove junto a los temas recientes.',
 
 	// Opciones modificables por el usuario. Afectan a los usuarios anónimos y pueden ser sobreescritas por el PCU
 	'RT_OVERRIDABLE'                => 'Opciones sobreescribibles del PCU',

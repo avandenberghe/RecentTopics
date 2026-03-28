@@ -46,6 +46,11 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'První příspěvek',
 	'RT_TOPIC_LINK_LAST'            => 'Poslední příspěvek',
 	'RT_TOPIC_LINK_UNREAD'          => 'První nepřečtený příspěvek',
+	'RT_SIDE_SHOW_DATE'             => 'Zobrazit datum v postranním zobrazení',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Zobrazí datum příspěvku v postranním rozložení. Vypněte pro kompaktnější postranní panel.',
+	'RT_SHOW_LIKES'                 => 'Zobrazit počet lajků',
+	'RT_SHOW_LIKES_EXP'             => 'Zobrazí počet lajků PostLove u nedávných témat.',
+
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'Výchozí nastavení (lze přepsat v uživatelském panelu)',
 	'RT_LOCATION'                   => 'Místo zobrazení',
@@ -74,11 +79,11 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE_EXP'            => 'Zjednodušená stránka nedávných témat bez hlavičky a patičky fóra, vhodná pro vložení do iframe.',
 
 	//Advertisement block
-	'RT_ADS_SETTINGS'           => 'Advertisement Block',
-	'RT_ADS_ENABLE'             => 'Enable advertisement block',
-	'RT_ADS_ENABLE_EXP'         => 'Display a custom HTML block alongside Recent Topics on the index page. Only visible when display location is set to "Side".',
-	'RT_ADS_CODE'               => 'Advertisement HTML',
-	'RT_ADS_CODE_EXP'           => 'Enter custom HTML to display in the advertisement block (e.g. ad code, donation button, or any other content).',
+	'RT_ADS_SETTINGS'           => 'Reklamní blok',
+	'RT_ADS_ENABLE'             => 'Povolit reklamní blok',
+	'RT_ADS_ENABLE_EXP'         => 'Zobrazí vlastní HTML blok vedle nedávných témat na úvodní stránce. Viditelné pouze při nastavení umístění na "Strana".',
+	'RT_ADS_CODE'               => 'HTML reklamy',
+	'RT_ADS_CODE_EXP'           => 'Zadejte vlastní HTML pro zobrazení v reklamním bloku (např. reklamní kód, tlačítko pro dary nebo jiný obsah).',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

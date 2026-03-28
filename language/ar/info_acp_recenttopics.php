@@ -49,6 +49,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'المشاركة الأولى',
 	'RT_TOPIC_LINK_LAST'            => 'المشاركة الأخيرة',
 	'RT_TOPIC_LINK_UNREAD'          => 'أول مشاركة غير مقروءة',
+	'RT_SIDE_SHOW_DATE'             => 'عرض التاريخ في العرض الجانبي',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'عرض تاريخ المشاركة في التخطيط الجانبي. قم بتعطيله للحصول على شريط جانبي أكثر إحكاماً.',
+	'RT_SHOW_LIKES'                 => 'عرض عدد الإعجابات',
+	'RT_SHOW_LIKES_EXP'             => 'عرض عدد إعجابات PostLove بجانب المواضيع الأخيرة.',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'الإعدادات الرئيسية',
@@ -80,11 +84,11 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE_EXP'            => 'صفحة أحدث المواضيع المبسطة بدون رأس وتذييل المنتدى، مناسبة للتضمين في إطار iframe.',
 
 	//Advertisement block
-	'RT_ADS_SETTINGS'           => 'Advertisement Block',
-	'RT_ADS_ENABLE'             => 'Enable advertisement block',
-	'RT_ADS_ENABLE_EXP'         => 'Display a custom HTML block alongside Recent Topics on the index page. Only visible when display location is set to "Side".',
-	'RT_ADS_CODE'               => 'Advertisement HTML',
-	'RT_ADS_CODE_EXP'           => 'Enter custom HTML to display in the advertisement block (e.g. ad code, donation button, or any other content).',
+	'RT_ADS_SETTINGS'           => 'كتلة الإعلانات',
+	'RT_ADS_ENABLE'             => 'تفعيل كتلة الإعلانات',
+	'RT_ADS_ENABLE_EXP'         => 'عرض كتلة HTML مخصصة بجانب المواضيع الأخيرة في صفحة الفهرس. مرئية فقط عند ضبط موقع العرض على "جانبي".',
+	'RT_ADS_CODE'               => 'HTML الإعلان',
+	'RT_ADS_CODE_EXP'           => 'أدخل HTML مخصص لعرضه في كتلة الإعلانات (مثل رمز الإعلان، زر التبرع، أو أي محتوى آخر).',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

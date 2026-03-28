@@ -13,7 +13,7 @@ class release_3_0_4 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return $this->config->offsetExists('rt_ads_enable');
+		return $this->config->offsetExists('rt_show_likes');
 	}
 
 	public static function depends_on()
@@ -26,6 +26,8 @@ class release_3_0_4 extends \phpbb\db\migration\migration
 		return [
 			['config.add', ['rt_ads_enable', 0]],
 			['config_text.add', ['rt_ads_code', '']],
+			['config.add', ['rt_show_likes', 1]],
+			['config.add', ['rt_side_show_date', 1]],
 			['config.update', ['rt_version', '3.0.4']],
 		];
 	}
@@ -35,6 +37,8 @@ class release_3_0_4 extends \phpbb\db\migration\migration
 		return [
 			['config.remove', ['rt_ads_enable']],
 			['config_text.remove', ['rt_ads_code']],
+			['config.remove', ['rt_show_likes']],
+			['config.remove', ['rt_side_show_date']],
 		];
 	}
 }

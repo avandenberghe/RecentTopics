@@ -51,6 +51,16 @@
 				</select>
 			</dd>
 		</dl>
+		<dl>
+			<dt><label for="rt_side_show_date">{{ lang('RT_SIDE_SHOW_DATE') }}</label><br /><span>{{ lang('RT_SIDE_SHOW_DATE_EXP') }}</span></dt>
+			<dd><input type="checkbox" name="rt_side_show_date" id="rt_side_show_date" value="1"{% if RT_SIDE_SHOW_DATE %} checked="checked"{% endif %} /></dd>
+		</dl>
+		{% if S_POSTLOVE %}
+		<dl>
+			<dt><label for="rt_show_likes">{{ lang('RT_SHOW_LIKES') }}</label><br /><span>{{ lang('RT_SHOW_LIKES_EXP') }}</span></dt>
+			<dd><input type="checkbox" name="rt_show_likes" id="rt_show_likes" value="1"{% if RT_SHOW_LIKES %} checked="checked"{% endif %} /></dd>
+		</dl>
+		{% endif %}
 	</fieldset>
 
 	<fieldset>

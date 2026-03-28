@@ -65,6 +65,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'Erster Beitrag',
 	'RT_TOPIC_LINK_LAST'            => 'Letzter Beitrag',
 	'RT_TOPIC_LINK_UNREAD'          => 'Erster ungelesener Beitrag',
+	'RT_SIDE_SHOW_DATE'             => 'Datum in Seitenansicht anzeigen',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Zeigt das Beitragsdatum in der Seitenansicht an. Deaktivieren für eine kompaktere Seitenleiste.',
+	'RT_SHOW_LIKES'                 => 'Like-Anzahl anzeigen',
+	'RT_SHOW_LIKES_EXP'             => 'Zeigt die PostLove Like-Anzahl neben den neuesten Themen an.',
 
 	//Benutzereinstellungen
 	'RT_OVERRIDABLE'                => 'Einstellungen, die im Benutzerkontrollzentrum geändert werden können',

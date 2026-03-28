@@ -49,6 +49,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'Primeira mensagem',
 	'RT_TOPIC_LINK_LAST'            => 'Última mensagem',
 	'RT_TOPIC_LINK_UNREAD'          => 'Primeira mensagem não lida',
+	'RT_SIDE_SHOW_DATE'             => 'Mostrar data na vista lateral',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Exibe a data da mensagem na vista lateral. Desative para uma barra lateral mais compacta.',
+	'RT_SHOW_LIKES'                 => 'Mostrar contagem de gostos',
+	'RT_SHOW_LIKES_EXP'             => 'Exibe a contagem de gostos PostLove junto aos tópicos recentes.',
 
 	//configuração geral para usuários anônimos
 	'RT_OVERRIDABLE'                => 'UCP configurações substituíveis',

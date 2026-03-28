@@ -126,6 +126,13 @@ class recenttopics_module
 			$config_text = $phpbb_container->get('config_text');
 			$config_text->set('rt_ads_code', $rt_ads_code);
 
+			// Display options
+			$rt_show_likes = $request->variable('rt_show_likes', 0);
+			$config->set('rt_show_likes', $rt_show_likes);
+
+			$rt_side_show_date = $request->variable('rt_side_show_date', 0);
+			$config->set('rt_side_show_date', $rt_side_show_date);
+
 			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
@@ -203,6 +210,9 @@ class recenttopics_module
 				'RT_PAGE_ENABLE'     => (int) $config['rt_page_enable'],
 				'RT_ADS_ENABLE'      => (int) $config['rt_ads_enable'],
 				'RT_ADS_CODE'        => $config_text->get('rt_ads_code'),
+				'RT_SHOW_LIKES'      => (int) $config['rt_show_likes'],
+				'RT_SIDE_SHOW_DATE'  => (int) $config['rt_side_show_date'],
+				'S_POSTLOVE'         => isset($config['postlove_version']),
 				'S_RT_OK'            => version_compare($ext_version, $latest_version, '=='),
 				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
 				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),

@@ -22,7 +22,7 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'     => 'Останні Теми',
 	'RT_NO_TOPICS'		=> 'Немає нових тем.',
-	'LIKES'				=> 'Likes',
+	'LIKES'				=> 'Вподобання',
 	'VIEWING_RECENT_TOPICS'	=> 'Переглядає <a href="%s">Останні Теми</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Це розширення потребує phpBB 3.3.0 або вище.',
 	)

@@ -49,6 +49,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'Перше повідомлення',
 	'RT_TOPIC_LINK_LAST'            => 'Останнє повідомлення',
 	'RT_TOPIC_LINK_UNREAD'          => 'Перше непрочитане повідомлення',
+	'RT_SIDE_SHOW_DATE'             => 'Показувати дату в бічній панелі',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Відображати дату повідомлення в бічній панелі. Вимкніть для компактнішого відображення.',
+	'RT_SHOW_LIKES'                 => 'Показувати кількість вподобань',
+	'RT_SHOW_LIKES_EXP'             => 'Відображати кількість вподобань PostLove поруч з останніми темами.',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'Користувацькі налаштування (може бути змінено користувачем)',
@@ -80,11 +84,11 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE_EXP'            => 'Спрощена сторінка останніх тем без заголовка та підвалу форуму, підходить для вбудовування в iframe.',
 
 	//Advertisement block
-	'RT_ADS_SETTINGS'           => 'Advertisement Block',
-	'RT_ADS_ENABLE'             => 'Enable advertisement block',
-	'RT_ADS_ENABLE_EXP'         => 'Display a custom HTML block alongside Recent Topics on the index page. Only visible when display location is set to "Side".',
-	'RT_ADS_CODE'               => 'Advertisement HTML',
-	'RT_ADS_CODE_EXP'           => 'Enter custom HTML to display in the advertisement block (e.g. ad code, donation button, or any other content).',
+	'RT_ADS_SETTINGS'           => 'Рекламний блок',
+	'RT_ADS_ENABLE'             => 'Увімкнути рекламний блок',
+	'RT_ADS_ENABLE_EXP'         => 'Відображати власний HTML-блок поруч з останніми темами на головній сторінці. Видимий лише при бічному розташуванні.',
+	'RT_ADS_CODE'               => 'HTML реклами',
+	'RT_ADS_CODE_EXP'           => 'Введіть власний HTML для відображення в рекламному блоці (наприклад, рекламний код, кнопка пожертвувань або інший вміст).',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

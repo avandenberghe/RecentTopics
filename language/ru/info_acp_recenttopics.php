@@ -48,6 +48,10 @@ $lang = array_merge($lang, array(
 	'RT_TOPIC_LINK_FIRST'			=> 'Первое сообщение',
 	'RT_TOPIC_LINK_LAST'			=> 'Последнее сообщение',
 	'RT_TOPIC_LINK_UNREAD'			=> 'Первое непрочитанное сообщение',
+	'RT_SIDE_SHOW_DATE'             => 'Показывать дату в боковой панели',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Отображать дату сообщения в боковой панели. Отключите для более компактного отображения.',
+	'RT_SHOW_LIKES'                 => 'Показывать количество лайков',
+	'RT_SHOW_LIKES_EXP'             => 'Отображать количество лайков PostLove рядом с последними темами.',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE' 				=> 'Настройки отображения',

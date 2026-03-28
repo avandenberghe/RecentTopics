@@ -65,6 +65,10 @@ $lang = array_merge($lang, array(
 	'RT_TOPIC_LINK_FIRST'           => 'Premier message',
 	'RT_TOPIC_LINK_LAST'            => 'Dernier message',
 	'RT_TOPIC_LINK_UNREAD'          => 'Premier message non lu',
+	'RT_SIDE_SHOW_DATE'             => 'Afficher la date en vue latérale',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Affiche la date du message en vue latérale. Désactiver pour une barre latérale plus compacte.',
+	'RT_SHOW_LIKES'                 => 'Afficher le nombre de j\'aime',
+	'RT_SHOW_LIKES_EXP'             => 'Affiche le nombre de j\'aime PostLove à côté des sujets récents.',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'Paramètres personnalisables depuis le « Panneau de l’utilisateur »',

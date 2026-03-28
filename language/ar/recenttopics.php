@@ -22,7 +22,7 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'    => 'أحدث المواضيع',
 	'RT_NO_TOPICS'		=> 'لا توجد مواضيع جديدة لعرضها.',
-	'LIKES'				=> 'Likes',
+	'LIKES'				=> 'إعجابات',
 	'VIEWING_RECENT_TOPICS'	=> 'يتصفح <a href="%s">أحدث المواضيع</a>',
 	'EXTENSION_REQUIRES_330'	=> 'هذا الامتداد يتطلب phpBB 3.3.0 أو أعلى.',
 	)

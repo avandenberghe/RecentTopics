@@ -49,6 +49,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'Prvý príspevok',
 	'RT_TOPIC_LINK_LAST'            => 'Posledný príspevok',
 	'RT_TOPIC_LINK_UNREAD'          => 'Prvý neprečítaný príspevok',
+	'RT_SIDE_SHOW_DATE'             => 'Zobraziť dátum v bočnom zobrazení',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Zobrazí dátum príspevku v bočnom rozložení. Vypnite pre kompaktnejší bočný panel.',
+	'RT_SHOW_LIKES'                 => 'Zobraziť počet lajkov',
+	'RT_SHOW_LIKES_EXP'             => 'Zobrazí počet lajkov PostLove pri nedávnych témach.',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'Predvolené nastavenia (možno prepísať v používateľskom paneli)',
@@ -80,11 +84,11 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE_EXP'            => 'Zjednodušená stránka najnovších tém bez hlavičky a pätičky fóra, vhodná na vloženie do iframe.',
 
 	//Advertisement block
-	'RT_ADS_SETTINGS'           => 'Advertisement Block',
-	'RT_ADS_ENABLE'             => 'Enable advertisement block',
-	'RT_ADS_ENABLE_EXP'         => 'Display a custom HTML block alongside Recent Topics on the index page. Only visible when display location is set to "Side".',
-	'RT_ADS_CODE'               => 'Advertisement HTML',
-	'RT_ADS_CODE_EXP'           => 'Enter custom HTML to display in the advertisement block (e.g. ad code, donation button, or any other content).',
+	'RT_ADS_SETTINGS'           => 'Reklamný blok',
+	'RT_ADS_ENABLE'             => 'Povoliť reklamný blok',
+	'RT_ADS_ENABLE_EXP'         => 'Zobrazí vlastný HTML blok vedľa nedávnych tém na úvodnej stránke. Viditeľné iba pri nastavení umiestnenia na "Strana".',
+	'RT_ADS_CODE'               => 'HTML reklamy',
+	'RT_ADS_CODE_EXP'           => 'Zadajte vlastný HTML pre zobrazenie v reklamnom bloku (napr. reklamný kód, tlačidlo pre dary alebo iný obsah).',
 
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',

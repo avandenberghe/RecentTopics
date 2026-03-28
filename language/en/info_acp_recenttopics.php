@@ -49,6 +49,10 @@ $lang = array_merge(
 	'RT_TOPIC_LINK_FIRST'           => 'First post',
 	'RT_TOPIC_LINK_LAST'            => 'Last post',
 	'RT_TOPIC_LINK_UNREAD'          => 'First unread post',
+	'RT_SIDE_SHOW_DATE'             => 'Show date in side view',
+	'RT_SIDE_SHOW_DATE_EXP'         => 'Display the post date in the side layout. Disable for a more compact sidebar.',
+	'RT_SHOW_LIKES'                 => 'Show like counts',
+	'RT_SHOW_LIKES_EXP'             => 'Display postlove like counts alongside recent topics.',
 
 	//User Overridable settings. these apply for anon users and can be overridden by UCP
 	'RT_OVERRIDABLE'                => 'UCP Overridable Settings',
