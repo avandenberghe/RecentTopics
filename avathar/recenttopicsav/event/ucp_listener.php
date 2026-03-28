@@ -10,8 +10,14 @@
 
 namespace avathar\recenttopicsav\event;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use phpbb\auth\auth;
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
 use phpbb\language\language;
+use phpbb\request\request;
+use phpbb\template\template;
+use phpbb\user;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Event listener
@@ -62,13 +68,13 @@ class ucp_listener implements EventSubscriberInterface
 	 * @param \phpbb\language\language $language
 	 * @param \phpbb\db\driver\driver_interface $db
 	 */
-	public function __construct(\phpbb\auth\auth $auth,
-		\phpbb\config\config $config,
-		\phpbb\request\request $request,
-		\phpbb\template\template $template,
-		\phpbb\user $user,
-		\phpbb\language\language $language,
-		\phpbb\db\driver\driver_interface $db
+	public function __construct(auth $auth,
+		config $config,
+		request $request,
+		template $template,
+		user $user,
+		language $language,
+		driver_interface $db
 	)
 	{
 		$this->auth = $auth;

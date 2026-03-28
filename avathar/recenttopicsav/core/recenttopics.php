@@ -12,14 +12,16 @@ namespace avathar\recenttopicsav\core;
 
 use part3\topicprefixes\core\topicprefixes;
 use phpbb\auth\auth;
+use phpbb\cache\service as cache_service;
 use phpbb\config\config;
 use phpbb\content_visibility;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher_interface;
+use phpbb\language\language;
 use phpbb\pagination;
 use phpbb\request\request_interface;
 use phpbb\template\template;
-use phpbb\language\language;
+use phpbb\user;
 
 /**
  * Class recenttopics
@@ -44,7 +46,7 @@ class recenttopics
 	protected $language;
 
 	/**
-	* @var \phpbb\cache\service
+	* @var cache_service
 	*/
 	protected $cache;
 
@@ -79,7 +81,7 @@ class recenttopics
 	protected $template;
 
 	/**
-	* @var \phpbb\user
+	* @var user
 	*/
 	protected $user;
 
@@ -184,25 +186,25 @@ class recenttopics
 	/**
 	 * recenttopics constructor.
 	 *
-	 * @param \phpbb\auth\auth                                    $auth
-	 * @param \phpbb\cache\service                                $cache
-	 * @param \phpbb\config\config                                $config
-	 * @param \phpbb\language\language                            $language
-	 * @param \phpbb\content_visibility                           $content_visibility
-	 * @param \phpbb\db\driver\driver_interface                   $db
-	 * @param \phpbb\event\dispatcher_interface                   $dispatcher
-	 * @param \phpbb\pagination                                   $pagination
-	 * @param \phpbb\request\request_interface                    $request
-	 * @param \phpbb\template\template                            $template
-	 * @param \phpbb\user                                         $user
-	 * @param                                                     $root_path
-	 * @param                                                     $phpEx
-	 * @param \part3\topicprefixes\core\topicprefixes|NULL        $topicprefixes
+	 * @param auth                                                $auth
+	 * @param cache_service                                       $cache
+	 * @param config                                              $config
+	 * @param language                                            $language
+	 * @param content_visibility                                  $content_visibility
+	 * @param driver_interface                                    $db
+	 * @param dispatcher_interface                                $dispatcher
+	 * @param pagination                                          $pagination
+	 * @param request_interface                                   $request
+	 * @param template                                            $template
+	 * @param user                                                $user
+	 * @param string                                              $root_path
+	 * @param string                                              $phpEx
+	 * @param topicprefixes|NULL                                  $topicprefixes
 	 * @param \imkingdavid\prefixed\core\manager|NULL             $prefixed
 	 * @param \phpbb\collapsiblecategories\operator\operator|NULL $collapsable_categories
 	 */
 	public function __construct(auth $auth,
-		\phpbb\cache\service $cache,
+		cache_service $cache,
 		config $config,
 		language $language,
 		content_visibility $content_visibility,
@@ -211,7 +213,7 @@ class recenttopics
 		pagination $pagination,
 		request_interface $request,
 		template $template,
-		\phpbb\user $user,
+		user $user,
 		$root_path,
 		$phpEx,
 		?topicprefixes $topicprefixes = null,
@@ -475,7 +477,6 @@ class recenttopics
 			$count_sql_array = $sql_array;
 			$count_sql_array['SELECT'] = 'COUNT(t.topic_id) as topic_count';
 			unset($count_sql_array['ORDER_BY']);
-
 
 			$sql = $this->db->sql_build_query('SELECT', $count_sql_array);
 			$result = $this->db->sql_query($sql);

@@ -12,6 +12,10 @@
 namespace avathar\recenttopicsav\event;
 
 use avathar\recenttopicsav\core\recenttopics;
+use phpbb\config\config;
+use phpbb\controller\helper;
+use phpbb\language\language;
+use phpbb\request\request;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -43,7 +47,7 @@ class listener implements EventSubscriberInterface
 	 * @param \phpbb\controller\helper               $helper
 	 * @param \phpbb\language\language               $language
 	 */
-	public function __construct(recenttopics $functions, \phpbb\config\config $config, \phpbb\request\request $request, \phpbb\controller\helper $helper, \phpbb\language\language $language)
+	public function __construct(recenttopics $functions, config $config, request $request, helper $helper, language $language)
 	{
 		$this->rt_functions = $functions;
 		$this->config = $config;

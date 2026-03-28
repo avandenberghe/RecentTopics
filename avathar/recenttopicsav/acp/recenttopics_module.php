@@ -98,7 +98,7 @@ class recenttopics_module
 
 			/*
 			 *  default positions, modifiable by ucp
-	         */
+			 */
 			//number of most recent topics shown per page
 			$rt_number = $request->variable('rt_number', 5);
 			$config->set('rt_number', $rt_number);
