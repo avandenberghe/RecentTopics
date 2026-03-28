@@ -408,6 +408,7 @@ class recenttopics
 				'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
 				'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
 				'ADS_INDEX_CODE'                       => $ads_index_code,
+				'S_POSTLOVE'                           => isset($this->config['postlove_version']),
 				strtoupper($tpl_loopname) . '_DISPLAY' => true,
 			)
 		);
@@ -700,6 +701,25 @@ class recenttopics
 		// get topics from db
 		$rowset = $this->get_topics_sql();
 		$topic_icons = array();
+
+		// Get postlove like counts if installed
+		$topic_likes = array();
+		$postlove_enabled = isset($this->config['postlove_version']);
+		if ($postlove_enabled && !empty($this->topic_list))
+		{
+			$likes_table = str_replace('topics', 'posts_likes', TOPICS_TABLE);
+			$sql = 'SELECT p.topic_id, COUNT(l.post_id) AS like_count
+				FROM ' . POSTS_TABLE . ' p
+				INNER JOIN ' . $likes_table . ' l ON (l.post_id = p.post_id)
+				WHERE ' . $this->db->sql_in_set('p.topic_id', $this->topic_list) . '
+				GROUP BY p.topic_id';
+			$result = $this->db->sql_query($sql);
+			while ($row_likes = $this->db->sql_fetchrow($result))
+			{
+				$topic_likes[(int) $row_likes['topic_id']] = (int) $row_likes['like_count'];
+			}
+			$this->db->sql_freeresult($result);
+		}
 		// if topics returned by DB
 		if (count($rowset))
 		{
@@ -847,6 +867,7 @@ class recenttopics
 					'U_LAST_POST_AUTHOR'      => $u_last_post_author,
 					'REPLIES'     => $replies,
 					'VIEWS'       => $row['topic_views'],
+					'TOPIC_LIKES' => isset($topic_likes[$topic_id]) ? $topic_likes[$topic_id] : 0,
 					'TOPIC_TITLE' => $topic_title,
 					'FORUM_NAME'  => $row['forum_name'],
 					'TOPIC_TYPE'           => $topic_type,

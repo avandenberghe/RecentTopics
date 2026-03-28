@@ -22,6 +22,7 @@ $lang = array_merge(
 	$lang, array(
 	'RECENT_TOPICS'     => 'Recent Topics',
 	'RT_NO_TOPICS'		=> 'There are no new topics to display.',
+	'LIKES'				=> 'Likes',
 	'VIEWING_RECENT_TOPICS'	=> 'Viewing <a href="%s">Recent Topics</a>',
 	'EXTENSION_REQUIRES_330'	=> 'This extension requires phpBB 3.3.0 or higher.',
 	)

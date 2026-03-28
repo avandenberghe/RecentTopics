@@ -26,6 +26,7 @@
 				<dl class="row-item">
 					<dt><div class="list-inner">{{ lang('RECENT_TOPICS') }}</div></dt>
 					<dd class="posts">{{ lang('REPLIES') }}</dd>
+					{% if S_POSTLOVE %}<dd class="likes">{{ lang('LIKES') }}</dd>{% endif %}
 					<dd class="views">{{ lang('VIEWS') }}</dd>
 					<dd class="lastpost"><span>{{ lang('LAST_POST') }}</span></dd>
 				</dl>
@@ -62,6 +63,7 @@
 							{% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %}<br />{{ lang('POSTED') }} {{ lang('IN') }} <a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>{% endif %}
 						</div>
 						{% if recent_topics.REPLIES %}<span class="responsive-show left-box" style="display: none;">{{ lang('REPLIES') }}{{ lang('COLON') }} <strong>{{ recent_topics.REPLIES }}</strong></span>{% endif %}
+						{% if S_POSTLOVE and recent_topics.TOPIC_LIKES %}<span class="responsive-show left-box" style="display: none;">{{ lang('LIKES') }}{{ lang('COLON') }} <strong>{{ recent_topics.TOPIC_LIKES }}</strong></span>{% endif %}
 						{% endif %}
 
 						{% if recent_topics.pagination|length %}
@@ -93,6 +95,7 @@
 					</div>
 					</dt>
 					<dd class="posts">{{ recent_topics.REPLIES }} <dfn>{{ lang('REPLIES') }}</dfn></dd>
+					{% if S_POSTLOVE %}<dd class="likes">{{ recent_topics.TOPIC_LIKES }} <dfn>{{ lang('LIKES') }}</dfn></dd>{% endif %}
 					<dd class="views">{{ recent_topics.VIEWS }} <dfn>{{ lang('VIEWS') }}</dfn></dd>
 					<dd class="lastpost">
 

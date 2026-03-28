@@ -102,6 +102,14 @@
     margin-top: 0.5em;
 }
 
+/* Likes column */
+#recent-topics dd.likes,
+#recenttopicstop dd.likes,
+#recenttopicsbottom dd.likes {
+    width: 8%;
+    text-align: center;
+}
+
 /* Advertisement block */
 .misc-block.advertisement {
     margin: 10px auto;

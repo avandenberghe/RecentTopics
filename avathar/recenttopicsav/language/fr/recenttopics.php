@@ -37,8 +37,9 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'RECENT_TOPICS'     => 'Sujets récents',
-	'RT_NO_TOPICS'		=> 'Il n’y a aucun nouveau sujet à afficher.',
-	'VIEWING_RECENT_TOPICS'	=> 'Consulte les <a href="%s">Sujets récents</a>',
+	‘RT_NO_TOPICS’		=> ‘Il n’y a aucun nouveau sujet à afficher.’,
+	‘LIKES’				=> ‘J\’aime’,
+	‘VIEWING_RECENT_TOPICS’	=> 'Consulte les <a href="%s">Sujets récents</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Cette extension nécessite phpBB 3.3.0 ou supérieur.',
 	)
 );
