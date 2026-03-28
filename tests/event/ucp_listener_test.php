@@ -9,7 +9,7 @@
 
 namespace avathar\recenttopicsav\tests\event;
 
-class ucp_listener_test extends \phpbb_database_test_case
+class ucp_listener_test extends \phpbb_test_case
 {
 	/** @var \avathar\recenttopicsav\event\ucp_listener */
 	protected $listener;
@@ -32,24 +32,13 @@ class ucp_listener_test extends \phpbb_database_test_case
 	/** @var \phpbb\language\language|\PHPUnit\Framework\MockObject\MockObject */
 	protected $language;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var \phpbb\db\driver\driver_interface|\PHPUnit\Framework\MockObject\MockObject */
 	protected $db;
-
-	protected static function setup_extensions()
-	{
-		return array('avathar/recenttopicsav');
-	}
-
-	public function getDataSet()
-	{
-		return $this->createXMLDataSet(dirname(__FILE__) . '/fixtures/users.xml');
-	}
 
 	public function setUp(): void
 	{
 		parent::setUp();
 
-		$this->db = $this->new_dbal();
 		$this->auth = $this->createMock('\phpbb\auth\auth');
 		$this->config = new \phpbb\config\config(array(
 			'rt_index'           => 1,
@@ -64,6 +53,7 @@ class ucp_listener_test extends \phpbb_database_test_case
 			->disableOriginalConstructor()
 			->getMock();
 		$this->language = $this->createMock('\phpbb\language\language');
+		$this->db = $this->createMock('\phpbb\db\driver\driver_interface');
 	}
 
 	protected function set_listener()
@@ -187,6 +177,21 @@ class ucp_listener_test extends \phpbb_database_test_case
 
 	public function test_ucp_register_set_data()
 	{
+		// Verify the SQL query is built and executed
+		$this->db->expects($this->once())
+			->method('sql_build_array')
+			->with('UPDATE', $this->callback(function ($sql_ary) {
+				return $sql_ary['user_rt_enable'] === 1
+					&& $sql_ary['user_rt_location'] === 'RT_TOP'
+					&& $sql_ary['user_rt_number'] === 5
+					&& $sql_ary['user_rt_sort_start_time'] === 0
+					&& $sql_ary['user_rt_unread_only'] === 0;
+			}))
+			->willReturn("user_rt_enable = 1");
+
+		$this->db->expects($this->once())
+			->method('sql_query');
+
 		$this->set_listener();
 
 		$event = new \phpbb\event\data(array(
@@ -194,19 +199,5 @@ class ucp_listener_test extends \phpbb_database_test_case
 		));
 
 		$this->listener->ucp_register_set_data($event);
-
-		// Verify the database was updated
-		$sql = 'SELECT user_rt_enable, user_rt_location, user_rt_number, user_rt_sort_start_time, user_rt_unread_only
-			FROM phpbb_users
-			WHERE user_id = 3';
-		$result = $this->db->sql_query($sql);
-		$row = $this->db->sql_fetchrow($result);
-		$this->db->sql_freeresult($result);
-
-		$this->assertEquals(1, $row['user_rt_enable']);
-		$this->assertEquals('RT_TOP', $row['user_rt_location']);
-		$this->assertEquals(5, $row['user_rt_number']);
-		$this->assertEquals(0, $row['user_rt_sort_start_time']);
-		$this->assertEquals(0, $row['user_rt_unread_only']);
 	}
 }

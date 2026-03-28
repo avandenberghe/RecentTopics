@@ -9,7 +9,7 @@
 
 namespace avathar\recenttopicsav\tests\event;
 
-class listener_test extends \phpbb_database_test_case
+class listener_test extends \phpbb_test_case
 {
 	/** @var \avathar\recenttopicsav\event\listener */
 	protected $listener;
@@ -28,16 +28,6 @@ class listener_test extends \phpbb_database_test_case
 
 	/** @var \avathar\recenttopicsav\core\recenttopics|\PHPUnit\Framework\MockObject\MockObject */
 	protected $rt_functions;
-
-	protected static function setup_extensions()
-	{
-		return array('avathar/recenttopicsav');
-	}
-
-	public function getDataSet()
-	{
-		return $this->createXMLDataSet(dirname(__FILE__) . '/fixtures/users.xml');
-	}
 
 	public function setUp(): void
 	{

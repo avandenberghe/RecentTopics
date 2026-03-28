@@ -11,12 +11,12 @@ namespace avathar\recenttopicsav\tests\controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class page_controller_test extends \phpbb_database_test_case
+class page_controller_test extends \phpbb_test_case
 {
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var \phpbb\db\driver\driver_interface|\PHPUnit\Framework\MockObject\MockObject */
 	protected $db;
 
 	/** @var \phpbb\controller\helper|\PHPUnit\Framework\MockObject\MockObject */
@@ -31,26 +31,15 @@ class page_controller_test extends \phpbb_database_test_case
 	/** @var \phpbb\user|\PHPUnit\Framework\MockObject\MockObject */
 	protected $user;
 
-	protected static function setup_extensions()
-	{
-		return array('avathar/recenttopicsav');
-	}
-
-	public function getDataSet()
-	{
-		return $this->createXMLDataSet(dirname(__FILE__) . '/fixtures/users.xml');
-	}
-
 	public function setUp(): void
 	{
 		parent::setUp();
-
-		$this->db = $this->new_dbal();
 
 		$this->config = new \phpbb\config\config(array(
 			'rt_page_enable' => 1,
 		));
 
+		$this->db = $this->createMock('\phpbb\db\driver\driver_interface');
 		$this->helper = $this->createMock('\phpbb\controller\helper');
 		$this->language = $this->createMock('\phpbb\language\language');
 
@@ -122,7 +111,7 @@ class page_controller_test extends \phpbb_database_test_case
 		$this->assertInstanceOf('\Symfony\Component\HttpFoundation\Response', $result);
 	}
 
-	public function test_display_simple_with_pbwow3()
+	public function test_display_simple()
 	{
 		$this->config['rt_page_enable'] = 1;
 
@@ -135,6 +124,15 @@ class page_controller_test extends \phpbb_database_test_case
 		$this->language->expects($this->once())
 			->method('add_lang');
 
+		// Mock the DB query for force_style('pbwow3')
+		$this->db->method('sql_escape')
+			->willReturnArgument(0);
+		$this->db->method('sql_query')
+			->willReturn('result');
+		$this->db->method('sql_fetchrow')
+			->willReturn(false);
+		$this->db->method('sql_freeresult');
+
 		$response = new Response();
 		$this->helper->expects($this->once())
 			->method('render')
@@ -146,17 +144,10 @@ class page_controller_test extends \phpbb_database_test_case
 
 		$this->assertInstanceOf('\Symfony\Component\HttpFoundation\Response', $result);
 		$this->assertSame($response, $result);
-
-		// Verify that the user style was changed to pbwow3
-		// The force_style method queries the DB for the style
-		// Since we have pbwow3 in fixtures, the user style should be set
 	}
 
-	public function test_display_simple_without_pbwow3()
+	public function test_display_simple_with_style_found()
 	{
-		// Remove the pbwow3 style from the DB to test fallback
-		$this->db->sql_query("DELETE FROM phpbb_styles WHERE style_path = 'pbwow3'");
-
 		$this->config['rt_page_enable'] = 1;
 
 		$this->rt_functions->expects($this->once())
@@ -165,6 +156,21 @@ class page_controller_test extends \phpbb_database_test_case
 		$this->language->method('lang')
 			->willReturn('Recent Topics');
 
+		// Mock the DB to return a pbwow3 style row
+		$style_row = array(
+			'style_id' => 2,
+			'style_name' => 'PBWoW3',
+			'style_path' => 'pbwow3',
+			'style_active' => 1,
+		);
+		$this->db->method('sql_escape')
+			->willReturnArgument(0);
+		$this->db->method('sql_query')
+			->willReturn('result');
+		$this->db->method('sql_fetchrow')
+			->willReturn($style_row);
+		$this->db->method('sql_freeresult');
+
 		$response = new Response();
 		$this->helper->method('render')->willReturn($response);
 
@@ -172,5 +178,7 @@ class page_controller_test extends \phpbb_database_test_case
 		$result = $controller->display_simple();
 
 		$this->assertInstanceOf('\Symfony\Component\HttpFoundation\Response', $result);
+		// Verify user style was set
+		$this->assertEquals($style_row, $this->user->style);
 	}
 }

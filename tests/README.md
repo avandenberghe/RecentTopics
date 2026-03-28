@@ -9,11 +9,9 @@ This test suite validates the RecentTopics extension using the [phpBB extension 
 ```
 tests/
 ├── event/
-│   ├── fixtures/users.xml
 │   ├── listener_test.php          Main event listener
 │   └── ucp_listener_test.php      UCP preferences listener
 ├── controller/
-│   ├── fixtures/users.xml
 │   └── page_controller_test.php   Page controller (/rt, /rt/simple)
 └── functional/
     └── recenttopics_test.php      End-to-end browser tests
