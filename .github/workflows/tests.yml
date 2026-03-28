@@ -3,9 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - main
-      - develop
-      - 'develop-*'
+      - develop33
   pull_request:
     branches:
       - main
