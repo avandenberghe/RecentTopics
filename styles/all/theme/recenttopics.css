@@ -110,6 +110,12 @@
     text-align: center;
 }
 
+/* Likes count (side view, inline) */
+#recent-topics .rt-likes {
+    font-size: 0.85em;
+    white-space: nowrap;
+}
+
 /* Advertisement block */
 .misc-block.advertisement {
     margin: 10px auto;
