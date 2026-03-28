@@ -26,26 +26,26 @@ class listener implements EventSubscriberInterface
 	/* @var recenttopics */
 	protected $rt_functions;
 
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\controller\helper */
+	/** @var helper */
 	protected $helper;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
 	/**
 	 * listener constructor.
 	 *
-	 * @param \avathar\recenttopicsav\core\recenttopics $functions
-	 * @param \phpbb\config\config                   $config
-	 * @param \phpbb\request\request                 $request
-	 * @param \phpbb\controller\helper               $helper
-	 * @param \phpbb\language\language               $language
+	 * @param recenttopics $functions
+	 * @param config       $config
+	 * @param request      $request
+	 * @param helper       $helper
+	 * @param language     $language
 	 */
 	public function __construct(recenttopics $functions, config $config, request $request, helper $helper, language $language)
 	{

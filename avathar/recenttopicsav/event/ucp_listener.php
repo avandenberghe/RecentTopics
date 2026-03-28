@@ -25,27 +25,27 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ucp_listener implements EventSubscriberInterface
 {
 	/**
-	* @var \phpbb\auth\auth
+	* @var auth
 	*/
 	protected $auth;
 
 	/**
-	* @var \phpbb\config\config
+	* @var config
 	*/
 	protected $config;
 
 	/**
-	* @var \phpbb\request\request
+	* @var request
 	*/
 	protected $request;
 
 	/**
-	* @var \phpbb\template\template
+	* @var template
 	*/
 	protected $template;
 
 	/**
-	* @var \phpbb\user
+	* @var user
 	*/
 	protected $user;
 
@@ -54,19 +54,19 @@ class ucp_listener implements EventSubscriberInterface
 	 */
 	protected $language;
 
-	/* @var \phpbb\db\driver\driver_interface */
+	/* @var driver_interface */
 	protected $db;
 
 	/**
 	 * ucp_listener constructor.
 	 *
-	 * @param \phpbb\auth\auth         $auth
-	 * @param \phpbb\config\config     $config
-	 * @param \phpbb\request\request   $request
-	 * @param \phpbb\template\template $template
-	 * @param \phpbb\user              $user
-	 * @param \phpbb\language\language $language
-	 * @param \phpbb\db\driver\driver_interface $db
+	 * @param auth             $auth
+	 * @param config           $config
+	 * @param request          $request
+	 * @param template         $template
+	 * @param user             $user
+	 * @param language         $language
+	 * @param driver_interface $db
 	 */
 	public function __construct(auth $auth,
 		config $config,
