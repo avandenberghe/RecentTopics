@@ -107,6 +107,18 @@
 
 
 	<fieldset>
+		<legend>{{ lang('RT_ADS_SETTINGS') }}</legend>
+		<dl>
+			<dt><label for="rt_ads_enable">{{ lang('RT_ADS_ENABLE') }}</label><br /><span>{{ lang('RT_ADS_ENABLE_EXP') }}</span></dt>
+			<dd><input type="checkbox" name="rt_ads_enable" id="rt_ads_enable" value="1"{% if RT_ADS_ENABLE %} checked="checked"{% endif %} /></dd>
+		</dl>
+		<dl>
+			<dt><label for="rt_ads_code">{{ lang('RT_ADS_CODE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_ADS_CODE_EXP') }}</span></dt>
+			<dd><textarea id="rt_ads_code" name="rt_ads_code" rows="6" cols="60">{{ RT_ADS_CODE }}</textarea></dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
 		<legend>{{ lang('ACP_SUBMIT_CHANGES') }}</legend>
 		<p class="submit-buttons">
 			<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;

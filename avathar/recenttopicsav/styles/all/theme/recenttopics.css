@@ -101,3 +101,10 @@
 #recenttopicsbottom .forabg + .action-bar {
     margin-top: 0.5em;
 }
+
+/* Advertisement block */
+.misc-block.advertisement {
+    margin: 10px auto;
+    padding: 0;
+    overflow: hidden;
+}

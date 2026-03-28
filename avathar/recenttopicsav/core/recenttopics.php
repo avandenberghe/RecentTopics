@@ -14,6 +14,7 @@ use part3\topicprefixes\core\topicprefixes;
 use phpbb\auth\auth;
 use phpbb\cache\service as cache_service;
 use phpbb\config\config;
+use phpbb\config\db_text;
 use phpbb\content_visibility;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher_interface;
@@ -39,6 +40,11 @@ class recenttopics
 	* @var config
 	*/
 	protected $config;
+
+	/**
+	* @var db_text
+	*/
+	protected $config_text;
 
 	/**
 	 * @var language
@@ -199,6 +205,7 @@ class recenttopics
 	 * @param user                                                $user
 	 * @param string                                              $root_path
 	 * @param string                                              $phpEx
+	 * @param db_text                                             $config_text
 	 * @param topicprefixes|NULL                                  $topicprefixes
 	 * @param \imkingdavid\prefixed\core\manager|NULL             $prefixed
 	 * @param \phpbb\collapsiblecategories\operator\operator|NULL $collapsable_categories
@@ -216,6 +223,7 @@ class recenttopics
 		user $user,
 		$root_path,
 		$phpEx,
+		db_text $config_text,
 		?topicprefixes $topicprefixes = null,
 		?\imkingdavid\prefixed\core\manager $prefixed = null,
 		?\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null
@@ -234,6 +242,7 @@ class recenttopics
 		$this->user = $user;
 		$this->root_path = $root_path;
 		$this->phpEx = $phpEx;
+		$this->config_text = $config_text;
 		$this->topicprefixes = $topicprefixes;
 		$this->prefixed = $prefixed;
 		$this->collapsable_categories = $collapsable_categories;
@@ -378,6 +387,16 @@ class recenttopics
 			}
 		}
 
+		$ads_index_code = false;
+		if (!empty($this->config['rt_ads_enable']))
+		{
+			$ads_code = $this->config_text->get('rt_ads_code');
+			if (!empty($ads_code))
+			{
+				$ads_index_code = str_replace('&', '&amp;', html_entity_decode($ads_code));
+			}
+		}
+
 		$this->template->assign_vars(
 			array(
 				'RT_SORT_START_TIME'                   => $this->sort_topics === 'topic_time',
@@ -388,6 +407,7 @@ class recenttopics
 				'NEWEST_POST_IMG'                      => $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
 				'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
 				'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
+				'ADS_INDEX_CODE'                       => $ads_index_code,
 				strtoupper($tpl_loopname) . '_DISPLAY' => true,
 			)
 		);

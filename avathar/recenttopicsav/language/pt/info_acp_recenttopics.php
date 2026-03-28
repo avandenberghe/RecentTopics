@@ -79,6 +79,13 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE'                => 'Página simplificada',
 	'RT_SIMPLE_PAGE_EXP'            => 'Página simplificada de Tópicos Recentes sem cabeçalho e rodapé do fórum, adequada para incorporação em um iframe.',
 
+	//Bloco publicitário
+	'RT_ADS_SETTINGS'           => 'Bloco publicitário',
+	'RT_ADS_ENABLE'             => 'Activar bloco publicitário',
+	'RT_ADS_ENABLE_EXP'         => 'Exibe um bloco HTML personalizado junto aos tópicos recentes na página inicial. Apenas visível quando a localização está definida como "Lateral".',
+	'RT_ADS_CODE'               => 'HTML publicitário',
+	'RT_ADS_CODE_EXP'           => 'Introduza HTML personalizado para exibir no bloco publicitário (por exemplo, código de anúncios, botão de doação ou outro conteúdo).',
+
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

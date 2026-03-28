@@ -95,6 +95,13 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE'                => 'Vereinfachte Seite',
 	'RT_SIMPLE_PAGE_EXP'            => 'Vereinfachte Seite der aktuellen Themen ohne Board-Header und -Footer, geeignet zur Einbettung in einen iFrame.',
 
+	//Werbeblock
+	'RT_ADS_SETTINGS'           => 'Werbeblock',
+	'RT_ADS_ENABLE'             => 'Werbeblock aktivieren',
+	'RT_ADS_ENABLE_EXP'         => 'Zeigt einen benutzerdefinierten HTML-Block neben den neuesten Themen auf der Indexseite an. Nur sichtbar, wenn die Anzeigeposition auf "Seite" eingestellt ist.',
+	'RT_ADS_CODE'               => 'Werbe-HTML',
+	'RT_ADS_CODE_EXP'           => 'Geben Sie benutzerdefiniertes HTML für den Werbeblock ein (z.B. Werbecode, Spenden-Button oder andere Inhalte).',
+
 	//Donatiies
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

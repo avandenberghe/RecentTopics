@@ -118,6 +118,14 @@ class recenttopics_module
 			$rt_page_enable = $request->variable('rt_page_enable', 0);
 			$config->set('rt_page_enable', $rt_page_enable);
 
+			// Advertisement block
+			$rt_ads_enable = $request->variable('rt_ads_enable', 0);
+			$config->set('rt_ads_enable', $rt_ads_enable);
+
+			$rt_ads_code = $request->variable('rt_ads_code', '', true);
+			$config_text = $phpbb_container->get('config_text');
+			$config_text->set('rt_ads_code', $rt_ads_code);
+
 			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
@@ -177,6 +185,7 @@ class recenttopics_module
 		}
 
 		$helper = $phpbb_container->get('controller.helper');
+		$config_text = $phpbb_container->get('config_text');
 
 		$template->assign_vars(
 			array(
@@ -192,6 +201,8 @@ class recenttopics_module
 				'RT_SORT_START_TIME' => (int) $config['rt_sort_start_time'],
 				'RT_UNREAD_ONLY'     => (int) $config['rt_unread_only'],
 				'RT_PAGE_ENABLE'     => (int) $config['rt_page_enable'],
+				'RT_ADS_ENABLE'      => (int) $config['rt_ads_enable'],
+				'RT_ADS_CODE'        => $config_text->get('rt_ads_code'),
 				'S_RT_OK'            => version_compare($ext_version, $latest_version, '=='),
 				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
 				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),

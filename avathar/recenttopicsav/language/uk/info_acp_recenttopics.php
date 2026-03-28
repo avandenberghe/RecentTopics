@@ -79,6 +79,13 @@ $lang = array_merge(
 	'RT_SIMPLE_PAGE'                => 'Спрощена сторінка',
 	'RT_SIMPLE_PAGE_EXP'            => 'Спрощена сторінка останніх тем без заголовка та підвалу форуму, підходить для вбудовування в iframe.',
 
+	//Advertisement block
+	'RT_ADS_SETTINGS'           => 'Advertisement Block',
+	'RT_ADS_ENABLE'             => 'Enable advertisement block',
+	'RT_ADS_ENABLE_EXP'         => 'Display a custom HTML block alongside Recent Topics on the index page. Only visible when display location is set to "Side".',
+	'RT_ADS_CODE'               => 'Advertisement HTML',
+	'RT_ADS_CODE_EXP'           => 'Enter custom HTML to display in the advertisement block (e.g. ad code, donation button, or any other content).',
+
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

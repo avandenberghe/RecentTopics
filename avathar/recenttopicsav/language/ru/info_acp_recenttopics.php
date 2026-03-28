@@ -78,6 +78,13 @@ $lang = array_merge($lang, array(
 	'RT_SIMPLE_PAGE'                => 'Упрощённая страница',
 	'RT_SIMPLE_PAGE_EXP'            => 'Упрощённая страница последних тем без заголовка и подвала форума, подходит для встраивания в iframe.',
 
+	//Рекламный блок
+	'RT_ADS_SETTINGS'           => 'Рекламный блок',
+	'RT_ADS_ENABLE'             => 'Включить рекламный блок',
+	'RT_ADS_ENABLE_EXP'         => 'Отображать пользовательский HTML-блок рядом с последними темами на главной странице. Виден только при боковом расположении.',
+	'RT_ADS_CODE'               => 'HTML рекламы',
+	'RT_ADS_CODE_EXP'           => 'Введите HTML-код для отображения в рекламном блоке (например, рекламный код, кнопка пожертвования или другой контент).',
+
 	//Donation
 	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
 	'PAYPAL_IMAGE_URL'				=> 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',

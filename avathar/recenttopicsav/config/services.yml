@@ -25,6 +25,7 @@ services:
             - '@user'
             - '%core.root_path%'
             - '%core.php_ext%'
+            - '@config_text'
             - '@?part3.topicprefixes.functions'
             - '@?prefixed.manager'
             - '@?phpbb.collapsiblecategories.operator'
