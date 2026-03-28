@@ -1,4 +1,12 @@
 ### Changelog
+- 3.0.4 (28/03/2026)
+  - [NEW] Added optional advertisement block on index page (#160) — ACP toggle and HTML textarea, rendered in sidebar alongside Recent Topics
+  - [NEW] Added postlove like counts in topic listing (#162) — soft dependency, shows likes column when avathar/postlove is installed
+  - [NEW] Added unit tests, controller tests, and functional tests with GitHub Actions CI (#161)
+  - [FIX] Fixed phpcs code style violations: added use statements, removed full namespace references in type hints and docblocks
+  - [FIX] Fixed file permissions (755 to 644) for all extension files
+  - [FIX] Stripped ICC profile from screenshot.png
+
 - 3.0.3 (02/03/2026)
   - [FIX] Fix PHP 8.4 compatibility: use explicit nullable types for optional constructor parameters in recenttopics core class
 

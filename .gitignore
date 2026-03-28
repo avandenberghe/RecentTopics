@@ -2,7 +2,5 @@
 /composer.phar
 .idea
 .DS_Store
-phpunit.xml.dist
 /composer.lock
-ext/avathar/recenttopicsav/.claude
-avathar/recenttopicsav/.claude
+.claude

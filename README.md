@@ -5,7 +5,7 @@ Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
 
 #### Version
-v3.0.3 (02/03/2026)
+v3.0.4 (28/03/2026)
 
 [![Tests](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml/badge.svg)](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml)
 
@@ -35,6 +35,8 @@ v3.0.3 (02/03/2026)
   - Display parent forum name in the row
   - Reset all user preferences to defaults
   - Built-in version checker (checks avathar.be for updates)
+  - Optional advertisement/HTML block alongside Recent Topics (sidebar)
+- Soft integration with [postlove](https://github.com/avatharbe/postlove): shows like counts per topic when installed
 - Permissions: six granular user permissions — view, enable/disable, location, sort order, unread only, number of topics
 - New users automatically inherit ACP default preferences on registration
 - Inherits all styling from regular "viewforum" templates
