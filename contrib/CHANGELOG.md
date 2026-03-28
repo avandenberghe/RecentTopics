@@ -1,7 +1,9 @@
 ### Changelog
 - 3.0.4 (28/03/2026)
   - [NEW] Added optional advertisement block on index page (#160) — ACP toggle and HTML textarea, rendered in sidebar alongside Recent Topics
-  - [NEW] Added postlove like counts in topic listing (#162) — soft dependency, shows likes column when avathar/postlove is installed
+  - [NEW] Added postlove like counts in topic listing (#162) — soft dependency, shows likes column (top/bottom) and inline hearts (side) when avathar/postlove is installed
+  - [NEW] Added ACP toggle to show/hide date in side view (#163)
+  - [NEW] Added ACP toggle for postlove like counts display (#164) — hidden when postlove is not installed
   - [NEW] Added unit tests, controller tests, and functional tests with GitHub Actions CI (#161)
   - [FIX] Fixed phpcs code style violations: added use statements, removed full namespace references in type hints and docblocks
   - [FIX] Fixed file permissions (755 to 644) for all extension files

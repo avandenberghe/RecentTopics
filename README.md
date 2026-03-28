@@ -36,22 +36,25 @@ v3.0.4 (28/03/2026)
   - Reset all user preferences to defaults
   - Built-in version checker (checks avathar.be for updates)
   - Optional advertisement/HTML block alongside Recent Topics (sidebar)
-- Soft integration with [postlove](https://github.com/avatharbe/postlove): shows like counts per topic when installed
+  - Show/hide date in side view
+  - Show/hide postlove like counts (toggle hidden when postlove is not installed)
 - Permissions: six granular user permissions — view, enable/disable, location, sort order, unread only, number of topics
 - New users automatically inherit ACP default preferences on registration
 - Inherits all styling from regular "viewforum" templates
 - Filters "Re:" from reply subjects
-- Compatible with:
-  - "Pre:fixed" Extension from imkingdavid
-  - "Topic Prefix" Extension from Stathis
-  - Official extension "phpbb/topicprefixes"
-  - mChat
-  - Collapsible Categories v2
 - Custom PHP events for extension integration: `topictitle_remove_re`, `sql_pull_topics_list`, `sql_pull_topics_data`, `modify_topics_list`, `modify_topictitle`, `modify_tpl_ary`
 - Tested on:
   - prosilver
   - pbTech
-  - pbWow3  
+  - pbWow3
+
+#### Extension integrations
+- [Post Love](https://github.com/avatharbe/postlove) — shows like counts per topic (column in top/bottom view, inline hearts in side view). Soft dependency with ACP toggle; works without postlove installed.
+- [Collapsible Categories](https://www.phpbb.com/customise/db/extension/collapsible_forum_categories/) v2 — collapse/expand the Recent Topics block
+- [Topic Prefixes](https://www.phpbb.com/customise/db/extension/topic_prefixes/) (phpbb/topicprefixes) — displays topic prefixes in the listing
+- "Topic Prefix" Extension from Stathis (part3/topicprefixes) — alternative topic prefix support
+- "Pre:fixed" Extension from imkingdavid — legacy topic prefix support
+- mChat — side-by-side display via template event
 
 #### Languages supported
 - English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Ukrainian, Swedish, Slovak
