@@ -57,9 +57,9 @@ v3.0.4 (28/03/2026)
 - English, German, French, Dutch, Spanish, Czech, Russian, Portuguese, Arabic, Ukrainian, Swedish, Slovak
 
 ### Installation
-1. Disable, delete data and remove the extension paybas/recenttopics.
+1. Disable, delete data and remove the extension paybas/recenttopics if previously installed.
 2. [Download the latest release](https://www.avathar.be/forum/app.php/dlext/details?df_id=35) and unzip it.
-3. Copy the entire contents from the unzipped folder to `/ext/avathar/recenttopicsav/`.
+3. Copy the contents to `/ext/avathar/recenttopicsav/` (so that `ext.php` is at `/ext/avathar/recenttopicsav/ext.php`).
 4. Navigate in the ACP to `Customise -> Manage extensions`.
 5. Find `Recent Topics` under "Disabled Extensions" and click `Enable`.
 
