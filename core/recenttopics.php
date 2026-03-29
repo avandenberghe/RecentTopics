@@ -387,6 +387,7 @@ class recenttopics
 				'S_LOCATION_TOP'                       => $this->location == 'RT_TOP',
 				'S_LOCATION_BOTTOM'                    => $this->location == 'RT_BOTTOM',
 				'S_LOCATION_SIDE'                      => $this->location == 'RT_SIDE',
+				'S_RT_SIDE_SHOW_DATE'                  => !empty($this->config['rt_side_show_date']),
 				'NEWEST_POST_IMG'                      => $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
 				'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
 				'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
