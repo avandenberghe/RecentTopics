@@ -10,7 +10,6 @@
 
 namespace avathar\recenttopicsav\core;
 
-use part3\topicprefixes\core\topicprefixes;
 use phpbb\auth\auth;
 use phpbb\cache\service as cache_service;
 use phpbb\config\config;
@@ -100,16 +99,6 @@ class recenttopics
 	* @var string PHP extension
 	*/
 	protected $phpEx;
-
-	/**
-	* @var topicprefixes
-	*/
-	private $topicprefixes;
-
-	/**
-	 * @var manager
-	 */
-	private $prefixed;
 
 	/**
 	* array of allowable forum id's
@@ -206,8 +195,6 @@ class recenttopics
 	 * @param string                                              $root_path
 	 * @param string                                              $phpEx
 	 * @param db_text                                             $config_text
-	 * @param topicprefixes|NULL                                  $topicprefixes
-	 * @param \imkingdavid\prefixed\core\manager|NULL             $prefixed
 	 * @param \phpbb\collapsiblecategories\operator\operator|NULL $collapsable_categories
 	 */
 	public function __construct(auth $auth,
@@ -224,8 +211,6 @@ class recenttopics
 		$root_path,
 		$phpEx,
 		db_text $config_text,
-		?topicprefixes $topicprefixes = null,
-		?\imkingdavid\prefixed\core\manager $prefixed = null,
 		?\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null
 	)
 	{
@@ -243,8 +228,6 @@ class recenttopics
 		$this->root_path = $root_path;
 		$this->phpEx = $phpEx;
 		$this->config_text = $config_text;
-		$this->topicprefixes = $topicprefixes;
-		$this->prefixed = $prefixed;
 		$this->collapsable_categories = $collapsable_categories;
 	}
 
@@ -622,26 +605,6 @@ class recenttopics
 	}
 
 	/**
-	 * this helper function checks if anyone is listening to events
-	 * @param string $class
-	 * @param string $event
-	 * @return bool
-	 */
-	public function is_listening($class, $event)
-	{
-		$listeners = $this->dispatcher->getListeners($event);
-
-		foreach ($listeners as $listener)
-		{
-			if (is_a($listener[0], $class))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * pull the data of the requested topics
 	 * @return array
 	 */
@@ -792,14 +755,6 @@ class recenttopics
 				topic_status($row, $replies, $unread_topic, $folder_img, $folder_alt, $topic_type);
 				$topic_title = censor_text($row['topic_title']);
 				$prefix      = '';
-				if ($this->topicprefixes !== null)
-				{
-					// Topic Prefix extension Stathis
-					if (!empty($row['topic_prefix']))
-					{
-						$prefix = '[' . $row['topic_prefix'] . '] ';
-					}
-				}
 
 				/**
 				 * Event to remove re
@@ -822,24 +777,6 @@ class recenttopics
 
 				$vars = array('row', 'prefix');
 				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_topictitle', compact($vars)));
-
-				//fallback if there is no listener
-				if (!$this->is_listening('imkingdavid\prefixed\event\listener', 'avathar.recenttopicsav.modify_topictitle'))
-				{
-					if ($this->prefixed !== null)
-					{
-						// pre:fixed extension
-						$prefix_instances = $this->prefixed->get_prefix_instances();
-						foreach ($prefix_instances as $key1)
-						{
-							if ($row['topic_id'] == $key1['topic'])
-							{
-								$prefixes = $this->prefixed->get_prefixes();
-								$prefix   = '[' . $prefixes[$key1['prefix']]['title'] . '] ';
-							}
-						}
-					}
-				}
 
 				$topic_title = $prefix === '' ? $topic_title : $prefix . ' ' . $topic_title;
 				$last_post_subject = censor_text($row['topic_last_post_subject']);

@@ -38,13 +38,10 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 
 #### Extension integrations
 All integrations are optional soft dependencies — Recent Topics works without any of them.
-
-- [Post Love](https://github.com/avatharbe/postlove) — like counts per topic (column in top/bottom view, inline hearts in side view)
-- [Collapsible Categories](https://www.phpbb.com/customise/db/extension/collapsible_forum_categories/) v2 — collapse/expand the Recent Topics block
-- [Topic Prefixes](https://www.phpbb.com/customise/db/extension/topic_prefixes/) (phpbb/topicprefixes) — topic prefixes in the listing
-- Topic Prefix from Stathis (part3/topicprefixes) — alternative topic prefix support
-- Pre:fixed from imkingdavid — legacy topic prefix support
-- mChat — side-by-side display via template event
+- [Post Love](https://github.com/avatharbe/postlove) (avathar/postlove) like counts per topic (column in top/bottom view, inline hearts in side view)
+- [Collapsible Categories](https://www.phpbb.com/customise/db/extension/collapsible_forum_categories/) (phpbb/collapsiblecategories) — collapse/expand the Recent Topics block
+- [Topic Prefixes](https://www.phpbb.com/customise/db/extension/topicprefixes/) (phpbb/topicprefixes) — topic prefixes in the listing
+- [mChat](https://www.phpbb.com/customise/db/extension/mchat_extension/) (dmzx/mchat) — side-by-side display via template event
 
 #### Languages
 English, German, French, Dutch, Spanish, Czech, Slovak, Russian, Portuguese, Arabic, Ukrainian, Swedish
@@ -65,7 +62,7 @@ prosilver, pbTech, pbWow3
 3. To permanently uninstall, click `Delete Data`, then delete the `recenttopicsav` folder from `/ext/avathar/`.
 
 #### Support
-- [Support forum](https://www.avathar.be/forum/viewforum.php?f=65)
+- [Support forum](https://www.avathar.be/forum/viewforum.php?f=16)
 
 #### License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)

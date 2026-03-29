@@ -26,8 +26,6 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
             - '@config_text'
-            - '@?part3.topicprefixes.functions'
-            - '@?prefixed.manager'
             - '@?phpbb.collapsiblecategories.operator'
     avathar.recenttopicsav.listener:
         class: avathar\recenttopicsav\event\listener

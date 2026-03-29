@@ -44,7 +44,7 @@
 * Event name :  avathar.recenttopicsav.modify_topictitle
 * Description : Event to modify the topic title by adding a prefix
 * Placement : avathar\recenttopicsav\core\recenttopics\display_recent_topics
-* known listeners :  Prefix Extension Imkingdavid
+* known listeners :  /
 * Since 2.1.3
 * Arguments :
   - @row         array  'forum_row'
