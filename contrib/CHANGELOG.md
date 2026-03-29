@@ -1,5 +1,8 @@
 ### Changelog
+
 - 3.0.4 (28/03/2026)
+  - [CHG] Removed Topic Prefix from Stathis (part3/topicprefixes) integration — extension is abandoned (#166)
+  - [CHG] Removed Pre:fixed from imkingdavid integration — extension is abandoned (#167)
   - [NEW] Added optional advertisement block on index page (#160) — ACP toggle and HTML textarea, rendered in sidebar alongside Recent Topics
   - [NEW] Added postlove like counts in topic listing (#162) — soft dependency, shows likes column (top/bottom) and inline hearts (side) when avathar/postlove is installed
   - [NEW] Added ACP toggle to show/hide date in side view (#163)
