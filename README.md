@@ -38,10 +38,13 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 
 #### Extension integrations
 All integrations are optional soft dependencies — Recent Topics works without any of them.
-- [Post Love](https://github.com/avatharbe/postlove) (avathar/postlove) like counts per topic (column in top/bottom view, inline hearts in side view)
+- [Post Love](https://github.com/avatharbe/postlove) (avathar/postlove) — like counts per topic (column in top/bottom view, inline hearts in side view)
 - [Collapsible Categories](https://www.phpbb.com/customise/db/extension/collapsible_forum_categories/) (phpbb/collapsiblecategories) — collapse/expand the Recent Topics block
 - [Topic Prefixes](https://www.phpbb.com/customise/db/extension/topicprefixes/) (phpbb/topicprefixes) — topic prefixes in the listing
+- [Topic Preview](https://github.com/iMattPro/topicpreview) (vse/topicpreview) — hover preview tooltips on topic titles
 - [mChat](https://www.phpbb.com/customise/db/extension/mchat_extension/) (dmzx/mchat) — side-by-side display via template event
+
+For extension developers: custom PHP events, deprecated event aliases, and integration details are documented in [contrib/Events.md](contrib/Events.md).
 
 #### Languages
 English, German, French, Dutch, Spanish, Czech, Slovak, Russian, Portuguese, Arabic, Ukrainian, Swedish
