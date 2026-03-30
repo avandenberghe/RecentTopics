@@ -137,6 +137,11 @@ class recenttopics
 	private $collapsable_categories;
 
 	/**
+	 * @var \avathar\postlove\service\topic_likes|null
+	 */
+	private $topic_likes_service;
+
+	/**
 	 * @var int
 	 */
 	private $rtstart;
@@ -196,6 +201,7 @@ class recenttopics
 	 * @param string                                              $phpEx
 	 * @param db_text                                             $config_text
 	 * @param \phpbb\collapsiblecategories\operator\operator|NULL $collapsable_categories
+	 * @param \avathar\postlove\service\topic_likes|NULL         $topic_likes_service
 	 */
 	public function __construct(auth $auth,
 		cache_service $cache,
@@ -211,7 +217,8 @@ class recenttopics
 		$root_path,
 		$phpEx,
 		db_text $config_text,
-		?\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null
+		?\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null,
+		$topic_likes_service = null
 	)
 	{
 		$this->auth = $auth;
@@ -229,6 +236,7 @@ class recenttopics
 		$this->phpEx = $phpEx;
 		$this->config_text = $config_text;
 		$this->collapsable_categories = $collapsable_categories;
+		$this->topic_likes_service = $topic_likes_service;
 	}
 
 	/**
@@ -392,7 +400,7 @@ class recenttopics
 				'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
 				'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
 				'ADS_INDEX_CODE'                       => $ads_index_code,
-				'S_POSTLOVE'                           => isset($this->config['postlove_version']),
+				'S_POSTLOVE'                           => $this->topic_likes_service !== null,
 				strtoupper($tpl_loopname) . '_DISPLAY' => true,
 			)
 		);
@@ -683,22 +691,10 @@ class recenttopics
 		$topic_icons = array();
 
 		// Get postlove like counts if installed
-		$topic_likes = array();
-		$postlove_enabled = isset($this->config['postlove_version']);
-		if ($postlove_enabled && !empty($this->topic_list))
+		$topic_likes = [];
+		if ($this->topic_likes_service !== null && !empty($this->topic_list))
 		{
-			$likes_table = str_replace('topics', 'posts_likes', TOPICS_TABLE);
-			$sql = 'SELECT p.topic_id, COUNT(l.post_id) AS like_count
-				FROM ' . POSTS_TABLE . ' p
-				INNER JOIN ' . $likes_table . ' l ON (l.post_id = p.post_id)
-				WHERE ' . $this->db->sql_in_set('p.topic_id', $this->topic_list) . '
-				GROUP BY p.topic_id';
-			$result = $this->db->sql_query($sql);
-			while ($row_likes = $this->db->sql_fetchrow($result))
-			{
-				$topic_likes[(int) $row_likes['topic_id']] = (int) $row_likes['like_count'];
-			}
-			$this->db->sql_freeresult($result);
+			$topic_likes = $this->topic_likes_service->get_topic_like_counts($this->topic_list);
 		}
 		// if topics returned by DB
 		if (count($rowset))

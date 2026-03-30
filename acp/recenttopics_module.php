@@ -212,7 +212,7 @@ class recenttopics_module
 				'RT_ADS_CODE'        => $config_text->get('rt_ads_code'),
 				'RT_SHOW_LIKES'      => (int) $config['rt_show_likes'],
 				'RT_SIDE_SHOW_DATE'  => (int) $config['rt_side_show_date'],
-				'S_POSTLOVE'         => isset($config['postlove_version']),
+				'S_POSTLOVE'         => $phpbb_container->has('avathar.postlove.topic_likes'),
 				'S_RT_OK'            => version_compare($ext_version, $latest_version, '=='),
 				'S_RT_OLD'           => version_compare($ext_version, $latest_version, '<'),
 				'S_RT_DEV'           => version_compare($ext_version, $latest_version, '>'),
