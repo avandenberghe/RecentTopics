@@ -1,5 +1,10 @@
 ### Changelog
 
+- 3.0.5 (30/03/2026)
+  - [NEW] Fire deprecated `paybas.recenttopics.*` event aliases for backward compatibility with third-party extensions (#169)
+  - [CHG] Replaced direct posts_likes table query with avathar/postlove service DI (#170) — uses `@?avathar.postlove.topic_likes` optional dependency instead of raw SQL and config key detection
+  - [NEW] Updated Events.md with full event documentation, deprecated alias mappings, and ecosystem listener inventory
+
 - 3.0.4 (28/03/2026)
   - [CHG] Removed Topic Prefix from Stathis (part3/topicprefixes) integration — extension is abandoned (#166)
   - [CHG] Removed Pre:fixed from imkingdavid integration — extension is abandoned (#167)
