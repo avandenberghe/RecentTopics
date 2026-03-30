@@ -647,6 +647,7 @@ class recenttopics
 
 		/**
 		 * @event paybas.recenttopics.sql_pull_topics_data
+		 * @var   array    sql_array        The SQL array
 		 * @deprecated since 3.1. Use avathar.recenttopicsav.sql_pull_topics_data instead
 		 * Backward-compat alias for vse/topicpreview, bb3mobi/lastpostavatar
 		 */
@@ -717,6 +718,8 @@ class recenttopics
 
 			/**
 			 * @event paybas.recenttopics.modify_topics_list
+			 * @var   array    topic_list        Array of all the topic IDs
+			 * @var   array    rowset            The full topics list array
 			 * @deprecated since 3.1. Use avathar.recenttopicsav.modify_topics_list instead
 			 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext
 			 */
@@ -877,11 +880,14 @@ class recenttopics
 
 				/**
 				 * @event paybas.recenttopics.modify_tpl_ary
+				 * @var   array    row            Array with topic data
+				 * @var   array    tpl_ary        Template block array with topic data
 				 * @deprecated since 3.1. Use avathar.recenttopicsav.modify_tpl_ary instead
 				 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts,
 				 * rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls,
 				 * toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar
 				 */
+				$vars = array('row', 'tpl_ary');
 				extract($this->dispatcher->trigger_event('paybas.recenttopics.modify_tpl_ary', compact($vars)));
 
 				$this->template->assign_block_vars($tpl_loopname, $tpl_ary);

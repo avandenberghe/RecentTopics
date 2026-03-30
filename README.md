@@ -6,7 +6,7 @@ Recent Topics for phpBB 3.3
 Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
 
-**Version:** 3.0.4 (29/03/2026)  
+**Version:** 3.0.4 (29/03/2026)
 
 #### Requirements
 - phpBB 3.3.0 or higher
@@ -67,4 +67,4 @@ prosilver, pbTech, pbWow3
 #### License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
 
-Originally by PayBas and nickvergessen. Maintained by Andreas Vandenberghe (avathar).
+Originally by PayBas and nickvergessen. Maintained by Andy Vandenberghe (Sajaki).
