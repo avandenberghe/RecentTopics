@@ -644,6 +644,19 @@ class recenttopics
 				array('sql_array' => $sql_array)
 			)
 		);
+
+		/**
+		 * @event paybas.recenttopics.sql_pull_topics_data
+		 * @deprecated since 3.1. Use avathar.recenttopicsav.sql_pull_topics_data instead
+		 * Backward-compat alias for vse/topicpreview, bb3mobi/lastpostavatar
+		 */
+		extract(
+			$this->dispatcher->trigger_event(
+				'paybas.recenttopics.sql_pull_topics_data',
+				array('sql_array' => $sql_array)
+			)
+		);
+
 		$sql    = $this->db->sql_build_query('SELECT', $sql_array);
 		$result = $this->db->sql_query_limit($sql, $this->topics_per_page);
 		$rowset = array();
@@ -701,6 +714,19 @@ class recenttopics
 					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
 				)
 			);
+
+			/**
+			 * @event paybas.recenttopics.modify_topics_list
+			 * @deprecated since 3.1. Use avathar.recenttopicsav.modify_topics_list instead
+			 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext
+			 */
+			extract(
+				$this->dispatcher->trigger_event(
+					'paybas.recenttopics.modify_topics_list',
+					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
+				)
+			);
+
 			foreach ($rowset as $row)
 			{
 				$topic_id = $row['topic_id'];
@@ -848,6 +874,16 @@ class recenttopics
 				 */
 				$vars = array('row', 'tpl_ary');
 				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_tpl_ary', compact($vars)));
+
+				/**
+				 * @event paybas.recenttopics.modify_tpl_ary
+				 * @deprecated since 3.1. Use avathar.recenttopicsav.modify_tpl_ary instead
+				 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts,
+				 * rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls,
+				 * toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar
+				 */
+				extract($this->dispatcher->trigger_event('paybas.recenttopics.modify_tpl_ary', compact($vars)));
+
 				$this->template->assign_block_vars($tpl_loopname, $tpl_ary);
 				$this->pagination->generate_template_pagination($view_topic_url, $tpl_loopname . '.pagination', 'start', $replies + 1, $this->config['posts_per_page'], 1, true, true);
 				if ($this->display_parent_forums)
