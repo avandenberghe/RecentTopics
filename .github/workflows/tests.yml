@@ -6,7 +6,7 @@ on:
       - develop33
   pull_request:
     branches:
-      - main
+      - develop33
 
 jobs:
   test:
