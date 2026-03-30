@@ -123,10 +123,10 @@ Layout templates: `recent_topics_body_topbottom.html`, `recent_topics_body_side.
 
 ### 4.1 avathar/postlove — Like counts per topic
 
-- **Detection:** `isset($this->config['postlove_version'])`
-- **Integration:** Queries `posts_likes` table directly to aggregate like counts per topic, assigns `TOPIC_LIKES` template var and `S_POSTLOVE` flag
+- **Detection:** Optional DI in `services.yml` (`@?avathar.postlove.topic_likes`)
+- **Integration:** Calls `get_topic_like_counts()` service to get aggregated like counts per topic, assigns `TOPIC_LIKES` template var and `S_POSTLOVE` flag
 - **Template:** Conditional `{% if S_POSTLOVE %}` blocks in topbottom/side layouts show a "Likes" column
-- **Coupling:** Soft — works without postlove installed. Direct table access to be replaced with service DI (see avatharbe/postlove#33 and avatharbe/RecentTopics#170)
+- **Coupling:** Soft — works without postlove installed, same pattern as collapsiblecategories
 
 ### 4.2 phpbb/collapsiblecategories — Collapse/expand RT block
 
