@@ -10,7 +10,7 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 
 #### Requirements
 - phpBB 3.3.0 or higher
-- PHP 7.1.3 or higher
+- PHP 8.1 or higher
 
 #### Features
 - Recent (or unread) topics list on the index page
