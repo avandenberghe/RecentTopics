@@ -650,7 +650,8 @@ class recenttopics
 		 *
 		 * @event paybas.recenttopics.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
-		 * @deprecated since 3.1. Use avathar.recenttopicsav.sql_pull_topics_data instead
+		 * @since 2.0.0
+		 * @changed 3.1.0 Deprecated. Use avathar.recenttopicsav.sql_pull_topics_data instead
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
@@ -723,7 +724,8 @@ class recenttopics
 			 * @event paybas.recenttopics.modify_topics_list
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
-			 * @deprecated since 3.1. Use avathar.recenttopicsav.modify_topics_list instead
+			 * @since 2.0.1
+			 * @changed 3.1.0 Deprecated. Use avathar.recenttopicsav.modify_topics_list instead
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
@@ -888,7 +890,8 @@ class recenttopics
 				 * @event paybas.recenttopics.modify_tpl_ary
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
-				 * @deprecated since 3.1. Use avathar.recenttopicsav.modify_tpl_ary instead
+				 * @since 2.0.0
+				 * @changed 3.1.0 Deprecated. Use avathar.recenttopicsav.modify_tpl_ary instead
 				 */
 				$vars = array('row', 'tpl_ary');
 				extract($this->dispatcher->trigger_event('paybas.recenttopics.modify_tpl_ary', compact($vars)));
