@@ -20,7 +20,7 @@ Modify the SQL query that determines which topic IDs are eligible for display in
 Modify the SQL query that fetches detailed topic data for display in the recent topics listing. Use this to add LEFT JOINs or SELECT columns (e.g. vse/topicpreview joins first/last post text and avatar data).
 
 - **Current event:** `avathar.recenttopicsav.sql_pull_topics_data`
-- **Deprecated alias:** `paybas.recenttopics.sql_pull_topics_data` (since 3.1)
+- **Deprecated alias:** `paybas.recenttopics.sql_pull_topics_data` (since 3.0.5, removed in 3.1)
 - **Placement:** `core\recenttopics::get_topics_sql()`
 - **Since:** 2.0.0
 - **Arguments:**
@@ -32,7 +32,7 @@ Modify the SQL query that fetches detailed topic data for display in the recent 
 Modify the fetched topic list and rowset before the recent topics display loop starts. Use this to reorder, filter, or enrich topic data in bulk (e.g. rxu/thanks_for_posts loads reputation data, vse/topicpreview loads attachments).
 
 - **Current event:** `avathar.recenttopicsav.modify_topics_list`
-- **Deprecated alias:** `paybas.recenttopics.modify_topics_list` (since 3.1)
+- **Deprecated alias:** `paybas.recenttopics.modify_topics_list` (since 3.0.5, removed in 3.1)
 - **Placement:** `core\recenttopics::fill_template()`
 - **Since:** 2.0.1
 - **Arguments:**
@@ -67,7 +67,7 @@ Add or modify the prefix prepended to topic titles in the recent topics listing 
 Modify or add template variables for a topic row in the recent topics listing just before it is assigned to the template. Use this to inject extra display data per row (e.g. country flags, SEO URLs, preview text, anonymized author info, relative timestamps).
 
 - **Current event:** `avathar.recenttopicsav.modify_tpl_ary`
-- **Deprecated alias:** `paybas.recenttopics.modify_tpl_ary` (since 3.1)
+- **Deprecated alias:** `paybas.recenttopics.modify_tpl_ary` (since 3.0.5, removed in 3.1)
 - **Placement:** `core\recenttopics::fill_template()`
 - **Since:** 2.0.0
 - **Arguments:**
@@ -77,7 +77,7 @@ Modify or add template variables for a topic row in the recent topics listing ju
 
 ### Deprecated alias summary
 
-Three `paybas.recenttopics.*` events are fired as backward-compat aliases immediately after their `avathar.recenttopicsav.*` equivalents. Extensions should migrate to the `avathar.recenttopicsav.*` event names. The aliases were introduced in 3.1 and will be removed in a future major version.
+Three `paybas.recenttopics.*` events are fired as backward-compat aliases immediately after their `avathar.recenttopicsav.*` equivalents. Extensions should migrate to the `avathar.recenttopicsav.*` event names. The aliases were introduced in 3.0.5 and will be removed in 3.1.
 
 See [GitHub issue #169](https://github.com/avatharbe/RecentTopics/issues/169) for the full ecosystem analysis.
 
