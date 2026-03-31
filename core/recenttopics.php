@@ -587,7 +587,7 @@ class recenttopics
 		 *
 		 * @event avathar.recenttopicsav.sql_pull_topics_list
 		 * @var   array    sql_array        The SQL array
-		 * @since 2.0.4
+		 * @since 3.0.0
 		 */
 		$vars = array('sql_array');
 		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.sql_pull_topics_list', compact($vars)));
@@ -644,7 +644,7 @@ class recenttopics
 		 *
 		 * @event avathar.recenttopicsav.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
-		 * @since 2.0.0
+		 * @since 3.0.0
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
@@ -705,7 +705,7 @@ class recenttopics
 			 * @event avathar.recenttopicsav.modify_topics_list
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
-			 * @since 2.0.1
+			 * @since 3.0.0
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
@@ -791,7 +791,7 @@ class recenttopics
 				 *
 				 * @event avathar.recenttopicsav.topictitle_remove_re
 				 * @var   array    row      the forum row
-				 * @since 2.2.11
+				 * @since 3.0.0
 				 */
 				$vars = array('row');
 				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.topictitle_remove_re', compact($vars)));
@@ -802,7 +802,7 @@ class recenttopics
 				 * @event avathar.recenttopicsav.modify_topictitle
 				 * @var   array    row      the forum row
 				 * @var   string    prefix  the topic title prefix
-				 * @since 2.1.3
+				 * @since 3.0.0
 				 */
 
 				$vars = array('row', 'prefix');
@@ -873,7 +873,7 @@ class recenttopics
 				 * @event avathar.recenttopicsav.modify_tpl_ary
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
-				 * @since 2.0.0
+				 * @since 3.0.0
 				 */
 				$vars = array('row', 'tpl_ary');
 				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_tpl_ary', compact($vars)));

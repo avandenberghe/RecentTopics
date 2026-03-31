@@ -11,7 +11,7 @@ Events fired by Recent Topics that other extensions can listen to.
 Modify the SQL query that determines which topic IDs are eligible for display in the recent topics listing. Use this to add extra filtering conditions (e.g. exclude topics by tag, restrict to certain topic types).
 
 - **Placement:** `core\recenttopics::gettopiclist()`
-- **Since:** 2.0.4
+- **Since:** 3.0.0
 - **Arguments:**
   - `sql_array` (array) — The SQL array
 - **Known listeners:** none
@@ -21,30 +21,28 @@ Modify the SQL query that determines which topic IDs are eligible for display in
 Modify the SQL query that fetches detailed topic data for display in the recent topics listing. Use this to add LEFT JOINs or SELECT columns (e.g. vse/topicpreview joins first/last post text and avatar data).
 
 - **Placement:** `core\recenttopics::get_topics_sql()`
-- **Since:** 2.0.0
-- **Deprecated alias:** `paybas.recenttopics.sql_pull_topics_data` (since 3.0.5, removed in 3.1)
+- **Since:** 3.0.0
 - **Arguments:**
   - `sql_array` (array) — The SQL array
-- **Known listeners for deprecated alias:** vse/topicpreview, bb3mobi/lastpostavatar
+- **Known listeners:** none (legacy listeners vse/topicpreview, bb3mobi/lastpostavatar still use `paybas.recenttopics.sql_pull_topics_data`)
 
 ### 1.3 `avathar.recenttopicsav.modify_topics_list`
 
 Modify the fetched topic list and rowset before the recent topics display loop starts. Use this to reorder, filter, or enrich topic data in bulk (e.g. rxu/thanks_for_posts loads reputation data, vse/topicpreview loads attachments).
 
 - **Placement:** `core\recenttopics::fill_template()`
-- **Since:** 2.0.1
-- **Deprecated alias:** `paybas.recenttopics.modify_topics_list` (since 3.0.5, removed in 3.1)
+- **Since:** 3.0.0
 - **Arguments:**
   - `topic_list` (array) — Array of all topic IDs
   - `rowset` (array) — The full topics list array
-- **Known listeners for deprecated alias:** vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext
+- **Known listeners:** none (legacy listeners vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext still use `paybas.recenttopics.modify_topics_list`)
 
 ### 1.4 `avathar.recenttopicsav.topictitle_remove_re`
 
 Clean up the topic row before title rendering. The built-in listener uses this to strip the "Re: " prefix from last post subjects.
 
 - **Placement:** `core\recenttopics::fill_template()`
-- **Since:** 2.2.11
+- **Since:** 3.0.0
 - **Arguments:**
   - `row` (array) — The topic row data
 - **Known listeners:** internal — `event\listener::topictitle_remove_re()`
@@ -54,7 +52,7 @@ Clean up the topic row before title rendering. The built-in listener uses this t
 Add or modify the prefix prepended to topic titles in the recent topics listing (e.g. topic type labels, category tags, custom badges).
 
 - **Placement:** `core\recenttopics::fill_template()`
-- **Since:** 2.1.3
+- **Since:** 3.0.0
 - **Arguments:**
   - `row` (array) — The topic row data
   - `prefix` (string) — The topic title prefix
@@ -65,16 +63,44 @@ Add or modify the prefix prepended to topic titles in the recent topics listing 
 Modify or add template variables for a topic row just before it is assigned to the template. Use this to inject extra display data per row (e.g. country flags, SEO URLs, preview text, anonymized author info, relative timestamps).
 
 - **Placement:** `core\recenttopics::fill_template()`
-- **Since:** 2.0.0
-- **Deprecated alias:** `paybas.recenttopics.modify_tpl_ary` (since 3.0.5, removed in 3.1)
+- **Since:** 3.0.0
 - **Arguments:**
   - `row` (array) — Array with topic data
   - `tpl_ary` (array) — Template block array with topic data
-- **Known listeners for deprecated alias:** vse/topicpreview, rxu/thanks_for_posts, rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls, toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar
+- **Known listeners:** none (legacy listeners vse/topicpreview, rxu/thanks_for_posts, rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls, toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar still use `paybas.recenttopics.modify_tpl_ary`)
 
-### Deprecated alias note
+### Deprecated aliases (removed in 3.1)
 
-Three `paybas.recenttopics.*` events are fired as backward-compat aliases immediately after their `avathar.recenttopicsav.*` equivalents. Extensions should migrate to the `avathar.recenttopicsav.*` names. The aliases were introduced in 3.0.5 and will be removed in 3.1. See [GitHub issue #169](https://github.com/avatharbe/RecentTopics/issues/169) for the full ecosystem analysis.
+These are the original event names from the paybas era. They have been fired since 2.0.x and are still fired alongside their `avathar.recenttopicsav.*` replacements for backward compatibility. They will be removed in 3.1. If your extension listens to any of these, migrate to the corresponding `avathar.recenttopicsav.*` event listed above. See [GitHub issue #169](https://github.com/avatharbe/RecentTopics/issues/169) for the full ecosystem analysis.
+
+#### `paybas.recenttopics.sql_pull_topics_data`
+
+- **Replaced by:** `avathar.recenttopicsav.sql_pull_topics_data`
+- **Placement:** `core\recenttopics::get_topics_sql()`
+- **Since:** 2.0.0 — **Removed in:** 3.1
+- **Arguments:**
+  - `sql_array` (array) — The SQL array
+- **Known listeners:** vse/topicpreview, bb3mobi/lastpostavatar
+
+#### `paybas.recenttopics.modify_topics_list`
+
+- **Replaced by:** `avathar.recenttopicsav.modify_topics_list`
+- **Placement:** `core\recenttopics::fill_template()`
+- **Since:** 2.0.1 — **Removed in:** 3.1
+- **Arguments:**
+  - `topic_list` (array) — Array of all topic IDs
+  - `rowset` (array) — The full topics list array
+- **Known listeners:** vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext
+
+#### `paybas.recenttopics.modify_tpl_ary`
+
+- **Replaced by:** `avathar.recenttopicsav.modify_tpl_ary`
+- **Placement:** `core\recenttopics::fill_template()`
+- **Since:** 2.0.0 — **Removed in:** 3.1
+- **Arguments:**
+  - `row` (array) — Array with topic data
+  - `tpl_ary` (array) — Template block array with topic data
+- **Known listeners:** vse/topicpreview, rxu/thanks_for_posts, rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls, toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar
 
 ---
 
