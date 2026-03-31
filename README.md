@@ -2,6 +2,7 @@ Recent Topics for phpBB 3.3
 ==========
 
 [![Tests](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml/badge.svg)](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml)
+[![Latest Stable Version](http://poser.pugx.org/phpbb/phpbb/v)](https://packagist.org/packages/phpbb/phpbb)
 
 Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
