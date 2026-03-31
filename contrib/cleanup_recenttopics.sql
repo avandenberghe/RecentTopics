@@ -1,6 +1,4 @@
 -- Cleanup script for recenttopics (both paybas and avathar)
--- Usage: mysql -u andreas -p8315 qi_board2 < cleanup_recenttopics.sql
-
 -- Modules
 DELETE FROM phpbb_modules WHERE module_basename LIKE '%recenttopics%' OR module_langname IN ('RECENT_TOPICS', 'RT_CONFIG');
 

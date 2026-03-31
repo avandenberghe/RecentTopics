@@ -6,11 +6,11 @@ Recent Topics for phpBB 3.3
 Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
 
-**Version:** 3.0.4 (28/03/2026)
+**Version:** 3.0.5 (30/03/2026)
 
 #### Requirements
-- phpBB 3.3.0 or higher
-- PHP 7.1.3 or higher
+- phpBB 3.3.0 or higher 
+- PHP 8.1 or higher
 
 #### Features
 - Recent (or unread) topics list on the index page
@@ -38,10 +38,13 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 
 #### Extension integrations
 All integrations are optional soft dependencies — Recent Topics works without any of them.
-- [Post Love](https://github.com/avatharbe/postlove) (avathar/postlove) like counts per topic (column in top/bottom view, inline hearts in side view)
+- [Post Love](https://github.com/avatharbe/postlove) (avathar/postlove) — like counts per topic (column in top/bottom view, inline hearts in side view)
 - [Collapsible Categories](https://www.phpbb.com/customise/db/extension/collapsible_forum_categories/) (phpbb/collapsiblecategories) — collapse/expand the Recent Topics block
 - [Topic Prefixes](https://www.phpbb.com/customise/db/extension/topicprefixes/) (phpbb/topicprefixes) — topic prefixes in the listing
+- [Topic Preview](https://github.com/iMattPro/topicpreview) (vse/topicpreview) — hover preview tooltips on topic titles
 - [mChat](https://www.phpbb.com/customise/db/extension/mchat_extension/) (dmzx/mchat) — side-by-side display via template event
+
+For extension developers: custom PHP events, deprecated event aliases, and integration details are documented in [contrib/Events.md](contrib/events.md).
 
 #### Languages
 English, German, French, Dutch, Spanish, Czech, Slovak, Russian, Portuguese, Arabic, Ukrainian, Swedish
@@ -67,4 +70,4 @@ prosilver, pbTech, pbWow3
 #### License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
 
-Originally by PayBas and nickvergessen. Maintained by Andreas Vandenberghe (avathar).
+Originally by PayBas and nickvergessen. Maintained by Andy Vandenberghe (Sajaki).

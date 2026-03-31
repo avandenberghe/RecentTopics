@@ -137,6 +137,11 @@ class recenttopics
 	private $collapsable_categories;
 
 	/**
+	 * @var \avathar\postlove\service\topic_likes|null
+	 */
+	private $topic_likes_service;
+
+	/**
 	 * @var int
 	 */
 	private $rtstart;
@@ -196,6 +201,7 @@ class recenttopics
 	 * @param string                                              $phpEx
 	 * @param db_text                                             $config_text
 	 * @param \phpbb\collapsiblecategories\operator\operator|NULL $collapsable_categories
+	 * @param \avathar\postlove\service\topic_likes|NULL         $topic_likes_service
 	 */
 	public function __construct(auth $auth,
 		cache_service $cache,
@@ -211,7 +217,8 @@ class recenttopics
 		$root_path,
 		$phpEx,
 		db_text $config_text,
-		?\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null
+		?\phpbb\collapsiblecategories\operator\operator $collapsable_categories = null,
+		$topic_likes_service = null
 	)
 	{
 		$this->auth = $auth;
@@ -229,6 +236,7 @@ class recenttopics
 		$this->phpEx = $phpEx;
 		$this->config_text = $config_text;
 		$this->collapsable_categories = $collapsable_categories;
+		$this->topic_likes_service = $topic_likes_service;
 	}
 
 	/**
@@ -387,11 +395,12 @@ class recenttopics
 				'S_LOCATION_TOP'                       => $this->location == 'RT_TOP',
 				'S_LOCATION_BOTTOM'                    => $this->location == 'RT_BOTTOM',
 				'S_LOCATION_SIDE'                      => $this->location == 'RT_SIDE',
+				'S_RT_SIDE_SHOW_DATE'                  => !empty($this->config['rt_side_show_date']),
 				'NEWEST_POST_IMG'                      => $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
 				'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
 				'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
 				'ADS_INDEX_CODE'                       => $ads_index_code,
-				'S_POSTLOVE'                           => isset($this->config['postlove_version']),
+				'S_POSTLOVE'                           => $this->topic_likes_service !== null,
 				strtoupper($tpl_loopname) . '_DISPLAY' => true,
 			)
 		);
@@ -578,7 +587,7 @@ class recenttopics
 		 *
 		 * @event avathar.recenttopicsav.sql_pull_topics_list
 		 * @var   array    sql_array        The SQL array
-		 * @since 2.0.4
+		 * @since 3.0.0
 		 */
 		$vars = array('sql_array');
 		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.sql_pull_topics_list', compact($vars)));
@@ -635,7 +644,7 @@ class recenttopics
 		 *
 		 * @event avathar.recenttopicsav.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
-		 * @since 2.0.0
+		 * @since 3.0.0
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
@@ -643,6 +652,22 @@ class recenttopics
 				array('sql_array' => $sql_array)
 			)
 		);
+
+		/**
+		 * Backward-compat alias for vse/topicpreview, bb3mobi/lastpostavatar
+		 *
+		 * @event paybas.recenttopics.sql_pull_topics_data
+		 * @var   array    sql_array        The SQL array
+		 * @since 2.0.0
+		 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.sql_pull_topics_data instead
+		 */
+		extract(
+			$this->dispatcher->trigger_event(
+				'paybas.recenttopics.sql_pull_topics_data',
+				array('sql_array' => $sql_array)
+			)
+		);
+
 		$sql    = $this->db->sql_build_query('SELECT', $sql_array);
 		$result = $this->db->sql_query_limit($sql, $this->topics_per_page);
 		$rowset = array();
@@ -666,22 +691,10 @@ class recenttopics
 		$topic_icons = array();
 
 		// Get postlove like counts if installed
-		$topic_likes = array();
-		$postlove_enabled = isset($this->config['postlove_version']);
-		if ($postlove_enabled && !empty($this->topic_list))
+		$topic_likes = [];
+		if ($this->topic_likes_service !== null && !empty($this->topic_list))
 		{
-			$likes_table = str_replace('topics', 'posts_likes', TOPICS_TABLE);
-			$sql = 'SELECT p.topic_id, COUNT(l.post_id) AS like_count
-				FROM ' . POSTS_TABLE . ' p
-				INNER JOIN ' . $likes_table . ' l ON (l.post_id = p.post_id)
-				WHERE ' . $this->db->sql_in_set('p.topic_id', $this->topic_list) . '
-				GROUP BY p.topic_id';
-			$result = $this->db->sql_query($sql);
-			while ($row_likes = $this->db->sql_fetchrow($result))
-			{
-				$topic_likes[(int) $row_likes['topic_id']] = (int) $row_likes['like_count'];
-			}
-			$this->db->sql_freeresult($result);
+			$topic_likes = $this->topic_likes_service->get_topic_like_counts($this->topic_list);
 		}
 		// if topics returned by DB
 		if (count($rowset))
@@ -692,7 +705,7 @@ class recenttopics
 			 * @event avathar.recenttopicsav.modify_topics_list
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
-			 * @since 2.0.1
+			 * @since 3.0.0
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
@@ -700,6 +713,23 @@ class recenttopics
 					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
 				)
 			);
+
+			/**
+			 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext
+			 *
+			 * @event paybas.recenttopics.modify_topics_list
+			 * @var   array    topic_list        Array of all the topic IDs
+			 * @var   array    rowset            The full topics list array
+			 * @since 2.0.1
+			 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.modify_topics_list instead
+			 */
+			extract(
+				$this->dispatcher->trigger_event(
+					'paybas.recenttopics.modify_topics_list',
+					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
+				)
+			);
+
 			foreach ($rowset as $row)
 			{
 				$topic_id = $row['topic_id'];
@@ -761,7 +791,7 @@ class recenttopics
 				 *
 				 * @event avathar.recenttopicsav.topictitle_remove_re
 				 * @var   array    row      the forum row
-				 * @since 2.2.11
+				 * @since 3.0.0
 				 */
 				$vars = array('row');
 				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.topictitle_remove_re', compact($vars)));
@@ -772,7 +802,7 @@ class recenttopics
 				 * @event avathar.recenttopicsav.modify_topictitle
 				 * @var   array    row      the forum row
 				 * @var   string    prefix  the topic title prefix
-				 * @since 2.1.3
+				 * @since 3.0.0
 				 */
 
 				$vars = array('row', 'prefix');
@@ -843,10 +873,25 @@ class recenttopics
 				 * @event avathar.recenttopicsav.modify_tpl_ary
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
-				 * @since 2.0.0
+				 * @since 3.0.0
 				 */
 				$vars = array('row', 'tpl_ary');
 				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_tpl_ary', compact($vars)));
+
+				/**
+				 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts,
+				 * rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls,
+				 * toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar
+				 *
+				 * @event paybas.recenttopics.modify_tpl_ary
+				 * @var   array    row            Array with topic data
+				 * @var   array    tpl_ary        Template block array with topic data
+				 * @since 2.0.0
+				 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.modify_tpl_ary instead
+				 */
+				$vars = array('row', 'tpl_ary');
+				extract($this->dispatcher->trigger_event('paybas.recenttopics.modify_tpl_ary', compact($vars)));
+
 				$this->template->assign_block_vars($tpl_loopname, $tpl_ary);
 				$this->pagination->generate_template_pagination($view_topic_url, $tpl_loopname . '.pagination', 'start', $replies + 1, $this->config['posts_per_page'], 1, true, true);
 				if ($this->display_parent_forums)

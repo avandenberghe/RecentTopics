@@ -62,6 +62,7 @@
 							{% if recent_topics.S_POST_GLOBAL and FORUM_ID != recent_topics.FORUM_ID %}<br />{{ lang('POSTED') }} {{ lang('IN') }} <a href="{{ recent_topics.U_VIEW_FORUM }}">{{ recent_topics.FORUM_NAME }}</a>{% endif %}
 						</div>
 						{% if recent_topics.REPLIES %}<span class="responsive-show left-box" style="display: none;">{{ lang('REPLIES') }}{{ lang('COLON') }} <strong>{{ recent_topics.REPLIES }}</strong></span>{% endif %}
+					{% if S_POSTLOVE and recent_topics.TOPIC_LIKES %}<span class="responsive-show left-box" style="display: none;">{{ lang('LIKES') }}{{ lang('COLON') }} <strong>{{ recent_topics.TOPIC_LIKES }}</strong></span>{% endif %}
 						{% endif %}
 
 						{% if recent_topics.pagination|length %}
@@ -95,6 +96,7 @@
 					<dd class="posts">
 					{{ lang('REPLIES') }}{{ lang('COLON') }} <strong>{{ recent_topics.REPLIES }}</strong><br />
 					{{ lang('VIEWS') }}{{ lang('COLON') }} <strong>{{ recent_topics.VIEWS }}</strong>
+					{% if S_POSTLOVE %}<br />{{ lang('LIKES') }}{{ lang('COLON') }} <strong>{{ recent_topics.TOPIC_LIKES }}</strong>{% endif %}
 					</dd>
 					<dd class="lastpost">
 

@@ -15,23 +15,28 @@ namespace avathar\recenttopicsav;
  */
 class ext extends \phpbb\extension\base
 {
+	const MIN_PHP_VERSION = '8.1.0';
+	const MIN_PHPBB_VERSION = '3.3.0';
+
 	/**
-	 * Check whether or not the extension can be enabled.
+	 * Check whether the extension can be enabled.
 	 *
-	 * Requires phpBB 3.3.0 or higher.
-	 *
-	 * @return bool|array
-	 * @access public
+	 * @return bool|array True if enableable, or an array of error messages otherwise
 	 */
 	public function is_enableable()
 	{
-		if (phpbb_version_compare(PHPBB_VERSION, '3.3.0', '>='))
+		$errors = [];
+
+		if (version_compare(PHP_VERSION, self::MIN_PHP_VERSION, '<'))
 		{
-			return true;
+			$errors[] = 'This extension requires PHP ' . self::MIN_PHP_VERSION . ' or higher. You are running PHP ' . PHP_VERSION . '.';
 		}
 
-		$language = $this->container->get('language');
-		$language->add_lang('recenttopics', 'avathar/recenttopicsav');
-		return [$language->lang('EXTENSION_REQUIRES_330')];
+		if (phpbb_version_compare(PHPBB_VERSION, self::MIN_PHPBB_VERSION, '<'))
+		{
+			$errors[] = 'This extension requires phpBB ' . self::MIN_PHPBB_VERSION . ' or higher. You are running phpBB ' . PHPBB_VERSION . '.';
+		}
+
+		return empty($errors) ? true : $errors;
 	}
 }
