@@ -67,6 +67,9 @@ if (!function_exists('get_forum_parents'))
 class test_event_dispatcher extends \Symfony\Component\EventDispatcher\EventDispatcher
 	implements \phpbb\event\dispatcher_interface
 {
+	/** @var bool */
+	private $disabled = false;
+
 	/**
 	 * Mirrors phpbb\event\dispatcher::trigger_event().
 	 * Wraps $data in a phpbb\event\data object, dispatches it, and returns
@@ -74,9 +77,25 @@ class test_event_dispatcher extends \Symfony\Component\EventDispatcher\EventDisp
 	 */
 	public function trigger_event($event_name, $data = [])
 	{
+		if ($this->disabled)
+		{
+			return $data;
+		}
 		$event = new \phpbb\event\data($data);
 		parent::dispatch($event, $event_name);
 		return $event->get_data_filtered(array_keys($data));
+	}
+
+	/** Temporarily disable event dispatching. */
+	public function disable(): void
+	{
+		$this->disabled = true;
+	}
+
+	/** Re-enable event dispatching. */
+	public function enable(): void
+	{
+		$this->disabled = false;
 	}
 }
 
