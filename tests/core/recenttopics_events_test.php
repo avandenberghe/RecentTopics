@@ -313,6 +313,11 @@ class recenttopics_events_test extends \phpbb_test_case
 		$this->set_private($rt, 'rtstart', 0);
 		$this->set_private($rt, 'total_topics_limit', 100);
 
+		// phpBB's real topic_status() (loaded by the test bootstrap) declares
+		// global $phpbb_dispatcher and calls trigger_event() on it.  Set the
+		// global to our test dispatcher so that call does not fatal.
+		$GLOBALS['phpbb_dispatcher'] = $dispatcher;
+
 		return $rt;
 	}
 
@@ -635,6 +640,8 @@ class recenttopics_events_test extends \phpbb_test_case
 		$this->set_private($rt, 'rtstart', 0);
 		$this->set_private($rt, 'total_topics_limit', 100);
 
+		$GLOBALS['phpbb_dispatcher'] = $dispatcher;
+
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
 		$this->assertNotEmpty($assigned, 'template->assign_block_vars() was never called');
@@ -759,6 +766,8 @@ class recenttopics_events_test extends \phpbb_test_case
 		$this->set_private($rt, 'icons', []);
 		$this->set_private($rt, 'rtstart', 0);
 		$this->set_private($rt, 'total_topics_limit', 100);
+
+		$GLOBALS['phpbb_dispatcher'] = $dispatcher;
 
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
