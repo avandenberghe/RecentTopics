@@ -318,9 +318,11 @@ class recenttopics_events_test extends \phpbb_test_case
 		// global to our test dispatcher so that call does not fatal.
 		$GLOBALS['phpbb_dispatcher'] = $dispatcher;
 
-		// phpBB's real censor_text() → smiley_text() reads global $user and
-		// calls $user->optionget().  Point it at the same user mock.
-		$GLOBALS['user'] = $this->make_user_stub();
+		// phpBB's real censor_text() → smiley_text() reads global $config and
+		// $user.  Set both so neither access fatals in unit test context.
+		// allow_smilies=0 short-circuits smiley_text() before optionget() runs.
+		$GLOBALS['config'] = ['allow_smilies' => 0];
+		$GLOBALS['user']   = $this->make_user_stub();
 
 		return $rt;
 	}
@@ -645,7 +647,8 @@ class recenttopics_events_test extends \phpbb_test_case
 		$this->set_private($rt, 'total_topics_limit', 100);
 
 		$GLOBALS['phpbb_dispatcher'] = $dispatcher;
-		$GLOBALS['user'] = $this->make_user_stub();
+		$GLOBALS['config'] = ['allow_smilies' => 0];
+		$GLOBALS['user']   = $this->make_user_stub();
 
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
@@ -773,7 +776,8 @@ class recenttopics_events_test extends \phpbb_test_case
 		$this->set_private($rt, 'total_topics_limit', 100);
 
 		$GLOBALS['phpbb_dispatcher'] = $dispatcher;
-		$GLOBALS['user'] = $this->make_user_stub();
+		$GLOBALS['config'] = ['allow_smilies' => 0];
+		$GLOBALS['user']   = $this->make_user_stub();
 
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
