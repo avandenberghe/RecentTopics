@@ -19,13 +19,12 @@
  * See: https://github.com/avatharbe/RecentTopics/issues/172
  */
 
-namespace avathar\recenttopicsav\tests\core;
-
 // ---------------------------------------------------------------------------
-// Global-function stubs
-// Needed when the phpBB test bootstrap has not loaded the full phpBB include
-// files (e.g. functions_display.php, functions_content.php). The stubs are
-// no-ops that keep the tests focused on event dispatch, not on phpBB output.
+// Global-function stubs — defined BEFORE the namespace declaration so they
+// land in the global namespace. fill_template() lives in the
+// avathar\recenttopicsav\core namespace and calls these as unqualified names;
+// PHP falls back to the global namespace for unqualified function calls, so
+// the stubs must be global, not namespaced.
 // ---------------------------------------------------------------------------
 if (!function_exists('censor_text'))
 {
@@ -59,16 +58,13 @@ if (!function_exists('get_forum_parents'))
 	function get_forum_parents($row) { return []; }
 }
 
-// ---------------------------------------------------------------------------
-// No custom dispatcher class needed. phpbb\event\dispatcher already:
-//   - implements dispatcher_interface (trigger_event, disable, enable)
-//   - handles Symfony version differences internally
-//   - exposes addListener() via the Symfony base class
-// We just instantiate it directly in each test.
-// ---------------------------------------------------------------------------
+namespace avathar\recenttopicsav\tests\core;
 
 // ---------------------------------------------------------------------------
 // Test class
+// phpbb\event\dispatcher is used directly — it already implements
+// dispatcher_interface (trigger_event, disable, enable) and handles Symfony
+// version differences internally. No custom subclass needed.
 // ---------------------------------------------------------------------------
 class recenttopics_events_test extends \phpbb_test_case
 {
@@ -198,7 +194,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 * Instantiate recenttopics with a given dispatcher and db, setting all
 	 * private properties needed by get_allowed_topics_sql().
 	 */
-	private function make_rt_for_sql_list_event(test_event_dispatcher $dispatcher): \avathar\recenttopicsav\core\recenttopics
+	private function make_rt_for_sql_list_event(\phpbb\event\dispatcher_interface $dispatcher): \avathar\recenttopicsav\core\recenttopics
 	{
 		$db   = $this->make_db_stub();
 		$auth = $this->createMock(\phpbb\auth\auth::class);
@@ -234,7 +230,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 * Instantiate recenttopics with a given dispatcher and db, setting all
 	 * private properties needed by get_topics_sql().
 	 */
-	private function make_rt_for_sql_data_event(test_event_dispatcher $dispatcher, $db = null): \avathar\recenttopicsav\core\recenttopics
+	private function make_rt_for_sql_data_event(\phpbb\event\dispatcher_interface $dispatcher, $db = null): \avathar\recenttopicsav\core\recenttopics
 	{
 		if ($db === null)
 		{
@@ -273,7 +269,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 * Instantiate recenttopics with a given dispatcher and db, setting all
 	 * private properties needed by fill_template() to reach the inner loop.
 	 */
-	private function make_rt_for_fill_template_events(test_event_dispatcher $dispatcher, $db): \avathar\recenttopicsav\core\recenttopics
+	private function make_rt_for_fill_template_events(\phpbb\event\dispatcher_interface $dispatcher, $db): \avathar\recenttopicsav\core\recenttopics
 	{
 		$auth = $this->createMock(\phpbb\auth\auth::class);
 		$auth->method('acl_get')->willReturn(false);
