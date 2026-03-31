@@ -9,7 +9,7 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 **Version:** 3.0.5 (30/03/2026)
 
 #### Requirements
-- phpBB 3.3.0 or higher
+- phpBB 3.3.0 or higher 
 - PHP 8.1 or higher
 
 #### Features
