@@ -44,7 +44,7 @@ All integrations are optional soft dependencies — Recent Topics works without 
 - [Topic Preview](https://github.com/iMattPro/topicpreview) (vse/topicpreview) — hover preview tooltips on topic titles
 - [mChat](https://www.phpbb.com/customise/db/extension/mchat_extension/) (dmzx/mchat) — side-by-side display via template event
 
-For extension developers: custom PHP events, deprecated event aliases, and integration details are documented in [contrib/Events.md](contrib/events.md).
+For extension developers: custom PHP events, deprecated event aliases, and integration details are documented in [contrib/Events.md](contrib/Events.md).
 
 #### Languages
 English, German, French, Dutch, Spanish, Czech, Slovak, Russian, Portuguese, Arabic, Ukrainian, Swedish
