@@ -1,185 +1,246 @@
 # Recent Topics Extension — Events & Integration Points
 
-## 1. Own Events Emitted (API contract)
+## What are phpBB events?
 
-This section is the public API contract. Recent Topics deliberately fires these events at specific points in its processing loop so that *other* extensions can hook in and modify the SQL queries, topic data, or template output — without patching any Recent Topics files. If you are building an extension and want to add a column, filter topics, or inject extra per-row data into the recent topics block, this is where to look. Changing anything listed here is a breaking change and requires a major version bump.
+phpBB is built around an *event system*. At hundreds of specific moments during a page request — when a topic list is about to be rendered, when the board index is loading, when an admin saves a forum setting — phpBB fires a named event and passes a bag of data along with it. Extensions register *listeners* that subscribe to these events by name. When the event fires, phpBB calls each listener in turn, letting it read and modify the data bag before the next step runs.
 
-Events fired by Recent Topics that other extensions can listen to.
+This means extensions never need to modify phpBB core files. An extension that wants to add a column to the topic list simply listens to the right event, adds its column data, and phpBB's template engine picks it up automatically.
+
+There are two kinds of events:
+
+**PHP events** fire inside phpBB's PHP code. Your extension subscribes by writing a listener class that implements `EventSubscriberInterface` and declaring which event names map to which methods. When the event fires, your method receives a `\phpbb\event\data` object — an array-like container of variables you can read and write back.
+
+**Template events** fire inside phpBB's Twig templates. Your extension hooks in simply by placing an HTML file at `styles/prosilver/template/event/<event_name>.html`. phpBB automatically includes that file at the matching point in the page, with no PHP code needed. Template events are the right tool when you only want to inject a button, a column header, or a block of markup.
+
+---
+
+## What is the DI container?
+
+The *dependency injection (DI) container* is phpBB's system for wiring services together. A *service* is any PHP object that does a specific job — for example, querying like counts from the database, or checking whether a category should be collapsed. Services are registered by name in `config/services.yml` files and phpBB automatically creates them and passes them to other services that need them.
+
+When an extension wants to use a service from *another* extension, it can declare the dependency as **nullable** using the `@?` prefix in services.yml:
+
+```yaml
+my_service:
+    arguments:
+        - '@?avathar.postlove.topic_likes'
+```
+
+If Post Love is installed, phpBB injects the real `topic_likes` service. If it is not installed, phpBB injects `null`. The consuming service checks for `null` before using it and simply skips the feature. This is called *soft coupling* — Recent Topics works perfectly without Post Love; it just does not show a Likes column.
+
+---
+
+## 1. Own Events Emitted (Public API)
+
+This section is the **public API contract** for the Recent Topics extension. These are the events that Recent Topics deliberately fires so that *other* extensions can hook in and customise the query, the topic data, or the template output — without patching any Recent Topics files.
+
+If you are building an extension that wants to add a column, filter out certain topics, or inject extra per-row data into the recent topics block, this is where to look.
+
+**Changing anything listed here is a breaking change and requires a major version bump.** Other extensions depend on these event names and argument names staying stable.
+
+---
 
 ### 1.1 `avathar.recenttopicsav.sql_pull_topics_list`
 
-Modify the SQL query that determines which topic IDs are eligible for display in the recent topics listing. Use this to add extra filtering conditions (e.g. exclude topics by tag, restrict to certain topic types).
+**What this event is for:** Recent Topics first runs a query that determines which topic IDs are eligible — applying filters like "only topics the user has read access to" and "only topics from included forums". This event fires just before that query executes, letting your extension add extra WHERE conditions or change the ORDER BY.
+
+**Example use case:** An extension that tags topics could exclude topics with a "hidden" tag by adding an extra condition here.
 
 - **Placement:** `core\recenttopics::gettopiclist()`
 - **Since:** 3.0.0
 - **Arguments:**
-  - `sql_array` (array) — The SQL array
+  - `sql_array` (array) — The complete SQL query array, ready to pass to `$db->sql_build_query()`. Modify it and write it back to the event.
 - **Known listeners:** none
+
+---
 
 ### 1.2 `avathar.recenttopicsav.sql_pull_topics_data`
 
-Modify the SQL query that fetches detailed topic data for display in the recent topics listing. Use this to add LEFT JOINs or SELECT columns (e.g. vse/topicpreview joins first/last post text and avatar data).
+**What this event is for:** After the eligible topic IDs are known, Recent Topics runs a second query that fetches all the display data for those topics — titles, last post info, author usernames, unread status, and so on. This event fires before that query runs, letting your extension add LEFT JOINs or extra SELECT columns.
+
+**Example use case:** An extension that shows topic preview text on hover (like `vse/topicpreview`) joins the post text table here and adds the `post_text` column to the SELECT list. It then reads that column in a later event.
 
 - **Placement:** `core\recenttopics::get_topics_sql()`
 - **Since:** 3.0.0
 - **Arguments:**
-  - `sql_array` (array) — The SQL array
-- **Known listeners:** none (legacy listeners vse/topicpreview, bb3mobi/lastpostavatar still use `paybas.recenttopics.sql_pull_topics_data`)
+  - `sql_array` (array) — The complete SQL query array for the detailed fetch query.
+- **Known listeners:** none (legacy listeners `vse/topicpreview` and `bb3mobi/lastpostavatar` still use the deprecated alias — see section 1 deprecated aliases below)
+
+---
 
 ### 1.3 `avathar.recenttopicsav.modify_topics_list`
 
-Modify the fetched topic list and rowset before the recent topics display loop starts. Use this to reorder, filter, or enrich topic data in bulk (e.g. rxu/thanks_for_posts loads reputation data, vse/topicpreview loads attachments).
+**What this event is for:** After both queries have run, Recent Topics has a list of topic IDs and a full rowset of topic data. This event fires before the display loop starts, giving your extension access to the complete dataset at once — useful for bulk operations that need all rows at the same time.
+
+**Example use case:** `rxu/thanks_for_posts` loads reputation scores for all topic authors in one query here, then uses the per-row event below to inject the score into each row. Loading them all at once (rather than one query per row) avoids the N+1 performance problem.
 
 - **Placement:** `core\recenttopics::fill_template()`
 - **Since:** 3.0.0
 - **Arguments:**
-  - `topic_list` (array) — Array of all topic IDs
-  - `rowset` (array) — The full topics list array
-- **Known listeners:** none (legacy listeners vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext still use `paybas.recenttopics.modify_topics_list`)
+  - `topic_list` (array) — An ordered array of topic IDs that will be displayed.
+  - `rowset` (array) — A key-value array of `[topic_id => row_data]` for all topics.
+- **Known listeners:** none (legacy: `vse/topicpreview`, `rxu/thanks_for_posts`, `PayBas/PBWoW3ext`)
+
+---
 
 ### 1.4 `avathar.recenttopicsav.topictitle_remove_re`
 
-Clean up the topic row before title rendering. The built-in listener uses this to strip the "Re: " prefix from last post subjects.
+**What this event is for:** phpBB stores the *last post subject* in the topic row rather than the topic title. When someone replies, the last post subject is "Re: Original Title". This event fires once per row so that a listener can strip the "Re: " prefix and display a clean title. Recent Topics includes a built-in listener for exactly this purpose — it is the only case where the extension listens to its own event.
 
-- **Placement:** `core\recenttopics::fill_template()`
+- **Placement:** `core\recenttopics::fill_template()`, once per topic row
 - **Since:** 3.0.0
 - **Arguments:**
-  - `row` (array) — The topic row data
+  - `row` (array) — The raw topic row data. The built-in listener reads and writes `row['topic_last_post_subject']`.
 - **Known listeners:** internal — `event\listener::topictitle_remove_re()`
+
+---
 
 ### 1.5 `avathar.recenttopicsav.modify_topictitle`
 
-Add or modify the prefix prepended to topic titles in the recent topics listing (e.g. topic type labels, category tags, custom badges).
+**What this event is for:** Just before the topic title is assembled for display, this event provides a chance to prepend a label or badge. The `prefix` argument starts as an empty string; your listener can set it to any HTML fragment and it will appear before the topic title in the output.
 
-- **Placement:** `core\recenttopics::fill_template()`
+**Example use case:** An extension that adds a topic type label ("Announcement", "Sticky") could set `prefix` to a small badge here.
+
+- **Placement:** `core\recenttopics::fill_template()`, once per topic row
 - **Since:** 3.0.0
 - **Arguments:**
-  - `row` (array) — The topic row data
-  - `prefix` (string) — The topic title prefix
+  - `row` (array) — The raw topic row data (read only).
+  - `prefix` (string) — The prefix string to prepend to the title. Set this and write it back to add content.
 - **Known listeners:** none
+
+---
 
 ### 1.6 `avathar.recenttopicsav.modify_tpl_ary`
 
-Modify or add template variables for a topic row just before it is assigned to the template. Use this to inject extra display data per row (e.g. country flags, SEO URLs, preview text, anonymized author info, relative timestamps).
+**What this event is for:** This is the most commonly used hook. It fires once per topic row, just before the template variable array for that row is assigned to the `recent_topics` block. By this point Recent Topics has already built a complete `tpl_ary` with all its own variables (topic URL, title, author, last post time, unread flag, etc.). Your listener can add extra keys to `tpl_ary` and they will be available in the template.
 
-- **Placement:** `core\recenttopics::fill_template()`
+**Example use case:** An extension that shows national flags next to usernames adds a `FLAG_IMG` key here, then uses a `topiclist_row_append` template event to output the flag icon.
+
+- **Placement:** `core\recenttopics::fill_template()`, once per topic row
 - **Since:** 3.0.0
 - **Arguments:**
-  - `row` (array) — Array with topic data
-  - `tpl_ary` (array) — Template block array with topic data
-- **Known listeners:** none (legacy listeners vse/topicpreview, rxu/thanks_for_posts, rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls, toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar still use `paybas.recenttopics.modify_tpl_ary`)
+  - `row` (array) — The raw topic row data from the database (read only — changes are not persisted).
+  - `tpl_ary` (array) — The template variable array about to be passed to `assign_block_vars()`. Add your custom keys here and write it back.
+- **Known listeners:** none (legacy: `vse/topicpreview`, `rxu/thanks_for_posts`, `rmcgirr83/nationalflags`, `Dark1z/memberavatarstatus`, `tas2580/seourls`, `toxyy/anonymousposts`, `MuhClaren/timeago`, `bb3mobi/lastpostavatar`)
 
-### Deprecated aliases (removed in 3.1)
+---
 
-These are the original event names from the paybas era. They have been fired since 2.0.x and are still fired alongside their `avathar.recenttopicsav.*` replacements for backward compatibility. They will be removed in 3.1. If your extension listens to any of these, migrate to the corresponding `avathar.recenttopicsav.*` event listed above. See [GitHub issue #169](https://github.com/avatharbe/RecentTopics/issues/169) for the full ecosystem analysis.
+### Deprecated event aliases (removed in 3.1)
+
+When this extension was forked from `paybas/recenttopics`, the event names changed from `paybas.recenttopics.*` to `avathar.recenttopicsav.*`. To avoid breaking every extension in the ecosystem overnight, the old names were kept firing alongside the new ones. This means an extension that listens to `paybas.recenttopics.modify_tpl_ary` still works — it just receives the event under the old name.
+
+**These aliases will be removed in version 3.1.** If your extension uses any of the names below, migrate to the corresponding `avathar.recenttopicsav.*` name listed above. See [GitHub issue #169](https://github.com/avatharbe/RecentTopics/issues/169) for the full ecosystem analysis.
 
 #### `paybas.recenttopics.sql_pull_topics_data`
 
 - **Replaced by:** `avathar.recenttopicsav.sql_pull_topics_data`
 - **Placement:** `core\recenttopics::get_topics_sql()`
-- **Since:** 2.0.0 — **Removed in:** 3.1
-- **Arguments:**
-  - `sql_array` (array) — The SQL array
-- **Known listeners:** vse/topicpreview, bb3mobi/lastpostavatar
+- **Active since:** 2.0.0 — **Removed in:** 3.1
+- **Arguments:** `sql_array` (array)
+- **Known legacy listeners:** `vse/topicpreview`, `bb3mobi/lastpostavatar`
 
 #### `paybas.recenttopics.modify_topics_list`
 
 - **Replaced by:** `avathar.recenttopicsav.modify_topics_list`
 - **Placement:** `core\recenttopics::fill_template()`
-- **Since:** 2.0.1 — **Removed in:** 3.1
-- **Arguments:**
-  - `topic_list` (array) — Array of all topic IDs
-  - `rowset` (array) — The full topics list array
-- **Known listeners:** vse/topicpreview, rxu/thanks_for_posts, PayBas/PBWoW3ext
+- **Active since:** 2.0.1 — **Removed in:** 3.1
+- **Arguments:** `topic_list` (array), `rowset` (array)
+- **Known legacy listeners:** `vse/topicpreview`, `rxu/thanks_for_posts`, `PayBas/PBWoW3ext`
 
 #### `paybas.recenttopics.modify_tpl_ary`
 
 - **Replaced by:** `avathar.recenttopicsav.modify_tpl_ary`
 - **Placement:** `core\recenttopics::fill_template()`
-- **Since:** 2.0.0 — **Removed in:** 3.1
-- **Arguments:**
-  - `row` (array) — Array with topic data
-  - `tpl_ary` (array) — Template block array with topic data
-- **Known listeners:** vse/topicpreview, rxu/thanks_for_posts, rmcgirr83/nationalflags, Dark1z/memberavatarstatus, tas2580/seourls, toxyy/anonymousposts, MuhClaren/timeago, bb3mobi/lastpostavatar
+- **Active since:** 2.0.0 — **Removed in:** 3.1
+- **Arguments:** `row` (array), `tpl_ary` (array)
+- **Known legacy listeners:** `vse/topicpreview`, `rxu/thanks_for_posts`, `rmcgirr83/nationalflags`, `Dark1z/memberavatarstatus`, `tas2580/seourls`, `toxyy/anonymousposts`, `MuhClaren/timeago`, `bb3mobi/lastpostavatar`
 
 ---
 
-## 2. Events & Services Subscribed from Other Extensions
+## 2. Events & Services Consumed from Other Extensions
 
-Extensions can listen to each other's events or consume each other's services. This section documents every place where Recent Topics reaches *out* to another extension — for example, calling a service provided by postlove to display like counts, or an operator provided by collapsiblecategories to make the block collapsible. These integrations are always optional (soft-coupled via nullable DI): Recent Topics works normally when the other extension is absent.
+This section documents every place where Recent Topics *reaches out* to another extension — calling its service or relying on its template events. All of these integrations are **optional and soft-coupled**: Recent Topics works normally when the other extension is absent. It checks for `null` before calling any optional service, and uses `ignore missing` in Twig includes so that absent template files produce no error.
 
-Recent Topics integrates with two optional extensions via nullable DI. Neither triggers phpBB events — the integration is service-based.
+---
 
 ### 2.1 `avathar/postlove` — Like counts per topic
 
-- **DI reference:** `@?avathar.postlove.topic_likes` (nullable)
-- **Integration:** Calls `get_topic_like_counts()` to get aggregated like counts per topic, assigns `TOPIC_LIKES` template var and `S_POSTLOVE` flag
-- **Template:** Conditional `{% if S_POSTLOVE %}` blocks in topbottom/side layouts show a Likes column
-- **Coupling:** Soft — works without postlove installed
+Post Love tracks which users liked which posts. Recent Topics can show a "Likes" column alongside each topic, displaying the total number of likes that all posts in that topic have received.
 
-### 2.2 `phpbb/collapsiblecategories` — Collapse/expand RT block
+- **How it works:** Recent Topics calls `get_topic_like_counts(array $topic_ids)` once for the whole batch of topics being displayed. The method returns a `[topic_id => count]` array. Recent Topics then assigns `TOPIC_LIKES` and the boolean flag `S_POSTLOVE` into each topic's template data. The templates use `{% if S_POSTLOVE %}` to show or hide the column.
+- **DI reference:** `@?avathar.postlove.topic_likes` — declared as nullable so phpBB injects `null` when Post Love is not installed
+- **Coupling:** Soft — the column simply does not appear without Post Love
 
-- **DI reference:** `@?phpbb.collapsiblecategories.operator` (nullable)
-- **Integration:** Sets `S_EXT_COLCAT_HIDDEN` and `U_EXT_COLCAT_COLLAPSE_URL` template vars
-- **Template:** `{% include '@phpbb_collapsiblecategories/collapsible_categories_button.html' ignore missing %}`
-- **Coupling:** Soft — gracefully handles null operator
+---
+
+### 2.2 `phpbb/collapsiblecategories` — Collapse/expand the RT block
+
+The `phpbb/collapsiblecategories` extension adds a toggle button to category headers on the board index, allowing users to collapse sections they are not interested in. Recent Topics integrates with this so the entire RT block can be collapsed and remembered between visits.
+
+- **How it works:** Recent Topics calls `$operator->get_hidden_categories()` (from the collapsible categories service) and sets `S_EXT_COLCAT_HIDDEN` and `U_EXT_COLCAT_COLLAPSE_URL` template vars. The template then includes the collapsible categories button partial.
+- **DI reference:** `@?phpbb.collapsiblecategories.operator` — nullable
+- **Template include:** `{% include '@phpbb_collapsiblecategories/collapsible_categories_button.html' ignore missing %}`
+- **Coupling:** Soft — the collapse button simply does not appear without the extension
+
+---
 
 ### 2.3 `vse/topicpreview` — Topic hover previews
 
-- **Status:** Working via the deprecated `paybas.recenttopics.*` event aliases (section 1)
-- **PHP side:** topicpreview listens to `paybas.recenttopics.sql_pull_topics_data`, `paybas.recenttopics.modify_topics_list`, and `paybas.recenttopics.modify_tpl_ary`
-- **Template side:** `topiclist_row_append` is fired; topicpreview injects a preview tooltip there
-- **Coupling:** Template + event — no direct DI dependency
+This extension shows a preview tooltip when the user hovers over a topic title. It integrates via the **deprecated event aliases** described in section 1, not via DI services.
 
-### 2.4 `dmzx/mchat` — Side-by-side display
+- **PHP side:** `topicpreview` listens to `paybas.recenttopics.sql_pull_topics_data` (to JOIN the post text table), `paybas.recenttopics.modify_topics_list` (to load attachments), and `paybas.recenttopics.modify_tpl_ary` (to inject the preview HTML into `tpl_ary`).
+- **Template side:** The `topiclist_row_append` template event fires inside the recent topics row template; `topicpreview` hooks in there to output the preview tooltip container.
+- **Coupling:** Template + event — no direct DI dependency. Works as long as the deprecated event aliases remain active.
 
-- **Integration:** Template event `recenttopics_mchat_side` in `index_body_markforums_after.html` provides an injection point
+---
+
+### 2.4 `dmzx/mchat` — Side-by-side display with mChat
+
+mChat can be displayed alongside the recent topics block on the board index. This integration is template-only — no PHP is involved.
+
+- **How it works:** The `recenttopics_mchat_side` template event fires inside `index_body_markforums_after.html`. mChat hooks into this event to inject its chat window next to the recent topics block.
 - **Coupling:** Template-only — no PHP dependency
 
 ---
 
-## 3. phpBB Core Events & Template Events
+## 3. phpBB Core Events Used Internally
 
-phpBB itself fires hundreds of named events at key moments — when a page loads, when the ACP saves forum settings, when a user registers, and so on. Extensions hook into these events without modifying any phpBB core files.
-
-**PHP events** are fired from within phpBB's PHP code. Your extension subscribes to them by registering a listener class (implementing `EventSubscriberInterface`). When the event fires, phpBB passes a data object containing variables you can read and write — for example, adding a permission to the ACL system, or saving extra form fields when a forum is edited. PHP events are the right tool when you need to run logic, query the database, or compute something.
-
-**Template events** are fired from within phpBB's HTML templates. Your extension hooks into them simply by creating an HTML file whose name matches the event, placed at `styles/.../template/event/<event_name>.html`. phpBB automatically includes that file at the event location when rendering the page. Template events are the right tool when you only need to inject markup — a column header, a block of rows, a button — at a fixed point in the page layout, without any PHP logic.
-
-This section lists every phpBB hook that Recent Topics uses internally to deliver its own functionality.
+This section lists every phpBB event that Recent Topics subscribes to in order to deliver its own functionality. These are not part of the public API — they are internal implementation details.
 
 ### 3.1 PHP Events — Main listener (`event/listener.php`)
 
-| phpBB Core Event | Handler | Purpose |
+| phpBB Core Event | Handler method | What it does |
 |---|---|---|
-| `core.index_modify_page_title` | `display_rt()` | Render recent topics block on the board index |
-| `core.viewonline_overwrite_location` | `viewonline_overwrite_location()` | Show "Viewing Recent Topics" on Who Is Online page |
-| `core.acp_manage_forums_request_data` | `acp_manage_forums_request_data()` | Save per-forum RT settings in ACP |
-| `core.acp_manage_forums_initialise_data` | `acp_manage_forums_initialise_data()` | Set default RT settings for new forums |
-| `core.acp_manage_forums_display_form` | `acp_manage_forums_display_form()` | Display RT settings in ACP forum editor |
-| `core.permissions` | `add_permission()` | Register `u_rt_view`, `u_rt_enable`, `u_rt_location` permissions |
-| `avathar.recenttopicsav.topictitle_remove_re` | `topictitle_remove_re()` | Self-listener: strip "Re: " prefix from last post subjects |
+| `core.index_modify_page_title` | `display_rt()` | The main hook — renders the entire recent topics block on the board index page |
+| `core.viewonline_overwrite_location` | `viewonline_overwrite_location()` | Shows "Viewing Recent Topics" on the Who Is Online page for users browsing `/rt` |
+| `core.acp_manage_forums_request_data` | `acp_manage_forums_request_data()` | Saves the per-forum "include in recent topics" checkbox when an admin edits a forum |
+| `core.acp_manage_forums_initialise_data` | `acp_manage_forums_initialise_data()` | Sets the default value ("included") for newly created forums |
+| `core.acp_manage_forums_display_form` | `acp_manage_forums_display_form()` | Passes the stored per-forum setting to the ACP template so the checkbox shows the right state |
+| `core.permissions` | `add_permission()` | Registers the `u_rt_view`, `u_rt_enable`, and `u_rt_location` permissions in phpBB's ACL system |
+| `avathar.recenttopicsav.topictitle_remove_re` | `topictitle_remove_re()` | A self-listener: strips the "Re: " prefix from last-post subject lines |
 
 ### 3.2 PHP Events — UCP listener (`event/ucp_listener.php`)
 
-| phpBB Core Event | Handler | Purpose |
+These events handle per-user preferences — each registered user can configure their own recent topics display settings (sort order, number of topics, etc.) in their User Control Panel.
+
+| phpBB Core Event | Handler method | What it does |
 |---|---|---|
-| `core.ucp_prefs_view_data` | `ucp_prefs_get_data()` | Retrieve user RT preferences |
-| `core.ucp_prefs_view_update_data` | `ucp_prefs_set_data()` | Save user RT preferences |
-| `core.ucp_register_data_after` | `ucp_register_set_data()` | Set default RT preferences on new registration |
+| `core.ucp_prefs_view_data` | `ucp_prefs_get_data()` | Loads the user's stored RT preferences and passes them to the UCP template |
+| `core.ucp_prefs_view_update_data` | `ucp_prefs_set_data()` | Saves the submitted UCP form values back to the user's database record |
+| `core.ucp_register_data_after` | `ucp_register_set_data()` | Sets default RT preferences for a brand-new user account at registration time |
 
-### 3.3 Template Events
+### 3.3 Template Events Used
 
-phpBB core template events included in the recent topics templates, allowing other extensions to inject content into topic rows.
+phpBB fires template events at fixed points inside its Twig templates. Recent Topics uses these in its own layout templates to give third-party extensions injection points in the topic rows.
 
-| Template Event | Fired in | Purpose |
+| Template Event | Where it fires | Purpose |
 |---|---|---|
-| `topiclist_row_prepend` | All 4 layout templates | Before topic title — used by extensions to prepend content |
-| `topiclist_row_append` | All 4 layout templates | After topic row — used by `vse/topicpreview` to inject preview tooltip |
-| `viewforum_body_topic_author_username_prepend` | topbottom, simple, page | Before topic author username |
-| `viewforum_body_topic_author_username_append` | topbottom, simple, page | After topic author username |
-| `viewforum_body_last_post_author_username_prepend` | All 4 layout templates | Before last post author username |
-| `viewforum_body_last_post_author_username_append` | All 4 layout templates | After last post author username |
-| `recenttopics_mchat_side` | `index_body_markforums_after.html` | Injection point for dmzx/mchat in side mode |
+| `topiclist_row_prepend` | All 4 layout templates | Before the topic title — allows an extension to prepend a badge, icon, or label |
+| `topiclist_row_append` | All 4 layout templates | After the topic row — used by `vse/topicpreview` to inject a preview tooltip |
+| `viewforum_body_topic_author_username_prepend` | topbottom, simple, page | Before the topic author's username |
+| `viewforum_body_topic_author_username_append` | topbottom, simple, page | After the topic author's username |
+| `viewforum_body_last_post_author_username_prepend` | All 4 layout templates | Before the last-post author's username |
+| `viewforum_body_last_post_author_username_append` | All 4 layout templates | After the last-post author's username |
+| `recenttopics_mchat_side` | `index_body_markforums_after.html` | Injection point for the mChat side-by-side layout |
 
-Layout templates: `recent_topics_body_topbottom.html`, `recent_topics_body_side.html`, `recent_topics_page.html`, `recent_topics_simple.html` (plus style-specific overrides for pbwow3 and we_clearblue).
+**Layout templates:** `recent_topics_body_topbottom.html`, `recent_topics_body_side.html`, `recent_topics_page.html`, `recent_topics_simple.html` (plus style-specific overrides for pbwow3 and we_clearblue).

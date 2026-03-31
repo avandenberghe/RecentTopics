@@ -60,44 +60,12 @@ if (!function_exists('get_forum_parents'))
 }
 
 // ---------------------------------------------------------------------------
-// A real (non-mock) event dispatcher that implements phpbb's interface.
-// Using a real dispatcher lets us register actual listener closures and
-// verify that the full trigger_event → dispatch → listener cycle works.
+// No custom dispatcher class needed. phpbb\event\dispatcher already:
+//   - implements dispatcher_interface (trigger_event, disable, enable)
+//   - handles Symfony version differences internally
+//   - exposes addListener() via the Symfony base class
+// We just instantiate it directly in each test.
 // ---------------------------------------------------------------------------
-class test_event_dispatcher extends \Symfony\Component\EventDispatcher\EventDispatcher
-	implements \phpbb\event\dispatcher_interface
-{
-	/** @var bool */
-	private $disabled = false;
-
-	/**
-	 * Mirrors phpbb\event\dispatcher::trigger_event().
-	 * Wraps $data in a phpbb\event\data object, dispatches it, and returns
-	 * the (possibly modified) data array filtered to the original keys.
-	 */
-	public function trigger_event($event_name, $data = [])
-	{
-		if ($this->disabled)
-		{
-			return $data;
-		}
-		$event = new \phpbb\event\data($data);
-		parent::dispatch($event, $event_name);
-		return $event->get_data_filtered(array_keys($data));
-	}
-
-	/** Temporarily disable event dispatching. */
-	public function disable(): void
-	{
-		$this->disabled = true;
-	}
-
-	/** Re-enable event dispatching. */
-	public function enable(): void
-	{
-		$this->disabled = false;
-	}
-}
 
 // ---------------------------------------------------------------------------
 // Test class
@@ -359,7 +327,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 */
 	public function test_sql_pull_topics_list_fires_with_sql_array()
 	{
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$fired      = false;
 		$received   = null;
 
@@ -381,7 +349,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 */
 	public function test_sql_pull_topics_list_modification_is_applied()
 	{
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_list', function (\phpbb\event\data $event) {
 			$sql              = $event['sql_array'];
 			$sql['LIMIT']     = 99;
@@ -403,7 +371,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 */
 	public function test_sql_pull_topics_data_fires_with_sql_array()
 	{
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$fired      = false;
 		$received   = null;
 
@@ -425,7 +393,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 */
 	public function test_sql_pull_topics_data_modification_is_applied()
 	{
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_data', function (\phpbb\event\data $event) {
 			$sql             = $event['sql_array'];
 			$sql['LIMIT']    = 77;
@@ -462,7 +430,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 */
 	public function test_legacy_sql_pull_topics_data_fires_after_new_event()
 	{
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$order      = [];
 
 		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_data', function () use (&$order) {
@@ -489,7 +457,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_modify_topics_list_fires_with_documented_variables()
 	{
 		[$db, $row] = $this->make_db_returning_one_topic();
-		$dispatcher  = new test_event_dispatcher();
+		$dispatcher  = new \phpbb\event\dispatcher();
 		$fired       = false;
 		$received    = null;
 
@@ -514,7 +482,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_legacy_modify_topics_list_fires_after_new_event()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$order      = [];
 
 		$dispatcher->addListener('avathar.recenttopicsav.modify_topics_list', function () use (&$order) {
@@ -541,7 +509,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_topictitle_remove_re_fires_with_row()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$fired      = false;
 		$received   = null;
 
@@ -559,31 +527,29 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	/**
-	 * A listener on topictitle_remove_re can modify row['topic_last_post_subject'].
+	 * A listener on topictitle_remove_re receives row data including topic_last_post_subject.
 	 *
 	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
 	 */
 	public function test_topictitle_remove_re_modification_is_applied()
 	{
-		[$db, $row] = $this->make_db_returning_one_topic();
-
-		// Override the DB to return a row with a "Re: " subject
-		$row['topic_last_post_subject'] = 'Re: Test reply';
-		$db->method('sql_query_limit')->willReturn('fake_result');
-
-		$dispatcher  = new test_event_dispatcher();
+		[$db] = $this->make_db_returning_one_topic();
+		$dispatcher       = new \phpbb\event\dispatcher();
 		$captured_subject = null;
 
-		// The built-in listener strips "Re: "; we register a second listener
-		// and capture what row looks like after the event.
 		$dispatcher->addListener('avathar.recenttopicsav.topictitle_remove_re', function (\phpbb\event\data $event) use (&$captured_subject) {
 			$captured_subject = $event['row']['topic_last_post_subject'];
 		});
 
-		// Verify the event receives the row data (modification testing for the
-		// built-in listener is covered by event/listener_test.php — here we
-		// only verify the event variable round-trips correctly).
-		$this->assertNotNull($captured_subject);
+		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
+		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
+
+		// The event was fired and the listener received the row with the subject field.
+		// Mutation testing (built-in listener stripping "Re: ") is covered by
+		// event/listener_test.php — here we verify the event data round-trips.
+		$this->assertNotNull($captured_subject,
+			'topictitle_remove_re listener must receive topic_last_post_subject in row');
+		$this->assertIsString($captured_subject);
 	}
 
 	// =======================================================================
@@ -596,7 +562,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_modify_topictitle_fires_with_row_and_prefix()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$fired      = false;
 		$received   = null;
 
@@ -623,7 +589,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_modify_topictitle_prefix_is_applied_to_template_var()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher  = new test_event_dispatcher();
+		$dispatcher  = new \phpbb\event\dispatcher();
 		$assigned    = [];
 
 		$dispatcher->addListener('avathar.recenttopicsav.modify_topictitle', function (\phpbb\event\data $event) {
@@ -688,7 +654,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_modify_tpl_ary_fires_with_row_and_tpl_ary()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$fired      = false;
 		$received   = null;
 
@@ -715,7 +681,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_modify_tpl_ary_contains_documented_template_variables()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$tpl_ary    = null;
 
 		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function (\phpbb\event\data $event) use (&$tpl_ary) {
@@ -747,7 +713,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_modify_tpl_ary_added_key_reaches_template()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$assigned   = [];
 
 		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function (\phpbb\event\data $event) {
@@ -809,7 +775,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_legacy_modify_tpl_ary_fires_after_new_event()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new test_event_dispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$order      = [];
 
 		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function () use (&$order) {
@@ -835,7 +801,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	public function test_legacy_modify_tpl_ary_sees_new_listener_modification()
 	{
 		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher    = new test_event_dispatcher();
+		$dispatcher    = new \phpbb\event\dispatcher();
 		$legacy_value  = null;
 
 		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function (\phpbb\event\data $event) {
