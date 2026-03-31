@@ -2,6 +2,7 @@ Recent Topics for phpBB 3.3
 ==========
 
 [![Tests](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml/badge.svg)](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml)
+[![Latest Stable Version](http://poser.pugx.org/phpbb/phpbb/v)](https://packagist.org/packages/phpbb/phpbb)
 
 Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
@@ -44,7 +45,7 @@ All integrations are optional soft dependencies — Recent Topics works without 
 - [Topic Preview](https://github.com/iMattPro/topicpreview) (vse/topicpreview) — hover preview tooltips on topic titles
 - [mChat](https://www.phpbb.com/customise/db/extension/mchat_extension/) (dmzx/mchat) — side-by-side display via template event
 
-For extension developers: custom PHP events, deprecated event aliases, and integration details are documented in [contrib/Events.md](contrib/events.md).
+For extension developers: custom PHP events, deprecated event aliases, and integration details are documented in [contrib/Events.md](contrib/Events.md).
 
 #### Languages
 English, German, French, Dutch, Spanish, Czech, Slovak, Russian, Portuguese, Arabic, Ukrainian, Swedish
