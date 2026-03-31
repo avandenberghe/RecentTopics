@@ -102,14 +102,6 @@
     margin-top: 0.5em;
 }
 
-/* Likes column */
-#recent-topics dd.likes,
-#recenttopicstop dd.likes,
-#recenttopicsbottom dd.likes {
-    width: 8%;
-    text-align: center;
-}
-
 /* Likes count (side view, inline) */
 #recent-topics .rt-likes {
     font-size: 0.85em;
