@@ -20,52 +20,54 @@
  */
 
 // ---------------------------------------------------------------------------
-// Global-function stubs — defined BEFORE the namespace declaration so they
-// land in the global namespace. fill_template() lives in the
-// avathar\recenttopicsav\core namespace and calls these as unqualified names;
-// PHP falls back to the global namespace for unqualified function calls, so
-// the stubs must be global, not namespaced.
+// Global-function stubs in the global namespace.
+// fill_template() lives in avathar\recenttopicsav\core and calls these as
+// unqualified names; PHP falls back to the global namespace, so the stubs
+// must be global. Bracketed namespace syntax is used so that both the global
+// block and the named test namespace can coexist in one file.
 // ---------------------------------------------------------------------------
-if (!function_exists('censor_text'))
+namespace
 {
-	function censor_text($text) { return $text; }
-}
-if (!function_exists('topic_status'))
-{
-	function topic_status($row, $replies, $unread_topic, &$folder_img, &$folder_alt, &$topic_type)
+	if (!function_exists('censor_text'))
 	{
-		$folder_img  = 'folder';
-		$folder_alt  = 'TOPIC_READ';
-		$topic_type  = '';
+		function censor_text($text) { return $text; }
 	}
-}
-if (!function_exists('append_sid'))
-{
-	function append_sid($url, $params = false, $is_amp = true, $session_id = false)
+	if (!function_exists('topic_status'))
 	{
-		return $url . ($params ? '?' . $params : '');
+		function topic_status($row, $replies, $unread_topic, &$folder_img, &$folder_alt, &$topic_type)
+		{
+			$folder_img  = 'folder';
+			$folder_alt  = 'TOPIC_READ';
+			$topic_type  = '';
+		}
 	}
-}
-if (!function_exists('get_username_string'))
-{
-	function get_username_string($mode, $user_id, $username, $user_colour = '', $custom_profile_url = false)
+	if (!function_exists('append_sid'))
 	{
-		return $username;
+		function append_sid($url, $params = false, $is_amp = true, $session_id = false)
+		{
+			return $url . ($params ? '?' . $params : '');
+		}
 	}
-}
-if (!function_exists('get_forum_parents'))
-{
-	function get_forum_parents($row) { return []; }
+	if (!function_exists('get_username_string'))
+	{
+		function get_username_string($mode, $user_id, $username, $user_colour = '', $custom_profile_url = false)
+		{
+			return $username;
+		}
+	}
+	if (!function_exists('get_forum_parents'))
+	{
+		function get_forum_parents($row) { return []; }
+	}
 }
 
-namespace avathar\recenttopicsav\tests\core;
+// ---------------------------------------------------------------------------
+// Test class — phpbb\event\dispatcher is used directly (implements
+// dispatcher_interface and handles Symfony version differences internally).
+// ---------------------------------------------------------------------------
+namespace avathar\recenttopicsav\tests\core
+{
 
-// ---------------------------------------------------------------------------
-// Test class
-// phpbb\event\dispatcher is used directly — it already implements
-// dispatcher_interface (trigger_event, disable, enable) and handles Symfony
-// version differences internally. No custom subclass needed.
-// ---------------------------------------------------------------------------
 class recenttopics_events_test extends \phpbb_test_case
 {
 	// -----------------------------------------------------------------------
@@ -816,3 +818,5 @@ class recenttopics_events_test extends \phpbb_test_case
 			'Legacy alias paybas.recenttopics.modify_tpl_ary must see modifications from the new event listener');
 	}
 }
+
+} // namespace avathar\recenttopicsav\tests\core
