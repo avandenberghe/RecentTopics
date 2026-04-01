@@ -1,10 +1,20 @@
 {
-	"stable": {
-		"2.0": {
-			"current": "2.0.5",
-			"announcement": "https://github.com/PayBas/RecentTopics/releases/tag/v2.0.5",
-			"eol": null,
-			"security": false
-		}
-	}
+  "unstable":{
+      "3.3":{
+         "current":"3.0.5",
+         "download":"https://www.avathar.be/forum/app.php/dlext/details?df_id=35",
+         "announcement":"https://www.avathar.be/forum/viewtopic.php?t=4608",
+         "eol":"",
+         "security":false
+      }
+   },    
+   "stable":{
+     "3.3":{
+         "current":"3.0.5",
+         "download":"https://www.avathar.be/forum/app.php/dlext/details?df_id=35",
+         "announcement":"https://www.avathar.be/forum/viewtopic.php?t=4608",
+         "eol":null,
+         "security":false
+      }
+   }
 }
