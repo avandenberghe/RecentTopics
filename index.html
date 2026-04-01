@@ -1,0 +1,128 @@
+---
+title: Recent Topics for phpBB
+description: Extension for phpBB 3.3 to display recent topics on the index page.
+---
+
+<p>
+  <a href="https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml"><img src="https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/avatharbe/RecentTopics/releases/latest"><img src="https://img.shields.io/github/v/release/avatharbe/RecentTopics" alt="Latest Release"></a>
+</p>
+
+<p>Extension for phpBB to display recent topics on the index page. Originally based on NV Recent Topics by <a href="https://github.com/nickvergessen">nickvergessen</a>, later maintained by PayBas. Now maintained by <a href="https://www.avathar.be">avathar</a>.</p>
+
+<p><img src="https://raw.githubusercontent.com/avatharbe/RecentTopics/develop33/contrib/screenshot.png" alt="Recent Topics screenshot" style="max-width:100%"></p>
+
+<h2>Requirements</h2>
+<ul>
+  <li>phpBB 3.3.0 or higher</li>
+  <li>PHP 8.1 or higher</li>
+</ul>
+
+<h2>Features</h2>
+<ul>
+  <li>Recent (or unread) topics list on the index page</li>
+  <li>Standalone pages at <code>/app.php/rt</code> (full) and <code>/app.php/rt/simple</code> (for iframe embedding)</li>
+  <li>Three display locations: Top, Bottom or Side</li>
+  <li>User-overridable preferences via UCP (location, count, sort order, unread only)</li>
+  <li>Six granular user permissions</li>
+  <li>New users inherit ACP defaults on registration</li>
+  <li>Filters "Re:" from reply subjects</li>
+  <li>Custom PHP events for extension developers</li>
+</ul>
+
+<h2>ACP Options</h2>
+<ul>
+  <li>Enable/disable on index page</li>
+  <li>Per-forum include/exclude (in ACP Forum Management)</li>
+  <li>Pagination: page limit, show all pages toggle</li>
+  <li>Minimum topic type level (normal/sticky/announcement/global)</li>
+  <li>Exclude topics by ID</li>
+  <li>Display parent forum names</li>
+  <li>Topic title link target (first post, last post, or first unread)</li>
+  <li>Optional advertisement/HTML block in sidebar</li>
+  <li>Show/hide date in side view</li>
+  <li>Show/hide postlove like counts (hidden when postlove is not installed)</li>
+  <li>Reset all user preferences to defaults</li>
+  <li>Built-in version checker</li>
+</ul>
+
+<h2>Extension Integrations</h2>
+<p>All integrations are optional soft dependencies — Recent Topics works without any of them.</p>
+<ul>
+  <li><a href="https://github.com/avatharbe/postlove">Post Love</a> (avathar/postlove) — like counts per topic (column in top/bottom view, inline hearts in side view)</li>
+  <li><a href="https://www.phpbb.com/customise/db/extension/collapsible_forum_categories/">Collapsible Categories</a> (phpbb/collapsiblecategories) — collapse/expand the Recent Topics block</li>
+  <li><a href="https://www.phpbb.com/customise/db/extension/topicprefixes/">Topic Prefixes</a> (phpbb/topicprefixes) — topic prefixes in the listing</li>
+  <li><a href="https://github.com/iMattPro/topicpreview">Topic Preview</a> (vse/topicpreview) — hover preview tooltips on topic titles</li>
+  <li><a href="https://www.phpbb.com/customise/db/extension/mchat_extension/">mChat</a> (dmzx/mchat) — side-by-side display via template event</li>
+</ul>
+<p>For extension developers: custom PHP events, deprecated event aliases, and integration details are documented in <a href="https://github.com/avatharbe/RecentTopics/blob/develop33/contrib/Events.md">contrib/Events.md</a>.</p>
+
+<h2>Languages</h2>
+<p>English, German, French, Dutch, Spanish, Czech, Slovak, Russian, Portuguese, Arabic, Ukrainian, Swedish</p>
+
+<h2>Installation</h2>
+<ol>
+  <li>Disable, delete data and remove the extension <code>paybas/recenttopics</code> if previously installed.</li>
+  <li><a href="https://www.avathar.be/forum/app.php/dlext/details?df_id=35">Download the latest release</a> and unzip it.</li>
+  <li>Copy the contents to <code>/ext/avathar/recenttopicsav/</code> (so that <code>ext.php</code> is at <code>/ext/avathar/recenttopicsav/ext.php</code>).</li>
+  <li>Navigate in the ACP to <strong>Customise → Manage extensions</strong>.</li>
+  <li>Find <strong>Recent Topics</strong> under "Disabled Extensions" and click <strong>Enable</strong>.</li>
+</ol>
+
+<h2>Uninstallation</h2>
+<ol>
+  <li>Navigate in the ACP to <strong>Customise → Manage extensions</strong>.</li>
+  <li>Click the <strong>Disable</strong> link for Recent Topics.</li>
+  <li>To permanently uninstall, click <strong>Delete Data</strong>, then delete the <code>recenttopicsav</code> folder from <code>/ext/avathar/</code>.</li>
+</ol>
+
+<h2>Support</h2>
+<ul>
+  <li><a href="https://www.avathar.be/forum/viewforum.php?f=16">Support forum</a></li>
+  <li><a href="https://github.com/avatharbe/RecentTopics/issues">GitHub Issues</a></li>
+</ul>
+
+<h2>Changelog</h2>
+
+<h3>3.0.5 (30/03/2026)</h3>
+<ul>
+  <li>[NEW] Fire deprecated <code>paybas.recenttopics.*</code> event aliases for backward compatibility with third-party extensions</li>
+  <li>[CHG] Replaced direct posts_likes table query with avathar/postlove service DI</li>
+  <li>[CHG] Enforced PHP 8.1 and phpBB 3.3 minimum requirements with clear error messages</li>
+  <li>[NEW] Added event contract tests for all 6 public events and 3 deprecated aliases</li>
+  <li>[NEW] Replaced smoke-only functional tests with meaningful assertions</li>
+</ul>
+
+<h3>3.0.4 (28/03/2026)</h3>
+<ul>
+  <li>[NEW] Added optional advertisement block on index page</li>
+  <li>[NEW] Added postlove like counts in topic listing</li>
+  <li>[NEW] Added ACP toggles for side view date and postlove like counts display</li>
+  <li>[NEW] Added unit tests, controller tests, and functional tests with GitHub Actions CI</li>
+  <li>[FIX] Fixed phpcs code style violations and file permissions</li>
+</ul>
+
+<h3>3.0.3 (02/03/2026)</h3>
+<ul>
+  <li>[FIX] PHP 8.4 compatibility: explicit nullable types for optional constructor parameters</li>
+</ul>
+
+<h3>3.0.1 (26/02/2026)</h3>
+<ul>
+  <li>[FIX] Fixed French language files causing PHP parse error and 500 Internal Server Error</li>
+</ul>
+
+<h3>3.0.0 (22/02/2026)</h3>
+<ul>
+  <li>First stable release as avathar/recenttopicsav, forked from paybas/recenttopics</li>
+  <li>Minimum phpBB 3.3.0 and PHP 8.1</li>
+  <li>Full standalone page support at <code>/app.php/rt</code> and <code>/app.php/rt/simple</code></li>
+  <li>Added Slovak and Swedish translations</li>
+  <li>Fixed user registration not applying ACP default preferences</li>
+</ul>
+
+<p><a href="https://github.com/avatharbe/RecentTopics/blob/develop33/contrib/CHANGELOG.md">Full changelog</a></p>
+
+<h2>License</h2>
+<p><a href="http://opensource.org/licenses/GPL-2.0">GNU General Public License v2</a></p>
+<p>Originally by PayBas and nickvergessen. Maintained by Andy Vandenberghe (Sajaki).</p>
