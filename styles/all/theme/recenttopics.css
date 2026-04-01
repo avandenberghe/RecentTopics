@@ -108,12 +108,6 @@
     white-space: nowrap;
 }
 
-/* Prevent postlove .liked (position:relative) from stacking over the topic title link
-   in themes where a.topictitle is display:inline (e.g. pbwow3) */
-#recent-topics .postlove-topic-count .liked {
-    position: static;
-}
-
 /* Advertisement block */
 .misc-block.advertisement {
     margin: 10px auto;
