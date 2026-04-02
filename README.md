@@ -69,6 +69,9 @@ prosilver, pbTech, pbWow3, WE Clearblue
 - [Support forum](https://www.avathar.be/forum/viewforum.php?f=16)
 
 #### License
+[![License](https://img.shields.io/github/license/avatharbe/RecentTopics)](https://github.com/avatharbe/RecentTopics/blob/main/license.txt)                                                     
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
+
+  
 
 Originally by PayBas and nickvergessen. Maintained by Andy Vandenberghe (Sajaki).
