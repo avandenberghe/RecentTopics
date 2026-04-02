@@ -1,5 +1,8 @@
 ### Changelog
 
+- 3.0.6 (02/04/2026)
+  - [NEW] Added `avathar.recenttopicsav.modify_ads_code` event, allowing third-party extensions to provide advertisement block content (#175)
+
 - 3.0.5 (30/03/2026)
   - [NEW] Fire deprecated `paybas.recenttopics.*` event aliases for backward compatibility with third-party extensions (#169)
   - [CHG] Replaced direct posts_likes table query with avathar/postlove service DI (#170) — uses `@?avathar.postlove.topic_likes` optional dependency instead of raw SQL and config key detection
