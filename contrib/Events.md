@@ -125,6 +125,20 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
+### 1.7 `avathar.recenttopicsav.modify_ads_code`
+
+**What this event is for:** Fires just before the advertisement block HTML is assigned to the `ADS_INDEX_CODE` template variable. Recent Topics pre-populates `ads_index_code` from its own ACP setting (`rt_ads_enable` / `rt_ads_code`). A listener can read and replace this value to inject ad content from another source — for example, a style extension that manages its own ad configuration.
+
+**Example use case:** The `paybas/pbwowext` style extension stores its own ad HTML in its ACP. It listens here and writes its content into `ads_index_code`, becoming the ad content provider for pbWoW3 users without needing to assign `ADS_INDEX_CODE` directly from a different event.
+
+- **Placement:** `core\recenttopics::display_recent_topics()`, after the RT ad config is read, before `assign_vars()`
+- **Since:** 3.0.6
+- **Arguments:**
+  - `ads_index_code` (string|false) — The ad HTML to render, pre-set from RT's own config or `false` if RT ads are disabled. Override this to provide content from another source.
+- **Known listeners:** `paybas/pbwowext`
+
+---
+
 ### Deprecated event aliases (removed in 3.1)
 
 When this extension was forked from `paybas/recenttopics`, the event names changed from `paybas.recenttopics.*` to `avathar.recenttopicsav.*`. To avoid breaking every extension in the ecosystem overnight, the old names were kept firing alongside the new ones. This means an extension that listens to `paybas.recenttopics.modify_tpl_ary` still works — it just receives the event under the old name.
@@ -184,7 +198,16 @@ The `phpbb/collapsiblecategories` extension adds a toggle button to category hea
 
 ---
 
-### 2.3 `vse/topicpreview` — Topic hover previews
+### 2.3 `paybas/pbwowext` — Advertisement block content for pbWoW3
+
+The pbWoW Extension manages an ACP-configurable advertisement block for pbWoW3 style users. Rather than assigning `ADS_INDEX_CODE` directly from a separate event, it acts as a content provider via the `avathar.recenttopicsav.modify_ads_code` event.
+
+- **How it works:** pbwowext listens to `avathar.recenttopicsav.modify_ads_code` and, if its own ad is enabled, writes its configured HTML into `ads_index_code`. Recent Topics then assigns that value to `ADS_INDEX_CODE` and renders the block. When pbwowext is not installed, Recent Topics falls back to its own `rt_ads_code` config.
+- **Coupling:** Event-only — no DI dependency in either direction
+
+---
+
+### 2.4 `vse/topicpreview` — Topic hover previews
 
 This extension shows a preview tooltip when the user hovers over a topic title. It integrates via the **deprecated event aliases** described in section 1, not via DI services.
 

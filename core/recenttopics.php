@@ -388,6 +388,9 @@ class recenttopics
 			}
 		}
 
+		$vars = ['ads_index_code'];
+		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_ads_code', compact($vars)));
+
 		$this->template->assign_vars(
 			array(
 				'RT_SORT_START_TIME'                   => $this->sort_topics === 'topic_time',
