@@ -388,6 +388,13 @@ class recenttopics
 			}
 		}
 
+		/**
+		 * Event to modify the advertisement code before it is assigned to the template
+		 *
+		 * @event avathar.recenttopicsav.modify_ads_code
+		 * @var   string|false    ads_index_code    The advertisement HTML to render, or false if disabled
+		 * @since 3.0.6
+		 */
 		$vars = ['ads_index_code'];
 		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_ads_code', compact($vars)));
 
