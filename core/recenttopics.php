@@ -867,6 +867,7 @@ class recenttopics
 					'S_POST_GLOBAL'       => $row['topic_type'] == POST_GLOBAL,
 					'S_POST_STICKY'       => $row['topic_type'] == POST_STICKY,
 					'S_TOPIC_LOCKED'      => $row['topic_status'] == ITEM_LOCKED,
+					'S_USER_POSTED'       => (isset($row['topic_posted']) && $row['topic_posted']) ? true : false,
 					'S_TOPIC_MOVED'       => $row['topic_status'] == ITEM_MOVED,
 					'S_TOPIC_TYPE_SWITCH' => ($s_type_switch == $s_type_switch_test) ? -1 : $s_type_switch_test,
 					'U_NEWEST_POST' => $view_topic_url . '&amp;view=unread#unread',
