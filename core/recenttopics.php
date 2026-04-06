@@ -315,7 +315,7 @@ class recenttopics
 			unset($count_sql_array['ORDER_BY']);
 			$sql = $this->db->sql_build_query('SELECT', $count_sql_array);
 			$result = $this->db->sql_query($sql);
-			$this->total_topics_limit = (int) $this->db->sql_fetchfield('topic_count', $result);
+			$this->total_topics_limit = (int) $this->db->sql_fetchfield('topic_count');
 			$this->db->sql_freeresult($result);
 
 		}
