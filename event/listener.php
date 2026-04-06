@@ -93,7 +93,7 @@ class listener implements EventSubscriberInterface
 	 */
 	public function viewonline_overwrite_location($event)
 	{
-		if ($event['on_page'][1] === 'app')
+		if (isset($event['on_page'][1]) && $event['on_page'][1] === 'app')
 		{
 			if (strpos($event['row']['session_page'], 'app.php/rt/simple') !== false)
 			{
