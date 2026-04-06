@@ -1,5 +1,10 @@
 ### Changelog
 
+- 3.0.7 (06/04/2026)
+  - [FIX] Fixed PHP 8 TypeError in sql_fetchfield() when "show all pages" pagination is enabled (#148)
+  - [FIX] Fixed "Undefined array key 1" warning in viewonline listener (#176)
+  - [FIX] Added missing S_USER_POSTED template variable so "posted in" star icon shows in topic listing (#133)
+
 - 3.0.6 (02/04/2026)
   - [NEW] Added `avathar.recenttopicsav.modify_ads_code` event, allowing third-party extensions to provide advertisement block content (#175)
 
