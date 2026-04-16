@@ -21,6 +21,18 @@
 		</dd>
 	</dl>
 	{% endif %}
+	{% if A_RT_VF_LOCATION %}
+	<dl>
+		<dt><label for="rt_viewforum_location">{{ lang('RT_VIEWFORUM_LOCATION') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_VIEWFORUM_LOCATION_EXP') }}</span></dt>
+		<dd>
+			<select name="rt_viewforum_location" class="input" id="rt_viewforum_location">
+				{% for vf_location_row in loops.vf_location_row %}
+				<option value="{{ vf_location_row.VALUE }}"{{ vf_location_row.SELECTED }}>{{ vf_location_row.OPTION }}</option>
+				{% endfor %}
+			</select>
+		</dd>
+	</dl>
+	{% endif %}
 	{% if A_RT_NUMBER %}
 	<dl>
 		<dt><label for="rt_number">{{ lang('RT_NUMBER') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_NUMBER_EXP') }}</span></dt>

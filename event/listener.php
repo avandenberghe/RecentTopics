@@ -66,6 +66,7 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.index_modify_page_title'           => 'display_rt',
+			'core.viewforum_generate_page_after'     => 'display_rt_viewforum',
 			'core.viewonline_overwrite_location'     => 'viewonline_overwrite_location',
 			'core.acp_manage_forums_request_data'    => 'acp_manage_forums_request_data',
 			'core.acp_manage_forums_initialise_data' => 'acp_manage_forums_initialise_data',
@@ -83,6 +84,17 @@ class listener implements EventSubscriberInterface
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
 		{
 			$this->rt_functions->display_recent_topics();
+		}
+	}
+
+	/**
+	 * Display recent topics on viewforum page
+	 */
+	public function display_rt_viewforum()
+	{
+		if (isset($this->config['rt_viewforum']) && $this->config['rt_viewforum'])
+		{
+			$this->rt_functions->display_recent_topics('recent_topics', 'viewforum');
 		}
 	}
 

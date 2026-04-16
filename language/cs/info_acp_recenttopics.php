@@ -29,6 +29,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Globální nastavení',
 	'RT_DISPLAY_INDEX'              => 'Zobrazovat na úvodní stránce?',
+	'RT_DISPLAY_VIEWFORUM'          => 'Zobrazovat na stránce fóra',
+	'RT_VIEWFORUM_LOCATION'         => 'Umístění na stránce fóra',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Vyberte, kde se mají zobrazovat nedávná témata na stránce fóra. Toto nastavení je nezávislé na úvodní stránce.',
 	'RT_NUMBER'                     => 'Nedávná témata',
 	'RT_NUMBER_EXP'                 => 'Počet nedávných témat k zobrazení.',
 	'RT_PAGE_NUMBER'                => 'Počet stránek nedávných témat',

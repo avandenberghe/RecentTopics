@@ -33,6 +33,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Globala inställningar',
 	'RT_DISPLAY_INDEX'              => 'Visa på indexsidan',
+	'RT_DISPLAY_VIEWFORUM'          => 'Visa på forumsidan',
+	'RT_VIEWFORUM_LOCATION'         => 'Visningsplats på forumsidan',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Välj var senaste trådar ska visas på forumsidan. Denna inställning är oberoende av indexsidan.',
 	'RT_NUMBER'                     => 'Antal senaste trådar att visa',
 	'RT_NUMBER_EXP'                 => 'Maximalt antal trådar att visa per sida.',
 	'RT_PAGE_NUMBER'                => 'Visa alla sidor med senaste trådar',

@@ -7,7 +7,7 @@ Recent Topics for phpBB 3.3
 Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
 
-**Version:** 3.0.7 (06/04/2026)
+**Version:** 3.0.8 (15/04/2026)
   [![Latest Stable Version](https://img.shields.io/github/v/release/avatharbe/RecentTopics)](https://github.com/avatharbe/RecentTopics/releases)   
   
 #### Requirements
@@ -15,7 +15,7 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 - PHP 8.1 or higher
 
 #### Features
-- Recent (or unread) topics list on the index page
+- Recent (or unread) topics list on the index page and viewforum page
 - Standalone pages at `/app.php/rt` (full) and `/app.php/rt/simple` (for iframe embedding)
 - Three display locations: Top, Bottom or Side
 - User-overridable preferences via UCP (enable/disable, location, count, sort order, unread only)
@@ -25,7 +25,7 @@ Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://
 - Custom PHP events for extension developers
 
 #### ACP Options
-- Enable/disable on index page
+- Enable/disable on index page and viewforum page (independent settings)
 - Per-forum include/exclude (in ACP Forum Management)
 - Pagination: page limit, show all pages toggle
 - Minimum topic type level (normal/sticky/announcement/global)

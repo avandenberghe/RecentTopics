@@ -1,12 +1,12 @@
-{% if S_LOCATION_BOTTOM || S_LOCATION_TOP %}
+{% if S_LOCATION_BOTTOM || S_LOCATION_TOP || S_VF_LOCATION_BOTTOM || S_VF_LOCATION_TOP %}
 
 <!--suppress ProblematicWhitespace -->
 <a id="recent-topics"></a>
 
-{% if loops.pagination|length and (S_LOCATION_TOP) %}
+{% if loops.rt_pagination|length and (S_LOCATION_TOP or S_VF_LOCATION_TOP) %}
 <div class="action-bar">
 	<div class="pagination">
-		{% INCLUDE 'pagination.html' %}
+		{% INCLUDE '@avathar_recenttopicsav/rt_pagination.html' %}
 	</div>
 </div>
 {% endif %}
@@ -124,12 +124,22 @@
 </div>
 {% endfor %}
 
-{% if loops.pagination|length and (S_LOCATION_BOTTOM) %}
+{% if loops.rt_pagination|length and (S_LOCATION_BOTTOM or S_VF_LOCATION_BOTTOM) %}
 <div class="action-bar">
 	<div class="pagination">
-		{% INCLUDE 'pagination.html' %}
+		{% INCLUDE '@avathar_recenttopicsav/rt_pagination.html' %}
 	</div>
 </div>
 {% endif %}
 
 {% endif %}
+<script>
+(function() {
+    var containers = document.querySelectorAll('#recenttopicsbottom .pagination a, #recenttopicstop .pagination a');
+    for (var i = 0; i < containers.length; i++) {
+        if (containers[i].href && containers[i].href.indexOf('#') === -1) {
+            containers[i].href += '#recent-topics';
+        }
+    }
+})();
+</script>

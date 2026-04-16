@@ -32,6 +32,9 @@ $lang = array_merge(
 	//configurações globais
 	'RT_GLOBAL_SETTINGS'            => 'Configurações globais',
 	'RT_DISPLAY_INDEX'              => 'Exibir na página de índice',
+	'RT_DISPLAY_VIEWFORUM'          => 'Exibir na página do fórum',
+	'RT_VIEWFORUM_LOCATION'         => 'Local de exibição no fórum',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Selecione onde exibir os tópicos recentes na página do fórum. Esta configuração é independente da página de índice.',
 	'RT_NUMBER'                     => 'Número de tópicos recentes para mostrar',
 	'RT_NUMBER_EXP'                 => 'Número máximo de tópicos a serem exibidos por página.',
 	'RT_PAGE_NUMBER'                => 'Mostrar todas as páginas de tópicos recentes',
