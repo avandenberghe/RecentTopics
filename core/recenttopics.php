@@ -241,8 +241,9 @@ class recenttopics
 
 	/**
 	 * @param string $tpl_loopname
+	 * @param string $context 'index' or 'viewforum'
 	 */
-	public function display_recent_topics($tpl_loopname = 'recent_topics')
+	public function display_recent_topics($tpl_loopname = 'recent_topics', $context = 'index')
 	{
 		if (!function_exists('topic_status'))
 		{
@@ -275,11 +276,21 @@ class recenttopics
 		$this->display_parent_forums = $this->config['rt_parents'];
 
 		//rt block location
-		$this->location = $this->config['rt_location'];
-		// if user can set location and it is set then use the preference
-		if ($this->auth->acl_get('u_rt_location') && isset($this->user->data['user_rt_location']))
+		if ($context === 'viewforum')
 		{
-			$this->location = $this->user->data['user_rt_location'];
+			$this->location = $this->config['rt_viewforum_location'];
+			if ($this->auth->acl_get('u_rt_location') && isset($this->user->data['user_rt_viewforum_location']))
+			{
+				$this->location = $this->user->data['user_rt_viewforum_location'];
+			}
+		}
+		else
+		{
+			$this->location = $this->config['rt_location'];
+			if ($this->auth->acl_get('u_rt_location') && isset($this->user->data['user_rt_location']))
+			{
+				$this->location = $this->user->data['user_rt_location'];
+			}
 		}
 
 		$this->unread_only = $this->config['rt_unread_only'];
@@ -398,22 +409,28 @@ class recenttopics
 		$vars = ['ads_index_code'];
 		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_ads_code', compact($vars)));
 
-		$this->template->assign_vars(
-			array(
-				'RT_SORT_START_TIME'                   => $this->sort_topics === 'topic_time',
-				'S_RECENT_TOPICS'                      => true,
-				'S_LOCATION_TOP'                       => $this->location == 'RT_TOP',
-				'S_LOCATION_BOTTOM'                    => $this->location == 'RT_BOTTOM',
-				'S_LOCATION_SIDE'                      => $this->location == 'RT_SIDE',
-				'S_RT_SIDE_SHOW_DATE'                  => !empty($this->config['rt_side_show_date']),
-				'NEWEST_POST_IMG'                      => $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
-				'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
-				'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
-				'ADS_INDEX_CODE'                       => $ads_index_code,
-				'S_POSTLOVE'                           => $this->topic_likes_service !== null,
-				strtoupper($tpl_loopname) . '_DISPLAY' => true,
-			)
+		$location_prefix = ($context === 'viewforum') ? 'S_VF_LOCATION_' : 'S_LOCATION_';
+
+		$tpl_vars = array(
+			'RT_SORT_START_TIME'                   => $this->sort_topics === 'topic_time',
+			'S_RECENT_TOPICS'                      => true,
+			$location_prefix . 'TOP'               => $this->location == 'RT_TOP',
+			$location_prefix . 'BOTTOM'            => $this->location == 'RT_BOTTOM',
+			'S_RT_SIDE_SHOW_DATE'                  => !empty($this->config['rt_side_show_date']),
+			'NEWEST_POST_IMG'                      => $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
+			'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
+			'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
+			'ADS_INDEX_CODE'                       => $ads_index_code,
+			'S_POSTLOVE'                           => $this->topic_likes_service !== null,
+			strtoupper($tpl_loopname) . '_DISPLAY' => true,
 		);
+
+		if ($context !== 'viewforum')
+		{
+			$tpl_vars['S_LOCATION_SIDE'] = $this->location == 'RT_SIDE';
+		}
+
+		$this->template->assign_vars($tpl_vars);
 
 		$this->fill_template($tpl_loopname, $topic_tracking_info, $topics_count);
 	}
@@ -943,7 +960,7 @@ class recenttopics
 				}
 			}
 			$pagination_url = append_sid($this->root_path . $this->user->page['page_name'], $append_params);
-			$this->pagination->generate_template_pagination($pagination_url, 'pagination',
+			$this->pagination->generate_template_pagination($pagination_url, 'rt_pagination',
 				$tpl_loopname . '_start', $topics_count, $this->topics_per_page, max(0, min((int) $this->rtstart, $this->total_topics_limit)));
 			$this->template->assign_vars(
 				array (

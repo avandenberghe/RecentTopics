@@ -32,6 +32,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Global Settings',
 	'RT_DISPLAY_INDEX'              => 'Display on Index page',
+	'RT_DISPLAY_VIEWFORUM'          => 'Display on Viewforum page',
+	'RT_VIEWFORUM_LOCATION'         => 'Viewforum display location',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Select where to display recent topics on the viewforum page. This setting is independent from the index page location.',
 	'RT_NUMBER'                     => 'Number of recent topics to show',
 	'RT_NUMBER_EXP'                 => 'Maximum number of topics to display per page.',
 	'RT_PAGE_NUMBER'                => 'Show all recent topic pages',

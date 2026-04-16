@@ -84,10 +84,10 @@
 
 	</div>
 </div>
-{% if loops.pagination|length %}
+{% if loops.rt_pagination|length %}
 <div class="action-bar">
 	<div class="pagination">
-		{% INCLUDE 'pagination.html' %}
+		{% INCLUDE '@avathar_recenttopicsav/rt_pagination.html' %}
 	</div>
 </div>
 {% endif %}

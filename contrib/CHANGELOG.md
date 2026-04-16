@@ -1,5 +1,8 @@
 ### Changelog
 
+- 3.0.8 (15/04/2026)
+  - [NEW] Added optional recent topics display on viewforum pages (#178) — independent enable/disable and placement (top/bottom) from index page, with per-user UCP override
+
 - 3.0.7 (06/04/2026)
   - [FIX] Fixed PHP 8 TypeError in sql_fetchfield() when "show all pages" pagination is enabled (#148)
   - [FIX] Fixed "Undefined array key 1" warning in viewonline listener (#176)

@@ -32,6 +32,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Globálne nastavenia',
 	'RT_DISPLAY_INDEX'              => 'Zobraziť na úvodnej stránke',
+	'RT_DISPLAY_VIEWFORUM'          => 'Zobraziť na stránke fóra',
+	'RT_VIEWFORUM_LOCATION'         => 'Umiestnenie na stránke fóra',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Vyberte, kde sa majú zobrazovať najnovšie témy na stránke fóra. Toto nastavenie je nezávislé od úvodnej stránky.',
 	'RT_NUMBER'                     => 'Počet najnovších tém na zobrazenie',
 	'RT_NUMBER_EXP'                 => 'Maximálny počet tém na zobrazenie na stránku.',
 	'RT_PAGE_NUMBER'                => 'Zobraziť všetky stránky najnovších tém',

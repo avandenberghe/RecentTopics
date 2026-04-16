@@ -32,6 +32,9 @@ $lang = array_merge(
 	//ajustes globales
 	'RT_GLOBAL_SETTINGS'            => 'Opciones globales',
 	'RT_DISPLAY_INDEX'              => 'Mostrar en el índice',
+	'RT_DISPLAY_VIEWFORUM'          => 'Mostrar en la página del foro',
+	'RT_VIEWFORUM_LOCATION'         => 'Ubicación en vista del foro',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Seleccione dónde mostrar los temas recientes en la página del foro. Esta configuración es independiente de la página del índice.',
 	'RT_NUMBER'                     => 'Temas Recientes',
 	'RT_NUMBER_EXP'                 => 'Número de temas a mostrar.',
 	'RT_PAGE_NUMBER'                => 'Páginas de temas recientes',

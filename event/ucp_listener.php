@@ -108,6 +108,7 @@ class ucp_listener implements EventSubscriberInterface
 			$event['data'], array(
 			'rt_enable'          => $this->request->variable('rt_enable', (int) $this->user->data['user_rt_enable']),
 			'rt_location'        => $this->request->variable('rt_location', $this->user->data['user_rt_location']),
+			'rt_viewforum_location' => $this->request->variable('rt_viewforum_location', $this->user->data['user_rt_viewforum_location']),
 			'rt_number'          => $this->request->variable('rt_number', (int) $this->user->data['user_rt_number']),
 			'rt_sort_start_time' => $this->request->variable('rt_sort_start_time', (int) $this->user->data['user_rt_sort_start_time']),
 			'rt_unread_only'     => $this->request->variable('rt_unread_only', (int) $this->user->data['user_rt_unread_only']),
@@ -161,6 +162,31 @@ class ucp_listener implements EventSubscriberInterface
 						)
 					);
 				}
+
+				// Viewforum location (top/bottom only)
+				if ($this->config['rt_viewforum'])
+				{
+					$template_vars += array(
+						'A_RT_VF_LOCATION' => true,
+					);
+
+					$vf_display_types = array (
+						'RT_TOP'    => $this->language->lang('RT_TOP'),
+						'RT_BOTTOM' => $this->language->lang('RT_BOTTOM'),
+					);
+
+					foreach ($vf_display_types as $key => $display_type)
+					{
+						$this->template->assign_block_vars(
+							'vf_location_row',
+							array(
+								'VALUE'    => $key,
+								'SELECTED' => ($event['data']['rt_viewforum_location'] == $key) ? ' selected="selected"' : '',
+								'OPTION'   => $display_type,
+							)
+						);
+					}
+				}
 			}
 
 			if ($this->auth->acl_get('u_rt_number'))
@@ -198,11 +224,12 @@ class ucp_listener implements EventSubscriberInterface
 	{
 		$event['sql_ary'] = array_merge(
 			$event['sql_ary'], array(
-			'user_rt_enable'          => $event['data']['rt_enable'],
-			'user_rt_location'        => $event['data']['rt_location'],
-			'user_rt_number'          => $event['data']['rt_number'],
-			'user_rt_sort_start_time' => $event['data']['rt_sort_start_time'],
-			'user_rt_unread_only'     => $event['data']['rt_unread_only'],
+			'user_rt_enable'              => $event['data']['rt_enable'],
+			'user_rt_location'            => $event['data']['rt_location'],
+			'user_rt_viewforum_location'  => $event['data']['rt_viewforum_location'],
+			'user_rt_number'              => $event['data']['rt_number'],
+			'user_rt_sort_start_time'     => $event['data']['rt_sort_start_time'],
+			'user_rt_unread_only'         => $event['data']['rt_unread_only'],
 			)
 		);
 	}
@@ -215,11 +242,12 @@ class ucp_listener implements EventSubscriberInterface
 	{
 
 		$sql_ary = array(
-			'user_rt_enable'      => (int) $this->config['rt_index'],
-			'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'] ,
-			'user_rt_unread_only'      => (int) $this->config['rt_unread_only'],
-			'user_rt_location'      => $this->config['rt_location'],
-			'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
+			'user_rt_enable'              => (int) $this->config['rt_index'],
+			'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'],
+			'user_rt_unread_only'         => (int) $this->config['rt_unread_only'],
+			'user_rt_location'            => $this->config['rt_location'],
+			'user_rt_viewforum_location'  => $this->config['rt_viewforum_location'],
+			'user_rt_number'              => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5)
 		);
 
 		$sql = 'UPDATE ' . USERS_TABLE . '

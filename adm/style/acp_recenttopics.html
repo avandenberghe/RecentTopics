@@ -9,7 +9,20 @@
 			<dt><label for="rt_enable">{{ lang('INDEX') }}</label><br /><span>{{ lang('RT_DISPLAY_INDEX') }}</span></dt>
 			<dd><input type="checkbox" name="rt_enable" id="rt_enable" value="1"{% if RT_INDEX %} checked="checked"{% endif %} /></dd>
 		</dl>
-
+		<dl>
+			<dt><label for="rt_viewforum">{{ lang('FORUM') }}</label><br /><span>{{ lang('RT_DISPLAY_VIEWFORUM') }}</span></dt>
+			<dd><input type="checkbox" name="rt_viewforum" id="rt_viewforum" value="1"{% if RT_VIEWFORUM %} checked="checked"{% endif %} /></dd>
+		</dl>
+		<dl>
+			<dt><label for="rt_viewforum_location">{{ lang('RT_VIEWFORUM_LOCATION') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_VIEWFORUM_LOCATION_EXP') }}</span></dt>
+			<dd>
+				<select name="rt_viewforum_location" class="input" id="rt_viewforum_location">
+					{% for vf_location_row in loops.vf_location_row %}
+					<option value="{{ vf_location_row.VALUE }}"{{ vf_location_row.SELECTED }}>{{ vf_location_row.OPTION }}</option>
+					{% endfor %}
+				</select>
+			</dd>
+		</dl>
 
 		<dl>
 			<dt><label for="rt_page_numbermax">{{ lang('RT_PAGE_NUMBERMAX') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_NUMBERMAX_EXP') }}</span></dt>
@@ -64,22 +77,6 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>{{ lang('RT_PAGES') }}</legend>
-		<dl>
-			<dt><label for="rt_page_enable">{{ lang('RT_PAGE_ENABLE') }}</label><br /><span>{{ lang('RT_PAGE_ENABLE_EXP') }}</span></dt>
-			<dd><input type="checkbox" name="rt_page_enable" id="rt_page_enable" value="1"{% if RT_PAGE_ENABLE %} checked="checked"{% endif %} /></dd>
-		</dl>
-		<dl>
-			<dt><label>{{ lang('RT_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_EXP') }}</span></dt>
-			<dd><a href="{{ U_RT_PAGE }}" target="_blank">{{ U_RT_PAGE }}</a></dd>
-		</dl>
-		<dl>
-			<dt><label>{{ lang('RT_SIMPLE_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SIMPLE_PAGE_EXP') }}</span></dt>
-			<dd><a href="{{ U_RT_SIMPLE_PAGE }}" target="_blank">{{ U_RT_SIMPLE_PAGE }}</a></dd>
-		</dl>
-	</fieldset>
-
-	<fieldset>
 		<legend>{{ lang('RT_OVERRIDABLE') }}</legend>
 		<dl>
 			<dt><label for="rt_location">{{ lang('RT_LOCATION') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_LOCATION_EXP') }}</span></dt>
@@ -115,6 +112,21 @@
 
 	</fieldset>
 
+	<fieldset>
+		<legend>{{ lang('RT_PAGES') }}</legend>
+		<dl>
+			<dt><label for="rt_page_enable">{{ lang('RT_PAGE_ENABLE') }}</label><br /><span>{{ lang('RT_PAGE_ENABLE_EXP') }}</span></dt>
+			<dd><input type="checkbox" name="rt_page_enable" id="rt_page_enable" value="1"{% if RT_PAGE_ENABLE %} checked="checked"{% endif %} /></dd>
+		</dl>
+		<dl>
+			<dt><label>{{ lang('RT_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_PAGE_EXP') }}</span></dt>
+			<dd><a href="{{ U_RT_PAGE }}" target="_blank">{{ U_RT_PAGE }}</a></dd>
+		</dl>
+		<dl>
+			<dt><label>{{ lang('RT_SIMPLE_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SIMPLE_PAGE_EXP') }}</span></dt>
+			<dd><a href="{{ U_RT_SIMPLE_PAGE }}" target="_blank">{{ U_RT_SIMPLE_PAGE }}</a></dd>
+		</dl>
+	</fieldset>
 
 	<fieldset>
 		<legend>{{ lang('RT_ADS_SETTINGS') }}</legend>

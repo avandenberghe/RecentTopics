@@ -2,10 +2,10 @@
 
 <a id="recent-topics"></a>
 
-{% if loops.pagination|length and (S_LOCATION_TOP) %}
+{% if loops.rt_pagination|length and (S_LOCATION_TOP) %}
 <div class="action-bar">
     <div class="pagination">
-        {% INCLUDE 'pagination.html' %}
+        {% INCLUDE '@avathar_recenttopicsav/rt_pagination.html' %}
     </div>
 </div>
 {% endif %}
@@ -116,10 +116,10 @@
 </div>
 {% endfor %}
 
-{% if loops.pagination|length and (S_LOCATION_BOTTOM) %}
+{% if loops.rt_pagination|length and (S_LOCATION_BOTTOM) %}
 <div class="action-bar">
     <div class="pagination">
-        {% INCLUDE 'pagination.html' %}
+        {% INCLUDE '@avathar_recenttopicsav/rt_pagination.html' %}
     </div>
 </div>
 {% endif %}

@@ -106,8 +106,28 @@ class recenttopics_module
 			$rt_enable = $request->variable('rt_enable', 0);
 			$config->set('rt_index', $rt_enable);
 
+			$rt_viewforum = $request->variable('rt_viewforum', 0);
+			$config->set('rt_viewforum', $rt_viewforum);
+
+			$rt_viewforum_location = $request->variable('rt_viewforum_location', '');
+			$old_vf_location = $config['rt_viewforum_location'];
+			$config->set('rt_viewforum_location', $rt_viewforum_location);
+
 			$rt_location = $request->variable('rt_location', '');
+			$old_location = $config['rt_location'];
 			$config->set('rt_location', $rt_location);
+
+			// Propagate location changes to users who still have the old default
+			/** @var \phpbb\db\driver\driver_interface $db */
+			$db = $phpbb_container->get('dbal.conn');
+			if ($rt_viewforum_location !== $old_vf_location)
+			{
+				$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_rt_viewforum_location = '" . $db->sql_escape($rt_viewforum_location) . "' WHERE user_rt_viewforum_location = '" . $db->sql_escape($old_vf_location) . "'");
+			}
+			if ($rt_location !== $old_location)
+			{
+				$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_rt_location = '" . $db->sql_escape($rt_location) . "' WHERE user_rt_location = '" . $db->sql_escape($old_location) . "'");
+			}
 
 			$rt_sort_start_time = $request->variable('rt_sort_start_time', false);
 			$config->set('rt_sort_start_time', $rt_sort_start_time);
@@ -173,6 +193,23 @@ class recenttopics_module
 			);
 		}
 
+		$vf_display_types = array (
+			'RT_TOP'    => $language->lang('RT_TOP'),
+			'RT_BOTTOM' => $language->lang('RT_BOTTOM'),
+		);
+
+		foreach ($vf_display_types as $key => $display_type)
+		{
+			$template->assign_block_vars(
+				'vf_location_row',
+				array(
+					'VALUE'    => $key,
+					'SELECTED' => ($config['rt_viewforum_location'] == $key) ? ' selected="selected"' : '',
+					'OPTION'   => $display_type,
+				)
+			);
+		}
+
 		$topic_link_options = array(
 			0 => $language->lang('RT_TOPIC_LINK_FIRST'),
 			1 => $language->lang('RT_TOPIC_LINK_LAST'),
@@ -200,6 +237,7 @@ class recenttopics_module
 				'U_RT_PAGE'          => $helper->route('avathar_recenttopicsav_page', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopicsav_simple', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 				'RT_INDEX'           => (int) $config['rt_index'],
+			'RT_VIEWFORUM'       => (int) $config['rt_viewforum'],
 				'RT_PAGE_NUMBER'     => ($config['rt_page_number'] == '1') ? 'checked="checked"' : '',
 				'RT_PAGE_NUMBERMAX'  => (int) $config['rt_page_numbermax'],
 				'RT_ANTI_TOPICS'     => $config['rt_anti_topics'],
@@ -230,6 +268,7 @@ class recenttopics_module
 				'user_rt_sort_start_time'     => (int) $config['rt_sort_start_time'] ,
 				'user_rt_unread_only'   => (int) $config['rt_unread_only'],
 				'user_rt_location'      => $config['rt_location'],
+				'user_rt_viewforum_location' => $config['rt_viewforum_location'],
 				'user_rt_number'      => ((int) $config['rt_number'] > 0 ? (int) $config['rt_number'] : 5 )
 			);
 

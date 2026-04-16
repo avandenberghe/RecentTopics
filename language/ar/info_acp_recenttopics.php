@@ -32,6 +32,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'الإعدادات العامة',
 	'RT_DISPLAY_INDEX'              => 'العرض في الصفحة الرئيسية ',
+	'RT_DISPLAY_VIEWFORUM'          => 'العرض في صفحة المنتدى',
+	'RT_VIEWFORUM_LOCATION'         => 'موقع العرض في صفحة المنتدى',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'حدد مكان عرض أحدث المواضيع في صفحة المنتدى. هذا الإعداد مستقل عن الصفحة الرئيسية.',
 	'RT_NUMBER'                     => 'عدد المواضيع ',
 	'RT_NUMBER_EXP'                 => 'عدد المواضيع التي تريد عرضها.',
 	'RT_PAGE_NUMBER'                => 'عرض جميع الصفحات ',

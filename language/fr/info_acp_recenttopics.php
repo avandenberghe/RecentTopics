@@ -48,6 +48,9 @@ $lang = array_merge($lang, array(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Paramètres généraux',
 	'RT_DISPLAY_INDEX'              => 'Permet d’afficher la liste des sujets récents sur la page de l’index du forum.',
+	'RT_DISPLAY_VIEWFORUM'          => 'Afficher sur la page du forum',
+	'RT_VIEWFORUM_LOCATION'         => 'Emplacement sur la page du forum',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Sélectionnez où afficher les sujets récents sur la page du forum. Ce paramètre est indépendant de la page d’index.',
 	'RT_NUMBER'                     => 'Nombre de sujets récents affichés',
 	'RT_NUMBER_EXP'                 => 'Permet de saisir le nombre maximum de sujets récents à afficher par page.',
 	'RT_PAGE_NUMBER'                => 'Afficher toutes les pages des sujets récents',

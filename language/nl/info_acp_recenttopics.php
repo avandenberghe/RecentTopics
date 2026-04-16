@@ -48,6 +48,9 @@ $lang = array_merge(
 		//algemene instellingen
 		'RT_GLOBAL_SETTINGS'            => 'Algemene instellingen',
 		'RT_DISPLAY_INDEX'              => 'Toon op de indexpagina',
+		'RT_DISPLAY_VIEWFORUM'          => 'Toon op de forumpagina',
+		'RT_VIEWFORUM_LOCATION'         => 'Weergavelocatie forumpagina',
+		'RT_VIEWFORUM_LOCATION_EXP'     => 'Selecteer waar recente onderwerpen op de forumpagina worden weergegeven. Deze instelling is onafhankelijk van de indexpagina.',
 		'RT_NUMBER'                     => 'Aantal recente onderwerpen',
 		'RT_NUMBER_EXP'                 => 'Maximum aantal onderwerpen per pagina.',
 		'RT_PAGE_NUMBER'                => 'Toon alle pagina’s',

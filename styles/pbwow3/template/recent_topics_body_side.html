@@ -1,8 +1,12 @@
 {% if S_LOCATION_SIDE %}
 
 <div id="recent-topics-box" class="collapse-box">
-	<h2 class="open">{{ lang('RECENT_TOPICS') }}</h2>
-	<div id="recent-topics">
+	<h2>{{ lang('RECENT_TOPICS') }}
+		{% set S_CC_FORUM_HIDDEN = S_EXT_COLCAT_HIDDEN %}
+		{% set U_CC_COLLAPSE_URL = U_EXT_COLCAT_COLLAPSE_URL %}
+		{% include '@phpbb_collapsiblecategories/collapsible_categories_button.html' ignore missing %}
+	</h2>
+	<div id="recent-topics" class="collapsible">
 
 {% for recent_topics in loops.recent_topics %}
 	{% if not recent_topics.S_TOPIC_TYPE_SWITCH and not recent_topics.S_FIRST_ROW %}
@@ -12,7 +16,7 @@
 	{% if recent_topics.S_FIRST_ROW or not recent_topics.S_TOPIC_TYPE_SWITCH %}
 	<ul>
 	{% endif %}
-		<li class="row
+		<li class="row{% if recent_topics.S_ROW_COUNT is even %} bg1{% else %} bg2{% endif %}
 		{% if recent_topics.S_POST_GLOBAL %} global-announce{% endif %}
 		{% if recent_topics.S_POST_ANNOUNCE %} announce{% endif %}
 		{% if recent_topics.S_POST_STICKY %} sticky{% endif %}
@@ -71,10 +75,10 @@
 	</div>
 {% endfor %}
 
-	{% if loops.pagination|length %}
+	{% if loops.rt_pagination|length %}
 	<div class="action-bar">
 		<div class="pagination">
-			{% INCLUDE 'pagination.html' %}
+			{% INCLUDE '@avathar_recenttopicsav/rt_pagination.html' %}
 		</div>
 	</div>
 	{% endif %}

@@ -48,6 +48,9 @@ $lang = array_merge(
 	//allgemeine Einstellungen
 	'RT_GLOBAL_SETTINGS'            => 'Globale Einstellungen',
 	'RT_DISPLAY_INDEX'              => 'Anzeigen auf der Index-Seite',
+	'RT_DISPLAY_VIEWFORUM'          => 'Anzeigen auf der Forenansicht-Seite',
+	'RT_VIEWFORUM_LOCATION'         => 'Anzeigeort Forenansicht',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Wählen Sie, wo die aktuellen Themen auf der Forenansicht-Seite angezeigt werden sollen. Diese Einstellung ist unabhängig von der Indexseite.',
 	'RT_NUMBER'                     => 'Anzahl Aktuelle Themen',
 	'RT_NUMBER_EXP'                 => 'Maximale Anzahl Themen pro Seite',
 	'RT_PAGE_NUMBER'                => 'Alle Seiten anzeigen',
