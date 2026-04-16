@@ -41,11 +41,12 @@ class ucp_listener_test extends \phpbb_test_case
 
 		$this->auth = $this->createMock('\phpbb\auth\auth');
 		$this->config = new \phpbb\config\config(array(
-			'rt_index'           => 1,
-			'rt_sort_start_time' => 0,
-			'rt_unread_only'     => 0,
-			'rt_location'        => 'RT_TOP',
-			'rt_number'          => 5,
+			'rt_index'              => 1,
+			'rt_sort_start_time'    => 0,
+			'rt_unread_only'        => 0,
+			'rt_location'           => 'RT_TOP',
+			'rt_viewforum_location' => 'RT_TOP',
+			'rt_number'             => 5,
 		));
 		$this->request = $this->createMock('\phpbb\request\request');
 		$this->template = $this->createMock('\phpbb\template\template');
@@ -84,11 +85,12 @@ class ucp_listener_test extends \phpbb_test_case
 
 		$event = new \phpbb\event\data(array(
 			'data'    => array(
-				'rt_enable'          => 1,
-				'rt_location'        => 'RT_BOTTOM',
-				'rt_number'          => 10,
-				'rt_sort_start_time' => 1,
-				'rt_unread_only'     => 0,
+				'rt_enable'             => 1,
+				'rt_location'           => 'RT_BOTTOM',
+				'rt_viewforum_location' => 'RT_TOP',
+				'rt_number'             => 10,
+				'rt_sort_start_time'    => 1,
+				'rt_unread_only'        => 0,
 			),
 			'sql_ary' => array(),
 		));
@@ -97,6 +99,7 @@ class ucp_listener_test extends \phpbb_test_case
 
 		$this->assertEquals(1, $event['sql_ary']['user_rt_enable']);
 		$this->assertEquals('RT_BOTTOM', $event['sql_ary']['user_rt_location']);
+		$this->assertEquals('RT_TOP', $event['sql_ary']['user_rt_viewforum_location']);
 		$this->assertEquals(10, $event['sql_ary']['user_rt_number']);
 		$this->assertEquals(1, $event['sql_ary']['user_rt_sort_start_time']);
 		$this->assertEquals(0, $event['sql_ary']['user_rt_unread_only']);
@@ -105,11 +108,12 @@ class ucp_listener_test extends \phpbb_test_case
 	public function test_ucp_prefs_get_data_no_submit()
 	{
 		$this->user->data = array(
-			'user_rt_enable'          => 1,
-			'user_rt_location'        => 'RT_TOP',
-			'user_rt_number'          => 5,
-			'user_rt_sort_start_time' => 0,
-			'user_rt_unread_only'     => 0,
+			'user_rt_enable'             => 1,
+			'user_rt_location'           => 'RT_TOP',
+			'user_rt_viewforum_location' => 'RT_TOP',
+			'user_rt_number'             => 5,
+			'user_rt_sort_start_time'    => 0,
+			'user_rt_unread_only'        => 0,
 		);
 
 		$this->request->method('variable')
@@ -146,11 +150,12 @@ class ucp_listener_test extends \phpbb_test_case
 	public function test_ucp_prefs_get_data_on_submit()
 	{
 		$this->user->data = array(
-			'user_rt_enable'          => 1,
-			'user_rt_location'        => 'RT_TOP',
-			'user_rt_number'          => 5,
-			'user_rt_sort_start_time' => 0,
-			'user_rt_unread_only'     => 0,
+			'user_rt_enable'             => 1,
+			'user_rt_location'           => 'RT_TOP',
+			'user_rt_viewforum_location' => 'RT_TOP',
+			'user_rt_number'             => 5,
+			'user_rt_sort_start_time'    => 0,
+			'user_rt_unread_only'        => 0,
 		);
 
 		$this->request->method('variable')
@@ -183,6 +188,7 @@ class ucp_listener_test extends \phpbb_test_case
 			->with('UPDATE', $this->callback(function ($sql_ary) {
 				return $sql_ary['user_rt_enable'] === 1
 					&& $sql_ary['user_rt_location'] === 'RT_TOP'
+					&& $sql_ary['user_rt_viewforum_location'] === 'RT_TOP'
 					&& $sql_ary['user_rt_number'] === 5
 					&& $sql_ary['user_rt_sort_start_time'] === 0
 					&& $sql_ary['user_rt_unread_only'] === 0;

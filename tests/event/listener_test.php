@@ -60,6 +60,7 @@ class listener_test extends \phpbb_test_case
 	{
 		$this->assertEquals(array(
 			'core.index_modify_page_title',
+			'core.viewforum_generate_page_after',
 			'core.viewonline_overwrite_location',
 			'core.acp_manage_forums_request_data',
 			'core.acp_manage_forums_initialise_data',
