@@ -93,9 +93,7 @@ $lang = array_merge($lang, array(
 	'RT_ADS_CODE_EXP'           => 'Введите HTML-код для отображения в рекламном блоке (например, рекламный код, кнопка пожертвования или другой контент).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'				=> 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'					=> 'Пожертвовать через PayPal',
+	'PATREON_ALT'					=> 'Стать патроном',
 	'RT_DONATE'						=> 'Помощь разработчику RecentTopics',
 	'RT_DONATE_SHORT'				=> 'Сделать пожертвование на разработку RecentTopics',
 	'RT_DONATE_EXPLAIN'				=> 'Расширение RecentTopics полностью бесплатно. Автор разрабатывает его в свое свободное время в качестве хобби. Если вам нравится его работа, рассмотрите возможность материальной поддержки. Автор будет вам благодарен.',

@@ -94,9 +94,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Введіть власний HTML для відображення в рекламному блоці (наприклад, рекламний код, кнопка пожертвувань або інший вміст).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Підтримайте проект через PayPal',
+	'PATREON_ALT'                => 'Стати патроном',
 	'RT_DONATE'					=> 'Підтримайте проект "RecentTopics" ("Останні Теми")',
 	'RT_DONATE_SHORT'			=> 'Підтримайте проект фінансово',
 	'RT_DONATE_EXPLAIN'			=> 'Розширення "Останні Теми" 100% безплатне. Це хобі, на яке я витрачаю свій час. Якщо Вам подобається цей додаток, можете зробити пожертву для його розвитку. Я був би щиро вдячний.',

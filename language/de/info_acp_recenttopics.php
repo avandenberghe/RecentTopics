@@ -110,9 +110,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Geben Sie benutzerdefiniertes HTML für den Werbeblock ein (z.B. Werbecode, Spenden-Button oder andere Inhalte).',
 
 	//Donatiies
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Sende eine Spende über PayPal',
+	'PATREON_ALT'                => 'Werde ein Patron',
 	'RT_DONATE'					=> 'Spende an RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Spende an RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics ist zu 100% kostenlos. Wenn du dies für eine nützliche Erweiterung hältst, und du die Autoren unterstützen möchtest, könntest du eine unverbindliche Spende in Erwägung ziehen.',

@@ -94,9 +94,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'أدخل HTML مخصص لعرضه في كتلة الإعلانات (مثل رمز الإعلان، زر التبرع، أو أي محتوى آخر).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'التبرع بواسطة PayPal',
+	'PATREON_ALT'                => 'كن داعمًا',
 	'RT_DONATE'					=> 'التبرع لدعم الإضافة',
 	'RT_DONATE_SHORT'			=> 'تبرع لدعم الإضافة : أحدث المواضيع ',
 	'RT_DONATE_EXPLAIN'			=> 'هذه الإضافة مجانية 100%. وهي أحد هواياتي التي استمتع بها والتي تستهلك وقتي ونقودي على تحديث هذه الإضافة بصورة مُستمرة. ارجوا التفكير بالتبرع لهذه الإضافة لو استمتعت بإستخدامها. وسأكون ممتناُ لك. بلا شروط أو قيود.',

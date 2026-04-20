@@ -111,9 +111,7 @@ $lang = array_merge($lang, array(
 	'RT_ADS_CODE_EXP'           => 'Entrez du HTML personnalisé à afficher dans le bloc publicitaire (par exemple, code publicitaire, bouton de don ou autre contenu).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Faire un don via PayPal',
+	'PATREON_ALT'                => 'Devenir un patron',
 	'RT_DONATE'					=> 'Soutenir le développement',
 	'RT_DONATE_SHORT'			=> 'Faire un don PayPal',
 	'RT_DONATE_EXPLAIN'			=> 'Permet de soutenir le développement de l’extension « Recent Topics » qui est distribuée librement. L’auteur consacre temps et argent à son développement, sur son temps libre, et parce qu’il y trouve un certain plaisir. Si cette extension est appréciée il est recommandé, de faire un don pour soutenir ce projet, et comme le dit l’auteur : « J’apprécierai grandement votre geste, d’avance mes remerciements ! ».',

@@ -110,9 +110,7 @@ $lang = array_merge(
 		'RT_ADS_CODE_EXP'           => 'Voer aangepaste HTML in voor het advertentieblok (bijv. advertentiecode, donatieknop of andere inhoud).',
 
 		//Donatiies
-		'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-		'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-		'PAYPAL_ALT'                => 'Doe een donatie via PayPal',
+		'PATREON_ALT'                => 'Word een patron',
 		'RT_DONATE'					=> 'Donatie aan RecentTopics',
 		'RT_DONATE_SHORT'			=> 'Doe een donatie aan RecentTopics',
 		'RT_DONATE_EXPLAIN'			=> 'RecentTopics is 100% gratis. Als je dit een nuttige extensie vindt en je de auteurs wil ondersteunen, kan je overwegen om een vrijblijvende donatie te doen.',

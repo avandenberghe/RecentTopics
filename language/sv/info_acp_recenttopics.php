@@ -95,9 +95,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Ange anpassad HTML att visa i annonsblocket (t.ex. annonskod, donationsknapp eller annat innehåll).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Donera via PayPal',
+	'PATREON_ALT'                => 'Bli en patron',
 	'RT_DONATE'					=> 'Donera till RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Gör en donation till RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics är 100% gratis. Det är ett hobbyprojekt som jag lägger min tid och mina pengar på, bara för nöjes skull. Om du gillar att använda RecentTopics, överväg gärna att donera. Jag skulle verkligen uppskatta det. Inga villkor.',

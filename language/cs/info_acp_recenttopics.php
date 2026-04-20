@@ -89,9 +89,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Zadejte vlastní HTML pro zobrazení v reklamním bloku (např. reklamní kód, tlačítko pro dary nebo jiný obsah).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Přispět pomocí PayPal',
+	'PATREON_ALT'                => 'Staňte se patronem',
 	'RT_DONATE'					=> 'Přispějte na vývoj RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Podpořte vývoj rozšíření RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'Rozšíření RecentTopics je zcela zdarma. Jedná se o hobby projekt, kterému věnujeme spoustu svého času a financí. Děláme to rádi, ale čas je drahý. Pokud vám rozšíření RecentTopics přijde užitečné, budeme velmi rádi, když nás podpoříte.',
