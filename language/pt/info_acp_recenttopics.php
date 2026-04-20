@@ -85,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Página independente de Tópicos Recentes com cabeçalho e rodapé completos do fórum.',
 	'RT_SIMPLE_PAGE'                => 'Página simplificada',
 	'RT_SIMPLE_PAGE_EXP'            => 'Página simplificada de Tópicos Recentes sem cabeçalho e rodapé do fórum, adequada para incorporação em um iframe.',
+	'RT_VIEW_PAGE'                  => 'Ver página em nova aba',
 
 	//Bloco publicitário
 	'RT_ADS_SETTINGS'           => 'Bloco publicitário',

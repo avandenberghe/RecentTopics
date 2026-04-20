@@ -101,7 +101,8 @@ $lang = array_merge($lang, array(
 	'RT_PAGE'                       => 'Page complète',
 	'RT_PAGE_EXP'                   => 'Page autonome des sujets récents avec l’en-tête et le pied de page complets du forum.',
 	'RT_SIMPLE_PAGE'                => 'Page simplifiée',
-	'RT_SIMPLE_PAGE_EXP'            => 'Page simplifiée des sujets récents sans en-tête ni pied de page du forum, adaptée à l’intégration dans une iframe.',
+	‘RT_SIMPLE_PAGE_EXP’            => ‘Page simplifiée des sujets récents sans en-tête ni pied de page du forum, adaptée à l’intégration dans une iframe.’,
+	‘RT_VIEW_PAGE’                  => ‘Voir la page dans un nouvel onglet’,
 
 	//Bloc publicitaire
 	'RT_ADS_SETTINGS'           => 'Bloc publicitaire',

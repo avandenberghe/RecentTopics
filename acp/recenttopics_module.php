@@ -47,7 +47,7 @@ class recenttopics_module
 		//version check
 		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopicsav');
 		$meta_data  = $ext_meta_manager->get_metadata();
-		$ext_version  = $meta_data['version'];
+		$ext_version  = \avathar\recenttopicsav\ext::RT_VERSION;
 		$latest_version  = $this->version_check($meta_data, $request->variable('versioncheck_force', false));
 
 		if ($request->is_set_post('submit'))

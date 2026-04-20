@@ -86,6 +86,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Fristående sida med senaste trådar med fullständigt sidhuvud och sidfot.',
 	'RT_SIMPLE_PAGE'                => 'Förenklad sida',
 	'RT_SIMPLE_PAGE_EXP'            => 'Förenklad sida med senaste trådar utan sidhuvud och sidfot, lämplig för inbäddning i en iframe.',
+	'RT_VIEW_PAGE'                  => 'Visa sidan i ny flik',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Annonsblock',

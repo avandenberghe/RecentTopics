@@ -1,5 +1,16 @@
 ### Changelog
 
+- 3.0.9 (20/04/2026)
+  - [CHG] Moved donate link from PayPal to Patreon
+  - [CHG] Hardcoded donate and button URLs in template instead of language files
+  - [CHG] Added `|e('html_attr')` escaping to all language keys used in HTML attributes
+  - [FIX] Fixed unclosed `<span>` tag in UCP preferences template
+  - [CHG] Merged `topictitle_remove_re` event into `modify_topictitle` event to reduce overhead
+  - [CHG] Replaced raw URL display in ACP standalone page links with language key to avoid exposing SID
+  - [CHG] Moved extension version from database config to `ext::RT_VERSION` class constant; added migration to remove `rt_version` from config table
+  - [FIX] Fixed version check showing empty "Latest version:" when version check fails
+  - [FIX] Fixed duplicate collapse buttons in pbWoW3 style by removing Collapsible Categories include (pbWoW3 has its own collapse-box mechanism)
+
 - 3.0.8 (15/04/2026)
   - [NEW] Added the ability to display recent topics on top/bottom of the viewforum page (viewforum.php), in addition to the existing index page placement. (#178)
 

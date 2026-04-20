@@ -101,6 +101,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Eigenständige Seite der aktuellen Themen mit vollständigem Board-Header und -Footer.',
 	'RT_SIMPLE_PAGE'                => 'Vereinfachte Seite',
 	'RT_SIMPLE_PAGE_EXP'            => 'Vereinfachte Seite der aktuellen Themen ohne Board-Header und -Footer, geeignet zur Einbettung in einen iFrame.',
+	'RT_VIEW_PAGE'                  => 'Seite in neuem Tab öffnen',
 
 	//Werbeblock
 	'RT_ADS_SETTINGS'           => 'Werbeblock',

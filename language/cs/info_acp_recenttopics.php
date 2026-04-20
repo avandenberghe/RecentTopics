@@ -80,6 +80,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Samostatná stránka nedávných témat s kompletní hlavičkou a patičkou fóra.',
 	'RT_SIMPLE_PAGE'                => 'Zjednodušená stránka',
 	'RT_SIMPLE_PAGE_EXP'            => 'Zjednodušená stránka nedávných témat bez hlavičky a patičky fóra, vhodná pro vložení do iframe.',
+	'RT_VIEW_PAGE'                  => 'Zobrazit stránku v nové kartě',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Reklamní blok',

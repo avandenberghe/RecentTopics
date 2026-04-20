@@ -814,16 +814,6 @@ class recenttopics
 				$prefix      = '';
 
 				/**
-				 * Event to remove re
-				 *
-				 * @event avathar.recenttopicsav.topictitle_remove_re
-				 * @var   array    row      the forum row
-				 * @since 3.0.0
-				 */
-				$vars = array('row');
-				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.topictitle_remove_re', compact($vars)));
-
-				/**
 				 * Event to modify the topic title
 				 *
 				 * @event avathar.recenttopicsav.modify_topictitle

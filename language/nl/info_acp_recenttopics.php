@@ -101,6 +101,7 @@ $lang = array_merge(
 		'RT_PAGE_EXP'                   => 'Zelfstandige pagina met recente onderwerpen inclusief volledige header en footer van het forum.',
 		'RT_SIMPLE_PAGE'                => 'Vereenvoudigde pagina',
 		'RT_SIMPLE_PAGE_EXP'            => 'Vereenvoudigde pagina met recente onderwerpen zonder header en footer, geschikt voor inbedding in een iframe.',
+		'RT_VIEW_PAGE'                  => 'Bekijk pagina in nieuw tabblad',
 
 		//Advertentieblok
 		'RT_ADS_SETTINGS'           => 'Advertentieblok',

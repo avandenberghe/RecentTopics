@@ -85,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Standalone Recent Topics page with full board header and footer.',
 	'RT_SIMPLE_PAGE'                => 'Simplified page',
 	'RT_SIMPLE_PAGE_EXP'            => 'Simplified Recent Topics page without board header/footer, suitable for embedding in an iframe.',
+	'RT_VIEW_PAGE'                  => 'View page in new tab',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Advertisement Block',

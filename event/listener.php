@@ -74,7 +74,7 @@ class listener implements EventSubscriberInterface
 			'core.permissions'                       => 'add_permission',
 
 			// Events added by this extension
-			'avathar.recenttopicsav.topictitle_remove_re'  => 'topictitle_remove_re',
+			'avathar.recenttopicsav.modify_topictitle'  => 'topictitle_remove_re',
 		);
 	}
 

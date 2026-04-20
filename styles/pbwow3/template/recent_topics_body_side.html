@@ -1,11 +1,7 @@
 {% if S_LOCATION_SIDE %}
 
 <div id="recent-topics-box" class="collapse-box">
-	<h2>{{ lang('RECENT_TOPICS') }}
-		{% set S_CC_FORUM_HIDDEN = S_EXT_COLCAT_HIDDEN %}
-		{% set U_CC_COLLAPSE_URL = U_EXT_COLCAT_COLLAPSE_URL %}
-		{% include '@phpbb_collapsiblecategories/collapsible_categories_button.html' ignore missing %}
-	</h2>
+	<h2>{{ lang('RECENT_TOPICS') }}</h2>
 	<div id="recent-topics" class="collapsible">
 
 {% for recent_topics in loops.recent_topics %}
@@ -46,7 +42,7 @@
 							{{ lang('POST_BY_AUTHOR') }} {% EVENT viewforum_body_last_post_author_username_prepend %} {{ recent_topics.LAST_POST_AUTHOR_FULL }} {% EVENT viewforum_body_last_post_author_username_append %}{% if S_RT_SIDE_SHOW_DATE %} &laquo;
 							{% if RT_SORT_START_TIME %}{{ recent_topics.FIRST_POST_TIME }}{% else %}{{ recent_topics.LAST_POST_TIME }}{% endif %}{% endif %}
 							{% if S_POSTLOVE and recent_topics.TOPIC_LIKES %}<span class="rt-likes"><i class="icon fa-heart fa-fw icon-red" aria-hidden="true"></i> {{ recent_topics.TOPIC_LIKES }}</span>{% endif %}
-							<a href="{{ recent_topics.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">
+							<a href="{{ recent_topics.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST')|e('html_attr') }}">
 								<i class="icon fa-external-link-square fa-fw {% if recent_topics.S_UNREAD_TOPIC and not S_IS_BOT %}icon-red icon-md{% else %}icon-lightgrey icon-md{% endif %}" aria-hidden="true"></i>
 								<span class="sr-only">{{ VIEW_LATEST_POST }}</span>
 							</a>

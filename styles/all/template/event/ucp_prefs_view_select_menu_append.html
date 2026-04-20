@@ -42,7 +42,7 @@
 
 	{% if A_RT_SORT_START_TIME %}
 	<dl>
-		<dt><label for="rt_sort_start_time0">{{ lang('RT_SORT_START_TIME') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SORT_START_TIME_EXP') }}</dt>
+		<dt><label for="rt_sort_start_time0">{{ lang('RT_SORT_START_TIME') }}{{ lang('COLON') }}</label><br /><span>{{ lang('RT_SORT_START_TIME_EXP') }}</span></dt>
 		<dd>
 			<label for="rt_sort_start_time1"><input type="radio" name="rt_sort_start_time" id="rt_sort_start_time1" value="1"{% if S_RT_SORT_START_TIME %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
 			<label for="rt_sort_start_time0"><input type="radio" name="rt_sort_start_time" id="rt_sort_start_time0" value="0"{% if not S_RT_SORT_START_TIME %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
