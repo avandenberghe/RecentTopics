@@ -1,7 +1,7 @@
 ### Changelog
 
 - 3.0.8 (15/04/2026)
-  - [NEW] Added optional recent topics display on viewforum pages (#178) with independent enable/disable and placement (top/bottom) from index page.
+  - [NEW] Added the ability to display recent topics on top/bottom of the viewforum page (viewforum.php), in addition to the existing index page placement. (#178)
 
 - 3.0.7 (06/04/2026)
   - [FIX] Fixed PHP 8 TypeError in sql_fetchfield() when "show all pages" pagination is enabled (#148)
