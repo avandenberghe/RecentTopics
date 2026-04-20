@@ -1,5 +1,5 @@
 Recent Topics for phpBB 3.3
-==========
+===========
 
 [![Tests](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml/badge.svg)](https://github.com/avatharbe/RecentTopics/actions/workflows/tests.yml)
 
