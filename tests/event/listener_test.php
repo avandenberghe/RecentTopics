@@ -66,7 +66,7 @@ class listener_test extends \phpbb_test_case
 			'core.acp_manage_forums_initialise_data',
 			'core.acp_manage_forums_display_form',
 			'core.permissions',
-			'avathar.recenttopicsav.topictitle_remove_re',
+			'avathar.recenttopicsav.modify_topictitle',
 		), array_keys(\avathar\recenttopicsav\event\listener::getSubscribedEvents()));
 	}
 

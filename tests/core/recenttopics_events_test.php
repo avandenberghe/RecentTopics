@@ -513,20 +513,20 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	// =======================================================================
-	// 4. avathar.recenttopicsav.topictitle_remove_re
+	// 4. avathar.recenttopicsav.modify_topictitle (also handles Re: removal)
 	// =======================================================================
 
 	/**
 	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
 	 */
-	public function test_topictitle_remove_re_fires_with_row()
+	public function test_modify_topictitle_fires_with_row()
 	{
 		[$db] = $this->make_db_returning_one_topic();
 		$dispatcher = new \phpbb\event\dispatcher();
 		$fired      = false;
 		$received   = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.topictitle_remove_re', function (\phpbb\event\data $event) use (&$fired, &$received) {
+		$dispatcher->addListener('avathar.recenttopicsav.modify_topictitle', function (\phpbb\event\data $event) use (&$fired, &$received) {
 			$fired    = true;
 			$received = $event->get_data();
 		});
@@ -534,34 +534,31 @@ class recenttopics_events_test extends \phpbb_test_case
 		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
-		$this->assertTrue($fired, 'Event avathar.recenttopicsav.topictitle_remove_re was not fired');
-		$this->assertArrayHasKey('row', $received, 'Documented variable row missing from topictitle_remove_re event');
+		$this->assertTrue($fired, 'Event avathar.recenttopicsav.modify_topictitle was not fired');
+		$this->assertArrayHasKey('row', $received, 'Documented variable row missing from modify_topictitle event');
 		$this->assertIsArray($received['row'], 'row must be an array');
 	}
 
 	/**
-	 * A listener on topictitle_remove_re receives row data including topic_last_post_subject.
+	 * A listener on modify_topictitle receives row data including topic_last_post_subject.
 	 *
 	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
 	 */
-	public function test_topictitle_remove_re_modification_is_applied()
+	public function test_modify_topictitle_modification_is_applied()
 	{
 		[$db] = $this->make_db_returning_one_topic();
 		$dispatcher       = new \phpbb\event\dispatcher();
 		$captured_subject = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.topictitle_remove_re', function (\phpbb\event\data $event) use (&$captured_subject) {
+		$dispatcher->addListener('avathar.recenttopicsav.modify_topictitle', function (\phpbb\event\data $event) use (&$captured_subject) {
 			$captured_subject = $event['row']['topic_last_post_subject'];
 		});
 
 		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
-		// The event was fired and the listener received the row with the subject field.
-		// Mutation testing (built-in listener stripping "Re: ") is covered by
-		// event/listener_test.php — here we verify the event data round-trips.
 		$this->assertNotNull($captured_subject,
-			'topictitle_remove_re listener must receive topic_last_post_subject in row');
+			'modify_topictitle listener must receive topic_last_post_subject in row');
 		$this->assertIsString($captured_subject);
 	}
 
