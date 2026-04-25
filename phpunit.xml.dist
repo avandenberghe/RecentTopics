@@ -6,7 +6,7 @@
          processIsolation="false"
          stopOnFailure="false"
          verbose="true"
-         bootstrap="../../../../tests/bootstrap.php"
+         bootstrap="../../../tests/bootstrap.php"
 >
 	<testsuites>
 		<testsuite name="Extension Test Suite">
