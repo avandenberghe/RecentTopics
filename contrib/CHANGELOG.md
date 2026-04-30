@@ -1,5 +1,8 @@
 ### Changelog
 
+- 3.0.10 (30/04/2026)
+  - [FIX] Side-block heading in pbTech now matches the category-bar style — added pbtech-specific template override using `.collapse-box h2` markup (same pattern as the pbwow3 override)
+
 - 3.0.9 (20/04/2026)
   - [CHG] Moved donate link from PayPal to Patreon
   - [CHG] Hardcoded donate and button URLs in template instead of language files
