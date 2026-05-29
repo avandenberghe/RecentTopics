@@ -440,12 +440,14 @@ class recenttopics
 	 */
 	private function get_forum_list()
 	{
-		// Get the allowed forums
+		// Get the allowed forums: f_read grants full access; f_list_topics lets
+		// the user see topic titles without reading content (issue #182).
 		$forum_ary = array();
 		$forum_read_ary = $this->auth->acl_getf('f_read');
+		$forum_list_ary = $this->auth->acl_getf('f_list_topics');
 		foreach ($forum_read_ary as $forum_id => $allowed)
 		{
-			if ($allowed['f_read'])
+			if ($allowed['f_read'] || !empty($forum_list_ary[$forum_id]['f_list_topics']))
 			{
 				$forum_ary[] = (int) $forum_id;
 			}

@@ -13,7 +13,7 @@ class release_3_0_9 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return !isset($this->config['rt_version']);
+		return isset($this->config['rt_version']) && version_compare($this->config['rt_version'], '3.0.9', '>=');
 	}
 
 	public static function depends_on()
@@ -24,7 +24,7 @@ class release_3_0_9 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return [
-			['config.remove', ['rt_version']],
+			['config.update', ['rt_version', '3.0.9']],
 		];
 	}
 }
