@@ -1,8 +1,8 @@
 ### Changelog
 
 - 3.0.11 (29/05/2026)
-  - [FIX] Fixed migration failure on enable in phpBB 4 alpha 2 that threw "The config setting 'rt_version' unexpectedly does not exist." The previous v309 removed the `rt_version` config row, which broke the install-marker contract used by v300–v308. v309 now updates `rt_version` to "3.0.9" instead of removing it; added v310 and v311 migrations to keep the version tracker in sync with `composer.json` and `ext::RT_VERSION` (#181)
   - [CHG] Widened forum visibility in Recent Topics to also include forums where the user holds `f_list_topics` ("Can see topics") permission without `f_read` — topic titles are shown to entice login while content remains gated by phpBB's normal read check (#182)
+  - [DOC] Confirmed 3.0.9 design: the canonical version is `ext::RT_VERSION` (class constant); `rt_version` is intentionally absent from `phpbb_config`. Installs that hit "rt_version unexpectedly does not exist" on enable (#181) have a stale `phpbb_migrations` state where v301 is missing and the historical v309 already ran; recover with: `INSERT INTO phpbb_config (config_name, config_value, is_dynamic) VALUES ('rt_version', '3.0.0', 0);` then enable. This is a one-time state fix, not a code change
 
 - 3.0.10 (30/04/2026)
   - [FIX] Side-block heading in pbTech now matches the category-bar style — added pbtech-specific template override using `.collapse-box h2` markup (same pattern as the pbwow3 override)
