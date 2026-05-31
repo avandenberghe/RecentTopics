@@ -8,7 +8,7 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\core;
+namespace avathar\recenttopics\core;
 
 use phpbb\auth\auth;
 use phpbb\cache\service as cache_service;
@@ -26,7 +26,7 @@ use phpbb\user;
 /**
  * Class recenttopics
  *
- * @package avathar\recenttopicsav\core
+ * @package avathar\recenttopics\core
  */
 class recenttopics
 {
@@ -402,12 +402,12 @@ class recenttopics
 		/**
 		 * Event to modify the advertisement code before it is assigned to the template
 		 *
-		 * @event avathar.recenttopicsav.modify_ads_code
+		 * @event avathar.recenttopics.modify_ads_code
 		 * @var   string|false    ads_index_code    The advertisement HTML to render, or false if disabled
 		 * @since 3.0.6
 		 */
 		$vars = ['ads_index_code'];
-		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_ads_code', compact($vars)));
+		extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_ads_code', compact($vars)));
 
 		$location_prefix = ($context === 'viewforum') ? 'S_VF_LOCATION_' : 'S_LOCATION_';
 
@@ -440,12 +440,14 @@ class recenttopics
 	 */
 	private function get_forum_list()
 	{
-		// Get the allowed forums
+		// Get the allowed forums: f_read grants full access; f_list_topics lets
+		// the user see topic titles without reading content (issue #182).
 		$forum_ary = array();
 		$forum_read_ary = $this->auth->acl_getf('f_read');
+		$forum_list_ary = $this->auth->acl_getf('f_list_topics');
 		foreach ($forum_read_ary as $forum_id => $allowed)
 		{
-			if ($allowed['f_read'])
+			if ($allowed['f_read'] || !empty($forum_list_ary[$forum_id]['f_list_topics']))
 			{
 				$forum_ary[] = (int) $forum_id;
 			}
@@ -612,12 +614,12 @@ class recenttopics
 		/**
 		 * Event to modify the SQL query before the allowed topics list data is retrieved
 		 *
-		 * @event avathar.recenttopicsav.sql_pull_topics_list
+		 * @event avathar.recenttopics.sql_pull_topics_list
 		 * @var   array    sql_array        The SQL array
 		 * @since 3.0.0
 		 */
 		$vars = array('sql_array');
-		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.sql_pull_topics_list', compact($vars)));
+		extract($this->dispatcher->trigger_event('avathar.recenttopics.sql_pull_topics_list', compact($vars)));
 
 		return $sql_array;
 
@@ -669,13 +671,13 @@ class recenttopics
 		/**
 		 * Event to modify the SQL query before the topics data is retrieved
 		 *
-		 * @event avathar.recenttopicsav.sql_pull_topics_data
+		 * @event avathar.recenttopics.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
 		 * @since 3.0.0
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
-				'avathar.recenttopicsav.sql_pull_topics_data',
+				'avathar.recenttopics.sql_pull_topics_data',
 				array('sql_array' => $sql_array)
 			)
 		);
@@ -686,7 +688,7 @@ class recenttopics
 		 * @event paybas.recenttopics.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
 		 * @since 2.0.0
-		 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.sql_pull_topics_data instead
+		 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopics.sql_pull_topics_data instead
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
@@ -729,14 +731,14 @@ class recenttopics
 			/**
 			 * Event to modify the topics list data before we start the display loop
 			 *
-			 * @event avathar.recenttopicsav.modify_topics_list
+			 * @event avathar.recenttopics.modify_topics_list
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
 			 * @since 3.0.0
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
-					'avathar.recenttopicsav.modify_topics_list',
+					'avathar.recenttopics.modify_topics_list',
 					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
 				)
 			);
@@ -748,7 +750,7 @@ class recenttopics
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
 			 * @since 2.0.1
-			 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.modify_topics_list instead
+			 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopics.modify_topics_list instead
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
@@ -816,14 +818,14 @@ class recenttopics
 				/**
 				 * Event to modify the topic title
 				 *
-				 * @event avathar.recenttopicsav.modify_topictitle
+				 * @event avathar.recenttopics.modify_topictitle
 				 * @var   array    row      the forum row
 				 * @var   string    prefix  the topic title prefix
 				 * @since 3.0.0
 				 */
 
 				$vars = array('row', 'prefix');
-				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_topictitle', compact($vars)));
+				extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_topictitle', compact($vars)));
 
 				$topic_title = $prefix === '' ? $topic_title : $prefix . ' ' . $topic_title;
 				$last_post_subject = censor_text($row['topic_last_post_subject']);
@@ -833,7 +835,7 @@ class recenttopics
 				}
 				list($topic_author, $topic_author_color, $topic_author_full, $u_topic_author, $last_post_author, $last_post_author_colour, $last_post_author_full, $u_last_post_author) = $this->get_username_strings($row);
 				//load language
-				$this->language->add_lang('recenttopics', 'avathar/recenttopicsav');
+				$this->language->add_lang('recenttopics', 'avathar/recenttopics');
 				$tpl_ary = array(
 					'FORUM_ID'                => $forum_id,
 					'TOPIC_ID'                => $topic_id,
@@ -888,13 +890,13 @@ class recenttopics
 				/**
 				 * Modify the topic data before it is assigned to the template
 				 *
-				 * @event avathar.recenttopicsav.modify_tpl_ary
+				 * @event avathar.recenttopics.modify_tpl_ary
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
 				 * @since 3.0.0
 				 */
 				$vars = array('row', 'tpl_ary');
-				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_tpl_ary', compact($vars)));
+				extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_tpl_ary', compact($vars)));
 
 				/**
 				 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts,
@@ -905,7 +907,7 @@ class recenttopics
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
 				 * @since 2.0.0
-				 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.modify_tpl_ary instead
+				 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopics.modify_tpl_ary instead
 				 */
 				$vars = array('row', 'tpl_ary');
 				extract($this->dispatcher->trigger_event('paybas.recenttopics.modify_tpl_ary', compact($vars)));

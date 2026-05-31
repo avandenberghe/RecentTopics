@@ -8,14 +8,14 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\controller;
+namespace avathar\recenttopics\controller;
 
 use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\db\driver\driver_interface;
 use phpbb\language\language;
 use phpbb\user;
-use avathar\recenttopicsav\core\recenttopics;
+use avathar\recenttopics\core\recenttopics;
 
 class page_controller implements page_interface
 {
@@ -113,7 +113,7 @@ class page_controller implements page_interface
 	 */
 	private function render_page($template)
 	{
-		$this->language->add_lang(['info_acp_recenttopics', 'recenttopics'], 'avathar/recenttopicsav');
+		$this->language->add_lang(['info_acp_recenttopics', 'recenttopics'], 'avathar/recenttopics');
 
 		if (isset($this->config['rt_page_enable']) && $this->config['rt_page_enable'])
 		{

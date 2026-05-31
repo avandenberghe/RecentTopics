@@ -190,8 +190,8 @@ Logs in as the admin account, optionally creates topics or changes config values
 
 ```bash
 # Unit and integration tests only (fast)
-phpunit --configuration ext/avathar/recenttopicsav/phpunit.xml.dist --testsuite "Extension Test Suite"
+phpunit --configuration ext/avathar/recenttopics/phpunit.xml.dist --testsuite "Extension Test Suite"
 
 # Functional tests (requires a configured test database)
-phpunit --configuration ext/avathar/recenttopicsav/phpunit.xml.dist --testsuite "Extension Functional Tests"
+phpunit --configuration ext/avathar/recenttopics/phpunit.xml.dist --testsuite "Extension Functional Tests"
 ```

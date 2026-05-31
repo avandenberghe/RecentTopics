@@ -8,12 +8,12 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\acp;
+namespace avathar\recenttopics\acp;
 
 /**
  * Class recenttopics_info
  *
- * @package avathar\recenttopicsav\acp
+ * @package avathar\recenttopics\acp
  */
 class recenttopics_info
 {
@@ -23,10 +23,10 @@ class recenttopics_info
 	public function module()
 	{
 		return array(
-		'filename'    => '\avathar\recenttopicsav\acp\recenttopics_module',
+		'filename'    => '\avathar\recenttopics\acp\recenttopics_module',
 		'title'        => 'RECENT_TOPICS',
 		'modes'        => array(
-		'recenttopics_config' => array('title' => 'RT_CONFIG', 'auth' => 'ext_avathar/recenttopicsav && acl_a_board', 'cat' => array('RECENT_TOPICS')),
+		'recenttopics_config' => array('title' => 'RT_CONFIG', 'auth' => 'ext_avathar/recenttopics && acl_a_board', 'cat' => array('RECENT_TOPICS')),
 		),
 		);
 	}

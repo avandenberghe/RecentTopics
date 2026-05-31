@@ -9,9 +9,9 @@
  *
  */
 
-namespace avathar\recenttopicsav\event;
+namespace avathar\recenttopics\event;
 
-use avathar\recenttopicsav\core\recenttopics;
+use avathar\recenttopics\core\recenttopics;
 use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\language\language;
@@ -74,7 +74,7 @@ class listener implements EventSubscriberInterface
 			'core.permissions'                       => 'add_permission',
 
 			// Events added by this extension
-			'avathar.recenttopicsav.modify_topictitle'  => 'topictitle_remove_re',
+			'avathar.recenttopics.modify_topictitle'  => 'topictitle_remove_re',
 		);
 	}
 
@@ -110,12 +110,12 @@ class listener implements EventSubscriberInterface
 			if (strpos($event['row']['session_page'], 'app.php/rt/simple') !== false)
 			{
 				$event['location'] = $this->language->lang('VIEWING_RECENT_TOPICS');
-				$event['location_url'] = $this->helper->route('avathar_recenttopicsav_simple');
+				$event['location_url'] = $this->helper->route('avathar_recenttopics_simple');
 			}
 			else if (strpos($event['row']['session_page'], 'app.php/rt') !== false)
 			{
 				$event['location'] = $this->language->lang('VIEWING_RECENT_TOPICS');
-				$event['location_url'] = $this->helper->route('avathar_recenttopicsav_page');
+				$event['location_url'] = $this->helper->route('avathar_recenttopics_page');
 			}
 		}
 	}

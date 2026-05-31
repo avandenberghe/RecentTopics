@@ -5,7 +5,7 @@
  * @copyright (c) 2026 Andreas Vandenberghe
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
- * Event contract tests for avathar\recenttopicsav\core\recenttopics
+ * Event contract tests for avathar\recenttopics\core\recenttopics
  *
  * These tests verify that every event documented in contrib/Events.md is:
  *   1. Actually fired (a listener receives the call)
@@ -21,7 +21,7 @@
 
 // ---------------------------------------------------------------------------
 // Global-function stubs in the global namespace.
-// fill_template() lives in avathar\recenttopicsav\core and calls these as
+// fill_template() lives in avathar\recenttopics\core and calls these as
 // unqualified names; PHP falls back to the global namespace, so the stubs
 // must be global. Bracketed namespace syntax is used so that both the global
 // block and the named test namespace can coexist in one file.
@@ -65,7 +65,7 @@ namespace
 // Test class — phpbb\event\dispatcher is used directly (implements
 // dispatcher_interface and handles Symfony version differences internally).
 // ---------------------------------------------------------------------------
-namespace avathar\recenttopicsav\tests\core
+namespace avathar\recenttopics\tests\core
 {
 
 class recenttopics_events_test extends \phpbb_test_case
@@ -196,7 +196,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 * Instantiate recenttopics with a given dispatcher and db, setting all
 	 * private properties needed by get_allowed_topics_sql().
 	 */
-	private function make_rt_for_sql_list_event(\phpbb\event\dispatcher_interface $dispatcher): \avathar\recenttopicsav\core\recenttopics
+	private function make_rt_for_sql_list_event(\phpbb\event\dispatcher_interface $dispatcher): \avathar\recenttopics\core\recenttopics
 	{
 		$db   = $this->make_db_stub();
 		$auth = $this->createMock(\phpbb\auth\auth::class);
@@ -205,7 +205,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$content_visibility = $this->createMock(\phpbb\content_visibility::class);
 		$content_visibility->method('get_forums_visibility_sql')->willReturn('1=1');
 
-		$rt = new \avathar\recenttopicsav\core\recenttopics(
+		$rt = new \avathar\recenttopics\core\recenttopics(
 			$auth,
 			$this->createMock(\phpbb\cache\service::class),
 			new \phpbb\config\config([]),
@@ -232,7 +232,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 * Instantiate recenttopics with a given dispatcher and db, setting all
 	 * private properties needed by get_topics_sql().
 	 */
-	private function make_rt_for_sql_data_event(\phpbb\event\dispatcher_interface $dispatcher, $db = null): \avathar\recenttopicsav\core\recenttopics
+	private function make_rt_for_sql_data_event(\phpbb\event\dispatcher_interface $dispatcher, $db = null): \avathar\recenttopics\core\recenttopics
 	{
 		if ($db === null)
 		{
@@ -242,7 +242,7 @@ class recenttopics_events_test extends \phpbb_test_case
 			$db->method('sql_freeresult')->willReturn(null);
 		}
 
-		$rt = new \avathar\recenttopicsav\core\recenttopics(
+		$rt = new \avathar\recenttopics\core\recenttopics(
 			$this->createMock(\phpbb\auth\auth::class),
 			$this->createMock(\phpbb\cache\service::class),
 			new \phpbb\config\config([]),
@@ -271,7 +271,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 * Instantiate recenttopics with a given dispatcher and db, setting all
 	 * private properties needed by fill_template() to reach the inner loop.
 	 */
-	private function make_rt_for_fill_template_events(\phpbb\event\dispatcher_interface $dispatcher, $db): \avathar\recenttopicsav\core\recenttopics
+	private function make_rt_for_fill_template_events(\phpbb\event\dispatcher_interface $dispatcher, $db): \avathar\recenttopics\core\recenttopics
 	{
 		$auth = $this->createMock(\phpbb\auth\auth::class);
 		$auth->method('acl_get')->willReturn(false);
@@ -287,7 +287,7 @@ class recenttopics_events_test extends \phpbb_test_case
 
 		$pagination = $this->createMock(\phpbb\pagination::class);
 
-		$rt = new \avathar\recenttopicsav\core\recenttopics(
+		$rt = new \avathar\recenttopics\core\recenttopics(
 			$auth,
 			$this->createMock(\phpbb\cache\service::class),
 			new \phpbb\config\config(['posts_per_page' => 10, 'rt_topic_link_to' => 0]),
@@ -332,11 +332,11 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	// =======================================================================
-	// 1. avathar.recenttopicsav.sql_pull_topics_list
+	// 1. avathar.recenttopics.sql_pull_topics_list
 	// =======================================================================
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::get_allowed_topics_sql
+	 * @covers \avathar\recenttopics\core\recenttopics::get_allowed_topics_sql
 	 */
 	public function test_sql_pull_topics_list_fires_with_sql_array()
 	{
@@ -344,7 +344,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$fired      = false;
 		$received   = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_list', function (\phpbb\event\data $event) use (&$fired, &$received) {
+		$dispatcher->addListener('avathar.recenttopics.sql_pull_topics_list', function (\phpbb\event\data $event) use (&$fired, &$received) {
 			$fired    = true;
 			$received = $event->get_data();
 		});
@@ -352,18 +352,18 @@ class recenttopics_events_test extends \phpbb_test_case
 		$rt = $this->make_rt_for_sql_list_event($dispatcher);
 		$this->call_private($rt, 'get_allowed_topics_sql', [[], 0]);
 
-		$this->assertTrue($fired, 'Event avathar.recenttopicsav.sql_pull_topics_list was not fired');
+		$this->assertTrue($fired, 'Event avathar.recenttopics.sql_pull_topics_list was not fired');
 		$this->assertArrayHasKey('sql_array', $received, 'Documented variable sql_array missing from event');
 		$this->assertIsArray($received['sql_array'], 'sql_array must be an array');
 	}
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::get_allowed_topics_sql
+	 * @covers \avathar\recenttopics\core\recenttopics::get_allowed_topics_sql
 	 */
 	public function test_sql_pull_topics_list_modification_is_applied()
 	{
 		$dispatcher = new \phpbb\event\dispatcher();
-		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_list', function (\phpbb\event\data $event) {
+		$dispatcher->addListener('avathar.recenttopics.sql_pull_topics_list', function (\phpbb\event\data $event) {
 			$sql              = $event['sql_array'];
 			$sql['LIMIT']     = 99;
 			$event['sql_array'] = $sql;
@@ -376,11 +376,11 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	// =======================================================================
-	// 2. avathar.recenttopicsav.sql_pull_topics_data  +  legacy alias
+	// 2. avathar.recenttopics.sql_pull_topics_data  +  legacy alias
 	// =======================================================================
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::get_topics_sql
+	 * @covers \avathar\recenttopics\core\recenttopics::get_topics_sql
 	 */
 	public function test_sql_pull_topics_data_fires_with_sql_array()
 	{
@@ -388,7 +388,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$fired      = false;
 		$received   = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_data', function (\phpbb\event\data $event) use (&$fired, &$received) {
+		$dispatcher->addListener('avathar.recenttopics.sql_pull_topics_data', function (\phpbb\event\data $event) use (&$fired, &$received) {
 			$fired    = true;
 			$received = $event->get_data();
 		});
@@ -396,18 +396,18 @@ class recenttopics_events_test extends \phpbb_test_case
 		$rt = $this->make_rt_for_sql_data_event($dispatcher);
 		$this->call_private($rt, 'get_topics_sql');
 
-		$this->assertTrue($fired, 'Event avathar.recenttopicsav.sql_pull_topics_data was not fired');
+		$this->assertTrue($fired, 'Event avathar.recenttopics.sql_pull_topics_data was not fired');
 		$this->assertArrayHasKey('sql_array', $received, 'Documented variable sql_array missing from event');
 		$this->assertIsArray($received['sql_array'], 'sql_array must be an array');
 	}
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::get_topics_sql
+	 * @covers \avathar\recenttopics\core\recenttopics::get_topics_sql
 	 */
 	public function test_sql_pull_topics_data_modification_is_applied()
 	{
 		$dispatcher = new \phpbb\event\dispatcher();
-		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_data', function (\phpbb\event\data $event) {
+		$dispatcher->addListener('avathar.recenttopics.sql_pull_topics_data', function (\phpbb\event\data $event) {
 			$sql             = $event['sql_array'];
 			$sql['LIMIT']    = 77;
 			$event['sql_array'] = $sql;
@@ -439,14 +439,14 @@ class recenttopics_events_test extends \phpbb_test_case
 	/**
 	 * Legacy alias fires after the new event and shares its data.
 	 *
-	 * @covers \avathar\recenttopicsav\core\recenttopics::get_topics_sql
+	 * @covers \avathar\recenttopics\core\recenttopics::get_topics_sql
 	 */
 	public function test_legacy_sql_pull_topics_data_fires_after_new_event()
 	{
 		$dispatcher = new \phpbb\event\dispatcher();
 		$order      = [];
 
-		$dispatcher->addListener('avathar.recenttopicsav.sql_pull_topics_data', function () use (&$order) {
+		$dispatcher->addListener('avathar.recenttopics.sql_pull_topics_data', function () use (&$order) {
 			$order[] = 'new';
 		});
 		$dispatcher->addListener('paybas.recenttopics.sql_pull_topics_data', function () use (&$order) {
@@ -461,11 +461,11 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	// =======================================================================
-	// 3. avathar.recenttopicsav.modify_topics_list  +  legacy alias
+	// 3. avathar.recenttopics.modify_topics_list  +  legacy alias
 	// =======================================================================
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_topics_list_fires_with_documented_variables()
 	{
@@ -474,7 +474,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$fired       = false;
 		$received    = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_topics_list', function (\phpbb\event\data $event) use (&$fired, &$received) {
+		$dispatcher->addListener('avathar.recenttopics.modify_topics_list', function (\phpbb\event\data $event) use (&$fired, &$received) {
 			$fired    = true;
 			$received = $event->get_data();
 		});
@@ -482,7 +482,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
-		$this->assertTrue($fired, 'Event avathar.recenttopicsav.modify_topics_list was not fired');
+		$this->assertTrue($fired, 'Event avathar.recenttopics.modify_topics_list was not fired');
 		$this->assertArrayHasKey('topic_list', $received, 'Documented variable topic_list missing');
 		$this->assertArrayHasKey('rowset', $received, 'Documented variable rowset missing');
 		$this->assertIsArray($received['topic_list'], 'topic_list must be an array');
@@ -490,7 +490,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_legacy_modify_topics_list_fires_after_new_event()
 	{
@@ -498,7 +498,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$dispatcher = new \phpbb\event\dispatcher();
 		$order      = [];
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_topics_list', function () use (&$order) {
+		$dispatcher->addListener('avathar.recenttopics.modify_topics_list', function () use (&$order) {
 			$order[] = 'new';
 		});
 		$dispatcher->addListener('paybas.recenttopics.modify_topics_list', function () use (&$order) {
@@ -513,11 +513,11 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	// =======================================================================
-	// 4. avathar.recenttopicsav.modify_topictitle (also handles Re: removal)
+	// 4. avathar.recenttopics.modify_topictitle (also handles Re: removal)
 	// =======================================================================
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_topictitle_fires_with_row()
 	{
@@ -526,7 +526,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$fired      = false;
 		$received   = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_topictitle', function (\phpbb\event\data $event) use (&$fired, &$received) {
+		$dispatcher->addListener('avathar.recenttopics.modify_topictitle', function (\phpbb\event\data $event) use (&$fired, &$received) {
 			$fired    = true;
 			$received = $event->get_data();
 		});
@@ -534,7 +534,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
-		$this->assertTrue($fired, 'Event avathar.recenttopicsav.modify_topictitle was not fired');
+		$this->assertTrue($fired, 'Event avathar.recenttopics.modify_topictitle was not fired');
 		$this->assertArrayHasKey('row', $received, 'Documented variable row missing from modify_topictitle event');
 		$this->assertIsArray($received['row'], 'row must be an array');
 	}
@@ -542,7 +542,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	/**
 	 * A listener on modify_topictitle receives row data including topic_last_post_subject.
 	 *
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_topictitle_modification_is_applied()
 	{
@@ -550,7 +550,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$dispatcher       = new \phpbb\event\dispatcher();
 		$captured_subject = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_topictitle', function (\phpbb\event\data $event) use (&$captured_subject) {
+		$dispatcher->addListener('avathar.recenttopics.modify_topictitle', function (\phpbb\event\data $event) use (&$captured_subject) {
 			$captured_subject = $event['row']['topic_last_post_subject'];
 		});
 
@@ -563,11 +563,11 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	// =======================================================================
-	// 5. avathar.recenttopicsav.modify_topictitle
+	// 5. avathar.recenttopics.modify_topictitle
 	// =======================================================================
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_topictitle_fires_with_row_and_prefix()
 	{
@@ -576,7 +576,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$fired      = false;
 		$received   = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_topictitle', function (\phpbb\event\data $event) use (&$fired, &$received) {
+		$dispatcher->addListener('avathar.recenttopics.modify_topictitle', function (\phpbb\event\data $event) use (&$fired, &$received) {
 			$fired    = true;
 			$received = $event->get_data();
 		});
@@ -584,7 +584,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
-		$this->assertTrue($fired, 'Event avathar.recenttopicsav.modify_topictitle was not fired');
+		$this->assertTrue($fired, 'Event avathar.recenttopics.modify_topictitle was not fired');
 		$this->assertArrayHasKey('row', $received, 'Documented variable row missing from modify_topictitle event');
 		$this->assertArrayHasKey('prefix', $received, 'Documented variable prefix missing from modify_topictitle event');
 		$this->assertIsArray($received['row'], 'row must be an array');
@@ -594,7 +594,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	/**
 	 * A prefix set by a listener is prepended to the topic title in the template.
 	 *
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_topictitle_prefix_is_applied_to_template_var()
 	{
@@ -602,7 +602,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$dispatcher  = new \phpbb\event\dispatcher();
 		$assigned    = [];
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_topictitle', function (\phpbb\event\data $event) {
+		$dispatcher->addListener('avathar.recenttopics.modify_topictitle', function (\phpbb\event\data $event) {
 			$event['prefix'] = '[STICKY]';
 		});
 
@@ -621,7 +621,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$language = $this->createMock(\phpbb\language\language::class);
 		$language->method('lang')->willReturn('');
 
-		$rt = new \avathar\recenttopicsav\core\recenttopics(
+		$rt = new \avathar\recenttopics\core\recenttopics(
 			$auth,
 			$this->createMock(\phpbb\cache\service::class),
 			new \phpbb\config\config(['posts_per_page' => 10, 'rt_topic_link_to' => 0]),
@@ -662,11 +662,11 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	// =======================================================================
-	// 6. avathar.recenttopicsav.modify_tpl_ary  +  legacy alias
+	// 6. avathar.recenttopics.modify_tpl_ary  +  legacy alias
 	// =======================================================================
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_tpl_ary_fires_with_row_and_tpl_ary()
 	{
@@ -675,7 +675,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$fired      = false;
 		$received   = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function (\phpbb\event\data $event) use (&$fired, &$received) {
+		$dispatcher->addListener('avathar.recenttopics.modify_tpl_ary', function (\phpbb\event\data $event) use (&$fired, &$received) {
 			$fired    = true;
 			$received = $event->get_data();
 		});
@@ -683,7 +683,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
 		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
 
-		$this->assertTrue($fired, 'Event avathar.recenttopicsav.modify_tpl_ary was not fired');
+		$this->assertTrue($fired, 'Event avathar.recenttopics.modify_tpl_ary was not fired');
 		$this->assertArrayHasKey('row', $received, 'Documented variable row missing from modify_tpl_ary event');
 		$this->assertArrayHasKey('tpl_ary', $received, 'Documented variable tpl_ary missing from modify_tpl_ary event');
 		$this->assertIsArray($received['row'], 'row must be an array');
@@ -693,7 +693,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	/**
 	 * Core template variables that consumers depend on must be present.
 	 *
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_tpl_ary_contains_documented_template_variables()
 	{
@@ -701,7 +701,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$dispatcher = new \phpbb\event\dispatcher();
 		$tpl_ary    = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function (\phpbb\event\data $event) use (&$tpl_ary) {
+		$dispatcher->addListener('avathar.recenttopics.modify_tpl_ary', function (\phpbb\event\data $event) use (&$tpl_ary) {
 			$tpl_ary = $event['tpl_ary'];
 		});
 
@@ -725,7 +725,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	/**
 	 * A key added by a listener is included in the template block.
 	 *
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_modify_tpl_ary_added_key_reaches_template()
 	{
@@ -733,7 +733,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$dispatcher = new \phpbb\event\dispatcher();
 		$assigned   = [];
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function (\phpbb\event\data $event) {
+		$dispatcher->addListener('avathar.recenttopics.modify_tpl_ary', function (\phpbb\event\data $event) {
 			$tpl             = $event['tpl_ary'];
 			$tpl['MY_EXTRA'] = 'hello';
 			$event['tpl_ary'] = $tpl;
@@ -753,7 +753,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$language = $this->createMock(\phpbb\language\language::class);
 		$language->method('lang')->willReturn('');
 
-		$rt = new \avathar\recenttopicsav\core\recenttopics(
+		$rt = new \avathar\recenttopics\core\recenttopics(
 			$auth,
 			$this->createMock(\phpbb\cache\service::class),
 			new \phpbb\config\config(['posts_per_page' => 10, 'rt_topic_link_to' => 0]),
@@ -794,7 +794,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 
 	/**
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_legacy_modify_tpl_ary_fires_after_new_event()
 	{
@@ -802,7 +802,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$dispatcher = new \phpbb\event\dispatcher();
 		$order      = [];
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function () use (&$order) {
+		$dispatcher->addListener('avathar.recenttopics.modify_tpl_ary', function () use (&$order) {
 			$order[] = 'new';
 		});
 		$dispatcher->addListener('paybas.recenttopics.modify_tpl_ary', function () use (&$order) {
@@ -820,7 +820,7 @@ class recenttopics_events_test extends \phpbb_test_case
 	 * Modification made by a listener on the new event is visible to a listener
 	 * on the legacy alias in the same request cycle.
 	 *
-	 * @covers \avathar\recenttopicsav\core\recenttopics::fill_template
+	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
 	 */
 	public function test_legacy_modify_tpl_ary_sees_new_listener_modification()
 	{
@@ -828,7 +828,7 @@ class recenttopics_events_test extends \phpbb_test_case
 		$dispatcher    = new \phpbb\event\dispatcher();
 		$legacy_value  = null;
 
-		$dispatcher->addListener('avathar.recenttopicsav.modify_tpl_ary', function (\phpbb\event\data $event) {
+		$dispatcher->addListener('avathar.recenttopics.modify_tpl_ary', function (\phpbb\event\data $event) {
 			$tpl              = $event['tpl_ary'];
 			$tpl['NEW_FLAG']  = 'set_by_new';
 			$event['tpl_ary'] = $tpl;
@@ -845,4 +845,4 @@ class recenttopics_events_test extends \phpbb_test_case
 	}
 }
 
-} // namespace avathar\recenttopicsav\tests\core
+} // namespace avathar\recenttopics\tests\core

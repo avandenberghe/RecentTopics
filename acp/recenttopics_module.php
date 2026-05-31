@@ -8,12 +8,12 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\acp;
+namespace avathar\recenttopics\acp;
 
 /**
  * Class recenttopics_module
  *
- * @package avathar\recenttopicsav\acp
+ * @package avathar\recenttopics\acp
  */
 class recenttopics_module
 {
@@ -45,9 +45,9 @@ class recenttopics_module
 		add_form_key($form_key);
 
 		//version check
-		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopicsav');
+		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopics');
 		$meta_data  = $ext_meta_manager->get_metadata();
-		$ext_version  = \avathar\recenttopicsav\ext::RT_VERSION;
+		$ext_version  = \avathar\recenttopics\ext::RT_VERSION;
 		$latest_version  = $this->version_check($meta_data, $request->variable('versioncheck_force', false));
 
 		if ($request->is_set_post('submit'))
@@ -234,8 +234,8 @@ class recenttopics_module
 		$template->assign_vars(
 			array(
 				'U_ACTION'           => $this->u_action,
-				'U_RT_PAGE'          => $helper->route('avathar_recenttopicsav_page', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
-				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopicsav_simple', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
+				'U_RT_PAGE'          => $helper->route('avathar_recenttopics_page', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
+				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopics_simple', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 				'RT_INDEX'           => (int) $config['rt_index'],
 			'RT_VIEWFORUM'       => (int) $config['rt_viewforum'],
 				'RT_PAGE_NUMBER'     => ($config['rt_page_number'] == '1') ? 'checked="checked"' : '',

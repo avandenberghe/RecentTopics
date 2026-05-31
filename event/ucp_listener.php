@@ -8,7 +8,7 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\event;
+namespace avathar\recenttopics\event;
 
 use phpbb\auth\auth;
 use phpbb\config\config;
@@ -118,7 +118,7 @@ class ucp_listener implements EventSubscriberInterface
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'] && $this->auth->acl_get('u_rt_view'))
 		{
-			$this->language->add_lang('recenttopics_ucp', 'avathar/recenttopicsav');
+			$this->language->add_lang('recenttopics_ucp', 'avathar/recenttopics');
 
 			$template_vars = array();
 

@@ -40,7 +40,7 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.1 `avathar.recenttopicsav.sql_pull_topics_list`
+### 1.1 `avathar.recenttopics.sql_pull_topics_list`
 
 **What this event is for:** Recent Topics first runs a query that determines which topic IDs are eligible — applying filters like "only topics the user has read access to" and "only topics from included forums". This event fires just before that query executes, letting your extension add extra WHERE conditions or change the ORDER BY.
 
@@ -54,7 +54,7 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.2 `avathar.recenttopicsav.sql_pull_topics_data`
+### 1.2 `avathar.recenttopics.sql_pull_topics_data`
 
 **What this event is for:** After the eligible topic IDs are known, Recent Topics runs a second query that fetches all the display data for those topics — titles, last post info, author usernames, unread status, and so on. This event fires before that query runs, letting your extension add LEFT JOINs or extra SELECT columns.
 
@@ -68,7 +68,7 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.3 `avathar.recenttopicsav.modify_topics_list`
+### 1.3 `avathar.recenttopics.modify_topics_list`
 
 **What this event is for:** After both queries have run, Recent Topics has a list of topic IDs and a full rowset of topic data. This event fires before the display loop starts, giving your extension access to the complete dataset at once — useful for bulk operations that need all rows at the same time.
 
@@ -83,7 +83,7 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.4 `avathar.recenttopicsav.topictitle_remove_re`
+### 1.4 `avathar.recenttopics.topictitle_remove_re`
 
 **What this event is for:** phpBB stores the *last post subject* in the topic row rather than the topic title. When someone replies, the last post subject is "Re: Original Title". This event fires once per row so that a listener can strip the "Re: " prefix and display a clean title. Recent Topics includes a built-in listener for exactly this purpose — it is the only case where the extension listens to its own event.
 
@@ -95,7 +95,7 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.5 `avathar.recenttopicsav.modify_topictitle`
+### 1.5 `avathar.recenttopics.modify_topictitle`
 
 **What this event is for:** Just before the topic title is assembled for display, this event provides a chance to prepend a label or badge. The `prefix` argument starts as an empty string; your listener can set it to any HTML fragment and it will appear before the topic title in the output.
 
@@ -110,7 +110,7 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.6 `avathar.recenttopicsav.modify_tpl_ary`
+### 1.6 `avathar.recenttopics.modify_tpl_ary`
 
 **What this event is for:** This is the most commonly used hook. It fires once per topic row, just before the template variable array for that row is assigned to the `recent_topics` block. By this point Recent Topics has already built a complete `tpl_ary` with all its own variables (topic URL, title, author, last post time, unread flag, etc.). Your listener can add extra keys to `tpl_ary` and they will be available in the template.
 
@@ -125,7 +125,7 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.7 `avathar.recenttopicsav.modify_ads_code`
+### 1.7 `avathar.recenttopics.modify_ads_code`
 
 **What this event is for:** Fires just before the advertisement block HTML is assigned to the `ADS_INDEX_CODE` template variable. Recent Topics pre-populates `ads_index_code` from its own ACP setting (`rt_ads_enable` / `rt_ads_code`). A listener can read and replace this value to inject ad content from another source — for example, a style extension that manages its own ad configuration.
 
@@ -141,13 +141,13 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ### Deprecated event aliases (removed in 3.1)
 
-When this extension was forked from `paybas/recenttopics`, the event names changed from `paybas.recenttopics.*` to `avathar.recenttopicsav.*`. To avoid breaking every extension in the ecosystem overnight, the old names were kept firing alongside the new ones. This means an extension that listens to `paybas.recenttopics.modify_tpl_ary` still works — it just receives the event under the old name.
+When this extension was forked from `paybas/recenttopics`, the event names changed from `paybas.recenttopics.*` to `avathar.recenttopics.*`. To avoid breaking every extension in the ecosystem overnight, the old names were kept firing alongside the new ones. This means an extension that listens to `paybas.recenttopics.modify_tpl_ary` still works — it just receives the event under the old name.
 
-**These aliases will be removed in version 3.1.** If your extension uses any of the names below, migrate to the corresponding `avathar.recenttopicsav.*` name listed above. See [GitHub issue #169](https://github.com/avatharbe/RecentTopics/issues/169) for the full ecosystem analysis.
+**These aliases will be removed in version 3.1.** If your extension uses any of the names below, migrate to the corresponding `avathar.recenttopics.*` name listed above. See [GitHub issue #169](https://github.com/avatharbe/RecentTopics/issues/169) for the full ecosystem analysis.
 
 #### `paybas.recenttopics.sql_pull_topics_data`
 
-- **Replaced by:** `avathar.recenttopicsav.sql_pull_topics_data`
+- **Replaced by:** `avathar.recenttopics.sql_pull_topics_data`
 - **Placement:** `core\recenttopics::get_topics_sql()`
 - **Active since:** 2.0.0 — **Removed in:** 3.1
 - **Arguments:** `sql_array` (array)
@@ -155,7 +155,7 @@ When this extension was forked from `paybas/recenttopics`, the event names chang
 
 #### `paybas.recenttopics.modify_topics_list`
 
-- **Replaced by:** `avathar.recenttopicsav.modify_topics_list`
+- **Replaced by:** `avathar.recenttopics.modify_topics_list`
 - **Placement:** `core\recenttopics::fill_template()`
 - **Active since:** 2.0.1 — **Removed in:** 3.1
 - **Arguments:** `topic_list` (array), `rowset` (array)
@@ -163,7 +163,7 @@ When this extension was forked from `paybas/recenttopics`, the event names chang
 
 #### `paybas.recenttopics.modify_tpl_ary`
 
-- **Replaced by:** `avathar.recenttopicsav.modify_tpl_ary`
+- **Replaced by:** `avathar.recenttopics.modify_tpl_ary`
 - **Placement:** `core\recenttopics::fill_template()`
 - **Active since:** 2.0.0 — **Removed in:** 3.1
 - **Arguments:** `row` (array), `tpl_ary` (array)
@@ -200,9 +200,9 @@ The `phpbb/collapsiblecategories` extension adds a toggle button to category hea
 
 ### 2.3 `paybas/pbwowext` — Advertisement block content for pbWoW3
 
-The pbWoW Extension manages an ACP-configurable advertisement block for pbWoW3 style users. Rather than assigning `ADS_INDEX_CODE` directly from a separate event, it acts as a content provider via the `avathar.recenttopicsav.modify_ads_code` event.
+The pbWoW Extension manages an ACP-configurable advertisement block for pbWoW3 style users. Rather than assigning `ADS_INDEX_CODE` directly from a separate event, it acts as a content provider via the `avathar.recenttopics.modify_ads_code` event.
 
-- **How it works:** pbwowext listens to `avathar.recenttopicsav.modify_ads_code` and, if its own ad is enabled, writes its configured HTML into `ads_index_code`. Recent Topics then assigns that value to `ADS_INDEX_CODE` and renders the block. When pbwowext is not installed, Recent Topics falls back to its own `rt_ads_code` config.
+- **How it works:** pbwowext listens to `avathar.recenttopics.modify_ads_code` and, if its own ad is enabled, writes its configured HTML into `ads_index_code`. Recent Topics then assigns that value to `ADS_INDEX_CODE` and renders the block. When pbwowext is not installed, Recent Topics falls back to its own `rt_ads_code` config.
 - **Coupling:** Event-only — no DI dependency in either direction
 
 ---
@@ -240,7 +240,7 @@ This section lists every phpBB event that Recent Topics subscribes to in order t
 | `core.acp_manage_forums_initialise_data` | `acp_manage_forums_initialise_data()` | Sets the default value ("included") for newly created forums |
 | `core.acp_manage_forums_display_form` | `acp_manage_forums_display_form()` | Passes the stored per-forum setting to the ACP template so the checkbox shows the right state |
 | `core.permissions` | `add_permission()` | Registers the `u_rt_view`, `u_rt_enable`, and `u_rt_location` permissions in phpBB's ACL system |
-| `avathar.recenttopicsav.topictitle_remove_re` | `topictitle_remove_re()` | A self-listener: strips the "Re: " prefix from last-post subject lines |
+| `avathar.recenttopics.topictitle_remove_re` | `topictitle_remove_re()` | A self-listener: strips the "Re: " prefix from last-post subject lines |
 
 ### 3.2 PHP Events — UCP listener (`event/ucp_listener.php`)
 

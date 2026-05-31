@@ -7,11 +7,11 @@
  *
  */
 
-namespace avathar\recenttopicsav\tests\event;
+namespace avathar\recenttopics\tests\event;
 
 class ucp_listener_test extends \phpbb_test_case
 {
-	/** @var \avathar\recenttopicsav\event\ucp_listener */
+	/** @var \avathar\recenttopics\event\ucp_listener */
 	protected $listener;
 
 	/** @var \phpbb\auth\auth|\PHPUnit\Framework\MockObject\MockObject */
@@ -59,7 +59,7 @@ class ucp_listener_test extends \phpbb_test_case
 
 	protected function set_listener()
 	{
-		$this->listener = new \avathar\recenttopicsav\event\ucp_listener(
+		$this->listener = new \avathar\recenttopics\event\ucp_listener(
 			$this->auth,
 			$this->config,
 			$this->request,
@@ -76,7 +76,7 @@ class ucp_listener_test extends \phpbb_test_case
 			'core.ucp_prefs_view_data',
 			'core.ucp_prefs_view_update_data',
 			'core.ucp_register_data_after',
-		), array_keys(\avathar\recenttopicsav\event\ucp_listener::getSubscribedEvents()));
+		), array_keys(\avathar\recenttopics\event\ucp_listener::getSubscribedEvents()));
 	}
 
 	public function test_ucp_prefs_set_data()
@@ -128,7 +128,7 @@ class ucp_listener_test extends \phpbb_test_case
 
 		$this->language->expects($this->once())
 			->method('add_lang')
-			->with('recenttopics_ucp', 'avathar/recenttopicsav');
+			->with('recenttopics_ucp', 'avathar/recenttopics');
 
 		$this->template->expects($this->once())
 			->method('assign_vars');

@@ -10,7 +10,7 @@
  * Schema migration: adds columns to forums and users tables
  */
 
-namespace avathar\recenttopicsav\migrations\basics;
+namespace avathar\recenttopics\migrations\basics;
 
 class rt_schema extends \phpbb\db\migration\migration
 {

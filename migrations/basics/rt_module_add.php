@@ -7,10 +7,10 @@
  * @copyright (c) 2026 Andreas Vandenberghe (avathar)
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
- * Module migration: Add avathar/recenttopicsav ACP module
+ * Module migration: Add avathar/recenttopics ACP module
  */
 
-namespace avathar\recenttopicsav\migrations\basics;
+namespace avathar\recenttopics\migrations\basics;
 
 class rt_module_add extends \phpbb\db\migration\container_aware_migration
 {
@@ -19,7 +19,7 @@ class rt_module_add extends \phpbb\db\migration\container_aware_migration
 		$sql = 'SELECT module_id
 			FROM ' . $this->table_prefix . "modules
 			WHERE module_class = 'acp'
-				AND module_basename = '\avathar\recenttopicsav\acp\recenttopics_module'";
+				AND module_basename = '\avathar\recenttopics\acp\recenttopics_module'";
 		$result = $this->db->sql_query($sql);
 		$module_id = $this->db->sql_fetchfield('module_id');
 		$this->db->sql_freeresult($result);
@@ -29,7 +29,7 @@ class rt_module_add extends \phpbb\db\migration\container_aware_migration
 
 	public static function depends_on()
 	{
-		return ['\avathar\recenttopicsav\migrations\basics\rt_module'];
+		return ['\avathar\recenttopics\migrations\basics\rt_module'];
 	}
 
 	public function update_data()
@@ -45,7 +45,7 @@ class rt_module_add extends \phpbb\db\migration\container_aware_migration
 
 		$module_tool->add('acp', 'ACP_CAT_DOT_MODS', 'RECENT_TOPICS');
 		$module_tool->add('acp', 'RECENT_TOPICS', [
-			'module_basename' => '\avathar\recenttopicsav\acp\recenttopics_module',
+			'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
 			'modes'           => ['recenttopics_config'],
 		]);
 	}
@@ -57,7 +57,7 @@ class rt_module_add extends \phpbb\db\migration\container_aware_migration
 				'acp',
 				'RECENT_TOPICS',
 				[
-					'module_basename' => '\avathar\recenttopicsav\acp\recenttopics_module',
+					'module_basename' => '\avathar\recenttopics\acp\recenttopics_module',
 					'modes'           => ['recenttopics_config'],
 				],
 			]],

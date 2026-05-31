@@ -7,7 +7,7 @@
  *
  */
 
-namespace avathar\recenttopicsav\tests\functional;
+namespace avathar\recenttopics\tests\functional;
 
 /**
  * @group functional
@@ -16,7 +16,7 @@ class recenttopics_test extends \phpbb_functional_test_case
 {
 	protected static function setup_extensions()
 	{
-		return array('avathar/recenttopicsav');
+		return array('avathar/recenttopics');
 	}
 
 	// -----------------------------------------------------------------------

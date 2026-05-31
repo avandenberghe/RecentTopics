@@ -10,7 +10,7 @@
  * Permissions migration: user permissions and role/group assignments
  */
 
-namespace avathar\recenttopicsav\migrations\basics;
+namespace avathar\recenttopics\migrations\basics;
 
 class rt_perms extends \phpbb\db\migration\migration
 {
@@ -27,7 +27,7 @@ class rt_perms extends \phpbb\db\migration\migration
 
 	public static function depends_on()
 	{
-		return ['\avathar\recenttopicsav\migrations\basics\rt_module_add'];
+		return ['\avathar\recenttopics\migrations\basics\rt_module_add'];
 	}
 
 	public function update_data()

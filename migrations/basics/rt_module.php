@@ -10,7 +10,7 @@
  * Module migration: Remove old paybas/recenttopics modules
  */
 
-namespace avathar\recenttopicsav\migrations\basics;
+namespace avathar\recenttopics\migrations\basics;
 
 class rt_module extends \phpbb\db\migration\migration
 {
@@ -26,7 +26,7 @@ class rt_module extends \phpbb\db\migration\migration
 
 	public static function depends_on()
 	{
-		return ['\avathar\recenttopicsav\migrations\basics\rt_schema'];
+		return ['\avathar\recenttopics\migrations\basics\rt_schema'];
 	}
 
 	public function update_data()

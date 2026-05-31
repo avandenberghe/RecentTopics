@@ -7,7 +7,7 @@
  *
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
-namespace avathar\recenttopicsav\controller;
+namespace avathar\recenttopics\controller;
 
 interface page_interface
 {

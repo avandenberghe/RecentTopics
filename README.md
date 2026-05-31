@@ -7,7 +7,7 @@ Recent Topics for phpBB 3.3
 Extension for phpBB to display recent topics on the index page.
 Originally based on NV Recent Topics by Joas Schilling ([nickvergessen](https://github.com/nickvergessen)), later maintained by PayBas. Now maintained by [avathar](https://www.avathar.be).
 
-**Version:** 3.0.10 (30/04/2026)
+**Version:** 3.0.0 (31/05/2026)
  
 #### Requirements
 - phpBB 3.3.0 or higher 
@@ -55,14 +55,14 @@ prosilver, pbTech, pbWow3, WE Clearblue
 #### Installation
 1. Disable, delete data and remove the extension paybas/recenttopics if previously installed.
 2. [Download the latest release](https://www.avathar.be/forum/app.php/dlext/details?df_id=35) and unzip it.
-3. Copy the contents to `/ext/avathar/recenttopicsav/` (so that `ext.php` is at `/ext/avathar/recenttopicsav/ext.php`).
+3. Copy the contents to `/ext/avathar/recenttopics/` (so that `ext.php` is at `/ext/avathar/recenttopics/ext.php`).
 4. Navigate in the ACP to `Customise -> Manage extensions`.
 5. Find `Recent Topics` under "Disabled Extensions" and click `Enable`.
 
 #### Uninstallation
 1. Navigate in the ACP to `Customise -> Manage extensions`.
 2. Click the `Disable` link for `Recent Topics`.
-3. To permanently uninstall, click `Delete Data`, then delete the `recenttopicsav` folder from `/ext/avathar/`.
+3. To permanently uninstall, click `Delete Data`, then delete the `recenttopics` folder from `/ext/avathar/`.
 
 #### Support
 - [Support forum](https://www.avathar.be/forum/viewforum.php?f=16)

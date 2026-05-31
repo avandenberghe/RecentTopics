@@ -7,11 +7,11 @@
  *
  */
 
-namespace avathar\recenttopicsav\tests\event;
+namespace avathar\recenttopics\tests\event;
 
 class listener_test extends \phpbb_test_case
 {
-	/** @var \avathar\recenttopicsav\event\listener */
+	/** @var \avathar\recenttopics\event\listener */
 	protected $listener;
 
 	/** @var \phpbb\config\config */
@@ -26,7 +26,7 @@ class listener_test extends \phpbb_test_case
 	/** @var \phpbb\language\language|\PHPUnit\Framework\MockObject\MockObject */
 	protected $language;
 
-	/** @var \avathar\recenttopicsav\core\recenttopics|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var \avathar\recenttopics\core\recenttopics|\PHPUnit\Framework\MockObject\MockObject */
 	protected $rt_functions;
 
 	public function setUp(): void
@@ -40,14 +40,14 @@ class listener_test extends \phpbb_test_case
 		$this->request = $this->createMock('\phpbb\request\request');
 		$this->helper = $this->createMock('\phpbb\controller\helper');
 		$this->language = $this->createMock('\phpbb\language\language');
-		$this->rt_functions = $this->getMockBuilder('\avathar\recenttopicsav\core\recenttopics')
+		$this->rt_functions = $this->getMockBuilder('\avathar\recenttopics\core\recenttopics')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	protected function set_listener()
 	{
-		$this->listener = new \avathar\recenttopicsav\event\listener(
+		$this->listener = new \avathar\recenttopics\event\listener(
 			$this->rt_functions,
 			$this->config,
 			$this->request,
@@ -66,8 +66,8 @@ class listener_test extends \phpbb_test_case
 			'core.acp_manage_forums_initialise_data',
 			'core.acp_manage_forums_display_form',
 			'core.permissions',
-			'avathar.recenttopicsav.modify_topictitle',
-		), array_keys(\avathar\recenttopicsav\event\listener::getSubscribedEvents()));
+			'avathar.recenttopics.modify_topictitle',
+		), array_keys(\avathar\recenttopics\event\listener::getSubscribedEvents()));
 	}
 
 	public function test_display_rt_enabled()
@@ -97,13 +97,13 @@ class listener_test extends \phpbb_test_case
 				array(1, 'app'),
 				array('session_page' => 'app.php/rt'),
 				'VIEWING_RECENT_TOPICS',
-				'avathar_recenttopicsav_page',
+				'avathar_recenttopics_page',
 			),
 			'rt_simple' => array(
 				array(1, 'app'),
 				array('session_page' => 'app.php/rt/simple'),
 				'VIEWING_RECENT_TOPICS',
-				'avathar_recenttopicsav_simple',
+				'avathar_recenttopics_simple',
 			),
 			'other_page' => array(
 				array(1, 'app'),

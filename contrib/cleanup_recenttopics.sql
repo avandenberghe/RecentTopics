@@ -6,7 +6,7 @@ DELETE FROM phpbb_modules WHERE module_basename LIKE '%recenttopics%' OR module_
 DELETE FROM phpbb_migrations WHERE migration_name LIKE '%avathar%recenttopics%' OR migration_name LIKE '%paybas%recenttopics%';
 
 -- Extension state
-DELETE FROM phpbb_ext WHERE ext_name IN ('avathar/recenttopicsav', 'paybas/recenttopics');
+DELETE FROM phpbb_ext WHERE ext_name IN ('avathar/recenttopics', 'avathar/recenttopicsav', 'paybas/recenttopics');
 
 -- Permissions
 DELETE FROM phpbb_acl_roles_data WHERE auth_option_id IN (SELECT auth_option_id FROM phpbb_acl_options WHERE auth_option LIKE 'u_rt_%');
@@ -24,6 +24,7 @@ ALTER TABLE phpbb_users DROP COLUMN IF EXISTS user_rt_sort_start_time;
 ALTER TABLE phpbb_users DROP COLUMN IF EXISTS user_rt_unread_only;
 ALTER TABLE phpbb_users DROP COLUMN IF EXISTS user_rt_location;
 ALTER TABLE phpbb_users DROP COLUMN IF EXISTS user_rt_number;
+ALTER TABLE phpbb_users DROP COLUMN IF EXISTS user_rt_viewforum_location;
 
 -- Verify
 SELECT 'modules' AS item, COUNT(*) AS cnt FROM phpbb_modules WHERE module_basename LIKE '%recenttopics%' OR module_langname IN ('RECENT_TOPICS', 'RT_CONFIG')
