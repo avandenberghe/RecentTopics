@@ -34,6 +34,7 @@
   - [FIX] Empty "Latest version:" line when the version check service is unreachable
   - [FIX] Unclosed `<span>` in UCP preferences template
   - [FIX] pbTech side-block heading matches the category-bar style
+  - [FIX] Default install grants `u_rt_view` to Administrators and Global moderators in addition to REGISTERED/GUESTS — staff accounts whose primary group is not REGISTERED now see Recent Topics by default
 
 - 2.2.15 (05/04/2021) — last release under paybas/recenttopics before the avathar fork
   - [FIX] PHP 8.0 compatibility (#142)
