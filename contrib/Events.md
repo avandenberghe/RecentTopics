@@ -83,34 +83,22 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.4 `avathar.recenttopics.topictitle_remove_re`
+### 1.4 `avathar.recenttopics.modify_topictitle`
 
-**What this event is for:** phpBB stores the *last post subject* in the topic row rather than the topic title. When someone replies, the last post subject is "Re: Original Title". This event fires once per row so that a listener can strip the "Re: " prefix and display a clean title. Recent Topics includes a built-in listener for exactly this purpose — it is the only case where the extension listens to its own event.
-
-- **Placement:** `core\recenttopics::fill_template()`, once per topic row
-- **Since:** 3.0.0
-- **Arguments:**
-  - `row` (array) — The raw topic row data. The built-in listener reads and writes `row['topic_last_post_subject']`.
-- **Known listeners:** internal — `event\listener::topictitle_remove_re()`
-
----
-
-### 1.5 `avathar.recenttopics.modify_topictitle`
-
-**What this event is for:** Just before the topic title is assembled for display, this event provides a chance to prepend a label or badge. The `prefix` argument starts as an empty string; your listener can set it to any HTML fragment and it will appear before the topic title in the output.
+**What this event is for:** Just before the topic title is assembled for display, this event provides a chance to prepend a label or badge AND to strip prefixes from the last-post subject. The `prefix` argument starts as an empty string; your listener can set it to any HTML fragment and it will appear before the topic title in the output. The built-in `topictitle_remove_re` listener also subscribes here to strip the "Re: " prefix from `row['topic_last_post_subject']`.
 
 **Example use case:** An extension that adds a topic type label ("Announcement", "Sticky") could set `prefix` to a small badge here.
 
 - **Placement:** `core\recenttopics::fill_template()`, once per topic row
 - **Since:** 3.0.0
 - **Arguments:**
-  - `row` (array) — The raw topic row data (read only).
+  - `row` (array) — The raw topic row data. Listeners may read and write back; the built-in listener writes `row['topic_last_post_subject']`.
   - `prefix` (string) — The prefix string to prepend to the title. Set this and write it back to add content.
-- **Known listeners:** none
+- **Known listeners:** internal — `event\listener::topictitle_remove_re()` (strips "Re: " from last-post subject)
 
 ---
 
-### 1.6 `avathar.recenttopics.modify_tpl_ary`
+### 1.5 `avathar.recenttopics.modify_tpl_ary`
 
 **What this event is for:** This is the most commonly used hook. It fires once per topic row, just before the template variable array for that row is assigned to the `recent_topics` block. By this point Recent Topics has already built a complete `tpl_ary` with all its own variables (topic URL, title, author, last post time, unread flag, etc.). Your listener can add extra keys to `tpl_ary` and they will be available in the template.
 
@@ -125,14 +113,14 @@ If you are building an extension that wants to add a column, filter out certain 
 
 ---
 
-### 1.7 `avathar.recenttopics.modify_ads_code`
+### 1.6 `avathar.recenttopics.modify_ads_code`
 
 **What this event is for:** Fires just before the advertisement block HTML is assigned to the `ADS_INDEX_CODE` template variable. Recent Topics pre-populates `ads_index_code` from its own ACP setting (`rt_ads_enable` / `rt_ads_code`). A listener can read and replace this value to inject ad content from another source — for example, a style extension that manages its own ad configuration.
 
 **Example use case:** The `paybas/pbwowext` style extension stores its own ad HTML in its ACP. It listens here and writes its content into `ads_index_code`, becoming the ad content provider for pbWoW3 users without needing to assign `ADS_INDEX_CODE` directly from a different event.
 
 - **Placement:** `core\recenttopics::display_recent_topics()`, after the RT ad config is read, before `assign_vars()`
-- **Since:** 3.0.6
+- **Since:** 3.0.0
 - **Arguments:**
   - `ads_index_code` (string|false) — The ad HTML to render, pre-set from RT's own config or `false` if RT ads are disabled. Override this to provide content from another source.
 - **Known listeners:** `paybas/pbwowext`
@@ -240,7 +228,7 @@ This section lists every phpBB event that Recent Topics subscribes to in order t
 | `core.acp_manage_forums_initialise_data` | `acp_manage_forums_initialise_data()` | Sets the default value ("included") for newly created forums |
 | `core.acp_manage_forums_display_form` | `acp_manage_forums_display_form()` | Passes the stored per-forum setting to the ACP template so the checkbox shows the right state |
 | `core.permissions` | `add_permission()` | Registers the `u_rt_view`, `u_rt_enable`, and `u_rt_location` permissions in phpBB's ACL system |
-| `avathar.recenttopics.topictitle_remove_re` | `topictitle_remove_re()` | A self-listener: strips the "Re: " prefix from last-post subject lines |
+| `avathar.recenttopics.modify_topictitle` | `topictitle_remove_re()` | A self-listener: strips the "Re: " prefix from last-post subject lines (merged here from the old `topictitle_remove_re` event for efficiency) |
 
 ### 3.2 PHP Events — UCP listener (`event/ucp_listener.php`)
 

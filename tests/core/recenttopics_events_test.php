@@ -517,29 +517,6 @@ class recenttopics_events_test extends \phpbb_test_case
 	// =======================================================================
 
 	/**
-	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
-	 */
-	public function test_modify_topictitle_fires_with_row()
-	{
-		[$db] = $this->make_db_returning_one_topic();
-		$dispatcher = new \phpbb\event\dispatcher();
-		$fired      = false;
-		$received   = null;
-
-		$dispatcher->addListener('avathar.recenttopics.modify_topictitle', function (\phpbb\event\data $event) use (&$fired, &$received) {
-			$fired    = true;
-			$received = $event->get_data();
-		});
-
-		$rt = $this->make_rt_for_fill_template_events($dispatcher, $db);
-		$this->call_private($rt, 'fill_template', ['recent_topics', [], 1]);
-
-		$this->assertTrue($fired, 'Event avathar.recenttopics.modify_topictitle was not fired');
-		$this->assertArrayHasKey('row', $received, 'Documented variable row missing from modify_topictitle event');
-		$this->assertIsArray($received['row'], 'row must be an array');
-	}
-
-	/**
 	 * A listener on modify_topictitle receives row data including topic_last_post_subject.
 	 *
 	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
@@ -561,10 +538,6 @@ class recenttopics_events_test extends \phpbb_test_case
 			'modify_topictitle listener must receive topic_last_post_subject in row');
 		$this->assertIsString($captured_subject);
 	}
-
-	// =======================================================================
-	// 5. avathar.recenttopics.modify_topictitle
-	// =======================================================================
 
 	/**
 	 * @covers \avathar\recenttopics\core\recenttopics::fill_template
