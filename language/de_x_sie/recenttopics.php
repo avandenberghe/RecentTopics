@@ -25,5 +25,9 @@ $lang = array_merge(
 	'LIKES'				=> 'Likes',
 	'VIEWING_RECENT_TOPICS'	=> 'Schaut sich <a href="%s">Aktuelle Themen</a> an',
 	'EXTENSION_REQUIRES_330'	=> 'Diese Erweiterung benötigt phpBB 3.3.0 oder höher.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Diese Erweiterung benötigt PHP %1$s oder höher. Sie verwenden PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Diese Erweiterung benötigt phpBB %1$s oder höher. Sie verwenden phpBB %2$s.',
 	)
 );

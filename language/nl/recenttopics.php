@@ -25,5 +25,9 @@ $lang = array_merge(
 	'LIKES'				=> 'Likes',
 	'VIEWING_RECENT_TOPICS'	=> 'Bekijkt <a href="%s">Recente Onderwerpen</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Deze extensie vereist phpBB 3.3.0 of hoger.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Deze extensie vereist PHP %1$s of hoger. Je gebruikt PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Deze extensie vereist phpBB %1$s of hoger. Je gebruikt phpBB %2$s.',
 	)
 );

@@ -25,5 +25,9 @@ $lang = array_merge(
 	'LIKES'				=> 'Gostos',
 	'VIEWING_RECENT_TOPICS'	=> 'Visualizando <a href="%s">Tópicos Recentes</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Esta extensão requer o phpBB 3.3.0 ou superior.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Esta extensão requer PHP %1$s ou superior. Está a executar PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Esta extensão requer phpBB %1$s ou superior. Está a executar phpBB %2$s.',
 	)
 );
