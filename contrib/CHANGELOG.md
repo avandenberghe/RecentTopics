@@ -1,5 +1,10 @@
 ### Changelog
 
+- 3.0.1 (24/06/2026) — bugfix release
+
+  Fixes
+  - [FIX] Recent Topics pagination prev/next arrows rendered as empty (invisible) buttons — restored the missing Font Awesome chevron icons in `rt_pagination.html`, RTL-aware to match core pagination (#183)
+
 - 3.0.0 (31/05/2026) — relaunch under avathar/recenttopics namespace, consolidating everything since the avathar fork of paybas/recenttopics
 
   New features
