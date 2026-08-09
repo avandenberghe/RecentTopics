@@ -79,8 +79,13 @@ class ucp_listener_test extends \phpbb_test_case
 		), array_keys(\avathar\recenttopics\event\ucp_listener::getSubscribedEvents()));
 	}
 
+	/**
+	 * A user holding every RT permission has all six preferences persisted.
+	 */
 	public function test_ucp_prefs_set_data()
 	{
+		$this->auth->method('acl_get')->willReturn(true);
+
 		$this->set_listener();
 
 		$event = new \phpbb\event\data(array(
@@ -103,6 +108,78 @@ class ucp_listener_test extends \phpbb_test_case
 		$this->assertEquals(10, $event['sql_ary']['user_rt_number']);
 		$this->assertEquals(1, $event['sql_ary']['user_rt_sort_start_time']);
 		$this->assertEquals(0, $event['sql_ary']['user_rt_unread_only']);
+	}
+
+	/**
+	 * ucp_prefs_get_data() decides which fields to render from the
+	 * per-preference ACLs, so the write path must apply the same gate.
+	 * Otherwise a user can POST a field they were never shown and have it
+	 * persisted.
+	 */
+	public function test_ucp_prefs_set_data_respects_acls()
+	{
+		// Only two of the five preferences are permitted.
+		$this->auth->method('acl_get')
+			->willReturnCallback(function ($perm) {
+				return ($perm === 'u_rt_enable' || $perm === 'u_rt_number');
+			});
+
+		$this->set_listener();
+
+		$event = new \phpbb\event\data(array(
+			'data'    => array(
+				'rt_enable'             => 1,
+				'rt_location'           => 'RT_BOTTOM',
+				'rt_viewforum_location' => 'RT_TOP',
+				'rt_number'             => 10,
+				'rt_sort_start_time'    => 1,
+				'rt_unread_only'        => 0,
+			),
+			'sql_ary' => array(),
+		));
+
+		$this->listener->ucp_prefs_set_data($event);
+
+		$this->assertEquals(1, $event['sql_ary']['user_rt_enable']);
+		$this->assertEquals(10, $event['sql_ary']['user_rt_number']);
+
+		$this->assertArrayNotHasKey('user_rt_location', $event['sql_ary'],
+			'user_rt_location must not be written without u_rt_location');
+		$this->assertArrayNotHasKey('user_rt_viewforum_location', $event['sql_ary'],
+			'user_rt_viewforum_location must not be written without u_rt_location');
+		$this->assertArrayNotHasKey('user_rt_sort_start_time', $event['sql_ary'],
+			'user_rt_sort_start_time must not be written without u_rt_sort_start_time');
+		$this->assertArrayNotHasKey('user_rt_unread_only', $event['sql_ary'],
+			'user_rt_unread_only must not be written without u_rt_unread_only');
+	}
+
+	/**
+	 * A user with none of the RT permissions must not have any RT column
+	 * written, and must not disturb sql_ary entries put there by core or by
+	 * other extensions.
+	 */
+	public function test_ucp_prefs_set_data_no_permissions()
+	{
+		$this->auth->method('acl_get')->willReturn(false);
+
+		$this->set_listener();
+
+		$event = new \phpbb\event\data(array(
+			'data'    => array(
+				'rt_enable'             => 1,
+				'rt_location'           => 'RT_BOTTOM',
+				'rt_viewforum_location' => 'RT_TOP',
+				'rt_number'             => 10,
+				'rt_sort_start_time'    => 1,
+				'rt_unread_only'        => 0,
+			),
+			'sql_ary' => array('user_style' => 2),
+		));
+
+		$this->listener->ucp_prefs_set_data($event);
+
+		$this->assertSame(array('user_style' => 2), $event['sql_ary'],
+			'No RT column may be written without the matching permission');
 	}
 
 	public function test_ucp_prefs_get_data_no_submit()

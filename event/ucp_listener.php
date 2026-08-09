@@ -222,16 +222,39 @@ class ucp_listener implements EventSubscriberInterface
 	 */
 	public function ucp_prefs_set_data($event)
 	{
-		$event['sql_ary'] = array_merge(
-			$event['sql_ary'], array(
-			'user_rt_enable'              => $event['data']['rt_enable'],
-			'user_rt_location'            => $event['data']['rt_location'],
-			'user_rt_viewforum_location'  => $event['data']['rt_viewforum_location'],
-			'user_rt_number'              => $event['data']['rt_number'],
-			'user_rt_sort_start_time'     => $event['data']['rt_sort_start_time'],
-			'user_rt_unread_only'         => $event['data']['rt_unread_only'],
-			)
-		);
+		// Only persist the preferences this user is actually allowed to set.
+		// ucp_prefs_get_data() gates every field on the same permission before
+		// rendering it, so without this a user could POST a field they were
+		// never shown and have it stored.
+		$sql_ary = array();
+
+		if ($this->auth->acl_get('u_rt_enable'))
+		{
+			$sql_ary['user_rt_enable'] = $event['data']['rt_enable'];
+		}
+
+		if ($this->auth->acl_get('u_rt_location'))
+		{
+			$sql_ary['user_rt_location'] = $event['data']['rt_location'];
+			$sql_ary['user_rt_viewforum_location'] = $event['data']['rt_viewforum_location'];
+		}
+
+		if ($this->auth->acl_get('u_rt_number'))
+		{
+			$sql_ary['user_rt_number'] = $event['data']['rt_number'];
+		}
+
+		if ($this->auth->acl_get('u_rt_sort_start_time'))
+		{
+			$sql_ary['user_rt_sort_start_time'] = $event['data']['rt_sort_start_time'];
+		}
+
+		if ($this->auth->acl_get('u_rt_unread_only'))
+		{
+			$sql_ary['user_rt_unread_only'] = $event['data']['rt_unread_only'];
+		}
+
+		$event['sql_ary'] = array_merge($event['sql_ary'], $sql_ary);
 	}
 
 	/**
