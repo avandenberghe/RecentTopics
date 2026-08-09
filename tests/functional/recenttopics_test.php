@@ -143,8 +143,80 @@ class recenttopics_test extends \phpbb_functional_test_case
 	}
 
 	// -----------------------------------------------------------------------
+	// ACP
+	// -----------------------------------------------------------------------
+
+	/**
+	 * The "reset user preferences" action UPDATEs every row in the users
+	 * table with no WHERE clause, so a forged cross-site POST would wipe the
+	 * Recent Topics preferences of the whole board. It must be rejected when
+	 * the request carries no valid form token.
+	 */
+	public function test_acp_reset_rejects_missing_form_token()
+	{
+		$this->login();
+		$this->admin_login();
+
+		$db = $this->get_db();
+
+		// Give the admin a preference that differs from the board default, so
+		// that a reset is detectable.
+		$db->sql_query('UPDATE phpbb_users SET user_rt_number = 42 WHERE username_clean = \'admin\'');
+
+		// Forged request: the reset button only, no creation_time/form_token.
+		self::request('POST', $this->acp_module_url(), array(
+			'rt_reset_default' => 'Reset',
+		));
+
+		$this->assertSame(42, $this->get_admin_rt_number(),
+			'A POST without a valid form token must not reset user preferences');
+	}
+
+	/**
+	 * Guard for the fix above: submitting the real ACP form, which carries a
+	 * valid token, must still perform the reset.
+	 */
+	public function test_acp_reset_works_with_valid_form_token()
+	{
+		$this->login();
+		$this->admin_login();
+
+		$db = $this->get_db();
+		$db->sql_query('UPDATE phpbb_users SET user_rt_number = 42 WHERE username_clean = \'admin\'');
+
+		$crawler = self::request('GET', $this->acp_module_url());
+		$form = $crawler->selectButton('rt_reset_default')->form();
+		self::submit($form);
+
+		$this->assertNotSame(42, $this->get_admin_rt_number(),
+			'Submitting the genuine ACP form must still reset user preferences');
+	}
+
+	// -----------------------------------------------------------------------
 	// Helper
 	// -----------------------------------------------------------------------
+
+	/**
+	 * URL of the Recent Topics ACP module for the current session.
+	 */
+	private function acp_module_url()
+	{
+		return 'adm/index.php?i=-avathar-recenttopics-acp-recenttopics_module&mode=recenttopics_config&sid=' . $this->sid;
+	}
+
+	/**
+	 * Read the admin account's stored topics-per-page preference.
+	 */
+	private function get_admin_rt_number()
+	{
+		$db = $this->get_db();
+
+		$result = $db->sql_query('SELECT user_rt_number FROM phpbb_users WHERE username_clean = \'admin\'');
+		$value = $db->sql_fetchfield('user_rt_number');
+		$db->sql_freeresult($result);
+
+		return (int) $value;
+	}
 
 	/**
 	 * Set a phpBB config value via direct SQL and flush the cache, so the

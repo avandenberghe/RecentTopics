@@ -156,6 +156,34 @@ class recenttopics_module
 			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
+		// Reset every user's preferences to the board defaults. This UPDATE has
+		// no WHERE clause, so it must be behind the same form-key check as the
+		// settings save above — "rt_reset_default" is a separate submit button
+		// and therefore never enters the branch above.
+		if ($request->is_set_post('rt_reset_default'))
+		{
+			if (!check_form_key($form_key))
+			{
+				trigger_error($language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+
+			$sql_ary = array(
+				'user_rt_enable'      => (int) $config['rt_index'],
+				'user_rt_sort_start_time'     => (int) $config['rt_sort_start_time'] ,
+				'user_rt_unread_only'   => (int) $config['rt_unread_only'],
+				'user_rt_location'      => $config['rt_location'],
+				'user_rt_viewforum_location' => $config['rt_viewforum_location'],
+				'user_rt_number'      => ((int) $config['rt_number'] > 0 ? (int) $config['rt_number'] : 5 )
+			);
+
+			$sql = 'UPDATE ' . USERS_TABLE . '
+            SET ' . $db->sql_build_array('UPDATE', $sql_ary);
+
+			$db->sql_query($sql);
+
+			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
+		}
+
 		$topic_types = array (
 			0 => $language->lang('POST') ,
 			1 => $language->lang('POST_STICKY'),
@@ -259,24 +287,6 @@ class recenttopics_module
 				'RT_LATESTVERSION'     => $latest_version,
 			)
 		);
-
-		//reset user preferences
-		if ($request->is_set_post('rt_reset_default'))
-		{
-			$sql_ary = array(
-				'user_rt_enable'      => (int) $config['rt_index'],
-				'user_rt_sort_start_time'     => (int) $config['rt_sort_start_time'] ,
-				'user_rt_unread_only'   => (int) $config['rt_unread_only'],
-				'user_rt_location'      => $config['rt_location'],
-				'user_rt_viewforum_location' => $config['rt_viewforum_location'],
-				'user_rt_number'      => ((int) $config['rt_number'] > 0 ? (int) $config['rt_number'] : 5 )
-			);
-
-			$sql = 'UPDATE ' . USERS_TABLE . '
-            SET ' . $db->sql_build_array('UPDATE', $sql_ary);
-
-			$db->sql_query($sql);
-		}
 
 	}
 
