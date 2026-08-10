@@ -3,8 +3,7 @@
 - 3.0.11 (10/08/2026) — validation release
 
   Version jumps from 3.0.1 to 3.0.11: the number was reset to 3.0.0 during the 3.0.0 namespace
-  rename, but the phpBB extensions database had already published up to 3.0.10, so every release
-  since has been numbered below what was already listed (#187).
+  rename, but the phpBB extensions database had already published up to 3.0.10.
 
   Fixes
   - [FIX] UCP no longer stores `user_rt_*` preferences the user lacks permission to set — the write path now mirrors the per-preference ACL checks the display path already made (#188)
