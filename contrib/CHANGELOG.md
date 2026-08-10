@@ -1,5 +1,19 @@
 ### Changelog
 
+- 3.0.11 (10/08/2026) — validation release
+
+  Version jumps from 3.0.1 to 3.0.11: the number was reset to 3.0.0 during the 3.0.0 namespace
+  rename, but the phpBB extensions database had already published up to 3.0.10, so every release
+  since has been numbered below what was already listed (#187).
+
+  Fixes
+  - [FIX] UCP no longer stores `user_rt_*` preferences the user lacks permission to set — the write path now mirrors the per-preference ACL checks the display path already made (#188)
+  - [FIX] `contrib/cleanup_recenttopics.sql` uses a `{TABLE_PREFIX}` placeholder instead of a hardcoded `phpbb_`, so it can no longer be run unedited on a custom-prefix board (#189)
+
+  Housekeeping
+  - [CHANGE] Documented that `rt_ads_code` is intentionally raw HTML, at the template output site (#190)
+  - [CHANGE] Docblock pass over the event listeners, `core/recenttopics.php`, the page controller and the ACP module
+
 - 3.0.1 (24/06/2026) — bugfix release
 
   Fixes
