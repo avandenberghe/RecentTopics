@@ -1,10 +1,10 @@
 {
-    "name": "avathar/recenttopicsav",
+    "name": "avathar/recenttopics",
     "type": "phpbb-extension",
     "description": "Recent Topics Extension for phpBB 3.3. Adds a list with recent topics to the index page.",
-    "homepage": "https://www.avathar.be",
-    "version": "3.0.5",
-    "time": "2026-03-30",
+    "homepage": "https://www.avathar.be/forum/app.php/dlext/details?df_id=35",
+    "version": "3.0.1",
+    "time": "2026-06-24",
     "keywords": ["phpbb", "extension", "Recent Topics"],
     "license": "GPL-2.0-only",
     "authors": [
@@ -18,7 +18,7 @@
         },
         {
             "name": "Andreas Vandenberghe",
-            "homepage": "https://www.avathar.be",
+            "homepage": "https://www.avathar.be/forum",
             "role": "Developer"
         }
     ],

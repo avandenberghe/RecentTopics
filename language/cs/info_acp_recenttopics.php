@@ -29,6 +29,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Globální nastavení',
 	'RT_DISPLAY_INDEX'              => 'Zobrazovat na úvodní stránce?',
+	'RT_DISPLAY_VIEWFORUM'          => 'Zobrazovat na stránce fóra',
+	'RT_VIEWFORUM_LOCATION'         => 'Umístění na stránce fóra',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Vyberte, kde se mají zobrazovat nedávná témata na stránce fóra. Toto nastavení je nezávislé na úvodní stránce.',
 	'RT_NUMBER'                     => 'Nedávná témata',
 	'RT_NUMBER_EXP'                 => 'Počet nedávných témat k zobrazení.',
 	'RT_PAGE_NUMBER'                => 'Počet stránek nedávných témat',
@@ -77,6 +80,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Samostatná stránka nedávných témat s kompletní hlavičkou a patičkou fóra.',
 	'RT_SIMPLE_PAGE'                => 'Zjednodušená stránka',
 	'RT_SIMPLE_PAGE_EXP'            => 'Zjednodušená stránka nedávných témat bez hlavičky a patičky fóra, vhodná pro vložení do iframe.',
+	'RT_VIEW_PAGE'                  => 'Zobrazit stránku v nové kartě',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Reklamní blok',
@@ -86,9 +90,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Zadejte vlastní HTML pro zobrazení v reklamním bloku (např. reklamní kód, tlačítko pro dary nebo jiný obsah).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Přispět pomocí PayPal',
+	'PATREON_ALT'                => 'Staňte se patronem',
 	'RT_DONATE'					=> 'Přispějte na vývoj RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Podpořte vývoj rozšíření RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'Rozšíření RecentTopics je zcela zdarma. Jedná se o hobby projekt, kterému věnujeme spoustu svého času a financí. Děláme to rádi, ale čas je drahý. Pokud vám rozšíření RecentTopics přijde užitečné, budeme velmi rádi, když nás podpoříte.',

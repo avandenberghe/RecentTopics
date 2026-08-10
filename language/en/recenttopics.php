@@ -25,5 +25,9 @@ $lang = array_merge(
 	'LIKES'				=> 'Likes',
 	'VIEWING_RECENT_TOPICS'	=> 'Viewing <a href="%s">Recent Topics</a>',
 	'EXTENSION_REQUIRES_330'	=> 'This extension requires phpBB 3.3.0 or higher.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'This extension requires PHP %1$s or higher. You are running PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'This extension requires phpBB %1$s or higher. You are running phpBB %2$s.',
 	)
 );

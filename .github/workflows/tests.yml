@@ -12,7 +12,7 @@ jobs:
   test:
     uses: phpbb-extensions/test-framework/.github/workflows/tests.yml@3.3.x
     with:
-      EXTNAME: 'avathar/recenttopicsav'
+      EXTNAME: 'avathar/recenttopics'
       PRIMARY_PHP_VERSION: '8.1'
       PHP_VERSION_MATRIX: '["8.1", "8.2", "8.3", "8.4"]'
       RUN_MSSQL_JOBS: 0

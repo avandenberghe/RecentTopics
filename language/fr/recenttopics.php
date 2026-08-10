@@ -38,8 +38,12 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'RECENT_TOPICS'     => 'Sujets récents',
 	'RT_NO_TOPICS'		=> 'Il n’y a aucun nouveau sujet à afficher.',
-	‘LIKES’				=> 'J’aime',
-	‘VIEWING_RECENT_TOPICS’	=> 'Consulte les <a href="%s">Sujets récents</a>',
+	'LIKES'				=> 'J’aime',
+	'VIEWING_RECENT_TOPICS'	=> 'Consulte les <a href="%s">Sujets récents</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Cette extension nécessite phpBB 3.3.0 ou supérieur.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Cette extension nécessite PHP %1$s ou supérieur. Vous utilisez PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Cette extension nécessite phpBB %1$s ou supérieur. Vous utilisez phpBB %2$s.',
 	)
 );

@@ -7,7 +7,7 @@
  *
  */
 
-namespace avathar\recenttopicsav\tests\controller;
+namespace avathar\recenttopics\tests\controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,7 +25,7 @@ class page_controller_test extends \phpbb_test_case
 	/** @var \phpbb\language\language|\PHPUnit\Framework\MockObject\MockObject */
 	protected $language;
 
-	/** @var \avathar\recenttopicsav\core\recenttopics|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var \avathar\recenttopics\core\recenttopics|\PHPUnit\Framework\MockObject\MockObject */
 	protected $rt_functions;
 
 	/** @var \phpbb\user|\PHPUnit\Framework\MockObject\MockObject */
@@ -43,7 +43,7 @@ class page_controller_test extends \phpbb_test_case
 		$this->helper = $this->createMock('\phpbb\controller\helper');
 		$this->language = $this->createMock('\phpbb\language\language');
 
-		$this->rt_functions = $this->getMockBuilder('\avathar\recenttopicsav\core\recenttopics')
+		$this->rt_functions = $this->getMockBuilder('\avathar\recenttopics\core\recenttopics')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -54,7 +54,7 @@ class page_controller_test extends \phpbb_test_case
 
 	protected function get_controller()
 	{
-		return new \avathar\recenttopicsav\controller\page_controller(
+		return new \avathar\recenttopics\controller\page_controller(
 			$this->config,
 			$this->db,
 			$this->helper,
@@ -77,7 +77,7 @@ class page_controller_test extends \phpbb_test_case
 
 		$this->language->expects($this->once())
 			->method('add_lang')
-			->with(array('info_acp_recenttopics', 'recenttopics'), 'avathar/recenttopicsav');
+			->with(array('info_acp_recenttopics', 'recenttopics'), 'avathar/recenttopics');
 
 		$response = new Response();
 		$this->helper->expects($this->once())

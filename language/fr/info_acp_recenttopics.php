@@ -48,6 +48,9 @@ $lang = array_merge($lang, array(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Paramètres généraux',
 	'RT_DISPLAY_INDEX'              => 'Permet d’afficher la liste des sujets récents sur la page de l’index du forum.',
+	'RT_DISPLAY_VIEWFORUM'          => 'Afficher sur la page du forum',
+	'RT_VIEWFORUM_LOCATION'         => 'Emplacement sur la page du forum',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Sélectionnez où afficher les sujets récents sur la page du forum. Ce paramètre est indépendant de la page d’index.',
 	'RT_NUMBER'                     => 'Nombre de sujets récents affichés',
 	'RT_NUMBER_EXP'                 => 'Permet de saisir le nombre maximum de sujets récents à afficher par page.',
 	'RT_PAGE_NUMBER'                => 'Afficher toutes les pages des sujets récents',
@@ -99,6 +102,7 @@ $lang = array_merge($lang, array(
 	'RT_PAGE_EXP'                   => 'Page autonome des sujets récents avec l’en-tête et le pied de page complets du forum.',
 	'RT_SIMPLE_PAGE'                => 'Page simplifiée',
 	'RT_SIMPLE_PAGE_EXP'            => 'Page simplifiée des sujets récents sans en-tête ni pied de page du forum, adaptée à l’intégration dans une iframe.',
+	'RT_VIEW_PAGE'                  => 'Voir la page dans un nouvel onglet',
 
 	//Bloc publicitaire
 	'RT_ADS_SETTINGS'           => 'Bloc publicitaire',
@@ -108,9 +112,7 @@ $lang = array_merge($lang, array(
 	'RT_ADS_CODE_EXP'           => 'Entrez du HTML personnalisé à afficher dans le bloc publicitaire (par exemple, code publicitaire, bouton de don ou autre contenu).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Faire un don via PayPal',
+	'PATREON_ALT'                => 'Devenir un patron',
 	'RT_DONATE'					=> 'Soutenir le développement',
 	'RT_DONATE_SHORT'			=> 'Faire un don PayPal',
 	'RT_DONATE_EXPLAIN'			=> 'Permet de soutenir le développement de l’extension « Recent Topics » qui est distribuée librement. L’auteur consacre temps et argent à son développement, sur son temps libre, et parce qu’il y trouve un certain plaisir. Si cette extension est appréciée il est recommandé, de faire un don pour soutenir ce projet, et comme le dit l’auteur : « J’apprécierai grandement votre geste, d’avance mes remerciements ! ».',

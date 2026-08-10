@@ -26,5 +26,9 @@ $lang = array_merge(
 	'LIKES'				=> 'Gillningar',
 	'VIEWING_RECENT_TOPICS'	=> 'Visar <a href="%s">Senaste trådar</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Detta tillägg kräver phpBB 3.3.0 eller högre.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Det här tillägget kräver PHP %1$s eller högre. Du kör PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Det här tillägget kräver phpBB %1$s eller högre. Du kör phpBB %2$s.',
 	)
 );

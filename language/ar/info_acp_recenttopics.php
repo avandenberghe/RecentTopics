@@ -32,6 +32,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'الإعدادات العامة',
 	'RT_DISPLAY_INDEX'              => 'العرض في الصفحة الرئيسية ',
+	'RT_DISPLAY_VIEWFORUM'          => 'العرض في صفحة المنتدى',
+	'RT_VIEWFORUM_LOCATION'         => 'موقع العرض في صفحة المنتدى',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'حدد مكان عرض أحدث المواضيع في صفحة المنتدى. هذا الإعداد مستقل عن الصفحة الرئيسية.',
 	'RT_NUMBER'                     => 'عدد المواضيع ',
 	'RT_NUMBER_EXP'                 => 'عدد المواضيع التي تريد عرضها.',
 	'RT_PAGE_NUMBER'                => 'عرض جميع الصفحات ',
@@ -82,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'صفحة أحدث المواضيع المستقلة مع رأس وتذييل المنتدى الكاملين.',
 	'RT_SIMPLE_PAGE'                => 'صفحة مبسطة',
 	'RT_SIMPLE_PAGE_EXP'            => 'صفحة أحدث المواضيع المبسطة بدون رأس وتذييل المنتدى، مناسبة للتضمين في إطار iframe.',
+	'RT_VIEW_PAGE'                  => 'عرض الصفحة في علامة تبويب جديدة',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'كتلة الإعلانات',
@@ -91,9 +95,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'أدخل HTML مخصص لعرضه في كتلة الإعلانات (مثل رمز الإعلان، زر التبرع، أو أي محتوى آخر).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'التبرع بواسطة PayPal',
+	'PATREON_ALT'                => 'كن داعمًا',
 	'RT_DONATE'					=> 'التبرع لدعم الإضافة',
 	'RT_DONATE_SHORT'			=> 'تبرع لدعم الإضافة : أحدث المواضيع ',
 	'RT_DONATE_EXPLAIN'			=> 'هذه الإضافة مجانية 100%. وهي أحد هواياتي التي استمتع بها والتي تستهلك وقتي ونقودي على تحديث هذه الإضافة بصورة مُستمرة. ارجوا التفكير بالتبرع لهذه الإضافة لو استمتعت بإستخدامها. وسأكون ممتناُ لك. بلا شروط أو قيود.',

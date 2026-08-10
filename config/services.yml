@@ -1,16 +1,16 @@
 services:
-    avathar.recenttopicsav.controller.page_controller:
-        class: avathar\recenttopicsav\controller\page_controller
+    avathar.recenttopics.controller.page_controller:
+        class: avathar\recenttopics\controller\page_controller
         arguments:
             - '@config'
             - '@dbal.conn'
             - '@controller.helper'
             - '@language'
-            - '@avathar.recenttopicsav.functions'
+            - '@avathar.recenttopics.functions'
             - '@user'
 
-    avathar.recenttopicsav.functions:
-        class: avathar\recenttopicsav\core\recenttopics
+    avathar.recenttopics.functions:
+        class: avathar\recenttopics\core\recenttopics
         arguments:
             - '@auth'
             - '@cache'
@@ -28,18 +28,18 @@ services:
             - '@config_text'
             - '@?phpbb.collapsiblecategories.operator'
             - '@?avathar.postlove.topic_likes'
-    avathar.recenttopicsav.listener:
-        class: avathar\recenttopicsav\event\listener
+    avathar.recenttopics.listener:
+        class: avathar\recenttopics\event\listener
         arguments:
-            - '@avathar.recenttopicsav.functions'
+            - '@avathar.recenttopics.functions'
             - '@config'
             - '@request'
             - '@controller.helper'
             - '@language'
         tags:
             - { name: event.listener }
-    avathar.recenttopicsav.ucp_listener:
-        class: avathar\recenttopicsav\event\ucp_listener
+    avathar.recenttopics.ucp_listener:
+        class: avathar\recenttopics\event\ucp_listener
         arguments:
             - '@auth'
             - '@config'

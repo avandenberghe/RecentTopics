@@ -8,7 +8,7 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\core;
+namespace avathar\recenttopics\core;
 
 use phpbb\auth\auth;
 use phpbb\cache\service as cache_service;
@@ -24,9 +24,18 @@ use phpbb\template\template;
 use phpbb\user;
 
 /**
- * Class recenttopics
+ * Builds and renders the recent topics list.
  *
- * @package avathar\recenttopicsav\core
+ * The one worker behind every entry point — the index and viewforum listeners and the standalone
+ * rt controllers all call display_recent_topics(). Board config supplies the defaults, and the
+ * user_rt_* preferences override them wherever the matching u_rt_* permission is held.
+ *
+ * The pipeline is: resolve the effective settings, narrow the forums to those the user may read and
+ * that are not excluded from Recent Topics, select the topic ids, then pull each topic's data and
+ * assign it to the template. Several steps dispatch events so other extensions can alter the SQL,
+ * the topic list, or the per-topic template array.
+ *
+ * @package avathar\recenttopics\core
  */
 class recenttopics
 {
@@ -114,6 +123,11 @@ class recenttopics
 	*/
 	private $topic_list;
 
+	/**
+	* show unread topics only ?
+	*
+	* @var boolean
+	*/
 	private $unread_only;
 
 	/**
@@ -240,9 +254,17 @@ class recenttopics
 	}
 
 	/**
-	 * @param string $tpl_loopname
+	 * Assemble the recent topics list and hand it to the template.
+	 *
+	 * Returns early without rendering anything if the user lacks u_rt_view, has switched the block
+	 * off, or if no forum or topic survives filtering. Board config values are read first and then
+	 * overridden by the user's own preference wherever the matching u_rt_* permission is held.
+	 *
+	 * @param  string $tpl_loopname Template block to write the topics into; also prefixes the pagination request var
+	 * @param  string $context      'index' or 'viewforum'; selects which location setting and template vars are used
+	 * @return void
 	 */
-	public function display_recent_topics($tpl_loopname = 'recent_topics')
+	public function display_recent_topics($tpl_loopname = 'recent_topics', $context = 'index')
 	{
 		if (!function_exists('topic_status'))
 		{
@@ -275,11 +297,21 @@ class recenttopics
 		$this->display_parent_forums = $this->config['rt_parents'];
 
 		//rt block location
-		$this->location = $this->config['rt_location'];
-		// if user can set location and it is set then use the preference
-		if ($this->auth->acl_get('u_rt_location') && isset($this->user->data['user_rt_location']))
+		if ($context === 'viewforum')
 		{
-			$this->location = $this->user->data['user_rt_location'];
+			$this->location = $this->config['rt_viewforum_location'];
+			if ($this->auth->acl_get('u_rt_location') && isset($this->user->data['user_rt_viewforum_location']))
+			{
+				$this->location = $this->user->data['user_rt_viewforum_location'];
+			}
+		}
+		else
+		{
+			$this->location = $this->config['rt_location'];
+			if ($this->auth->acl_get('u_rt_location') && isset($this->user->data['user_rt_location']))
+			{
+				$this->location = $this->user->data['user_rt_location'];
+			}
 		}
 
 		$this->unread_only = $this->config['rt_unread_only'];
@@ -315,7 +347,7 @@ class recenttopics
 			unset($count_sql_array['ORDER_BY']);
 			$sql = $this->db->sql_build_query('SELECT', $count_sql_array);
 			$result = $this->db->sql_query($sql);
-			$this->total_topics_limit = (int) $this->db->sql_fetchfield('topic_count', $result);
+			$this->total_topics_limit = (int) $this->db->sql_fetchfield('topic_count');
 			$this->db->sql_freeresult($result);
 
 		}
@@ -388,37 +420,60 @@ class recenttopics
 			}
 		}
 
-		$this->template->assign_vars(
-			array(
-				'RT_SORT_START_TIME'                   => $this->sort_topics === 'topic_time',
-				'S_RECENT_TOPICS'                      => true,
-				'S_LOCATION_TOP'                       => $this->location == 'RT_TOP',
-				'S_LOCATION_BOTTOM'                    => $this->location == 'RT_BOTTOM',
-				'S_LOCATION_SIDE'                      => $this->location == 'RT_SIDE',
-				'S_RT_SIDE_SHOW_DATE'                  => !empty($this->config['rt_side_show_date']),
-				'NEWEST_POST_IMG'                      => $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
-				'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
-				'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
-				'ADS_INDEX_CODE'                       => $ads_index_code,
-				'S_POSTLOVE'                           => $this->topic_likes_service !== null,
-				strtoupper($tpl_loopname) . '_DISPLAY' => true,
-			)
+		/**
+		 * Event to modify the advertisement code before it is assigned to the template
+		 *
+		 * @event avathar.recenttopics.modify_ads_code
+		 * @var   string|false    ads_index_code    The advertisement HTML to render, or false if disabled
+		 * @since 3.0.6
+		 */
+		$vars = ['ads_index_code'];
+		extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_ads_code', compact($vars)));
+
+		$location_prefix = ($context === 'viewforum') ? 'S_VF_LOCATION_' : 'S_LOCATION_';
+
+		$tpl_vars = array(
+			'RT_SORT_START_TIME'                   => $this->sort_topics === 'topic_time',
+			'S_RECENT_TOPICS'                      => true,
+			$location_prefix . 'TOP'               => $this->location == 'RT_TOP',
+			$location_prefix . 'BOTTOM'            => $this->location == 'RT_BOTTOM',
+			'S_RT_SIDE_SHOW_DATE'                  => !empty($this->config['rt_side_show_date']),
+			'NEWEST_POST_IMG'                      => $this->user->img('icon_topic_newest', 'VIEW_NEWEST_POST'),
+			'LAST_POST_IMG'                        => $this->user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
+			'POLL_IMG'                             => $this->user->img('icon_topic_poll', 'TOPIC_POLL'),
+			'ADS_INDEX_CODE'                       => $ads_index_code,
+			'S_POSTLOVE'                           => $this->topic_likes_service !== null,
+			strtoupper($tpl_loopname) . '_DISPLAY' => true,
 		);
+
+		if ($context !== 'viewforum')
+		{
+			$tpl_vars['S_LOCATION_SIDE'] = $this->location == 'RT_SIDE';
+		}
+
+		$this->template->assign_vars($tpl_vars);
 
 		$this->fill_template($tpl_loopname, $topic_tracking_info, $topics_count);
 	}
 
 	/**
-	 * Get the forums we take our topics from
+	 * Narrow the board's forums down to the ones this list may draw topics from.
+	 *
+	 * Two passes: first the forums the user may see at all, then a query dropping any whose
+	 * forum_recent_topics flag the admin cleared in the ACP. The result lands in $forum_ids.
+	 *
+	 * @return void
 	 */
 	private function get_forum_list()
 	{
-		// Get the allowed forums
+		// Get the allowed forums: f_read grants full access; f_list_topics lets
+		// the user see topic titles without reading content (issue #182).
 		$forum_ary = array();
 		$forum_read_ary = $this->auth->acl_getf('f_read');
+		$forum_list_ary = $this->auth->acl_getf('f_list_topics');
 		foreach ($forum_read_ary as $forum_id => $allowed)
 		{
-			if ($allowed['f_read'])
+			if ($allowed['f_read'] || !empty($forum_list_ary[$forum_id]['f_list_topics']))
 			{
 				$forum_ary[] = (int) $forum_id;
 			}
@@ -446,9 +501,14 @@ class recenttopics
 	}
 
 	/**
-	 * Get the topic list
+	 * Select the topic ids for the current page into $topic_list.
 	 *
-	 * @return int
+	 * Takes one of two routes: phpBB's own get_unread_topics() when the user asked for unread only
+	 * and is logged in, otherwise the custom query from get_allowed_topics_sql(). Either way the
+	 * rows are walked in full so the total can be counted while only the current page is kept, and
+	 * $forums, $obtain_icons and $rtstart are set up for the render step along the way.
+	 *
+	 * @return int Total number of topics available, used to size the pagination
 	 */
 	private function get_topic_list()
 	{
@@ -544,11 +604,16 @@ class recenttopics
 	}
 
 	/**
-	 * custom function to get allowed topics
-	 * used for anon access or when unread topics is not requested
-	 * @param $excluded_topics
-	 * @param $min_topic_level
-	 * @return array
+	 * Build the query that lists the topics this user is allowed to see.
+	 *
+	 * Used for guests and whenever unread-only is off, where phpBB's get_unread_topics() does not
+	 * apply. Joins the tracking tables so read state and the user's own posts are known, and sorts
+	 * by whichever of topic_time / topic_last_post_time the effective sort preference selected.
+	 * Dispatches avathar.recenttopics.sql_pull_topics_list so other extensions can alter the query.
+	 *
+	 * @param  array $excluded_topics Topic ids to leave out, from the rt_anti_topics setting
+	 * @param  int   $min_topic_level Lowest topic_type to include; above 0 restricts to stickies/announcements/globals
+	 * @return array Query array for sql_build_query()
 	 */
 	private function get_allowed_topics_sql($excluded_topics, $min_topic_level)
 	{
@@ -585,20 +650,22 @@ class recenttopics
 		/**
 		 * Event to modify the SQL query before the allowed topics list data is retrieved
 		 *
-		 * @event avathar.recenttopicsav.sql_pull_topics_list
+		 * @event avathar.recenttopics.sql_pull_topics_list
 		 * @var   array    sql_array        The SQL array
 		 * @since 3.0.0
 		 */
 		$vars = array('sql_array');
-		extract($this->dispatcher->trigger_event('avathar.recenttopicsav.sql_pull_topics_list', compact($vars)));
+		extract($this->dispatcher->trigger_event('avathar.recenttopics.sql_pull_topics_list', compact($vars)));
 
 		return $sql_array;
 
 	}
 
 	/**
-	 * @param $row
-	 * @return array
+	 * Render the topic's first and last poster into the four username forms the template needs.
+	 *
+	 * @param  array $row Topic row
+	 * @return array Plain name, colour, full HTML and profile URL for the topic author, then the same four for the last poster
 	 */
 	private function get_username_strings($row)
 	{
@@ -614,8 +681,13 @@ class recenttopics
 	}
 
 	/**
-	 * pull the data of the requested topics
-	 * @return array
+	 * Fetch the full topic rows for the ids picked by get_topic_list().
+	 *
+	 * Selects the whole topic record plus the forum name, and the parent-forum columns when the
+	 * breadcrumb is enabled. Dispatches avathar.recenttopics.sql_pull_topics_data, followed by the
+	 * deprecated paybas.* alias kept for extensions written against the original version.
+	 *
+	 * @return array Topic rows, at most one page worth
 	 */
 	private function get_topics_sql()
 	{
@@ -642,13 +714,13 @@ class recenttopics
 		/**
 		 * Event to modify the SQL query before the topics data is retrieved
 		 *
-		 * @event avathar.recenttopicsav.sql_pull_topics_data
+		 * @event avathar.recenttopics.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
 		 * @since 3.0.0
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
-				'avathar.recenttopicsav.sql_pull_topics_data',
+				'avathar.recenttopics.sql_pull_topics_data',
 				array('sql_array' => $sql_array)
 			)
 		);
@@ -659,7 +731,7 @@ class recenttopics
 		 * @event paybas.recenttopics.sql_pull_topics_data
 		 * @var   array    sql_array        The SQL array
 		 * @since 2.0.0
-		 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.sql_pull_topics_data instead
+		 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopics.sql_pull_topics_data instead
 		 */
 		extract(
 			$this->dispatcher->trigger_event(
@@ -680,9 +752,17 @@ class recenttopics
 	}
 
 	/**
-	 * @param       $tpl_loopname
-	 * @param       $topic_tracking_info
-	 * @param int   $topics_count
+	 * Render the topics into the template block, one row at a time, then add the pagination.
+	 *
+	 * For each topic this resolves read state, folder image, moderation flags and URLs, and censors
+	 * the titles. Three events let other extensions step in: modify_topics_list before the loop,
+	 * modify_topictitle for the title prefix, and modify_tpl_ary for the finished row — each with a
+	 * deprecated paybas.* alias alongside it.
+	 *
+	 * @param  string $tpl_loopname        Template block to write into
+	 * @param  array  $topic_tracking_info Per-forum read-tracking data assembled by display_recent_topics()
+	 * @param  int    $topics_count        Total topics available, used to size the pagination
+	 * @return void
 	 */
 	private function fill_template($tpl_loopname, $topic_tracking_info, int $topics_count): void
 	{
@@ -702,14 +782,14 @@ class recenttopics
 			/**
 			 * Event to modify the topics list data before we start the display loop
 			 *
-			 * @event avathar.recenttopicsav.modify_topics_list
+			 * @event avathar.recenttopics.modify_topics_list
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
 			 * @since 3.0.0
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
-					'avathar.recenttopicsav.modify_topics_list',
+					'avathar.recenttopics.modify_topics_list',
 					array('topic_list' => $this->topic_list, 'rowset' => $rowset)
 				)
 			);
@@ -721,7 +801,7 @@ class recenttopics
 			 * @var   array    topic_list        Array of all the topic IDs
 			 * @var   array    rowset            The full topics list array
 			 * @since 2.0.1
-			 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.modify_topics_list instead
+			 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopics.modify_topics_list instead
 			 */
 			extract(
 				$this->dispatcher->trigger_event(
@@ -787,26 +867,16 @@ class recenttopics
 				$prefix      = '';
 
 				/**
-				 * Event to remove re
-				 *
-				 * @event avathar.recenttopicsav.topictitle_remove_re
-				 * @var   array    row      the forum row
-				 * @since 3.0.0
-				 */
-				$vars = array('row');
-				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.topictitle_remove_re', compact($vars)));
-
-				/**
 				 * Event to modify the topic title
 				 *
-				 * @event avathar.recenttopicsav.modify_topictitle
+				 * @event avathar.recenttopics.modify_topictitle
 				 * @var   array    row      the forum row
 				 * @var   string    prefix  the topic title prefix
 				 * @since 3.0.0
 				 */
 
 				$vars = array('row', 'prefix');
-				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_topictitle', compact($vars)));
+				extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_topictitle', compact($vars)));
 
 				$topic_title = $prefix === '' ? $topic_title : $prefix . ' ' . $topic_title;
 				$last_post_subject = censor_text($row['topic_last_post_subject']);
@@ -816,7 +886,7 @@ class recenttopics
 				}
 				list($topic_author, $topic_author_color, $topic_author_full, $u_topic_author, $last_post_author, $last_post_author_colour, $last_post_author_full, $u_last_post_author) = $this->get_username_strings($row);
 				//load language
-				$this->language->add_lang('recenttopics', 'avathar/recenttopicsav');
+				$this->language->add_lang('recenttopics', 'avathar/recenttopics');
 				$tpl_ary = array(
 					'FORUM_ID'                => $forum_id,
 					'TOPIC_ID'                => $topic_id,
@@ -857,6 +927,7 @@ class recenttopics
 					'S_POST_GLOBAL'       => $row['topic_type'] == POST_GLOBAL,
 					'S_POST_STICKY'       => $row['topic_type'] == POST_STICKY,
 					'S_TOPIC_LOCKED'      => $row['topic_status'] == ITEM_LOCKED,
+					'S_USER_POSTED'       => (isset($row['topic_posted']) && $row['topic_posted']) ? true : false,
 					'S_TOPIC_MOVED'       => $row['topic_status'] == ITEM_MOVED,
 					'S_TOPIC_TYPE_SWITCH' => ($s_type_switch == $s_type_switch_test) ? -1 : $s_type_switch_test,
 					'U_NEWEST_POST' => $view_topic_url . '&amp;view=unread#unread',
@@ -870,13 +941,13 @@ class recenttopics
 				/**
 				 * Modify the topic data before it is assigned to the template
 				 *
-				 * @event avathar.recenttopicsav.modify_tpl_ary
+				 * @event avathar.recenttopics.modify_tpl_ary
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
 				 * @since 3.0.0
 				 */
 				$vars = array('row', 'tpl_ary');
-				extract($this->dispatcher->trigger_event('avathar.recenttopicsav.modify_tpl_ary', compact($vars)));
+				extract($this->dispatcher->trigger_event('avathar.recenttopics.modify_tpl_ary', compact($vars)));
 
 				/**
 				 * Backward-compat alias for vse/topicpreview, rxu/thanks_for_posts,
@@ -887,7 +958,7 @@ class recenttopics
 				 * @var   array    row            Array with topic data
 				 * @var   array    tpl_ary        Template block array with topic data
 				 * @since 2.0.0
-				 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopicsav.modify_tpl_ary instead
+				 * @changed 3.0.5 Deprecated, will be removed in 3.1. Use avathar.recenttopics.modify_tpl_ary instead
 				 */
 				$vars = array('row', 'tpl_ary');
 				extract($this->dispatcher->trigger_event('paybas.recenttopics.modify_tpl_ary', compact($vars)));
@@ -932,7 +1003,7 @@ class recenttopics
 				}
 			}
 			$pagination_url = append_sid($this->root_path . $this->user->page['page_name'], $append_params);
-			$this->pagination->generate_template_pagination($pagination_url, 'pagination',
+			$this->pagination->generate_template_pagination($pagination_url, 'rt_pagination',
 				$tpl_loopname . '_start', $topics_count, $this->topics_per_page, max(0, min((int) $this->rtstart, $this->total_topics_limit)));
 			$this->template->assign_vars(
 				array (
@@ -944,6 +1015,9 @@ class recenttopics
 
 	/**
 	 * Get the topic link URL based on the rt_topic_link_to config setting
+	 *
+	 * The admin chooses where a topic title points: 1 jumps to the last post, 2 to the first
+	 * unread one, anything else leaves the link on the first post.
 	 *
 	 * @param string $view_topic_url  Base topic URL (first post)
 	 * @param int    $last_post_id    Last post ID in the topic

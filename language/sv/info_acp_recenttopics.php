@@ -33,6 +33,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Globala inställningar',
 	'RT_DISPLAY_INDEX'              => 'Visa på indexsidan',
+	'RT_DISPLAY_VIEWFORUM'          => 'Visa på forumsidan',
+	'RT_VIEWFORUM_LOCATION'         => 'Visningsplats på forumsidan',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Välj var senaste trådar ska visas på forumsidan. Denna inställning är oberoende av indexsidan.',
 	'RT_NUMBER'                     => 'Antal senaste trådar att visa',
 	'RT_NUMBER_EXP'                 => 'Maximalt antal trådar att visa per sida.',
 	'RT_PAGE_NUMBER'                => 'Visa alla sidor med senaste trådar',
@@ -83,6 +86,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Fristående sida med senaste trådar med fullständigt sidhuvud och sidfot.',
 	'RT_SIMPLE_PAGE'                => 'Förenklad sida',
 	'RT_SIMPLE_PAGE_EXP'            => 'Förenklad sida med senaste trådar utan sidhuvud och sidfot, lämplig för inbäddning i en iframe.',
+	'RT_VIEW_PAGE'                  => 'Visa sidan i ny flik',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Annonsblock',
@@ -92,9 +96,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Ange anpassad HTML att visa i annonsblocket (t.ex. annonskod, donationsknapp eller annat innehåll).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Donera via PayPal',
+	'PATREON_ALT'                => 'Bli en patron',
 	'RT_DONATE'					=> 'Donera till RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Gör en donation till RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics är 100% gratis. Det är ett hobbyprojekt som jag lägger min tid och mina pengar på, bara för nöjes skull. Om du gillar att använda RecentTopics, överväg gärna att donera. Jag skulle verkligen uppskatta det. Inga villkor.',

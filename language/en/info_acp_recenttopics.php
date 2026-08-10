@@ -32,6 +32,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Global Settings',
 	'RT_DISPLAY_INDEX'              => 'Display on Index page',
+	'RT_DISPLAY_VIEWFORUM'          => 'Display on Viewforum page',
+	'RT_VIEWFORUM_LOCATION'         => 'Viewforum display location',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Select where to display recent topics on the viewforum page. This setting is independent from the index page location.',
 	'RT_NUMBER'                     => 'Number of recent topics to show',
 	'RT_NUMBER_EXP'                 => 'Maximum number of topics to display per page.',
 	'RT_PAGE_NUMBER'                => 'Show all recent topic pages',
@@ -82,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Standalone Recent Topics page with full board header and footer.',
 	'RT_SIMPLE_PAGE'                => 'Simplified page',
 	'RT_SIMPLE_PAGE_EXP'            => 'Simplified Recent Topics page without board header/footer, suitable for embedding in an iframe.',
+	'RT_VIEW_PAGE'                  => 'View page in new tab',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Advertisement Block',
@@ -91,9 +95,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Enter custom HTML to display in the advertisement block (e.g. ad code, donation button, or any other content).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Donate using PayPal',
+	'PATREON_ALT'                => 'Become a patron',
 	'RT_DONATE'					=> 'Donate to RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Make a donation to RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics is 100% free. It is a hobby project that I am spending my time and money on, just for the fun of it. If you enjoy using RecentTopics, please consider making a donation. I would really appreciate it. No strings attached.',

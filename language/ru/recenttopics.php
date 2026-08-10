@@ -24,4 +24,8 @@ $lang = array_merge($lang, array(
 	'LIKES'				=> 'Лайки',
 	'VIEWING_RECENT_TOPICS'	=> 'Просматривает <a href="%s">Последние темы</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Это расширение требует phpBB 3.3.0 или выше.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Это расширение требует PHP %1$s или выше. У вас установлен PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Это расширение требует phpBB %1$s или выше. У вас установлен phpBB %2$s.',
 ));

@@ -10,7 +10,7 @@
  * Permissions migration: user permissions and role/group assignments
  */
 
-namespace avathar\recenttopicsav\migrations\basics;
+namespace avathar\recenttopics\migrations\basics;
 
 class rt_perms extends \phpbb\db\migration\migration
 {
@@ -27,7 +27,7 @@ class rt_perms extends \phpbb\db\migration\migration
 
 	public static function depends_on()
 	{
-		return ['\avathar\recenttopicsav\migrations\basics\rt_module_add'];
+		return ['\avathar\recenttopics\migrations\basics\rt_module_add'];
 	}
 
 	public function update_data()
@@ -107,8 +107,11 @@ class rt_perms extends \phpbb\db\migration\migration
 			}
 		}
 
-		// Set group permissions for REGISTERED and GUESTS (u_rt_view only)
-		$groups = ['REGISTERED', 'GUESTS'];
+		// Set group permissions for standard groups (u_rt_view only).
+		// REGISTERED + GUESTS cover regular users; ADMINISTRATORS + GLOBAL_MODERATORS
+		// ensure staff accounts whose primary group is not REGISTERED still see
+		// Recent Topics by default. Custom staff groups still need manual ACP grants.
+		$groups = ['REGISTERED', 'GUESTS', 'ADMINISTRATORS', 'GLOBAL_MODERATORS'];
 		foreach ($groups as $group_name)
 		{
 			$sql = 'SELECT group_id FROM ' . $this->table_prefix . "groups

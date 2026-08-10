@@ -48,6 +48,9 @@ $lang = array_merge(
 	//allgemeine Einstellungen
 	'RT_GLOBAL_SETTINGS'            => 'Globale Einstellungen',
 	'RT_DISPLAY_INDEX'              => 'Anzeigen auf der Index-Seite',
+	'RT_DISPLAY_VIEWFORUM'          => 'Anzeigen auf der Forenansicht-Seite',
+	'RT_VIEWFORUM_LOCATION'         => 'Anzeigeort Forenansicht',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Wählen Sie, wo die aktuellen Themen auf der Forenansicht-Seite angezeigt werden sollen. Diese Einstellung ist unabhängig von der Indexseite.',
 	'RT_NUMBER'                     => 'Anzahl Aktuelle Themen',
 	'RT_NUMBER_EXP'                 => 'Maximale Anzahl Themen pro Seite',
 	'RT_PAGE_NUMBER'                => 'Alle Seiten anzeigen',
@@ -98,6 +101,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Eigenständige Seite der aktuellen Themen mit vollständigem Board-Header und -Footer.',
 	'RT_SIMPLE_PAGE'                => 'Vereinfachte Seite',
 	'RT_SIMPLE_PAGE_EXP'            => 'Vereinfachte Seite der aktuellen Themen ohne Board-Header und -Footer, geeignet zur Einbettung in einen iFrame.',
+	'RT_VIEW_PAGE'                  => 'Seite in neuem Tab öffnen',
 
 	//Werbeblock
 	'RT_ADS_SETTINGS'           => 'Werbeblock',
@@ -107,9 +111,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Geben Sie benutzerdefiniertes HTML für den Werbeblock ein (z.B. Werbecode, Spenden-Button oder andere Inhalte).',
 
 	//Donatiies
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Machen Sie eine Spende über PayPal',
+	'PATREON_ALT'                => 'Werden Sie ein Patron',
 	'RT_DONATE'					=> 'Spende an RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Spende an RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics ist zu 100% kostenlos. Wenn Sie dies für eine nützliche Erweiterung halten und die Autoren unterstützen möchten, könnten Sie eine unverbindliche Spende in Erwägung ziehen.',

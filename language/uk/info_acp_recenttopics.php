@@ -32,6 +32,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Загальні налаштування',
 	'RT_DISPLAY_INDEX'              => 'Відображати на головній сторінці',
+	'RT_DISPLAY_VIEWFORUM'          => 'Відображати на сторінці форуму',
+	'RT_VIEWFORUM_LOCATION'         => 'Розташування на сторінці форуму',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Оберіть, де відображати останні теми на сторінці форуму. Це налаштування не залежить від головної сторінки.',
 	'RT_NUMBER'                     => 'Кількість тем в списку',
 	'RT_NUMBER_EXP'                 => 'Кількість тем на головній сторінці.',
 	'RT_PAGE_NUMBER'                => 'Кількість сторінок в списку тем',
@@ -82,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Окрема сторінка останніх тем з повним заголовком та підвалом форуму.',
 	'RT_SIMPLE_PAGE'                => 'Спрощена сторінка',
 	'RT_SIMPLE_PAGE_EXP'            => 'Спрощена сторінка останніх тем без заголовка та підвалу форуму, підходить для вбудовування в iframe.',
+	'RT_VIEW_PAGE'                  => 'Відкрити сторінку в новій вкладці',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Рекламний блок',
@@ -91,9 +95,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Введіть власний HTML для відображення в рекламному блоці (наприклад, рекламний код, кнопка пожертвувань або інший вміст).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Підтримайте проект через PayPal',
+	'PATREON_ALT'                => 'Стати патроном',
 	'RT_DONATE'					=> 'Підтримайте проект "RecentTopics" ("Останні Теми")',
 	'RT_DONATE_SHORT'			=> 'Підтримайте проект фінансово',
 	'RT_DONATE_EXPLAIN'			=> 'Розширення "Останні Теми" 100% безплатне. Це хобі, на яке я витрачаю свій час. Якщо Вам подобається цей додаток, можете зробити пожертву для його розвитку. Я був би щиро вдячний.',

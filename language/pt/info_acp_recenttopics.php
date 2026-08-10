@@ -32,6 +32,9 @@ $lang = array_merge(
 	//configurações globais
 	'RT_GLOBAL_SETTINGS'            => 'Configurações globais',
 	'RT_DISPLAY_INDEX'              => 'Exibir na página de índice',
+	'RT_DISPLAY_VIEWFORUM'          => 'Exibir na página do fórum',
+	'RT_VIEWFORUM_LOCATION'         => 'Local de exibição no fórum',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Selecione onde exibir os tópicos recentes na página do fórum. Esta configuração é independente da página de índice.',
 	'RT_NUMBER'                     => 'Número de tópicos recentes para mostrar',
 	'RT_NUMBER_EXP'                 => 'Número máximo de tópicos a serem exibidos por página.',
 	'RT_PAGE_NUMBER'                => 'Mostrar todas as páginas de tópicos recentes',
@@ -82,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Página independente de Tópicos Recentes com cabeçalho e rodapé completos do fórum.',
 	'RT_SIMPLE_PAGE'                => 'Página simplificada',
 	'RT_SIMPLE_PAGE_EXP'            => 'Página simplificada de Tópicos Recentes sem cabeçalho e rodapé do fórum, adequada para incorporação em um iframe.',
+	'RT_VIEW_PAGE'                  => 'Ver página em nova aba',
 
 	//Bloco publicitário
 	'RT_ADS_SETTINGS'           => 'Bloco publicitário',
@@ -91,9 +95,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Introduza HTML personalizado para exibir no bloco publicitário (por exemplo, código de anúncios, botão de doação ou outro conteúdo).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Doar usando o PayPal',
+	'PATREON_ALT'                => 'Torne-se um patrono',
 	'RT_DONATE'					=> 'Doação para RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Faça uma doação para RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics é 100% gratuito. É um projeto de hobby no qual estou gastando meu tempo e dinheiro, apenas por diversão. Se você gosta de usar RecentTopics, considere fazer uma doação. Eu realmente apreciaria isto. Sem condições.',

@@ -8,7 +8,7 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\event;
+namespace avathar\recenttopics\event;
 
 use phpbb\auth\auth;
 use phpbb\config\config;
@@ -20,7 +20,11 @@ use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event listener
+ * Event listener for the per-user Recent Topics settings.
+ *
+ * Adds the extension's fields to UCP > Board preferences > Edit display options, reading and writing
+ * the user_rt_* columns, and gives new accounts the board-wide defaults on registration. Each field is
+ * shown and saved only if the user holds the matching u_rt_* permission.
  */
 class ucp_listener implements EventSubscriberInterface
 {
@@ -87,7 +91,9 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @return array
+	 * Map the phpBB core events this listener hooks onto the methods that handle them.
+	 *
+	 * @return array Event name => method name
 	 */
 	public static function getSubscribedEvents()
 	{
@@ -99,7 +105,14 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @param $event
+	 * Collect and display the user's Recent Topics preferences in UCP > Board preferences > Edit display options.
+	 *
+	 * Reads each rt_* setting from the request (falling back to the value stored on the user) into
+	 * $event['data'] for ucp_prefs_set_data(), then, on a plain page view, assigns the template vars
+	 * for the fields this user is permitted to see.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['submit'], reads and writes ['data']
+	 * @return void
 	 */
 	public function ucp_prefs_get_data($event)
 	{
@@ -108,6 +121,7 @@ class ucp_listener implements EventSubscriberInterface
 			$event['data'], array(
 			'rt_enable'          => $this->request->variable('rt_enable', (int) $this->user->data['user_rt_enable']),
 			'rt_location'        => $this->request->variable('rt_location', $this->user->data['user_rt_location']),
+			'rt_viewforum_location' => $this->request->variable('rt_viewforum_location', $this->user->data['user_rt_viewforum_location']),
 			'rt_number'          => $this->request->variable('rt_number', (int) $this->user->data['user_rt_number']),
 			'rt_sort_start_time' => $this->request->variable('rt_sort_start_time', (int) $this->user->data['user_rt_sort_start_time']),
 			'rt_unread_only'     => $this->request->variable('rt_unread_only', (int) $this->user->data['user_rt_unread_only']),
@@ -117,7 +131,7 @@ class ucp_listener implements EventSubscriberInterface
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'] && $this->auth->acl_get('u_rt_view'))
 		{
-			$this->language->add_lang('recenttopics_ucp', 'avathar/recenttopicsav');
+			$this->language->add_lang('recenttopics_ucp', 'avathar/recenttopics');
 
 			$template_vars = array();
 
@@ -161,6 +175,31 @@ class ucp_listener implements EventSubscriberInterface
 						)
 					);
 				}
+
+				// Viewforum location (top/bottom only)
+				if ($this->config['rt_viewforum'])
+				{
+					$template_vars += array(
+						'A_RT_VF_LOCATION' => true,
+					);
+
+					$vf_display_types = array (
+						'RT_TOP'    => $this->language->lang('RT_TOP'),
+						'RT_BOTTOM' => $this->language->lang('RT_BOTTOM'),
+					);
+
+					foreach ($vf_display_types as $key => $display_type)
+					{
+						$this->template->assign_block_vars(
+							'vf_location_row',
+							array(
+								'VALUE'    => $key,
+								'SELECTED' => ($event['data']['rt_viewforum_location'] == $key) ? ' selected="selected"' : '',
+								'OPTION'   => $display_type,
+							)
+						);
+					}
+				}
 			}
 
 			if ($this->auth->acl_get('u_rt_number'))
@@ -192,34 +231,68 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @param $event
+	 * Persist the user's Recent Topics preferences from UCP > Board preferences > Edit display options.
+	 *
+	 * Fired just before phpBB's UPDATE on the users table, so mapping the rt_* values collected by
+	 * ucp_prefs_get_data() onto their user_rt_* columns here saves them in that same query
+	 * The submitted values arrive in $event['data'], where ucp_prefs_get_data() placed them; the keys are
+	 * the form's rt_* names, which this method translates to the user_rt_* column names.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['data'], writes ['sql_ary']
+	 * @return void
 	 */
 	public function ucp_prefs_set_data($event)
 	{
-		$event['sql_ary'] = array_merge(
-			$event['sql_ary'], array(
-			'user_rt_enable'          => $event['data']['rt_enable'],
-			'user_rt_location'        => $event['data']['rt_location'],
-			'user_rt_number'          => $event['data']['rt_number'],
-			'user_rt_sort_start_time' => $event['data']['rt_sort_start_time'],
-			'user_rt_unread_only'     => $event['data']['rt_unread_only'],
-			)
-		);
+		$sql_ary = array();
+
+		if ($this->auth->acl_get('u_rt_enable'))
+		{
+			$sql_ary['user_rt_enable'] = $event['data']['rt_enable'];
+		}
+
+		if ($this->auth->acl_get('u_rt_location'))
+		{
+			$sql_ary['user_rt_location'] = $event['data']['rt_location'];
+			$sql_ary['user_rt_viewforum_location'] = $event['data']['rt_viewforum_location'];
+		}
+
+		if ($this->auth->acl_get('u_rt_number'))
+		{
+			$sql_ary['user_rt_number'] = $event['data']['rt_number'];
+		}
+
+		if ($this->auth->acl_get('u_rt_sort_start_time'))
+		{
+			$sql_ary['user_rt_sort_start_time'] = $event['data']['rt_sort_start_time'];
+		}
+
+		if ($this->auth->acl_get('u_rt_unread_only'))
+		{
+			$sql_ary['user_rt_unread_only'] = $event['data']['rt_unread_only'];
+		}
+
+		$event['sql_ary'] = array_merge($event['sql_ary'], $sql_ary);
 	}
 
 	/**
-	 * After new user registration, set rt user parameters to default;
-	 * @param $event
+	 * set a newly registered account's Recent Topics preferences from default.
+	 *
+	 * Fired after the user row has been inserted, so the user_rt_* columns are written by a second
+	 * UPDATE of our own rather than merged into an existing $sql_ary.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['user_id']
+	 * @return void
 	 */
 	public function ucp_register_set_data($event)
 	{
 
 		$sql_ary = array(
-			'user_rt_enable'      => (int) $this->config['rt_index'],
-			'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'] ,
-			'user_rt_unread_only'      => (int) $this->config['rt_unread_only'],
-			'user_rt_location'      => $this->config['rt_location'],
-			'user_rt_number'      => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5 )
+			'user_rt_enable'              => (int) $this->config['rt_index'],
+			'user_rt_sort_start_time'     => (int) $this->config['rt_sort_start_time'],
+			'user_rt_unread_only'         => (int) $this->config['rt_unread_only'],
+			'user_rt_location'            => $this->config['rt_location'],
+			'user_rt_viewforum_location'  => $this->config['rt_viewforum_location'],
+			'user_rt_number'              => ((int) $this->config['rt_number'] > 0 ? (int) $this->config['rt_number'] : 5)
 		);
 
 		$sql = 'UPDATE ' . USERS_TABLE . '

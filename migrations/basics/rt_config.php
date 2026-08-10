@@ -10,7 +10,7 @@
  * Config migration: extension configuration values
  */
 
-namespace avathar\recenttopicsav\migrations\basics;
+namespace avathar\recenttopics\migrations\basics;
 
 class rt_config extends \phpbb\db\migration\migration
 {
@@ -21,7 +21,7 @@ class rt_config extends \phpbb\db\migration\migration
 
 	public static function depends_on()
 	{
-		return ['\avathar\recenttopicsav\migrations\basics\rt_perms'];
+		return ['\avathar\recenttopics\migrations\basics\rt_perms'];
 	}
 
 	public function update_data()

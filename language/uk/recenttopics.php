@@ -25,5 +25,9 @@ $lang = array_merge(
 	'LIKES'				=> 'Вподобання',
 	'VIEWING_RECENT_TOPICS'	=> 'Переглядає <a href="%s">Останні Теми</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Це розширення потребує phpBB 3.3.0 або вище.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Це розширення вимагає PHP %1$s або вище. У вас встановлено PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Це розширення вимагає phpBB %1$s або вище. У вас встановлено phpBB %2$s.',
 	)
 );

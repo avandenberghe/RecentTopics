@@ -8,21 +8,34 @@
  * Based on the original NV Recent Topics by Joas Schilling (nickvergessen)
  */
 
-namespace avathar\recenttopicsav\acp;
+namespace avathar\recenttopics\acp;
 
 /**
- * Class recenttopics_module
+ * ACP settings page for Recent Topics.
  *
- * @package avathar\recenttopicsav\acp
+ * Handles the single 'recenttopics_config' mode declared in recenttopics_info: saves the board-wide
+ * rt_* settings, offers a button to reset every user's preferences back to those defaults, and shows
+ * the version check.
+ *
+ * @package avathar\recenttopics\acp
  */
 class recenttopics_module
 {
+	/** @var string Form target URL, assigned by phpBB's module handler before main() runs */
 	public $u_action;
+
 	/**
-	 * @param $id
-	 * @param $mode
-	 * @throws \Exception
+	 * Render the settings page and handle its two submit buttons.
 	 *
+	 * Both POST branches re-check the form key, because "reset to defaults" is a separate submit
+	 * button that never reaches the settings-save branch. Changing either location setting also
+	 * rewrites that value for users who were still on the previous default, so an admin moving the
+	 * block does not leave existing users behind on the old position.
+	 *
+	 * @param  int    $id   Module id, supplied by phpBB's module dispatcher; unused here
+	 * @param  string $mode Module mode, likewise unused as this module has only one
+	 * @throws \Exception
+	 * @return void
 	 */
 	public function main($id, $mode)
 	{
@@ -45,9 +58,9 @@ class recenttopics_module
 		add_form_key($form_key);
 
 		//version check
-		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopicsav');
+		$ext_meta_manager = $ext_manager->create_extension_metadata_manager('avathar/recenttopics');
 		$meta_data  = $ext_meta_manager->get_metadata();
-		$ext_version  = $meta_data['version'];
+		$ext_version  = \avathar\recenttopics\ext::RT_VERSION;
 		$latest_version  = $this->version_check($meta_data, $request->variable('versioncheck_force', false));
 
 		if ($request->is_set_post('submit'))
@@ -106,8 +119,28 @@ class recenttopics_module
 			$rt_enable = $request->variable('rt_enable', 0);
 			$config->set('rt_index', $rt_enable);
 
+			$rt_viewforum = $request->variable('rt_viewforum', 0);
+			$config->set('rt_viewforum', $rt_viewforum);
+
+			$rt_viewforum_location = $request->variable('rt_viewforum_location', '');
+			$old_vf_location = $config['rt_viewforum_location'];
+			$config->set('rt_viewforum_location', $rt_viewforum_location);
+
 			$rt_location = $request->variable('rt_location', '');
+			$old_location = $config['rt_location'];
 			$config->set('rt_location', $rt_location);
+
+			// Propagate location changes to users who still have the old default
+			/** @var \phpbb\db\driver\driver_interface $db */
+			$db = $phpbb_container->get('dbal.conn');
+			if ($rt_viewforum_location !== $old_vf_location)
+			{
+				$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_rt_viewforum_location = '" . $db->sql_escape($rt_viewforum_location) . "' WHERE user_rt_viewforum_location = '" . $db->sql_escape($old_vf_location) . "'");
+			}
+			if ($rt_location !== $old_location)
+			{
+				$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_rt_location = '" . $db->sql_escape($rt_location) . "' WHERE user_rt_location = '" . $db->sql_escape($old_location) . "'");
+			}
 
 			$rt_sort_start_time = $request->variable('rt_sort_start_time', false);
 			$config->set('rt_sort_start_time', $rt_sort_start_time);
@@ -132,6 +165,34 @@ class recenttopics_module
 
 			$rt_side_show_date = $request->variable('rt_side_show_date', 0);
 			$config->set('rt_side_show_date', $rt_side_show_date);
+
+			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
+		}
+
+		// Reset every user's preferences to the board defaults. This UPDATE has
+		// no WHERE clause, so it must be behind the same form-key check as the
+		// settings save above — "rt_reset_default" is a separate submit button
+		// and therefore never enters the branch above.
+		if ($request->is_set_post('rt_reset_default'))
+		{
+			if (!check_form_key($form_key))
+			{
+				trigger_error($language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+
+			$sql_ary = array(
+				'user_rt_enable'      => (int) $config['rt_index'],
+				'user_rt_sort_start_time'     => (int) $config['rt_sort_start_time'] ,
+				'user_rt_unread_only'   => (int) $config['rt_unread_only'],
+				'user_rt_location'      => $config['rt_location'],
+				'user_rt_viewforum_location' => $config['rt_viewforum_location'],
+				'user_rt_number'      => ((int) $config['rt_number'] > 0 ? (int) $config['rt_number'] : 5 )
+			);
+
+			$sql = 'UPDATE ' . USERS_TABLE . '
+            SET ' . $db->sql_build_array('UPDATE', $sql_ary);
+
+			$db->sql_query($sql);
 
 			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
@@ -173,6 +234,23 @@ class recenttopics_module
 			);
 		}
 
+		$vf_display_types = array (
+			'RT_TOP'    => $language->lang('RT_TOP'),
+			'RT_BOTTOM' => $language->lang('RT_BOTTOM'),
+		);
+
+		foreach ($vf_display_types as $key => $display_type)
+		{
+			$template->assign_block_vars(
+				'vf_location_row',
+				array(
+					'VALUE'    => $key,
+					'SELECTED' => ($config['rt_viewforum_location'] == $key) ? ' selected="selected"' : '',
+					'OPTION'   => $display_type,
+				)
+			);
+		}
+
 		$topic_link_options = array(
 			0 => $language->lang('RT_TOPIC_LINK_FIRST'),
 			1 => $language->lang('RT_TOPIC_LINK_LAST'),
@@ -197,9 +275,10 @@ class recenttopics_module
 		$template->assign_vars(
 			array(
 				'U_ACTION'           => $this->u_action,
-				'U_RT_PAGE'          => $helper->route('avathar_recenttopicsav_page', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
-				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopicsav_simple', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
+				'U_RT_PAGE'          => $helper->route('avathar_recenttopics_page', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
+				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopics_simple', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 				'RT_INDEX'           => (int) $config['rt_index'],
+			'RT_VIEWFORUM'       => (int) $config['rt_viewforum'],
 				'RT_PAGE_NUMBER'     => ($config['rt_page_number'] == '1') ? 'checked="checked"' : '',
 				'RT_PAGE_NUMBERMAX'  => (int) $config['rt_page_numbermax'],
 				'RT_ANTI_TOPICS'     => $config['rt_anti_topics'],
@@ -222,32 +301,20 @@ class recenttopics_module
 			)
 		);
 
-		//reset user preferences
-		if ($request->is_set_post('rt_reset_default'))
-		{
-			$sql_ary = array(
-				'user_rt_enable'      => (int) $config['rt_index'],
-				'user_rt_sort_start_time'     => (int) $config['rt_sort_start_time'] ,
-				'user_rt_unread_only'   => (int) $config['rt_unread_only'],
-				'user_rt_location'      => $config['rt_location'],
-				'user_rt_number'      => ((int) $config['rt_number'] > 0 ? (int) $config['rt_number'] : 5 )
-			);
-
-			$sql = 'UPDATE ' . USERS_TABLE . '
-            SET ' . $db->sql_build_array('UPDATE', $sql_ary);
-
-			$db->sql_query($sql);
-		}
-
 	}
 
 	/**
 	 * Retrieve latest version using phpBB's file_downloader
 	 *
-	 * @param      $meta_data
-	 * @param bool $force_update Ignores cached data. Defaults to false.
-	 * @param int  $ttl          Cache version information for $ttl seconds. Defaults to 86400 (24 hours).
-	 * @return string|bool       Latest version string, or false on failure
+	 * Reads the host and path from the extension's own composer.json version-check block and caches
+	 * the answer, so the ACP page does not hit the network on every load. A failed download or an
+	 * unparseable response returns false and the cache entry is dropped, leaving the template to
+	 * report an unknown version rather than a stale one.
+	 *
+	 * @param  array $meta_data    Extension metadata, for its extra.version-check settings
+	 * @param  bool  $force_update Ignores cached data. Defaults to false.
+	 * @param  int   $ttl          Cache version information for $ttl seconds. Defaults to 86400 (24 hours).
+	 * @return string|bool         Latest version string, or false on failure
 	 */
 	private function version_check($meta_data, $force_update = false, $ttl = 86400)
 	{

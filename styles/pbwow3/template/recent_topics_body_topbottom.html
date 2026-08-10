@@ -1,9 +1,11 @@
-{% if S_LOCATION_BOTTOM || S_LOCATION_TOP %}
+{% if S_LOCATION_BOTTOM || S_LOCATION_TOP || S_VF_LOCATION_BOTTOM || S_VF_LOCATION_TOP %}
 
-{% if loops.pagination|length and (S_LOCATION_TOP) %}
+<a id="recent-topics"></a>
+
+{% if loops.rt_pagination|length and (S_LOCATION_TOP or S_VF_LOCATION_TOP) %}
 <div class="action-bar">
 	<div class="pagination">
-		{% INCLUDE 'pagination.html' %}
+		{% INCLUDE '@avathar_recenttopics/rt_pagination.html' %}
 	</div>
 </div>
 {% endif %}
@@ -13,23 +15,26 @@
 </ul>
 </div>
 </div>
+</div>
 {% endif %}
 
 {% if recent_topics.S_FIRST_ROW or not recent_topics.S_TOPIC_TYPE_SWITCH %}
-<div class="forumbg recent-topics" data-collapse>
-	<div class="inner">
-		<ul class="topiclist">
-			<li class="header" data-collapse-summary>
-				<dl class="row-item">
-					<dt><div class="list-inner">{{ lang('RECENT_TOPICS') }}</div></dt>
-					<dd class="posts">{{ lang('REPLIES') }}</dd>
-					<dd class="views">{{ lang('VIEWS') }}</dd>
-					<dd class="lastpost"><span>{{ lang('LAST_POST') }}</span></dd>
-				</dl>
-			</li>
-		</ul>
-		<ul class="topiclist topics">
-			{% endif %}
+<div id="recent-topics-box" class="collapse-box recent-topics">
+	<h2>{{ lang('RECENT_TOPICS') }}</h2>
+	<div class="forabg forumbg">
+		<div class="inner">
+			<ul class="topiclist">
+				<li class="header">
+					<dl class="row-item">
+						<dt><div class="list-inner"></div></dt>
+						<dd class="posts">{{ lang('REPLIES') }}</dd>
+						<dd class="views">{{ lang('VIEWS') }}</dd>
+						<dd class="lastpost"><span>{{ lang('LAST_POST') }}</span></dd>
+					</dl>
+					</li>
+				</ul>
+				<ul class="topiclist topics collapsible">
+				{% endif %}
 			<li class="row{% if recent_topics.S_ROW_COUNT is even %} bg1{% else %} bg2{% endif %}{% if recent_topics.S_POST_GLOBAL %} global-announce{% endif %}{% if recent_topics.S_POST_ANNOUNCE %} announce{% endif %}{% if recent_topics.S_POST_STICKY %} sticky{% endif %}{% if recent_topics.S_TOPIC_REPORTED %} pbwow reported{% endif %}">
 
 				<dl class="row-item {{ recent_topics.TOPIC_IMG_STYLE }}">
@@ -105,6 +110,7 @@
 		</ul>
 	</div>
 </div>
+</div>
 {% endif %}
 
 {% else %}
@@ -115,12 +121,22 @@
 </div>
 {% endfor %}
 
-{% if loops.pagination|length and (S_LOCATION_BOTTOM) %}
+{% if loops.rt_pagination|length and (S_LOCATION_BOTTOM or S_VF_LOCATION_BOTTOM) %}
 <div class="action-bar">
 	<div class="pagination">
-		{% INCLUDE 'pagination.html' %}
+		{% INCLUDE '@avathar_recenttopics/rt_pagination.html' %}
 	</div>
 </div>
 {% endif %}
 
 {% endif %}
+<script>
+(function() {
+    var containers = document.querySelectorAll('#recenttopicsbottom .pagination a, #recenttopicstop .pagination a');
+    for (var i = 0; i < containers.length; i++) {
+        if (containers[i].href && containers[i].href.indexOf('#') === -1) {
+            containers[i].href += '#recent-topics';
+        }
+    }
+})();
+</script>

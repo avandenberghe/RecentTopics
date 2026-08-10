@@ -32,6 +32,9 @@ $lang = array_merge(
 	//global settings
 	'RT_GLOBAL_SETTINGS'            => 'Globálne nastavenia',
 	'RT_DISPLAY_INDEX'              => 'Zobraziť na úvodnej stránke',
+	'RT_DISPLAY_VIEWFORUM'          => 'Zobraziť na stránke fóra',
+	'RT_VIEWFORUM_LOCATION'         => 'Umiestnenie na stránke fóra',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Vyberte, kde sa majú zobrazovať najnovšie témy na stránke fóra. Toto nastavenie je nezávislé od úvodnej stránky.',
 	'RT_NUMBER'                     => 'Počet najnovších tém na zobrazenie',
 	'RT_NUMBER_EXP'                 => 'Maximálny počet tém na zobrazenie na stránku.',
 	'RT_PAGE_NUMBER'                => 'Zobraziť všetky stránky najnovších tém',
@@ -82,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Samostatná stránka najnovších tém s kompletnou hlavičkou a pätičkou fóra.',
 	'RT_SIMPLE_PAGE'                => 'Zjednodušená stránka',
 	'RT_SIMPLE_PAGE_EXP'            => 'Zjednodušená stránka najnovších tém bez hlavičky a pätičky fóra, vhodná na vloženie do iframe.',
+	'RT_VIEW_PAGE'                  => 'Zobraziť stránku v novej karte',
 
 	//Advertisement block
 	'RT_ADS_SETTINGS'           => 'Reklamný blok',
@@ -91,9 +95,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Zadajte vlastný HTML pre zobrazenie v reklamnom bloku (napr. reklamný kód, tlačidlo pre dary alebo iný obsah).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Prispieť cez PayPal',
+	'PATREON_ALT'                => 'Staňte sa patrónom',
 	'RT_DONATE'					=> 'Prispejte na vývoj RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Podporte vývoj rozšírenia RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'Rozšírenie RecentTopics je úplne zadarmo. Je to hobby projekt, ktorému venujeme veľa svojho času a financií. Robíme to radi, ale čas je drahý. Ak vám rozšírenie RecentTopics príde užitočné, budeme veľmi radi, keď nás podporíte.',

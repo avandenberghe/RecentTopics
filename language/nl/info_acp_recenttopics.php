@@ -48,6 +48,9 @@ $lang = array_merge(
 		//algemene instellingen
 		'RT_GLOBAL_SETTINGS'            => 'Algemene instellingen',
 		'RT_DISPLAY_INDEX'              => 'Toon op de indexpagina',
+		'RT_DISPLAY_VIEWFORUM'          => 'Toon op de forumpagina',
+		'RT_VIEWFORUM_LOCATION'         => 'Weergavelocatie forumpagina',
+		'RT_VIEWFORUM_LOCATION_EXP'     => 'Selecteer waar recente onderwerpen op de forumpagina worden weergegeven. Deze instelling is onafhankelijk van de indexpagina.',
 		'RT_NUMBER'                     => 'Aantal recente onderwerpen',
 		'RT_NUMBER_EXP'                 => 'Maximum aantal onderwerpen per pagina.',
 		'RT_PAGE_NUMBER'                => 'Toon alle pagina’s',
@@ -98,6 +101,7 @@ $lang = array_merge(
 		'RT_PAGE_EXP'                   => 'Zelfstandige pagina met recente onderwerpen inclusief volledige header en footer van het forum.',
 		'RT_SIMPLE_PAGE'                => 'Vereenvoudigde pagina',
 		'RT_SIMPLE_PAGE_EXP'            => 'Vereenvoudigde pagina met recente onderwerpen zonder header en footer, geschikt voor inbedding in een iframe.',
+		'RT_VIEW_PAGE'                  => 'Bekijk pagina in nieuw tabblad',
 
 		//Advertentieblok
 		'RT_ADS_SETTINGS'           => 'Advertentieblok',
@@ -107,9 +111,7 @@ $lang = array_merge(
 		'RT_ADS_CODE_EXP'           => 'Voer aangepaste HTML in voor het advertentieblok (bijv. advertentiecode, donatieknop of andere inhoud).',
 
 		//Donatiies
-		'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-		'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-		'PAYPAL_ALT'                => 'Doe een donatie via PayPal',
+		'PATREON_ALT'                => 'Word een patron',
 		'RT_DONATE'					=> 'Donatie aan RecentTopics',
 		'RT_DONATE_SHORT'			=> 'Doe een donatie aan RecentTopics',
 		'RT_DONATE_EXPLAIN'			=> 'RecentTopics is 100% gratis. Als je dit een nuttige extensie vindt en je de auteurs wil ondersteunen, kan je overwegen om een vrijblijvende donatie te doen.',

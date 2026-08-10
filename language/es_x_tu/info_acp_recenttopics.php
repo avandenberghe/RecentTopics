@@ -32,6 +32,9 @@ $lang = array_merge(
 	//ajustes globales
 	'RT_GLOBAL_SETTINGS'            => 'Opciones globales',
 	'RT_DISPLAY_INDEX'              => 'Mostrar en el índice',
+	'RT_DISPLAY_VIEWFORUM'          => 'Mostrar en la página del foro',
+	'RT_VIEWFORUM_LOCATION'         => 'Ubicación en vista del foro',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Elige dónde mostrar los temas recientes en la página del foro. Esta configuración es independiente de la página del índice.',
 	'RT_NUMBER'                     => 'Temas Recientes',
 	'RT_NUMBER_EXP'                 => 'Número de temas a mostrar.',
 	'RT_PAGE_NUMBER'                => 'Páginas de temas recientes',
@@ -82,6 +85,7 @@ $lang = array_merge(
 	'RT_PAGE_EXP'                   => 'Página independiente de Temas Recientes con encabezado y pie de página completos del foro.',
 	'RT_SIMPLE_PAGE'                => 'Página simplificada',
 	'RT_SIMPLE_PAGE_EXP'            => 'Página simplificada de Temas Recientes sin encabezado ni pie de página del foro, adecuada para incrustar en un iframe.',
+	'RT_VIEW_PAGE'                  => 'Ver página en nueva pestaña',
 
 	//Bloque publicitario
 	'RT_ADS_SETTINGS'           => 'Bloque publicitario',
@@ -91,9 +95,7 @@ $lang = array_merge(
 	'RT_ADS_CODE_EXP'           => 'Introduzca HTML personalizado para mostrar en el bloque publicitario (por ejemplo, código de anuncios, botón de donación u otro contenido).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'                => 'Donar usando PayPal',
+	'PATREON_ALT'                => 'Hazte mecenas',
 	'RT_DONATE'					=> 'Donar a RecentTopics',
 	'RT_DONATE_SHORT'			=> 'Haga una donación a RecentTopics',
 	'RT_DONATE_EXPLAIN'			=> 'RecentTopics es 100% gratis. Es un proyecto que hago en mi tiempo libre donde invierto mi tiempo y dinero por gusto. Si disfrutas utilizando RecentTopics, por favor considera hacer una donación. Sin ataduras.',

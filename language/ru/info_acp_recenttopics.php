@@ -31,6 +31,9 @@ $lang = array_merge($lang, array(
 	//global settings
 	'RT_GLOBAL_SETTINGS'			=> 'Общие настройки',
 	'RT_DISPLAY_INDEX' 				=> 'Показывать на главной странице',
+	'RT_DISPLAY_VIEWFORUM'          => 'Показывать на странице форума',
+	'RT_VIEWFORUM_LOCATION'         => 'Расположение на странице форума',
+	'RT_VIEWFORUM_LOCATION_EXP'     => 'Выберите, где отображать последние темы на странице форума. Эта настройка не зависит от расположения на главной странице.',
 	'RT_NUMBER'						=> 'Число тем в списке',
 	'RT_NUMBER_EXP'					=> 'Количество тем, отображаемых на главной странице.',
 	'RT_PAGE_NUMBER'				=> 'Число страниц в списке тем',
@@ -81,6 +84,7 @@ $lang = array_merge($lang, array(
 	'RT_PAGE_EXP'                   => 'Отдельная страница последних тем с полным заголовком и подвалом форума.',
 	'RT_SIMPLE_PAGE'                => 'Упрощённая страница',
 	'RT_SIMPLE_PAGE_EXP'            => 'Упрощённая страница последних тем без заголовка и подвала форума, подходит для встраивания в iframe.',
+	'RT_VIEW_PAGE'                  => 'Открыть страницу в новой вкладке',
 
 	//Рекламный блок
 	'RT_ADS_SETTINGS'           => 'Рекламный блок',
@@ -90,9 +94,7 @@ $lang = array_merge($lang, array(
 	'RT_ADS_CODE_EXP'           => 'Введите HTML-код для отображения в рекламном блоке (например, рекламный код, кнопка пожертвования или другой контент).',
 
 	//Donation
-	'RT_DONATE_URL'             => 'https://www.avathar.be/forum/app.php/donate',
-	'PAYPAL_IMAGE_URL'				=> 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'					=> 'Пожертвовать через PayPal',
+	'PATREON_ALT'					=> 'Стать патроном',
 	'RT_DONATE'						=> 'Помощь разработчику RecentTopics',
 	'RT_DONATE_SHORT'				=> 'Сделать пожертвование на разработку RecentTopics',
 	'RT_DONATE_EXPLAIN'				=> 'Расширение RecentTopics полностью бесплатно. Автор разрабатывает его в свое свободное время в качестве хобби. Если вам нравится его работа, рассмотрите возможность материальной поддержки. Автор будет вам благодарен.',

@@ -25,5 +25,9 @@ $lang = array_merge(
 	'LIKES'				=> 'إعجابات',
 	'VIEWING_RECENT_TOPICS'	=> 'يتصفح <a href="%s">أحدث المواضيع</a>',
 	'EXTENSION_REQUIRES_330'	=> 'هذا الامتداد يتطلب phpBB 3.3.0 أو أعلى.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'يتطلب هذا الإمتداد PHP %1$s أو أعلى. أنت تستخدم PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'يتطلب هذا الإمتداد phpBB %1$s أو أعلى. أنت تستخدم phpBB %2$s.',
 	)
 );

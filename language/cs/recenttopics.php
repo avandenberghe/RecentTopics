@@ -24,5 +24,9 @@ $lang = array_merge(
 	'LIKES'				=> 'Lajky',
 	'VIEWING_RECENT_TOPICS'	=> 'Prohlíží <a href="%s">Nedávná témata</a>',
 	'EXTENSION_REQUIRES_330'	=> 'Tato extenze vyžaduje phpBB 3.3.0 nebo vyšší.',
+
+	// is_enableable() error messages
+	'RECENTTOPICS_PHP_VERSION_FAIL'		=> 'Toto rozšíření vyžaduje PHP %1$s nebo vyšší. Používáte PHP %2$s.',
+	'RECENTTOPICS_PHPBB_VERSION_FAIL'	=> 'Toto rozšíření vyžaduje phpBB %1$s nebo vyšší. Používáte phpBB %2$s.',
 	)
 );
