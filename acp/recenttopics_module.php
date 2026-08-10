@@ -24,6 +24,12 @@ class recenttopics_module
 	/** @var string Form target URL, assigned by phpBB's module handler before main() runs */
 	public $u_action;
 
+	/** @var string Template to render, read back by p_master::get_tpl_name() after main() runs */
+	public $tpl_name;
+
+	/** @var string Page heading, read back by p_master::get_page_title() after main() runs */
+	public $page_title;
+
 	/**
 	 * Render the settings page and handle its two submit buttons.
 	 *
@@ -278,7 +284,7 @@ class recenttopics_module
 				'U_RT_PAGE'          => $helper->route('avathar_recenttopics_page', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 				'U_RT_SIMPLE_PAGE'   => $helper->route('avathar_recenttopics_simple', [], true, false, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 				'RT_INDEX'           => (int) $config['rt_index'],
-			'RT_VIEWFORUM'       => (int) $config['rt_viewforum'],
+				'RT_VIEWFORUM'       => (int) $config['rt_viewforum'],
 				'RT_PAGE_NUMBER'     => ($config['rt_page_number'] == '1') ? 'checked="checked"' : '',
 				'RT_PAGE_NUMBERMAX'  => (int) $config['rt_page_numbermax'],
 				'RT_ANTI_TOPICS'     => $config['rt_anti_topics'],

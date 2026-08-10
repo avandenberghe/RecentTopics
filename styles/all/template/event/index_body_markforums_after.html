@@ -15,6 +15,8 @@
 
 {% EVENT recenttopics_mchat_side %}
 
+{# rt_ads_code is raw HTML by design — it is ad markup, so escaping it would break it.
+   Only an admin with board-configuration access can set it, via ACP > Recent Topics. #}
 {% if ADS_INDEX_CODE and not S_IS_BOT and definition.ADSIDE == false %}
 {% DEFINE ADSIDE = true %}
 <div class="misc-block advertisement">{{ ADS_INDEX_CODE }}</div>
