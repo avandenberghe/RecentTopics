@@ -19,7 +19,11 @@ use phpbb\request\request;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event listener
+ * Event listener for the board-facing side of Recent Topics.
+ *
+ * Renders the topic list on the index and viewforum pages, registers the extension's u_rt_*
+ * permissions, adds the per-forum "show in Recent Topics" switch to the ACP, and labels the
+ * standalone Recent Topics pages on Who Is Online.
  */
 class listener implements EventSubscriberInterface
 {
@@ -57,9 +61,12 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Get subscribed events
+	 * Map the phpBB core events this listener hooks onto the methods that handle them.
 	 *
-	 * @return array
+	 * The last entry is not a core event but one this extension dispatches itself, so other
+	 * extensions can alter a topic title before it is rendered.
+	 *
+	 * @return array Event name => method name
 	 * @static
 	 */
 	public static function getSubscribedEvents()
@@ -78,7 +85,11 @@ class listener implements EventSubscriberInterface
 		);
 	}
 
-	// The main magic
+	/**
+	 * Render the recent topics list on the board index, if enabled board-wide.
+	 *
+	 * @return void
+	 */
 	public function display_rt()
 	{
 		if (isset($this->config['rt_index']) && $this->config['rt_index'])
@@ -88,7 +99,12 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Display recent topics on viewforum page
+	 * Render the recent topics list on a forum page, if enabled board-wide.
+	 *
+	 * Passes 'viewforum' as the context so the list is placed and scoped for that page rather
+	 * than reusing the index layout.
+	 *
+	 * @return void
 	 */
 	public function display_rt_viewforum()
 	{
@@ -99,9 +115,13 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Show users viewing Recent Topics on the Who Is Online page
+	 * Show users viewing Recent Topics on the Who Is Online page.
 	 *
-	 * @param \phpbb\event\data $event
+	 * Without this the standalone rt pages are listed as a generic app route; the session page is
+	 * matched to name the location and link it back to the right controller.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['on_page'] and ['row'], writes ['location'] and ['location_url']
+	 * @return void
 	 */
 	public function viewonline_overwrite_location($event)
 	{
@@ -120,9 +140,13 @@ class listener implements EventSubscriberInterface
 		}
 	}
 
-	// Submit form (add/update)
 	/**
-	 * @param $event
+	 * Read the per-forum "show in Recent Topics" setting from the ACP forum add/edit form.
+	 *
+	 * Defaults to 1 so a forum stays included when the checkbox is absent from the submitted form.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads and writes ['forum_data']
+	 * @return void
 	 */
 	public function acp_manage_forums_request_data($event)
 	{
@@ -131,9 +155,11 @@ class listener implements EventSubscriberInterface
 		$event['forum_data'] = $array;
 	}
 
-	// Default settings for new forums
 	/**
-	 * @param $event
+	 * Include newly created forums in Recent Topics by default.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['action'], reads and writes ['forum_data']
+	 * @return void
 	 */
 	public function acp_manage_forums_initialise_data($event)
 	{
@@ -145,9 +171,11 @@ class listener implements EventSubscriberInterface
 		}
 	}
 
-	// ACP forums template output
 	/**
-	 * @param $event
+	 * Expose the forum's current Recent Topics setting to the ACP forum form template.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['forum_data'], reads and writes ['template_data']
+	 * @return void
 	 */
 	public function acp_manage_forums_display_form($event)
 	{
@@ -157,9 +185,12 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Add permissions
-	 * @param array $event
-	 * @return null
+	 * Register the extension's u_rt_* permissions so they appear under Misc in the ACP.
+	 *
+	 * ucp_listener uses these to decide which preference fields a user may see and save.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads and writes ['permissions']
+	 * @return void
 	 * @access public
 	 */
 	public function add_permission($event)
@@ -175,9 +206,12 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Remove "Re: " from post subject
+	 * Remove the leading "Re: " from a topic's last-post subject.
 	 *
-	 * @param \phpbb\event\data		$event  The event object
+	 * Handles this extension's own avathar.recenttopics.modify_topictitle event, so the list shows
+	 * the topic title rather than the reply prefix.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads and writes ['row']
 	 * @return void
 	 * @access public
 	 */

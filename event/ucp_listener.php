@@ -20,7 +20,11 @@ use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event listener
+ * Event listener for the per-user Recent Topics settings.
+ *
+ * Adds the extension's fields to UCP > Board preferences > Edit display options, reading and writing
+ * the user_rt_* columns, and gives new accounts the board-wide defaults on registration. Each field is
+ * shown and saved only if the user holds the matching u_rt_* permission.
  */
 class ucp_listener implements EventSubscriberInterface
 {
@@ -87,7 +91,9 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @return array
+	 * Map the phpBB core events this listener hooks onto the methods that handle them.
+	 *
+	 * @return array Event name => method name
 	 */
 	public static function getSubscribedEvents()
 	{
@@ -99,7 +105,14 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @param $event
+	 * Collect and display the user's Recent Topics preferences in UCP > Board preferences > Edit display options.
+	 *
+	 * Reads each rt_* setting from the request (falling back to the value stored on the user) into
+	 * $event['data'] for ucp_prefs_set_data(), then, on a plain page view, assigns the template vars
+	 * for the fields this user is permitted to see.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['submit'], reads and writes ['data']
+	 * @return void
 	 */
 	public function ucp_prefs_get_data($event)
 	{
@@ -218,14 +231,18 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * @param $event
+	 * Persist the user's Recent Topics preferences from UCP > Board preferences > Edit display options.
+	 *
+	 * Fired just before phpBB's UPDATE on the users table, so mapping the rt_* values collected by
+	 * ucp_prefs_get_data() onto their user_rt_* columns here saves them in that same query
+	 * The submitted values arrive in $event['data'], where ucp_prefs_get_data() placed them; the keys are
+	 * the form's rt_* names, which this method translates to the user_rt_* column names.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['data'], writes ['sql_ary']
+	 * @return void
 	 */
 	public function ucp_prefs_set_data($event)
 	{
-		// Only persist the preferences this user is actually allowed to set.
-		// ucp_prefs_get_data() gates every field on the same permission before
-		// rendering it, so without this a user could POST a field they were
-		// never shown and have it stored.
 		$sql_ary = array();
 
 		if ($this->auth->acl_get('u_rt_enable'))
@@ -258,8 +275,13 @@ class ucp_listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * After new user registration, set rt user parameters to default;
-	 * @param $event
+	 * set a newly registered account's Recent Topics preferences from default.
+	 *
+	 * Fired after the user row has been inserted, so the user_rt_* columns are written by a second
+	 * UPDATE of our own rather than merged into an existing $sql_ary.
+	 *
+	 * @param  \phpbb\event\data $event Event object; reads ['user_id']
+	 * @return void
 	 */
 	public function ucp_register_set_data($event)
 	{

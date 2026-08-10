@@ -17,6 +17,14 @@ use phpbb\language\language;
 use phpbb\user;
 use avathar\recenttopics\core\recenttopics;
 
+/**
+ * Controller for the standalone Recent Topics pages.
+ *
+ * Serves the two routes that show the list on a page of its own rather than as a block on the index
+ * or a forum: the full page at app.php/rt, and a chrome-less variant at app.php/rt/simple meant to be
+ * embedded in an iframe. Both delegate the actual list to the recenttopics service and render nothing
+ * but the surrounding page when the rt_page_enable setting is off.
+ */
 class page_controller implements page_interface
 {
 	/** @var config */
@@ -38,7 +46,7 @@ class page_controller implements page_interface
 	protected $user;
 
 	/**
-	 * page constructor.
+	 * page_controller constructor.
 	 *
 	 * @param config              $config
 	 * @param driver_interface    $db
@@ -89,7 +97,11 @@ class page_controller implements page_interface
 	/**
 	 * Force a specific style by style_path, falling back to the board default.
 	 *
-	 * @param string $style_path The style directory name (e.g. 'pbwow3')
+	 * Overrides the style on the user object for this request only; nothing is written back to the
+	 * user's profile. An inactive or missing style leaves the board default in place.
+	 *
+	 * @param  string $style_path The style directory name (e.g. 'pbwow3')
+	 * @return void
 	 */
 	private function force_style($style_path)
 	{
@@ -108,7 +120,12 @@ class page_controller implements page_interface
 	}
 
 	/**
-	 * @param string $template
+	 * Build the recent topics list and render it into the given template.
+	 *
+	 * Shared by both routes; the only difference between them is the template. If rt_page_enable is
+	 * off the page is still returned, just without a list, so the route never 404s once registered.
+	 *
+	 * @param  string $template Template file to render
 	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	 */
 	private function render_page($template)

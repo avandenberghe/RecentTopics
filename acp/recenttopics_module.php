@@ -11,18 +11,31 @@
 namespace avathar\recenttopics\acp;
 
 /**
- * Class recenttopics_module
+ * ACP settings page for Recent Topics.
+ *
+ * Handles the single 'recenttopics_config' mode declared in recenttopics_info: saves the board-wide
+ * rt_* settings, offers a button to reset every user's preferences back to those defaults, and shows
+ * the version check.
  *
  * @package avathar\recenttopics\acp
  */
 class recenttopics_module
 {
+	/** @var string Form target URL, assigned by phpBB's module handler before main() runs */
 	public $u_action;
+
 	/**
-	 * @param $id
-	 * @param $mode
-	 * @throws \Exception
+	 * Render the settings page and handle its two submit buttons.
 	 *
+	 * Both POST branches re-check the form key, because "reset to defaults" is a separate submit
+	 * button that never reaches the settings-save branch. Changing either location setting also
+	 * rewrites that value for users who were still on the previous default, so an admin moving the
+	 * block does not leave existing users behind on the old position.
+	 *
+	 * @param  int    $id   Module id, supplied by phpBB's module dispatcher; unused here
+	 * @param  string $mode Module mode, likewise unused as this module has only one
+	 * @throws \Exception
+	 * @return void
 	 */
 	public function main($id, $mode)
 	{
@@ -293,10 +306,15 @@ class recenttopics_module
 	/**
 	 * Retrieve latest version using phpBB's file_downloader
 	 *
-	 * @param      $meta_data
-	 * @param bool $force_update Ignores cached data. Defaults to false.
-	 * @param int  $ttl          Cache version information for $ttl seconds. Defaults to 86400 (24 hours).
-	 * @return string|bool       Latest version string, or false on failure
+	 * Reads the host and path from the extension's own composer.json version-check block and caches
+	 * the answer, so the ACP page does not hit the network on every load. A failed download or an
+	 * unparseable response returns false and the cache entry is dropped, leaving the template to
+	 * report an unknown version rather than a stale one.
+	 *
+	 * @param  array $meta_data    Extension metadata, for its extra.version-check settings
+	 * @param  bool  $force_update Ignores cached data. Defaults to false.
+	 * @param  int   $ttl          Cache version information for $ttl seconds. Defaults to 86400 (24 hours).
+	 * @return string|bool         Latest version string, or false on failure
 	 */
 	private function version_check($meta_data, $force_update = false, $ttl = 86400)
 	{

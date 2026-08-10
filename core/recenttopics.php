@@ -24,7 +24,16 @@ use phpbb\template\template;
 use phpbb\user;
 
 /**
- * Class recenttopics
+ * Builds and renders the recent topics list.
+ *
+ * The one worker behind every entry point — the index and viewforum listeners and the standalone
+ * rt controllers all call display_recent_topics(). Board config supplies the defaults, and the
+ * user_rt_* preferences override them wherever the matching u_rt_* permission is held.
+ *
+ * The pipeline is: resolve the effective settings, narrow the forums to those the user may read and
+ * that are not excluded from Recent Topics, select the topic ids, then pull each topic's data and
+ * assign it to the template. Several steps dispatch events so other extensions can alter the SQL,
+ * the topic list, or the per-topic template array.
  *
  * @package avathar\recenttopics\core
  */
@@ -114,6 +123,11 @@ class recenttopics
 	*/
 	private $topic_list;
 
+	/**
+	* show unread topics only ?
+	*
+	* @var boolean
+	*/
 	private $unread_only;
 
 	/**
@@ -240,8 +254,15 @@ class recenttopics
 	}
 
 	/**
-	 * @param string $tpl_loopname
-	 * @param string $context 'index' or 'viewforum'
+	 * Assemble the recent topics list and hand it to the template.
+	 *
+	 * Returns early without rendering anything if the user lacks u_rt_view, has switched the block
+	 * off, or if no forum or topic survives filtering. Board config values are read first and then
+	 * overridden by the user's own preference wherever the matching u_rt_* permission is held.
+	 *
+	 * @param  string $tpl_loopname Template block to write the topics into; also prefixes the pagination request var
+	 * @param  string $context      'index' or 'viewforum'; selects which location setting and template vars are used
+	 * @return void
 	 */
 	public function display_recent_topics($tpl_loopname = 'recent_topics', $context = 'index')
 	{
@@ -436,7 +457,12 @@ class recenttopics
 	}
 
 	/**
-	 * Get the forums we take our topics from
+	 * Narrow the board's forums down to the ones this list may draw topics from.
+	 *
+	 * Two passes: first the forums the user may see at all, then a query dropping any whose
+	 * forum_recent_topics flag the admin cleared in the ACP. The result lands in $forum_ids.
+	 *
+	 * @return void
 	 */
 	private function get_forum_list()
 	{
@@ -475,9 +501,14 @@ class recenttopics
 	}
 
 	/**
-	 * Get the topic list
+	 * Select the topic ids for the current page into $topic_list.
 	 *
-	 * @return int
+	 * Takes one of two routes: phpBB's own get_unread_topics() when the user asked for unread only
+	 * and is logged in, otherwise the custom query from get_allowed_topics_sql(). Either way the
+	 * rows are walked in full so the total can be counted while only the current page is kept, and
+	 * $forums, $obtain_icons and $rtstart are set up for the render step along the way.
+	 *
+	 * @return int Total number of topics available, used to size the pagination
 	 */
 	private function get_topic_list()
 	{
@@ -573,11 +604,16 @@ class recenttopics
 	}
 
 	/**
-	 * custom function to get allowed topics
-	 * used for anon access or when unread topics is not requested
-	 * @param $excluded_topics
-	 * @param $min_topic_level
-	 * @return array
+	 * Build the query that lists the topics this user is allowed to see.
+	 *
+	 * Used for guests and whenever unread-only is off, where phpBB's get_unread_topics() does not
+	 * apply. Joins the tracking tables so read state and the user's own posts are known, and sorts
+	 * by whichever of topic_time / topic_last_post_time the effective sort preference selected.
+	 * Dispatches avathar.recenttopics.sql_pull_topics_list so other extensions can alter the query.
+	 *
+	 * @param  array $excluded_topics Topic ids to leave out, from the rt_anti_topics setting
+	 * @param  int   $min_topic_level Lowest topic_type to include; above 0 restricts to stickies/announcements/globals
+	 * @return array Query array for sql_build_query()
 	 */
 	private function get_allowed_topics_sql($excluded_topics, $min_topic_level)
 	{
@@ -626,8 +662,10 @@ class recenttopics
 	}
 
 	/**
-	 * @param $row
-	 * @return array
+	 * Render the topic's first and last poster into the four username forms the template needs.
+	 *
+	 * @param  array $row Topic row
+	 * @return array Plain name, colour, full HTML and profile URL for the topic author, then the same four for the last poster
 	 */
 	private function get_username_strings($row)
 	{
@@ -643,8 +681,13 @@ class recenttopics
 	}
 
 	/**
-	 * pull the data of the requested topics
-	 * @return array
+	 * Fetch the full topic rows for the ids picked by get_topic_list().
+	 *
+	 * Selects the whole topic record plus the forum name, and the parent-forum columns when the
+	 * breadcrumb is enabled. Dispatches avathar.recenttopics.sql_pull_topics_data, followed by the
+	 * deprecated paybas.* alias kept for extensions written against the original version.
+	 *
+	 * @return array Topic rows, at most one page worth
 	 */
 	private function get_topics_sql()
 	{
@@ -709,9 +752,17 @@ class recenttopics
 	}
 
 	/**
-	 * @param       $tpl_loopname
-	 * @param       $topic_tracking_info
-	 * @param int   $topics_count
+	 * Render the topics into the template block, one row at a time, then add the pagination.
+	 *
+	 * For each topic this resolves read state, folder image, moderation flags and URLs, and censors
+	 * the titles. Three events let other extensions step in: modify_topics_list before the loop,
+	 * modify_topictitle for the title prefix, and modify_tpl_ary for the finished row — each with a
+	 * deprecated paybas.* alias alongside it.
+	 *
+	 * @param  string $tpl_loopname        Template block to write into
+	 * @param  array  $topic_tracking_info Per-forum read-tracking data assembled by display_recent_topics()
+	 * @param  int    $topics_count        Total topics available, used to size the pagination
+	 * @return void
 	 */
 	private function fill_template($tpl_loopname, $topic_tracking_info, int $topics_count): void
 	{
@@ -964,6 +1015,9 @@ class recenttopics
 
 	/**
 	 * Get the topic link URL based on the rt_topic_link_to config setting
+	 *
+	 * The admin chooses where a topic title points: 1 jumps to the last post, 2 to the first
+	 * unread one, anything else leaves the link on the first post.
 	 *
 	 * @param string $view_topic_url  Base topic URL (first post)
 	 * @param int    $last_post_id    Last post ID in the topic

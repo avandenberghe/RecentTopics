@@ -12,9 +12,7 @@
 --
 --   2. Replace {TABLE_PREFIX} with your board's actual table prefix. It is the
 --      value of $table_prefix in your phpBB config.php, and is 'phpbb_' on a
---      default install. The script will not run until you do this, which is
---      deliberate: a hardcoded prefix would silently match nothing on a board
---      that uses a custom one, leaving you to believe the cleanup succeeded.
+--      default install. The script will not run until you do this.
 --
 --   3. ALTER TABLE ... DROP COLUMN IF EXISTS requires MySQL 8.0+, MariaDB 10.0+
 --      or PostgreSQL. On MySQL 5.7 the IF EXISTS clause is a syntax error, so
